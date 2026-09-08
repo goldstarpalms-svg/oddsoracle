@@ -4,8 +4,10 @@ export const SITE = {
   tagline: "Free multi-sport betting predictions, every day.",
   description:
     "OddsOracle delivers free football, basketball and tennis betting predictions with clear picks and analysis. Updated daily, built for bettors who want value and clarity.",
-  domain: "oddsoracle.vercel.app",
-  url: "https://oddsoracle.vercel.app",
+  // Live canonical domain (updated to the real production alias; swap to a custom
+  // domain in Vercel and change this when you connect one).
+  domain: "oddsoracle-xi.vercel.app",
+  url: "https://oddsoracle-xi.vercel.app",
   locale: "en_US",
   language: "en",
   twitterHandle: "@oddsoracle",
