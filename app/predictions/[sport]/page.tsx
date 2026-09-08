@@ -3,12 +3,14 @@ import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import {
   SPORTS,
-  bySport,
   type Sport,
 } from "@/lib/predictions";
+import { getPredictions } from "@/lib/generate";
 import PredictionCard from "@/components/PredictionCard";
 import AdSlot from "@/components/AdSlot";
 import JsonLd from "@/components/JsonLd";
+
+export const revalidate = 600;
 
 const SEO: Record<Sport, { title: string; meta: string; intro: string[] }> = {
   football: {
@@ -73,13 +75,14 @@ export async function generateMetadata({
   };
 }
 
-export default function SportPage({ params }: { params: { sport: Sport } }) {
+export default async function SportPage({ params }: { params: { sport: Sport } }) {
   const { sport } = params;
   const meta = SEO[sport];
   const info = SPORTS[sport];
   if (!meta) notFound();
 
-  const items = bySport(sport);
+  const result = await getPredictions();
+  const items = result.predictions.filter((p) => p.sport === sport);
 
   const ld = {
     "@context": "https://schema.org",

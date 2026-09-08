@@ -2,6 +2,7 @@ import Link from "next/link";
 import { SITE } from "@/lib/site";
 import { featured, sportList, bySport } from "@/lib/predictions";
 import PredictionCard from "@/components/PredictionCard";
+import LivePicks from "@/components/LivePicks";
 import AdSlot from "@/components/AdSlot";
 import FaqList from "@/components/FaqList";
 import JsonLd from "@/components/JsonLd";
@@ -84,30 +85,7 @@ export default function Home() {
               </div>
             </div>
 
-            <div className="hero-card">
-              <div className="hero-card-head">
-                <span className="live"><span className="dot" /> LIVE NOW</span>
-                <span style={{ fontSize: 12, color: "var(--text-faint)" }}>
-                  Today&rsquo;s top picks
-                </span>
-              </div>
-              {featuredPicks.slice(0, 4).map((p) => (
-                <div className="mini-row" key={p.id}>
-                  <div>
-                    <div className="mini-meta">{p.league}</div>
-                    <div className="mini-teams">
-                      {p.home} <span style={{ color: "var(--text-faint)" }}>v</span> {p.away}
-                    </div>
-                  </div>
-                  <div style={{ textAlign: "right" }}>
-                    <div className="mini-tip">{p.market}: {p.tip}</div>
-                  </div>
-                </div>
-              ))}
-              <Link href="/predictions/" className="btn btn-primary" style={{ width: "100%", justifyContent: "center", marginTop: 12 }}>
-                See all picks
-              </Link>
-            </div>
+            <LivePicks count={4} />
           </div>
         </div>
       </section>

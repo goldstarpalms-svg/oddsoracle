@@ -8,10 +8,56 @@ page is server-rendered, crawlable HTML that Google can index immediately.
 
 ## Live & tech
 
-- **App:** Next.js 14 (App Router), TypeScript, static export (`output: "export"`)
-- **Hosting:** Vercel (free, auto-deploys on push to `main`)
-- **Data:** hard-coded in `lib/predictions.ts` (no database, no server needed)
+- **App:** Next.js 14 (App Router), TypeScript
+- **Hosting:** Vercel (free). Main SEO pages prerender statically; a `/api/predictions`
+  route serves fresh picks on demand.
+- **Prediction engine:** `lib/engine.ts` + `lib/provider.ts` — pulls **real odds**
+  from **The Odds API**, devigs the bookmaker margin, and generates a pick for each
+  market (this is the "prediction"). Falls back to curated picks when no key is set.
 - **Fonts:** system/Inter fallback — no external requests, fast LCP
+
+---
+
+## Make it actually predict games
+
+The site already ships a working prediction engine. By default it uses the curated
+editorial picks (so it works out of the box). To turn it into a live, data-backed
+prediction site:
+
+### 1. Get a free API key
+Sign up at **the-odds-api.com** (free tier, ~500 requests/month — plenty for daily
+picks) and copy the key.
+
+### 2. Add it as a Vercel environment variable
+In Vercel → your project → **Settings → Environment Variables**:
+```
+THE_ODDS_API_KEY = your_key_here
+```
+(Optional) `GEMINI_API_KEY` + `AI_WRITE=true` to have Gemini rewrite each pick's
+analysis paragraph for richer SEO copy.
+
+### 3. How it works
+- `lib/provider.ts` fetches upcoming events + odds for the sports in
+  `FEATURED_SPORT_KEYS`.
+- `lib/engine.ts` `buildPredictions()` strips the bookmaker margin (devig) and picks
+  the market-favored side on each h2h / totals market, labelling confidence
+  (High/Balanced/Value) from the fair probability.
+- `lib/generate.ts` caches the result for 5 minutes and falls back to the curated
+  picks if there is no key/no data.
+- `app/api/predictions/route.ts` serves this as JSON (cached, `s-maxage=300`).
+- `components/LivePicks.tsx` (homepage hero) fetches it and refreshes every 5
+  minutes — **no rebuild needed**.
+
+### 4. Refresh triggers
+- The `/api/predictions/` endpoint is cached 5 min. Clients see fresh picks.
+- Call `POST /api/predictions/?refresh=1` (from a cron) to force a recompute.
+- Add a Vercel Cron (Settings → Cron Jobs) hitting that route hourly/daily to keep
+  it warm and fresh.
+
+### Which sports/leagues
+Edit `FEATURED_SPORT_KEYS` in `lib/provider.ts`. Each key = one API request. See
+the Odds API list for valid keys (e.g. `soccer_epl`, `basketball_nba`,
+`tennis_atp`).
 
 ---
 
@@ -97,7 +143,8 @@ To go live with ads (e.g. Google AdSense):
 
 ## Deploy (Vercel)
 
-Push to GitHub → import in Vercel → done. Build command `npm run build`, output
-directory `out`. No environment variables required for the static site.
+Push to GitHub → import in Vercel → done. Build command `npm run build` (serverless
+mode — no `output: export`). No environment variables required unless you enable
+live predictions (see above).
 
 License: © OddsOracle.

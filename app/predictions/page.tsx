@@ -1,9 +1,12 @@
 import Link from "next/link";
 import type { Metadata } from "next";
-import { SPORTS, sportList, PREDICTIONS, type Sport } from "@/lib/predictions";
+import { SPORTS, sportList, type Sport } from "@/lib/predictions";
+import { getPredictions } from "@/lib/generate";
 import PredictionCard from "@/components/PredictionCard";
 import AdSlot from "@/components/AdSlot";
 import JsonLd from "@/components/JsonLd";
+
+export const revalidate = 600;
 
 export const metadata: Metadata = {
   title: "Today's Free Predictions — Football, Basketball & Tennis",
@@ -21,8 +24,10 @@ function slugLabel(slug: Sport) {
   return SPORTS[slug];
 }
 
-export default function PredictionsPage() {
+export default async function PredictionsPage() {
   const order: Sport[] = ["football", "basketball", "tennis", "other"];
+  const result = await getPredictions();
+  const PREDICTIONS = result.predictions;
 
   const ld = {
     "@context": "https://schema.org",
