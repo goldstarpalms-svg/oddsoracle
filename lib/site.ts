@@ -3,12 +3,11 @@ export const SITE = {
   shortName: "OddsOracle",
   tagline: "Free multi-sport betting predictions, every day.",
   description:
-    "OddsOracle delivers free football, basketball and tennis betting predictions with clear picks and analysis. Updated daily, built for bettors who want value and clarity.",
-  // Live canonical domain (updated to the real production alias; swap to a custom
-  // domain in Vercel and change this when you connect one).
-  domain: "oddsoracle-xi.vercel.app",
-  url: "https://oddsoracle-xi.vercel.app",
-  locale: "en_US",
+    "OddsOracle delivers free football, basketball and tennis predictions with the real probabilities shown — Forebet percentages, predicted scores and a model cross-check. Updated daily, built for bettors who want value and clarity.",
+  // Live production domain (GitHub → Vercel auto-deploy).
+  domain: "oddsoracle-blond.vercel.app",
+  url: "https://oddsoracle-blond.vercel.app",
+  locale: "en_NG",
   language: "en",
   twitterHandle: "@oddsoracle",
   email: "tips@oddsoracle.vercel.app",
@@ -22,6 +21,7 @@ export const NAV = [
   { label: "Football", href: "/predictions/football/" },
   { label: "Basketball", href: "/predictions/basketball/" },
   { label: "Tennis", href: "/predictions/tennis/" },
+  { label: "Slip Tools", href: "/slip/" },
   { label: "Track Record", href: "/track-record/" },
-  { label: "About", href: "/about/" },
+  { label: "Methodology", href: "/methodology/" },
 ] as const;

@@ -25,6 +25,9 @@ export interface FbPick {
   fb_pick: string;
   fb_score: string;
   odds: number | null; // decimal
+  oddsSrc: "market" | "implied" | null; // where the displayed odds came from
+  pickProb: number | null; // probability of the picked side (%)
+  edge: number | null; // model prob − market implied prob (pp), only when market odds exist
   mkt_pick: string | null;
   model: ModelInfo | null;
   src: string; // FOREBET | MODEL | FUSION
@@ -33,6 +36,7 @@ export interface FbPick {
   note: string;
   banker: boolean;
   value: boolean;
+  why: string; // plain-English "why this pick"
 }
 
 export interface BbPick {
@@ -51,6 +55,7 @@ export interface BbPick {
   why: string;
   deep: boolean; // deep-crack game (full analysis)
   odds: number | null;
+  pickProb: number | null;
   banker: boolean;
   value: boolean;
 }
@@ -66,8 +71,10 @@ export interface TnPick {
   sets: string;
   coef: string;
   odds: number | null;
+  pickProb: number | null;
   banker: boolean;
   value: boolean;
+  why: string;
 }
 
 export interface ComboLeg {
@@ -89,7 +96,7 @@ export interface DailySummary {
   bankers: number;
   scoreCalls: number;
   forebetCovered: number;
-  combo: { legs: ComboLeg[]; totalOdds: number } | null;
+  combo: { legs: ComboLeg[]; totalOdds: number; allHitProb: number } | null;
 }
 
 // ---------- helpers -------------------------------------------------------
@@ -155,13 +162,42 @@ export function fbPicks(): FbPick[] {
         ? (r.fb_pct as [number, number, number])
         : null;
     let odds: number | null = null;
+    let oddsSrc: FbPick["oddsSrc"] = null;
     const k1 = final === "1" ? 0 : final === "2" ? 2 : 1;
-    if (r.mkt_dec != null && r.mkt_dec > 1) odds = Math.round(r.mkt_dec * 100) / 100;
-    else if (pct) {
+    if (r.mkt_dec != null && r.mkt_dec > 1) {
+      odds = Math.round(r.mkt_dec * 100) / 100;
+      oddsSrc = "market";
+    } else if (pct) {
       if (pct[k1] > 0) odds = Math.round((100 / pct[k1]) * 100) / 100;
+      oddsSrc = "implied";
     } else if (m && m.p) {
       if (m.p[k1] > 0) odds = implied(m.p[k1]);
+      oddsSrc = "implied";
     }
+    const pickProb: number | null = pct ? pct[k1] : m && m.p ? m.p[k1] : null;
+    // edge (percentage points) only when we have REAL market odds to compare against
+    let edge: number | null = null;
+    if (oddsSrc === "market" && odds != null && pickProb != null) {
+      edge = Math.round(pickProb - 100 / odds);
+    }
+    const why = [
+      pct
+        ? `Forebet's own read: ${pct[0]}% home / ${pct[1]}% draw / ${pct[2]}% away${r.fb_pick ? ` — they back ${r.fb_pick}` : ""}.`
+        : "Forebet doesn't cover this match, so the pick below comes from our own model.",
+      r.fb_score ? `Forebet's predicted score: ${r.fb_score}.` : "",
+      m && m.p
+        ? `Our model says ${m.p[0]}% / ${m.p[1]}% / ${m.p[2]}% → ${labelPick(String(m.pick || final))}${m.o25 != null ? `; over 2.5 goals ${m.o25}%` : ""}${m.btts != null ? `; both teams to score ${m.btts}%` : ""}${m.bank && m.bank !== "SAFE" ? `; flagged ${m.bank}` : ""}.`
+        : "",
+      r.src === "FUSION"
+        ? "Both Forebet and our model agree on this one, so the call is stronger."
+        : r.src === "FOREBET"
+          ? "The final call follows Forebet's board."
+          : "The final call follows our model.",
+      r.ou ? `Total-goals line: ${r.ou}.` : "",
+      r.note ? String(r.note) : "",
+    ]
+      .filter(Boolean)
+      .join(" ");
     const maxPct = pct ? Math.max(...pct) : 0;
     out.push({
       id: `fb-${i}`,
@@ -173,6 +209,9 @@ export function fbPicks(): FbPick[] {
       fb_pick: r.fb_pick || "",
       fb_score: r.fb_score || "",
       odds,
+      oddsSrc,
+      pickProb,
+      edge,
       mkt_pick: r.mkt_pick || null,
       model: m,
       src: r.src || (pct ? "FOREBET" : "MODEL"),
@@ -181,6 +220,7 @@ export function fbPicks(): FbPick[] {
       note: r.note || "",
       banker: maxPct >= 70,
       value: !!(odds && maxPct >= 55 && odds >= 1.6),
+      why,
     });
   });
   return out;
@@ -220,6 +260,7 @@ export function bbPicks(): BbPick[] {
       why: g.why || "",
       deep: true,
       odds: odds != null && isFinite(odds) && odds > 1 ? Math.round(odds * 100) / 100 : null,
+      pickProb: prob ? (predHome ? prob[0] : prob[1]) : null,
       banker: /HIGH/.test(conf) && !/SPLIT/.test(conf),
       value: /SPLIT|LOW|MEDIUM/.test(conf) || false,
     });
@@ -248,6 +289,7 @@ export function bbPicks(): BbPick[] {
       why: g.status ? `Status: ${g.status}.` : "",
       deep: false,
       odds,
+      pickProb: prob ? (pred === "1" ? prob[0] : prob[1]) : null,
       banker: !!prob && Math.max(prob[0], prob[1]) >= 68,
       value: !!prob && Math.max(prob[0], prob[1]) >= 55 && odds != null && odds >= 1.6,
     });
@@ -278,8 +320,16 @@ export function tnPicks(): TnPick[] {
       sets: g.sets || "",
       coef: g.coef || "",
       odds,
+      pickProb: prob ? (predHome ? prob[0] : prob[1]) : null,
       banker: !!prob && Math.max(prob[0], prob[1]) >= 70,
       value: !!prob && Math.max(prob[0], prob[1]) >= 55 && odds != null && odds >= 1.5,
+      why: [
+        prob ? `Forebet's probability split: ${prob[0]}% ${g.p1} / ${prob[1]}% ${g.p2}.` : "",
+        g.sets ? `Predicted set score: ${g.sets}.` : "",
+        g.coef && !/n\/?a/i.test(String(g.coef)) ? `Market coefficient: ${g.coef}.` : "",
+      ]
+        .filter(Boolean)
+        .join(" "),
     });
   });
   return out;
@@ -319,6 +369,7 @@ export function summary(): DailySummary {
     combo = {
       legs,
       totalOdds: Math.round(legs.reduce((acc, l) => acc * l.odds, 1) * 100) / 100,
+      allHitProb: Math.round(legs.reduce((acc, l) => acc * (l.prob / 100), 1) * 100),
     };
   }
 
@@ -334,6 +385,29 @@ export function summary(): DailySummary {
     forebetCovered,
     combo,
   };
+}
+
+export type Freshness = {
+  level: "fresh" | "recent" | "stale";
+  label: string; // e.g. "Fresh · updated today 07:12 WAT"
+};
+
+/** Freshness of the snapshot, judged from when it was generated (timezone-safe). */
+export function freshness(): Freshness {
+  const gen = SNAPSHOT.generatedAt;
+  if (!gen) return { level: "stale", label: "Waiting for the first data drop" };
+  const dt = new Date(gen);
+  const hours = (Date.now() - dt.getTime()) / 36e5;
+  const when = dt.toLocaleString("en-NG", {
+    day: "numeric",
+    month: "short",
+    hour: "2-digit",
+    minute: "2-digit",
+    timeZone: "Africa/Lagos",
+  });
+  if (hours < 36) return { level: "fresh", label: `Fresh · updated ${when} WAT` };
+  if (hours < 60) return { level: "recent", label: `Recent · updated ${when} WAT` };
+  return { level: "stale", label: `Stale · last updated ${when} WAT` };
 }
 
 export function fmtDate(d: string): string {

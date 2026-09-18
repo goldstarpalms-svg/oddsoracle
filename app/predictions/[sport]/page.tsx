@@ -6,6 +6,7 @@ import {
   bbPicks,
   fbPicks,
   fmtDate,
+  freshness,
   summary,
   tnPicks,
 } from "@/lib/rich";
@@ -115,7 +116,9 @@ export default function SportPage({ params }: { params: { sport: Sport } }) {
             <Link href="/predictions/">Predictions</Link> <span>/</span>{" "}
             <span>{info.label}</span>
           </div>
-          <span className="eyebrow">{fmtDate(sum.dataDate)} · {s} games · updated daily 07:00 WAT</span>
+          <span className="eyebrow">
+            {fmtDate(sum.dataDate)} · {s} games · <span className={`fresh-chip fresh-${freshness().level}`}>{freshness().label}</span>
+          </span>
           <h1>
             {info.label} <span className="grad-text">Predictions</span>
           </h1>

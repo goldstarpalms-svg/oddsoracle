@@ -33,6 +33,9 @@ export default function Navbar() {
         </nav>
 
         <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+          <Link href="/search/" className="nav-search" aria-label="Search today's picks" title="Search">
+            🔍
+          </Link>
           <Link href="/predictions/" className="nav-cta">Today&rsquo;s Picks →</Link>
           <button
             className="menu-btn"

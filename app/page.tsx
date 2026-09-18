@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { SITE } from "@/lib/site";
-import { bbPicks, fbPicks, fmtDate, summary, tnPicks } from "@/lib/rich";
+import { bbPicks, fbPicks, fmtDate, freshness, summary, tnPicks } from "@/lib/rich";
 import { FootballCard, BasketballCard, TennisCard } from "@/components/RichCard";
 import LivePicks from "@/components/LivePicks";
 import AdSlot from "@/components/AdSlot";
@@ -69,7 +69,8 @@ export default function Home() {
           <div className="hero-inner">
             <div>
               <div className="hero-badge">
-                <span className="dot" /> {fmtDate(sum.dataDate)} · {sum.total} picks · free forever
+                <span className="dot" /> {fmtDate(sum.dataDate)} · {sum.total} picks
+                <span className={`fresh-chip fresh-${freshness().level}`}>{freshness().label}</span>
               </div>
               <h1>
                 Daily picks with the <span className="grad-text">numbers shown</span>, not just the tip.
@@ -143,8 +144,10 @@ export default function Home() {
           <div className="container">
             <div className="combo-box combo-box-home">
               <div className="combo-head">
-                <span className="combo-title">🔥 Today&rsquo;s Safe Combo ({sum.combo.legs.length}-leg)</span>
-                <span className="combo-total">@{sum.combo.totalOdds.toFixed(2)}</span>
+                <span className="combo-title">🔥 Today&rsquo;s Daily Combo ({sum.combo.legs.length}-leg)</span>
+                <span className="combo-total">
+                  @{sum.combo.totalOdds.toFixed(2)} · <small>{sum.combo.allHitProb}% to land all</small>
+                </span>
               </div>
               <div className="combo-legs">
                 {sum.combo.legs.map((l, i) => (

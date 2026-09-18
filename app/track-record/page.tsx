@@ -37,12 +37,24 @@ function RateRow({
   );
 }
 
+/** ✓ / ✗ / — cell for a single scored market. */
+function WL({ won }: { won: number | null | undefined }) {
+  if (won == null) return <span className="wl wl-none">—</span>;
+  return won ? <span className="wl wl-win">✓</span> : <span className="wl wl-loss">✗</span>;
+}
+
 export default function TrackRecordPage() {
   const data = loadHistory();
   const c = data.cumulative;
   const days: Record<string, any> = Object.entries(
     data.days || {}
   ) as Record<string, any>;
+
+  // Flat, newest-first list of every scored pick (the permanent audit trail).
+  const audit = (c ? Object.entries(days) : [])
+    .sort((a, b) => (a[0] < b[0] ? 1 : -1))
+    .flatMap(([d, v]) => (v.rows || []).map((r: any) => ({ date: d, ...r })))
+    .slice(0, 48);
 
   return (
     <>
@@ -143,6 +155,59 @@ export default function TrackRecordPage() {
                     ))}
                 </div>
               </div>
+
+              {audit.length > 0 && (
+                <div className="audit-wrap">
+                  <div className="section-head">
+                    <div>
+                      <span className="eyebrow">The raw audit trail</span>
+                      <h2 className="section-title" style={{ fontSize: 26 }}>
+                        Every scored pick
+                      </h2>
+                      <p className="section-sub">
+                        Newest first. Published before the event, scored after — never edited.
+                      </p>
+                    </div>
+                  </div>
+                  <div className="audit-scroll">
+                    <table className="audit-table">
+                      <thead>
+                        <tr>
+                          <th>Date</th>
+                          <th>Match</th>
+                          <th>Score</th>
+                          <th>Model 1X2</th>
+                          <th>Model O2.5</th>
+                          <th>Model BTTS</th>
+                          <th>Market 1X2</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {audit.map((r, i) => (
+                          <tr key={i}>
+                            <td className="audit-date">{r.date}</td>
+                            <td className="audit-match">{r.match}</td>
+                            <td className="audit-score">{r.score}</td>
+                            <td>
+                              {r.model_pick} <WL won={r.model_win} />
+                            </td>
+                            <td>
+                              <WL won={r.model_over25_win} />
+                            </td>
+                            <td>
+                              <WL won={r.model_btts_win} />
+                            </td>
+                            <td>
+                              {r.market_pick ? `${r.market_pick} ` : ""}
+                              <WL won={r.market_win} />
+                            </td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              )}
             </>
           )}
         </div>

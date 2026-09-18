@@ -6,11 +6,13 @@ import { BasketballCard, FootballCard, TennisCard } from "./RichCard";
 
 type AnyPick = FbPick | BbPick | TnPick;
 type Filter = "all" | "safe" | "value" | "scores";
+type Sort = "time" | "prob" | "odds";
+type OddsRange = "any" | "low" | "mid" | "high";
 
 interface Props {
   sport: "football" | "basketball" | "tennis";
   items: AnyPick[];
-  combo?: { legs: ComboLeg[]; totalOdds: number } | null;
+  combo?: { legs: ComboLeg[]; totalOdds: number; allHitProb: number } | null;
 }
 
 const isFb = (p: AnyPick): p is FbPick => "fb_pct" in p || "model" in p;
@@ -27,15 +29,43 @@ const league = (p: AnyPick): string => {
   return String(v);
 };
 
+const getOdds = (p: AnyPick): number | null => (p as any).odds ?? null;
+const getProb = (p: AnyPick): number | null => (p as any).pickProb ?? null;
+const getTime = (p: AnyPick): number => {
+  const t = (p as any).t || "";
+  const m = String(t).match(/^(\d{1,2}):(\d{2})$/);
+  return m ? Number(m[1]) * 60 + Number(m[2]) : 9999;
+};
+
 export default function SportPicks({ sport, items, combo }: Props) {
   const [filter, setFilter] = useState<Filter>("all");
+  const [sort, setSort] = useState<Sort>("time");
+  const [oddsRange, setOddsRange] = useState<OddsRange>("any");
 
   const filtered = useMemo(() => {
-    if (filter === "all") return items;
-    if (filter === "safe") return items.filter((p) => (p as any).banker);
-    if (filter === "value") return items.filter((p) => (p as any).value);
-    return items.filter(hasScore);
-  }, [items, filter]);
+    let list = items;
+    if (filter === "safe") list = list.filter((p) => (p as any).banker);
+    else if (filter === "value") list = list.filter((p) => (p as any).value);
+    else if (filter === "scores") list = list.filter(hasScore);
+
+    // odds range
+    if (oddsRange !== "any") {
+      list = list.filter((p) => {
+        const o = getOdds(p);
+        if (o == null) return false;
+        if (oddsRange === "low") return o >= 1.01 && o < 1.5;
+        if (oddsRange === "mid") return o >= 1.5 && o < 2;
+        return o >= 2;
+      });
+    }
+
+    // sort (stable copy)
+    const arr = [...list];
+    if (sort === "prob") arr.sort((a, b) => (getProb(b) ?? -1) - (getProb(a) ?? -1));
+    else if (sort === "odds") arr.sort((a, b) => (getOdds(b) ?? 0) - (getOdds(a) ?? 0));
+    else arr.sort((a, b) => getTime(a) - getTime(b));
+    return arr;
+  }, [items, filter, oddsRange, sort]);
 
   // group by league, keep order of first appearance
   const groups = useMemo(() => {
@@ -67,8 +97,10 @@ export default function SportPicks({ sport, items, combo }: Props) {
       {combo && combo.legs.length > 0 && sport === "football" && (
         <div className="combo-box">
           <div className="combo-head">
-            <span className="combo-title">🔥 Today&rsquo;s Safe Combo ({combo.legs.length}-leg)</span>
-            <span className="combo-total">@{combo.totalOdds.toFixed(2)}</span>
+            <span className="combo-title">🔥 Today&rsquo;s Daily Combo ({combo.legs.length}-leg)</span>
+            <span className="combo-total">
+              @{combo.totalOdds.toFixed(2)} · <small>{combo.allHitProb}% to land all</small>
+            </span>
           </div>
           <div className="combo-legs">
             {combo.legs.map((l, i) => (
@@ -95,7 +127,7 @@ export default function SportPicks({ sport, items, combo }: Props) {
         {(
           [
             ["all", `All (${counts.all})`],
-            ["safe", `🏦 Safe picks (${counts.safe})`],
+            ["safe", `🏦 High confidence (${counts.safe})`],
             ["value", `💎 Value (${counts.value})`],
             ["scores", `⚽ Score calls (${counts.scores})`],
           ] as [Filter, string][]
@@ -112,11 +144,34 @@ export default function SportPicks({ sport, items, combo }: Props) {
         ))}
       </div>
 
+      {/* SORT + ODDS RANGE */}
+      <div className="sort-row">
+        <label className="sort-ctl">
+          <span>Sort</span>
+          <select value={sort} onChange={(e) => setSort(e.target.value as Sort)}>
+            <option value="time">Kickoff time</option>
+            <option value="prob">Model probability ↓</option>
+            <option value="odds">Odds ↓</option>
+          </select>
+        </label>
+        <label className="sort-ctl">
+          <span>Odds</span>
+          <select value={oddsRange} onChange={(e) => setOddsRange(e.target.value as OddsRange)}>
+            <option value="any">Any</option>
+            <option value="low">1.01 – 1.49</option>
+            <option value="mid">1.50 – 1.99</option>
+            <option value="high">2.00 +</option>
+          </select>
+        </label>
+        <span className="sort-count">{filtered.length} shown</span>
+      </div>
+
       {/* LEGEND (plain words) */}
       <div className="legend">
-        <b>Read it like this:</b> the bar shows the chance each outcome happens — green = the pick.
-        <b> 🏦 Banker</b> = the safest one of the day (70%+ chance). <b>💎 Value</b> = the odds are
-        fatter than the risk. <b>@1.85</b> = if you bet ₦100 and win, you get ₦185 back (₦85 profit).
+        <b>Read it like this:</b> the bar shows the chance each outcome happens — the lit part is
+        the pick. <b>🏦 Banker</b> = model confidence of 70%+ (a statistical label, not a guarantee).{" "}
+        <b>💎 Value</b> = the price looks generous for the risk. <b>@1.85</b> = bet ₦100, win and
+        you get ₦185 back (₦85 profit). Percentages are model estimates.
       </div>
 
       {filtered.length === 0 ? (

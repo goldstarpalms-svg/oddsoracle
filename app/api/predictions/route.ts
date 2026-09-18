@@ -1,16 +1,26 @@
 import { NextResponse } from "next/server";
 import { getPredictions, refreshPredictions } from "@/lib/generate";
+import { bbPicks, fbPicks, freshness, summary, tnPicks } from "@/lib/rich";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 
 export async function GET() {
   const result = await getPredictions();
-  return NextResponse.json(result, {
-    headers: {
-      "Cache-Control": "public, s-maxage=300, stale-while-revalidate=600",
-    },
-  });
+  // Rich normalized data (probabilities, edge, why) for Slip Tools + advanced UI.
+  const rich = {
+    football: fbPicks(),
+    basketball: bbPicks(),
+    tennis: tnPicks(),
+  };
+  return NextResponse.json(
+    { ...result, rich, summary: summary(), freshness: freshness() },
+    {
+      headers: {
+        "Cache-Control": "public, s-maxage=300, stale-while-revalidate=600",
+      },
+    }
+  );
 }
 
 // POST ?refresh=1 forces a recompute (used by cron / manual trigger).
