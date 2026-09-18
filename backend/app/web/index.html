@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Naija Daily Picks</title>
+<style>
+:root{
+  --bg:#0b1210; --card:#121c17; --card2:#0f1814; --line:#1e2c24;
+  --txt:#e8f3ec; --dim:#8aa396; --green:#22c55e; --gold:#fbbf24;
+  --red:#ef4444; --blue:#38bdf8; --purple:#c084fc;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--txt);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;padding:0 0 60px}
+.wrap{max-width:1150px;margin:0 auto;padding:0 16px}
+header{background:linear-gradient(135deg,#0c2417 0%,#0b1210 60%);border-bottom:1px solid var(--line);padding:22px 0 0;margin-bottom:18px}
+header .wrap{display:flex;flex-wrap:wrap;align-items:baseline;gap:12px}
+h1{font-size:26px;letter-spacing:.5px}
+h1 span{color:var(--green)}
+.sub{color:var(--dim);font-size:13px}
+.tabs{display:flex;gap:8px;padding:14px 0 14px;flex-wrap:wrap}
+.tab{background:var(--card);border:1px solid var(--line);color:var(--dim);padding:8px 16px;border-radius:999px;cursor:pointer;font-size:14px;font-weight:600}
+.tab.on{background:var(--green);color:#04140a;border-color:var(--green)}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin-bottom:18px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px}
+.card .n{font-size:26px;font-weight:800}
+.card .l{color:var(--dim);font-size:12px;margin-top:2px;text-transform:uppercase;letter-spacing:.6px}
+.card.green .n{color:var(--green)} .card.gold .n{color:var(--gold)} .card.blue .n{color:var(--blue)}
+section{margin-bottom:26px}
+h2{font-size:18px;margin-bottom:4px}
+h2 .em{color:var(--green)}
+.desc{color:var(--dim);font-size:13px;margin-bottom:12px}
+.ticket{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:12px}
+.tcol{background:var(--card);border:1px solid var(--line);border-radius:14px;overflow:hidden}
+.tcol h3{padding:10px 14px;font-size:14px;text-transform:uppercase;letter-spacing:.8px;background:var(--card2);border-bottom:1px solid var(--line)}
+.tcol.bank h3{color:var(--gold)} .tcol.safe h3{color:var(--green)} .tcol.value h3{color:var(--blue)}
+.trow{display:flex;justify-content:space-between;gap:8px;padding:10px 14px;border-bottom:1px solid var(--line);font-size:13.5px}
+.trow:last-child{border-bottom:none}
+.trow .m{font-weight:600}
+.trow .p{color:var(--dim);font-size:12px}
+.badge{display:inline-block;min-width:26px;text-align:center;background:#1a2a21;color:var(--green);border-radius:6px;padding:2px 6px;font-weight:800;font-size:12px}
+.badge.X{color:var(--gold)}
+table{width:100%;border-collapse:collapse;background:var(--card);border:1px solid var(--line);border-radius:14px;overflow:hidden;font-size:13.5px}
+th{background:var(--card2);color:var(--dim);text-align:left;padding:9px 10px;font-size:11.5px;text-transform:uppercase;letter-spacing:.5px;position:sticky;top:0}
+td{padding:9px 10px;border-top:1px solid var(--line);vertical-align:middle}
+tr:hover td{background:#15221b}
+.league{color:var(--dim);font-size:11.5px}
+.pick{font-weight:800;color:var(--green);font-size:15px}
+.pick.X{color:var(--gold)}
+.odds{font-variant-numeric:tabular-nums;color:var(--dim)}
+.edge+.up{color:var(--green);font-weight:700}
+.bar{height:7px;border-radius:4px;background:linear-gradient(90deg,var(--green) var(--p1),#3a4d43 var(--p1)),linear-gradient(90deg,transparent var(--px),var(--gold) var(--px) var(--px2),transparent var(--px2));width:120px}
+.tier{font-size:10px;font-weight:800;letter-spacing:.5px;padding:2px 6px;border-radius:5px}
+.tier.BANKER{background:#3a2e08;color:var(--gold)}
+.tier.SAFE{background:#0e2b18;color:var(--green)}
+.tier.MODERATE{background:#122330;color:var(--blue)}
+.tier.RISKY{background:#2b1216;color:var(--red)}
+.tag{font-size:11px;color:var(--dim);background:#18251f;border-radius:5px;padding:2px 6px;display:inline-block}
+.note{color:var(--gold);font-size:11.5px}
+input.search{width:100%;background:var(--card);border:1px solid var(--line);border-radius:10px;color:var(--txt);padding:10px 14px;font-size:14px;margin-bottom:10px}
+.copybtn{background:var(--green);border:none;color:#04140a;font-weight:800;padding:9px 18px;border-radius:10px;cursor:pointer;font-size:14px;margin-bottom:12px}
+.copybtn:active{transform:scale(.97)}
+.win{color:var(--green);font-weight:800} .lose{color:var(--red);font-weight:800}
+.histrow{display:flex;justify-content:space-between;padding:9px 14px;border-bottom:1px solid var(--line);font-size:13.5px}
+.histrow:last-child{border-bottom:none}
+.histbox{background:var(--card);border:1px solid var(--line);border-radius:14px}
+footer{color:var(--dim);font-size:12px;line-height:1.6;margin-top:30px;border-top:1px solid var(--line);padding-top:14px}
+.small{font-size:11.5px;color:var(--dim)}
+@media(max-width:700px){td,th{padding:7px 6px;font-size:12px}.bar{width:80px}}
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap">
+    <h1>⚽ Naija <span>Daily Picks</span></h1>
+    <div class="sub" id="genstamp"></div>
+  </div>
+  <div class="wrap"><div class="tabs" id="tabs"></div></div>
+</header>
+
+<div class="wrap">
+  <div class="cards" id="cards"></div>
+
+  <section id="ticketsec" style="display:none">
+    <h2>🎫 Today's <span class="em">Naija Ticket</span></h2>
+    <p class="desc">Straight from the model — <b>Bankers</b> (60%+ chance), <b>Safe</b> (55%+), <b>Value</b> (model says more than bookies pay for). Odds are the model's fair odds unless a bookmaker price is shown.</p>
+    <button class="copybtn" onclick="copyTicket()">📋 Copy ticket</button>
+    <div class="ticket">
+      <div class="tcol bank"><h3>💰 Bankers</h3><div id="t-bank"></div></div>
+      <div class="tcol safe"><h3>✅ Safe</h3><div id="t-safe"></div></div>
+      <div class="tcol value"><h3>🎯 Value (edge)</h3><div id="t-value"></div></div>
+    </div>
+  </section>
+
+  <section id="modelsec" style="display:none">
+    <h2>📊 <span class="em">Model board</span> — 11 covered leagues</h2>
+    <p class="desc">Every game my Poisson model can score (26/27 season data). Pick = model's 1X2 call; fair odds = what a fair bookie would pay; O2.5% / BTTS% = model's over-2.5-goals / both-teams-score chances. Green = model sees more chance than the market.</p>
+    <div style="overflow-x:auto"><table id="modeltable">
+      <thead><tr><th>Kickoff</th><th>League</th><th>Match</th><th>1 / X / 2</th><th>Pick</th><th>Fair odds</th><th>Mkt odds</th><th>O2.5%</th><th>BTTS%</th><th>D/C</th><th>C/S</th><th>Tier</th></tr></thead>
+      <tbody></tbody>
+    </table></div>
+  </section>
+
+  <section id="othersec" style="display:none">
+    <h2>🌍 <span class="em">Other leagues today</span> <span class="small">(forebet market view — no model, odds &amp; scores as forebet has them)</span></h2>
+    <input class="search" id="osearch" placeholder="🔎 search league or team…" oninput="renderOther()">
+    <div style="overflow-x:auto"><table id="othertable">
+      <thead><tr><th>Time (WAT)</th><th>League</th><th>Match</th><th>1/X/2 %</th><th>FB pick</th><th>1 / X / 2 odds</th><th>Score</th><th>Note</th></tr></thead>
+      <tbody></tbody>
+    </table></div>
+    <p class="small" style="margin-top:8px">Times shown in WAT (Lagos). Rows marked “was live / played” already happened this morning.</p>
+  </section>
+
+  <section id="bballsec" style="display:none">
+    <h2>🏀 <span class="em">Basketball today</span> <span class="small">(Forebet picks + deep-crack fusion — times WAT)</span></h2>
+    <div class="histbox" id="bballbox"></div>
+  </section>
+
+  <section id="tennissec" style="display:none">
+    <h2>🎾 <span class="em">Tennis today</span> <span class="small">(Forebet picks + set scores — times WAT)</span></h2>
+    <div class="histbox" id="tennisbox"></div>
+  </section>
+
+  <section id="histsec" style="display:none">
+    <h2>📈 <span class="em">Track record</span> — model vs market, day by day</h2>
+    <div class="histbox" id="histbox"></div>
+  </section>
+
+  <footer>
+    <b>How this works:</b> the Poisson model (trained on 26/27 season results, 4 leagues blended 25/26+26/27) computes each team's scoring strength every day; the dashboard shows today's calls. Results are scored each night from football-data.co.uk and shown under Track record.<br>
+    <b>Honest word:</b> in backtests 1X2 hit rate ≈ 48–55% — about a strong home-bias coin flip. The real edge lives in Over 2.5 goals, BTTS reads and the banker tier. Stake small, stake smart. No app, model or bookie guarantees wins.
+  </footer>
+</div>
+
+<script>
+let META=null, DAY=null, HIST=null;
+const $=id=>document.getElementById(id);
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+
+function am2d(o){return o>0?1+o/100:1+100/Math.abs(o);}
+function pickBadge(l){return `<span class="badge ${l==='X'?'X':''}">${l}</span>`;}
+
+async function boot(){
+  META=await (await fetch('/api/meta')).json();
+  HIST=await (await fetch('/api/history')).json();
+  $('genstamp').textContent='Data generated '+META.generated_at+' • 11 leagues modeled • times in WAT (Lagos)';
+  const tabs=$('tabs');
+  (META.dates||[]).forEach(d=>{
+    const b=document.createElement('button');
+    const dt=new Date(d+'T00:00:00');
+    b.textContent=dt.toLocaleDateString('en-GB',{weekday:'short',day:'numeric',month:'short'});
+    b.className='tab'; b.onclick=()=>loadDay(d,b);
+    tabs.appendChild(b);
+  });
+  loadDay(META.dates[0], tabs.firstChild);
+  loadBball();
+  loadTennis();
+}
+
+async function loadBball(){
+  const r = await fetch('/api/basketball');
+  if(!r.ok) return;
+  const B = await r.json();
+  let h = '';
+  (B.games||[]).forEach(g=>{
+    let ml = 'no public line';
+    if(g.odds_h!=null && g.odds_a!=null){
+      const d = x => x>0 ? 1+x/100 : 1+100/Math.abs(x);
+      ml = `moneyline: ${g.home} ${d(g.odds_h).toFixed(2)} / ${g.away} ${d(g.odds_a).toFixed(2)}`;
+    } else if(g.total_line){
+      ml = `total line: ${g.total_line}`;
+    }
+    h += `<div class="histrow"><b>${esc(g.home)} v ${esc(g.away)}</b> <span class="small">${g.t} WAT • ${esc(g.league)}</span>
+    <span class="small">${ml}</span></div>`;
+    h += `<div class="histrow small"><span>${esc(g.h2h)}</span><span>${esc(g.form)}</span></div>`;
+    const ppg = (g.ppg && g.ppg[0]!=null) ? `PPG ${g.ppg[0]} vs ${g.ppg[1]} • H2H avg total ${g.h2h_total_avg} • ` : '';
+    h += `<div class="histrow"><span class="p">${ppg}${esc(g.form)}</span>
+    <span><b class="win">${esc(g.pick)}</b> <span class="small">(${g.conf})</span> • ${esc(g.total)}</span></div>`;
+    h += `<div class="histrow small"><span>${esc(g.why)}</span></div>`;
+  });
+  (B.other_games||[]).forEach(g=>{
+    h += `<div class="histrow small"><span>${esc(g.league)} • ${g.t}: <b>${esc(g.home)} v ${esc(g.away)}</b></span><span>${esc(g.note||'')}</span></div>`;
+  });
+  $('bballbox').innerHTML = h;
+  $('bballsec').style.display='block';
+}
+
+async function loadDay(date,btn){
+  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('on'));
+  btn&&btn.classList.add('on');
+  const r=await fetch('/api/day?date='+date);
+  if(!r.ok){DAY=null;return;}
+  DAY=await r.json();
+  render();
+}
+
+function games(){return (DAY.games||[]).filter(g=>g.covered);}
+function others(){return DAY.other_games||[];}
+
+function render(){
+  // cards
+  const g=games(), o=others();
+  const bankers=g.filter(x=>x.model.bank==='BANKER');
+  const vals=g.filter(x=>x.edge&&Math.max(...x.edge)>=0.03);
+  $('cards').innerHTML=[
+    [g.length,'model games','green'],[o.length,'other leagues','blue'],
+    [bankers.length,'bankers','gold'],[vals.length,'value picks','blue'],
+    [HIST.cumulative.matches?HIST.cumulative.model_1x2+'%':'—','model 1X2 hit rate','']
+  ].map(c=>`<div class="card ${c[2]}"><div class="n">${c[0]}</div><div class="l">${c[1]}</div></div>`).join('');
+  // ticket
+  const hasTickets=g.length>0;
+  $('ticketsec').style.display=hasTickets?'block':'none';
+  if(hasTickets){
+    const topP=x=>Math.max(x.model.p1,x.model.px,x.model.p2);
+    const bank=g.filter(x=>x.model.bank==='BANKER').sort((a,b)=>topP(b)-topP(a));
+    const safe=g.filter(x=>x.model.bank==='SAFE');
+    const val=g.filter(x=>x.edge&&Math.max(...x.edge)>=0.03)
+      .sort((a,b)=>Math.max(...b.edge)-Math.max(...a.edge));
+    const trow=(x,extra)=>{
+      const m=x.model; let pick=m.pick, fair=m['fair'+(pick==='1'?'1':pick==='X'?'X':'2')];
+      let mk='';
+      if(x.mkt_dec){const i=pick==='1'?0:pick==='X'?1:2; mk=' @ '+x.mkt_dec[i].toFixed(2);}
+      return `<div class="trow"><div><span class="m">${esc(x.home)} v ${esc(x.away)}</span><br><span class="p">${esc(x.league)} • ${x.kickoff||''} WAT</span></div>
+      <div style="text-align:right"><span class="badge ${pick==='X'?'X':''}">${pick}</span> <b>${fair.toFixed(2)}${mk}</b><br><span class="p">${(100*Math.max(m.p1,m.px,m.p2)).toFixed(0)}% chance</span></div></div>`;
+    };
+    $('t-bank').innerHTML=bank.map(x=>trow(x)).join('')||'<div class="trow"><span class="p">No 60%+ game today — the model says play it safe, maybe a DNB/DC instead.</span></div>';
+    $('t-safe').innerHTML=safe.map(x=>trow(x)).join('')||'<div class="trow"><span class="p">None at 55–60% today.</span></div>';
+    $('t-value').innerHTML=val.map(x=>{
+      const i=Math.max(0,1,2).reduce((a,b)=>x.edge[a]>=x.edge[b]?a:b);
+      const lab=['1','X','2'][i];
+      const mp=['p1','px','p2'][i];
+      return `<div class="trow"><div><span class="m">${esc(x.home)} v ${esc(x.away)}</span><br><span class="p">${esc(x.league)} • model ${(100*x.model[mp]).toFixed(0)}% vs bookie pays ${(100*x.mkt_devig[i]).toFixed(0)}%</span></div>
+      <div style="text-align:right"><span class="badge ${lab==='X'?'X':''}">${lab}</span> <b>@ ${x.mkt_dec[i].toFixed(2)}</b></div></div>`;
+    }).join('')||'<div class="trow"><span class="p">No clear value today — market is honest.</span></div>';
+  }
+  // model table
+  $('modelsec').style.display=g.length?'block':'none';
+  $('modeltable').querySelector('tbody').innerHTML=g.map(x=>{
+    const m=x.model;
+    const bar=`<div class="bar" style="--p1:${m.p1*100}%;--px:${m.px*100}%;--px2:${(m.p1+m.px)*100}%"></div>`;
+    let edge='';
+    if(x.edge){const i=Math.max(0,1,2).reduce((a,b)=>x.edge[a]>=x.edge[b]?a:b);
+      edge=x.edge[i]>=0.03?`<span class="up">▲${(100*x.edge[i]).toFixed(0)}pp ${['1','X','2'][i]}</span>`:'—';}
+    const dc=Math.max(0,1,2).reduce((a,b)=>m[['dc1x','dcx2','dc12'][a]]>=m[['dc1x','dcx2','dc12'][b]]?a:b);
+    const dclab=['1X','X2','12'][dc];
+    const dnb=Math.max(m.dnbH,m.dnbA)>=0.6?(Math.max(m.dnbH,m.dnbA)>=0.55&&m.dnbH>=m.dnbA?'DNB 1':'DNB 2'):'—';
+    return `<tr><td class="odds">${x.kickoff||'—'}</td><td class="league">${esc(x.league)}</td>
+    <td><b>${esc(x.home)}</b> v ${esc(x.away)}</td>
+    <td>${bar}<div class="small">${(100*m.p1).toFixed(0)} / ${(100*m.px).toFixed(0)} / ${(100*m.p2).toFixed(0)}</div></td>
+    <td><span class="pick ${m.pick==='X'?'X':''}">${m.pick}</span></td>
+    <td class="odds">${m['fair'+m.pick].toFixed(2)}</td>
+    <td class="odds">${x.mkt_dec?x.mkt_dec.map(d=>d.toFixed(2)).join(' / '):'—'}<br>${edge}</td>
+    <td class="odds">${(100*m.o25).toFixed(0)}%</td><td class="odds">${(100*m.btts).toFixed(0)}%</td>
+    <td class="odds">${dclab}<br>${dnb}</td>
+    <td class="odds">${m.cs1} / ${m.cs2}</td>
+    <td><span class="tier ${m.bank}">${m.bank}</span></td></tr>`;
+  }).join('');
+  // other leagues
+  $('othersec').style.display=o.length?'block':'none';
+  renderOther();
+  // history
+  const days=Object.keys(HIST.days||{});
+  $('histsec').style.display=(days.length||HIST.cumulative.matches)?'block':'none';
+  let h='';
+  if(HIST.cumulative&&HIST.cumulative.matches)
+    h+=`<div class="histrow"><b>All days (${HIST.cumulative.matches} games, ${HIST.cumulative.days} days):</b>
+    <span>Model 1X2 <b class="win">${HIST.cumulative.model_1x2}%</b> • Market 1X2 ${HIST.cumulative.market_1x2??'—'}% • Model O2.5 ${HIST.cumulative.model_over25??'—'}% • Model BTTS ${HIST.cumulative.model_btts??'—'}%</span></div>`;
+  [...days].reverse().forEach(d=>{
+    const s=HIST.days[d].stats;
+    h+=`<div class="histrow"><b>${d}</b> <span class="small">(${s.played}/${s.of} played)</span>
+    <span>1X2: model <b class="${(s.model_1x2||0)>=50?'win':'lose'}">${s.model_1x2??'—'}%</b> vs market ${s.market_1x2??'—'}% • O2.5 ${s.model_over25??'—'}% • BTTS ${s.model_btts??'—'}%</span></div>`;
+    HIST.days[d].rows.forEach(r=>{
+      h+=`<div class="histrow small"><span>${esc(r.match)} — <b>${r.score}</b></span>
+      <span>model pick ${r.model_pick} ${r.model_win?'<b class="win">✓</b>':'<b class="lose">✗</b>'} • O2.5 ${r.over25?'Over':'Under'} ${r.model_over25_win?'✓':'✗'} • BTTS ${r.model_btts_win?'✓':'✗'}</span></div>`;
+    });
+  });
+  if(!h)h='<div class="histrow"><span class="p">No finished games scored yet — results land each night from football-data.co.uk.</span></div>';
+  $('histbox').innerHTML=h;
+}
+
+function renderOther(){
+  const q=($('osearch').value||'').toLowerCase();
+  const rows=others().filter(o=>!q||o.lgname.toLowerCase().includes(q)||o.h.toLowerCase().includes(q)||o.a.toLowerCase().includes(q));
+  $('othertable').querySelector('tbody').innerHTML=rows.map(o=>{
+    const p=o.p&&o.p[0]+o.p[1]+o.p[2]>0?`${o.p[0]} / ${o.p[1]} / ${o.p[2]}`:'—';
+    const odds=o.odds?o.odds.map(am2d).map(d=>d.toFixed(2)).join(' / '):'—';
+    const st=o.status?`<span class="note">${o.status}</span>`:(o.note?`<span class="note">${esc(o.note)}</span>`:'');
+    return `<tr><td class="odds">${o.t||'—'}</td><td class="league">${esc(o.lgname)}</td>
+    <td><b>${esc(o.h)}</b> v ${esc(o.a)}</td><td class="odds">${p}</td>
+    <td>${o.p[0]+o.p[1]+o.p[2]>0?pickBadge(o.fb):'<span class="odds">—</span>'}</td>
+    <td class="odds">${odds}</td><td class="odds">${o.cs||'—'}</td><td>${st}</td></tr>`;
+  }).join('')||'<tr><td colspan="8">no match</td></tr>';
+}
+
+function copyTicket(){
+  if(!DAY)return;
+  const L=[];
+  const g=DAY.games.filter(x=>x.covered);
+  const bank=g.filter(x=>x.model.bank==='BANKER');
+  const safe=g.filter(x=>x.model.bank==='SAFE');
+  const val=g.filter(x=>x.edge&&Math.max(...x.edge)>=0.03);
+  const line=(x)=>{const m=x.model;const fair=m['fair'+m.pick];const mk=x.mkt_dec?['1','X','2'].indexOf(m.pick);let s=x.kickoff?x.kickoff+'  ':'';
+    return s+x.home+' v '+x.away+'  →  '+m.pick+' @ '+fair.toFixed(2)+(x.mkt_dec?' (book '+x.mkt_dec[mk===0?0:mk===1?1:2].toFixed(2)+')':'');};
+  L.push('NAIJA TICKET — '+DAY.date);
+  L.push('BANKERS: '+(bank.length?bank.map(line).join(' | '):'none today'));
+  L.push('SAFE: '+(safe.length?safe.map(line).join(' | '):'none today'));
+  L.push('VALUE: '+(val.length?val.map(x=>{const i=Math.max(0,1,2).reduce((a,b)=>x.edge[a]>=x.edge[b]?a:b);return x.home+' v '+x.away+' → '+['1','X','2'][i]+' @ '+x.mkt_dec[i].toFixed(2);}).join(' | '):'none today'));
+  const t=L.join('\n');
+  if(navigator.clipboard)navigator.clipboard.writeText(t);
+  else{const ta=document.createElement('textarea');ta.value=t;document.body.appendChild(ta);ta.select();document.execCommand('copy');ta.remove();}
+  const b=document.querySelector('.copybtn');b.textContent='✓ Copied!';setTimeout(()=>b.textContent='📋 Copy ticket',1500);
+}
+
+boot();
+</script>
+</body>
+</html>

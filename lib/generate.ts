@@ -2,9 +2,10 @@ import type { Prediction } from "@/lib/predictions";
 import { PREDICTIONS } from "@/lib/predictions";
 import { fetchOdds } from "@/lib/provider";
 import { buildPredictions } from "@/lib/engine";
+import { loadLocalPredictions } from "@/lib/localData";
 
 export interface PredictionsResult {
-  source: "live" | "fallback";
+  source: "local" | "live" | "fallback";
   updatedAt: string;
   predictions: Prediction[];
 }
@@ -14,13 +15,22 @@ let cache: PredictionsResult | null = null;
 let cacheAt = 0;
 
 /**
- * Returns live predictions when an API key is configured, otherwise falls back
- * to the curated editorial picks. Cached for TTL to respect API limits and keep
- * the endpoint fast.
+ * Data priority:
+ *  1. local real-data feed (backend/app/daily JSON — forebet + model fusion),
+ *  2. live odds API when THE_ODDS_API_KEY is configured,
+ *  3. curated editorial picks (last resort).
+ * Cached for TTL to keep the endpoint fast.
  */
 export async function getPredictions(): Promise<PredictionsResult> {
   const now = Date.now();
   if (cache && now - cacheAt < CACHE_TTL_MS) return cache;
+
+  const local = loadLocalPredictions();
+  if (local.length) {
+    cache = { source: "local", updatedAt: new Date().toISOString(), predictions: local };
+    cacheAt = now;
+    return cache;
+  }
 
   const apiKey = process.env.THE_ODDS_API_KEY;
 

@@ -18,11 +18,61 @@ page is server-rendered, crawlable HTML that Google can index immediately.
 
 ---
 
-## Make it actually predict games
+## Real-data feed (default now)
 
-The site already ships a working prediction engine. By default it uses the curated
-editorial picks (so it works out of the box). To turn it into a live, data-backed
-prediction site:
+The site ships with the full **Naija daily-picks backend** in `backend/`. Prediction
+data priority in `lib/generate.ts`:
+
+1. **Local real-data feed** — `backend/app/daily/*.json` (latest files win):
+   - `*_full_crack.json` — football, ~95 games/day (Forebet 1/X/2 % + forebet pick +
+     predicted score + Python model fusion, banker flags)
+   - `*_basketball.json` — Forebet basketball picks + deep-crack fusion
+   - `*_tennis.json` — Forebet tennis picks with set scores and form rates
+   Mapped into the site's card shape by `lib/localData.ts`. No API key needed.
+2. **Live odds** from The Odds API (when `THE_ODDS_API_KEY` is set and local data
+   is absent).
+3. Curated editorial picks (last resort).
+
+The `/api/predictions` endpoint reports `source: "local"` and the dashboard shows
+"Real-data feed (Forebet + model)".
+
+### The Python backend (`backend/`)
+
+- `backend/app/server.py` — Flask dashboard (run: `python3 backend/app/server.py`,
+  opens on port 5000) with football + 🏀 basketball + 🎾 tennis sections.
+- `backend/app/build_daily.py` — daily football pipeline (Forebet → model fusion →
+  `app/daily/<date>.json`).
+- `backend/app/results.py` — nightly result scoring into `app/results/history.json`.
+- `backend/data/` — football-data.co.uk season CSVs (26/27) the model trains on.
+- `backend/model.py`, `model2.py`, `backend/value.py` — the probability/edge models.
+
+**Daily refresh:** pull Forebet's day page, regenerate `backend/app/daily/<DATE>*.json`,
+then `npm run build` (or just wait — ISR revalidates every 10 min on a server).
+
+## Sekta Cup (table-tennis) — `sekta-cup/`
+
+The **Setka Prediction App**: a standalone Streamlit app for Setka Cup /
+table-tennis analysis (merged from the `Sekta-cup` repo).
+
+- Live prediction board with confidence filters + set-count Over/Under
+- Trading Desk (live ticker, protection mode, stop-loss, bankroll caps, GREEN/WATCH/NO BET)
+- Strong Pick Tracker, Bankroll Journal, Live Match Center (in-play scores)
+- Model Intelligence (calibrated probabilities, fatigue risk, market confidence)
+- First Set Intelligence Engine, Accuracy Lab backtesting, stake calculator
+- 19MB match-history CSV in `sekta-cup/data/` + leaderboard
+
+Run it (independent of the Next.js site):
+
+```bash
+cd sekta-cup
+pip install -r requirements.txt
+streamlit run app.py
+```
+
+## Make it actually predict games (live odds mode)
+
+The site already ships a working prediction engine. By default it uses the local
+real-data feed (see above). To add **live market odds** on top:
 
 ### 1. Get a free API key
 Sign up at **the-odds-api.com** (free tier, ~500 requests/month — plenty for daily

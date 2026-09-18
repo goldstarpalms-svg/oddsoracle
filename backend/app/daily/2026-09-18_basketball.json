@@ -1,0 +1,97 @@
+{
+  "date": "2026-09-18",
+  "generated_at": "2026-09-18 13:45",
+  "source": "Forebet basketball predictions-today (EDT times +5h = WAT)",
+  "note": "Forebet does NOT cover the Euroleague Super Cup (Olympiacos-Fenerbahce, Dubai-Real Madrid) - those two keep the Sofascore-based picks, flagged.",
+  "games": [
+    {
+      "league": "VTB Super Cup", "t": "15:00",
+      "home": "Zenit Petersburg", "away": "Anadolu Efes",
+      "fb_prob": [53, 47], "fb_pick": "1 (Zenit)", "fb_score": "89-79", "fb_avg": 165.5, "fb_coef": "+178 / -217",
+      "pick": "1 (Zenit Petersburg)", "conf": "MEDIUM", "total": "avg 165.5",
+      "why": "Forebet model: Zenit 53% at home (St. Petersburg) vs Efes, +178. Near coin-flip - small stake."
+    },
+    {
+      "league": "Euroleague Super Cup (NOT on Forebet)", "t": "15:00",
+      "home": "Olympiacos", "away": "Fenerbahce",
+      "fb_prob": null, "fb_pick": "n/a - not covered by Forebet", "fb_score": null, "fb_avg": 164, "fb_coef": "market: OLY -155 / FEN +112",
+      "pick": "1 (Olympiacos)", "conf": "HIGH (Sofascore-based, market fusion)", "total": "OVER 164.5 lean",
+      "why": "Kept from deep-crack: OLY -155 (61%), 3 straight H2H wins incl. 82-77 two weeks ago, 4 straight wins overall."
+    },
+    {
+      "league": "Basketball Champions League QF", "t": "16:00",
+      "home": "Salon Vilpas (FIN)", "away": "Bakken Bears (DEN)",
+      "fb_prob": [54, 45], "fb_pick": "1 (VILPAS)", "fb_score": "85-76", "fb_avg": 165.3, "fb_coef": "none",
+      "pick": "1 (Vilpas) per Forebet", "conf": "LOW-MEDIUM - SPLIT", "total": "avg 165.3",
+      "why": "SPLIT DECISION: Forebet says Vilpas 54% (home), but the bookmaker market has Bakken -185 (65%). When model and market disagree this hard, play small or skip."
+    },
+    {
+      "league": "VTB Super Cup", "t": "18:00",
+      "home": "CSKA Moscow", "away": "Lokomotiv Kuban",
+      "fb_prob": [64, 36], "fb_pick": "1 (CSKA)", "fb_score": "89-80", "fb_avg": 171.5, "fb_coef": "-400 / +310",
+      "pick": "1 (CSKA Moscow)", "conf": "MEDIUM-HIGH", "total": "avg 171.5",
+      "why": "Forebet: CSKA 64% at -400 (1.25) at home vs Kuban. Strong favorite price still only 1.25."
+    },
+    {
+      "league": "Euroleague Super Cup (NOT on Forebet)", "t": "18:00",
+      "home": "BC Dubai", "away": "Real Madrid",
+      "fb_prob": null, "fb_pick": "n/a - not covered by Forebet", "fb_score": null, "fb_avg": 189, "fb_coef": "market: DUB -139 / RMA -104",
+      "pick": "2 (Real Madrid) + OVER", "conf": "MEDIUM-HIGH (Sofascore-based)", "total": "STRONG OVER (games avg 185-190)",
+      "why": "Kept from deep-crack: Real's games average 190 points; coin-flip price; the total is the cleaner play."
+    },
+    {
+      "league": "BCL Qualification Semifinal", "t": "18:30",
+      "home": "BC Batumi 2010 (GEO)", "away": "CSM Oradea (ROU)",
+      "fb_prob": [55, 45], "fb_pick": "1 (BATUMI)", "fb_score": "88-79", "fb_avg": 166.5, "fb_coef": "none",
+      "pick": "1 (Batumi) per Forebet", "conf": "LOW-MEDIUM - SPLIT", "total": "avg 166.5",
+      "why": "BIG SPLIT: Forebet model has home Batumi 55% (88-79), but the market had Oradea at -10000 (near-certain favorite). Do NOT back one side with size. Oradea's 95ppg/48.5%FG stat edge remains the better bet if you must choose."
+    },
+    {
+      "league": "Germany BBL R1", "t": "19:00",
+      "home": "ALBA Berlin", "away": "BV Chemnitz 99",
+      "fb_prob": [65, 35], "fb_pick": "1 (ALBA)", "fb_score": "87-78", "fb_avg": 167.8, "fb_coef": "none",
+      "pick": "1 (ALBA Berlin)", "conf": "MEDIUM-HIGH", "total": "avg 167.8",
+      "why": "Forebet: ALBA 65% at home, opener. Model agrees with earlier home-edge pick."
+    },
+    {
+      "league": "Paraguay LNB", "t": "23:30",
+      "home": "Colonias Gold", "away": "Deportivo Campoalto",
+      "fb_prob": [80, 20], "fb_pick": "1 (Colonias)", "fb_score": "82-68", "fb_avg": 154.9, "fb_coef": "none",
+      "pick": "1 (Colonias Gold)", "conf": "HIGH (80%)", "total": "avg 154.9",
+      "why": "Forebet's biggest favorite of the day at 80% - but no public odds listed, so no price to check. Late game (23:30 WAT)."
+    }
+  ],
+  "forebet_today_all": [
+    {"league": "MPBL", "t": "10:00", "match": "Bulacan Kuyas v Marikina Shoemasters", "prob": "33/67", "pred": "2", "score": "85-94", "avg": 177.5, "status": "FT 84-77 (pred 2 LOST)"},
+    {"league": "Asian Games 3x3", "t": "11:20", "match": "Japan v China", "prob": "53/47", "pred": "1", "score": "83-77", "avg": 162.6, "status": "was 49-30 Japan at 2Q"},
+    {"league": "MPBL", "t": "12:00", "match": "Batangas City v GenSan Warriors", "prob": "61/39", "pred": "1", "score": "71-70", "avg": 146, "status": "in play/FT"},
+    {"league": "Israel League Cup", "t": "12:30", "match": "Hapoel Jerusalem v Hapoel Beer Sheva", "prob": "82/18", "pred": "1", "score": "93-75", "avg": 174.6, "coef": "-2500", "status": "in play/FT"},
+    {"league": "VTB Super Cup", "t": "15:00", "match": "Zenit Petersburg v Anadolu Efes", "prob": "53/47", "pred": "1", "score": "89-79", "avg": 165.5, "coef": "+178/-217"},
+    {"league": "BCL Qual Semi", "t": "16:00", "match": "Salon Vilpas v Bakken Bears", "prob": "54/45", "pred": "1", "score": "85-76", "avg": 165.3},
+    {"league": "Poland 1 Liga", "t": "17:00", "match": "WKK Wroclaw v Inowroclaw", "prob": "52/47", "pred": "1", "score": "86-84", "avg": 165.7, "coef": "+129/-200"},
+    {"league": "VTB Super Cup", "t": "18:00", "match": "CSKA Moscow v Lokomotiv Kuban", "prob": "64/36", "pred": "1", "score": "89-80", "avg": 171.5, "coef": "-400/+310"},
+    {"league": "Czech 1 Liga", "t": "18:00", "match": "Litomerice v Jindrichuv Hradec", "prob": "64/36", "pred": "1", "score": "89-77", "avg": 168.2},
+    {"league": "Czech 1 Liga", "t": "18:00", "match": "CZ.ACADEMY v USK Prague B", "prob": "68/32", "pred": "1", "score": "87-81", "avg": 165.3},
+    {"league": "Norway BLNO", "t": "18:00", "match": "Kongsberg Miners v Gimle", "prob": "41/59", "pred": "2", "score": "75-87", "avg": 166.9, "coef": "-417/+222"},
+    {"league": "Czech 1 Liga", "t": "18:15", "match": "MS Academy v Basketbal Olomouc", "prob": "53/47", "pred": "1", "score": "83-81", "avg": 165.4},
+    {"league": "Czech 1 Liga", "t": "18:30", "match": "Liberecko v Radotin", "prob": "56/44", "pred": "1", "score": "94-84", "avg": 171},
+    {"league": "Czech 1 Liga", "t": "18:30", "match": "Sokol Prazsky v Slavia Prague Tygri", "prob": "69/31", "pred": "1", "score": "87-74", "avg": 126},
+    {"league": "Czech 1 Liga", "t": "18:30", "match": "Opava 2 v Zlin", "prob": "45/55", "pred": "2", "score": "72-74", "avg": 152},
+    {"league": "Norway BLNO", "t": "18:30", "match": "Tromso v Froya", "prob": "40/60", "pred": "2", "score": "80-102", "avg": 143.3},
+    {"league": "BCL Qual Semi", "t": "18:30", "match": "Batumi 2010 v CSM Oradea", "prob": "55/45", "pred": "1", "score": "88-79", "avg": 166.5},
+    {"league": "Germany BBL", "t": "19:00", "match": "ALBA Berlin v Chemnitz", "prob": "65/35", "pred": "1", "score": "87-78", "avg": 167.8},
+    {"league": "France Cup", "t": "19:00", "match": "Rennes v Quimper", "prob": "58/42", "pred": "1", "score": "86-84", "avg": 169.1},
+    {"league": "Czech 1 Liga", "t": "19:00", "match": "Valecnici Decin v Polabi", "prob": "63/37", "pred": "1", "score": "82-71", "avg": 160.2},
+    {"league": "Czech 1 Liga", "t": "19:00", "match": "SK Zabovresky v Pardubice 2", "prob": "63/37", "pred": "1", "score": "85-81", "avg": 164.9},
+    {"league": "France Cup", "t": "19:30", "match": "Fos-sur-Mer v Aix Maurienne", "prob": "51/49", "pred": "1", "score": "95-88", "avg": 174.7},
+    {"league": "England BBL", "t": "19:30", "match": "Bristol Flyers v London Lions", "prob": "25/75", "pred": "2", "score": "76-82", "avg": 158.3, "coef": "-526/+268"},
+    {"league": "Paraguay LNB", "t": "23:30", "match": "Colonias Gold v Deportivo Campoalto", "prob": "80/20", "pred": "1", "score": "82-68", "avg": 154.9}
+  ],
+  "tomorrow_early_excluded": [
+    {"league": "WNBA", "t": "00:30", "match": "Minnesota Lynx v NY Liberty", "prob": "69/31", "pred": "1", "score": "96-85", "avg": 179.1, "coef": "-278/+224", "total_line": 176.5},
+    {"league": "WNBA", "t": "00:30", "match": "Toronto Tempo v Indiana Fever", "prob": "32/68", "pred": "2", "score": "89-91", "avg": 183.8, "coef": "-1000/+670"},
+    {"league": "Paraguay LNB", "t": "01:15", "match": "Olimpia Kings v Dep. San Jose", "prob": "56/44", "pred": "1", "score": "79-77", "avg": 159.3},
+    {"league": "Asian Games 3x3 W", "t": "02:00", "match": "Thailand W v China W", "prob": "46/54", "pred": "2", "score": "62-81", "avg": 142.1},
+    {"league": "WNBA", "t": "03:00", "match": "Golden State Valkyries v Portland Fire", "prob": "65/35", "pred": "1", "score": "82-79", "avg": 164.6, "coef": "-714/+501", "total_line": 160.5}
+  ]
+}

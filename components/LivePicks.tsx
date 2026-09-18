@@ -18,7 +18,7 @@ interface Prediction {
 }
 
 interface Result {
-  source: "live" | "fallback";
+  source: "local" | "live" | "fallback";
   updatedAt: string;
   predictions: Prediction[];
 }
@@ -82,7 +82,7 @@ export default function LivePicks({ count = 4 }: { count?: number }) {
       <div className="hero-card-head">
         <span className="live"><span className="dot" /> LIVE NOW</span>
         <span style={{ fontSize: 12, color: "var(--text-faint)" }}>
-          {data?.source === "live" ? "Live market data" : "Editorial picks"} ·{" "}
+          {data?.source === "local" ? "Real-data feed (Forebet + model)" : data?.source === "live" ? "Live market data" : "Editorial picks"} ·{" "}
           {data ? timeAgo(data.updatedAt) : "offline"}
         </span>
       </div>

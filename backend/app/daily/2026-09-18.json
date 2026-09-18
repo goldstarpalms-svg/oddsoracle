@@ -1,0 +1,2199 @@
+{
+ "date": "2026-09-18",
+ "games": [
+  {
+   "league": "Super Lig",
+   "league_code": "TR1",
+   "home": "Kasimpasa",
+   "away": "Konyaspor",
+   "date": "2026-09-18",
+   "kickoff": "14:00",
+   "covered": true,
+   "model": {
+    "p1": 0.41226859413455613,
+    "px": 0.27225401518763537,
+    "p2": 0.31547739067780844,
+    "fair1": 2.4256031485959375,
+    "fairX": 3.6730404115833064,
+    "fair2": 3.1697992615302266,
+    "pick": "1",
+    "o15": 0.700038076494317,
+    "o25": 0.44054934559661313,
+    "o35": 0.22955077933999757,
+    "btts": 0.4935807851826813,
+    "no_btts": 0.5064192148173188,
+    "dc1x": 0.6845226093221914,
+    "dcx2": 0.5877314058654438,
+    "dc12": 0.7277459848123646,
+    "dnbH": 0.5665006784487471,
+    "dnbA": 0.43349932155125287,
+    "ah_h_minus1": 0.3002931587988554,
+    "ah_h_plus1": 0.6997068412011447,
+    "cs1": "1-1",
+    "cs2": "1-0",
+    "bank": "RISKY"
+   },
+   "mkt": [
+    135,
+    220,
+    200
+   ],
+   "mkt_dec": [
+    2.35,
+    3.2,
+    3.0
+   ],
+   "mkt_devig": [
+    0.3971865949524204,
+    0.29168390566818375,
+    0.311129499379396
+   ],
+   "edge": [
+    0.015081999182135708,
+    -0.019429890480548384,
+    0.004347891298412454
+   ]
+  },
+  {
+   "league": "Championship",
+   "league_code": "E1",
+   "home": "Bristol City",
+   "away": "Watford",
+   "date": "2026-09-18",
+   "kickoff": "15:00",
+   "covered": true,
+   "model": {
+    "p1": 0.4712650700872556,
+    "px": 0.24574865612668179,
+    "p2": 0.28298627378606267,
+    "fair1": 2.1219480574167062,
+    "fairX": 4.069198244097444,
+    "fair2": 3.533740299912917,
+    "pick": "1",
+    "o15": 0.7649853493380016,
+    "o25": 0.5250577324400787,
+    "o35": 0.30296047954351246,
+    "btts": 0.5420085843144647,
+    "no_btts": 0.45799141568553525,
+    "dc1x": 0.7170137262139373,
+    "dcx2": 0.5287349299127444,
+    "dc12": 0.7542513438733183,
+    "dnbH": 0.624811707549848,
+    "dnbA": 0.37518829245015195,
+    "ah_h_minus1": 0.39213399215466715,
+    "ah_h_plus1": 0.6078660078453328,
+    "cs1": "1-1",
+    "cs2": "1-0",
+    "bank": "RISKY"
+   },
+   "mkt": [
+    -118,
+    260,
+    300
+   ],
+   "mkt_dec": [
+    1.847457627118644,
+    3.6,
+    4.0
+   ],
+   "mkt_devig": [
+    0.5063170441001191,
+    0.2598331346841478,
+    0.23384982121573303
+   ],
+   "edge": [
+    -0.03505197401286353,
+    -0.01408447855746603,
+    0.04913645257032964
+   ]
+  },
+  {
+   "league": "Eredivisie",
+   "league_code": "NL1",
+   "home": "Groningen",
+   "away": "Zwolle",
+   "date": "2026-09-18",
+   "kickoff": "15:00",
+   "covered": true,
+   "model": {
+    "p1": 0.5281720455648776,
+    "px": 0.22163957882405322,
+    "p2": 0.2501883756110691,
+    "fair1": 1.8933224664143375,
+    "fairX": 4.511829544640318,
+    "fair2": 3.996988259576665,
+    "pick": "1",
+    "o15": 0.8278267096527075,
+    "o25": 0.6185421742542804,
+    "o35": 0.39582332478208726,
+    "btts": 0.6134573273324928,
+    "no_btts": 0.3865426726675072,
+    "dc1x": 0.7498116243889308,
+    "dcx2": 0.4718279544351223,
+    "dc12": 0.7783604211759467,
+    "dnbH": 0.6785700187156426,
+    "dnbA": 0.3214299812843574,
+    "ah_h_minus1": 0.41624486554306533,
+    "ah_h_plus1": 0.5837551344569347,
+    "cs1": "1-1",
+    "cs2": "2-1",
+    "bank": "MODERATE"
+   },
+   "mkt": [
+    -167,
+    333,
+    400
+   ],
+   "mkt_dec": [
+    1.5988023952095807,
+    4.33,
+    5.0
+   ],
+   "mkt_devig": [
+    0.5920666943959546,
+    0.2186137757792312,
+    0.18931952982481423
+   ],
+   "edge": [
+    -0.06389464883107698,
+    0.0030258030448220286,
+    0.06086884578625487
+   ]
+  },
+  {
+   "league": "Serie B",
+   "league_code": "I2",
+   "home": "Juve Stabia",
+   "away": "Cesena",
+   "date": "2026-09-18",
+   "kickoff": "15:30",
+   "covered": true,
+   "model": {
+    "p1": 0.4394685534959062,
+    "px": 0.2738431516014812,
+    "p2": 0.28668829490261266,
+    "fair1": 2.275475667246611,
+    "fairX": 3.6517254280482474,
+    "fair2": 3.488108924501775,
+    "pick": "1",
+    "o15": 0.6663824502254468,
+    "o25": 0.4007915245523969,
+    "o35": 0.1982291327994615,
+    "btts": 0.45304822331278793,
+    "no_btts": 0.5469517766872121,
+    "dc1x": 0.7133117050973874,
+    "dcx2": 0.5605314465040938,
+    "dc12": 0.7261568483985188,
+    "dnbH": 0.6051978363422712,
+    "dnbA": 0.3948021636577289,
+    "ah_h_minus1": 0.3328659282110814,
+    "ah_h_plus1": 0.6671340717889186,
+    "cs1": "1-0",
+    "cs2": "1-1",
+    "bank": "RISKY"
+   },
+   "mkt": [
+    125,
+    210,
+    240
+   ],
+   "mkt_dec": [
+    2.25,
+    3.1,
+    3.4
+   ],
+   "mkt_devig": [
+    0.41883568448241604,
+    0.3039936419630439,
+    0.27717067355454006
+   ],
+   "edge": [
+    0.02063286901349015,
+    -0.0301504903615627,
+    0.009517621348072602
+   ]
+  },
+  {
+   "league": "LaLiga 2",
+   "league_code": "SP2",
+   "home": "Albacete",
+   "away": "Cordoba",
+   "date": "2026-09-18",
+   "kickoff": "15:30",
+   "covered": true,
+   "model": {
+    "p1": 0.44795452012096126,
+    "px": 0.2604155670900633,
+    "p2": 0.29162991278897554,
+    "fair1": 2.2323694819062654,
+    "fairX": 3.840016213985224,
+    "fair2": 3.4290035286044325,
+    "pick": "1",
+    "o15": 0.7620462327335185,
+    "o25": 0.5209892701648023,
+    "o35": 0.2992060654664838,
+    "btts": 0.5530183077711535,
+    "no_btts": 0.44698169222884654,
+    "dc1x": 0.7083700872110246,
+    "dcx2": 0.5520454798790388,
+    "dc12": 0.7395844329099368,
+    "dnbH": 0.6056840844505864,
+    "dnbA": 0.39431591554941353,
+    "ah_h_minus1": 0.33925997057003726,
+    "ah_h_plus1": 0.6607400294299628,
+    "cs1": "1-1",
+    "cs2": "1-0",
+    "bank": "RISKY"
+   },
+   "mkt": [
+    135,
+    260,
+    180
+   ],
+   "mkt_dec": [
+    2.35,
+    3.6,
+    2.8
+   ],
+   "mkt_devig": [
+    0.40127388535031844,
+    0.26194267515923564,
+    0.3367834394904458
+   ],
+   "edge": [
+    0.046680634770642826,
+    -0.0015271080691723338,
+    -0.04515352670147027
+   ]
+  }
+ ],
+ "n_model": 5,
+ "other_games": [
+  {
+   "lg": "Us1",
+   "lgname": "USA MLS",
+   "h": "New York City FC",
+   "a": "New York Red Bulls",
+   "t": "12:30",
+   "p": [
+    38,
+    36,
+    26
+   ],
+   "fb": "1",
+   "cs": "1-0",
+   "avg": 1.95,
+   "odds": [
+    -125,
+    310,
+    290
+   ],
+   "coef": -125
+  },
+  {
+   "lg": "EPL",
+   "lgname": "England Premier League",
+   "h": "Brentford",
+   "a": "Chelsea",
+   "t": "20:00",
+   "p": [
+    28,
+    39,
+    34
+   ],
+   "fb": "X",
+   "cs": "1-1",
+   "avg": 2.4,
+   "odds": [
+    165,
+    280,
+    140
+   ],
+   "coef": 280
+  },
+  {
+   "lg": "CH",
+   "lgname": "England Championship",
+   "h": "Bristol City",
+   "a": "Watford",
+   "t": "20:00",
+   "p": [
+    44,
+    35,
+    21
+   ],
+   "fb": "1",
+   "cs": "2-0",
+   "avg": 2.18,
+   "odds": [
+    -139,
+    290,
+    333
+   ],
+   "coef": -139
+  },
+  {
+   "lg": "Es1",
+   "lgname": "Spain La Liga",
+   "h": "Espanyol",
+   "a": "Elche",
+   "t": "20:00",
+   "p": [
+    48,
+    37,
+    15
+   ],
+   "fb": "1",
+   "cs": "2-1",
+   "avg": 2.96,
+   "odds": [
+    -125,
+    250,
+    350
+   ],
+   "coef": -125
+  },
+  {
+   "lg": "De1",
+   "lgname": "Germany Bundesliga",
+   "h": "Bayern Munich",
+   "a": "Union Berlin",
+   "t": "19:30",
+   "p": [
+    66,
+    23,
+    11
+   ],
+   "fb": "1",
+   "cs": "2-1",
+   "avg": 4.17,
+   "odds": [
+    -2500,
+    1600,
+    2500
+   ],
+   "coef": -2500
+  },
+  {
+   "lg": "Es2",
+   "lgname": "Spain Segunda",
+   "h": "Albacete",
+   "a": "C\u00f3rdoba",
+   "t": "19:30",
+   "p": [
+    41,
+    27,
+    32
+   ],
+   "fb": "1",
+   "cs": "2-1",
+   "avg": 2.68,
+   "odds": [
+    135,
+    260,
+    180
+   ],
+   "coef": 135
+  },
+  {
+   "lg": "De2",
+   "lgname": "Germany 2. Bundesliga",
+   "h": "Greuther F\u00fcrth",
+   "a": "Magdeburg",
+   "t": "17:30",
+   "p": [
+    24,
+    22,
+    53
+   ],
+   "fb": "2",
+   "cs": "1-2",
+   "avg": 3.63,
+   "odds": [
+    210,
+    270,
+    110
+   ],
+   "coef": 110
+  },
+  {
+   "lg": "De2",
+   "lgname": "Germany 2. Bundesliga",
+   "h": "Wolfsburg",
+   "a": "Darmstadt",
+   "t": "17:30",
+   "p": [
+    59,
+    30,
+    11
+   ],
+   "fb": "1",
+   "cs": "3-0",
+   "avg": 2.86,
+   "odds": [
+    -189,
+    333,
+    425
+   ],
+   "coef": -189
+  },
+  {
+   "lg": "It1",
+   "lgname": "Italy Serie A",
+   "h": "Monza",
+   "a": "Sassuolo",
+   "t": "19:45",
+   "p": [
+    26,
+    30,
+    44
+   ],
+   "fb": "2",
+   "cs": "1-2",
+   "avg": 3.41,
+   "odds": [
+    175,
+    240,
+    150
+   ],
+   "coef": 150
+  },
+  {
+   "lg": "It2",
+   "lgname": "Italy Serie B",
+   "h": "Juve Stabia",
+   "a": "Cesena",
+   "t": "19:30",
+   "p": [
+    24,
+    42,
+    34
+   ],
+   "fb": "X",
+   "cs": "1-1",
+   "avg": 2.2,
+   "odds": [
+    125,
+    210,
+    240
+   ],
+   "coef": 210
+  },
+  {
+   "lg": "Fr1",
+   "lgname": "France Ligue 1",
+   "h": "Monaco",
+   "a": "Lens",
+   "t": "19:45",
+   "p": [
+    46,
+    29,
+    25
+   ],
+   "fb": "1",
+   "cs": "2-1",
+   "avg": 2.84,
+   "odds": [
+    105,
+    270,
+    240
+   ],
+   "coef": 105
+  },
+  {
+   "lg": "Fr2",
+   "lgname": "France Ligue 2",
+   "h": "Rodez",
+   "a": "AS Nancy",
+   "t": "19:00",
+   "p": [
+    30,
+    49,
+    20
+   ],
+   "fb": "X",
+   "cs": "1-1",
+   "avg": 2.0,
+   "odds": [
+    130,
+    210,
+    180
+   ],
+   "coef": 210
+  },
+  {
+   "lg": "Fr2",
+   "lgname": "France Ligue 2",
+   "h": "Reims",
+   "a": "Montpellier",
+   "t": "19:00",
+   "p": [
+    27,
+    41,
+    32
+   ],
+   "fb": "X",
+   "cs": "1-1",
+   "avg": 2.0,
+   "odds": [
+    -105,
+    220,
+    250
+   ],
+   "coef": 220
+  },
+  {
+   "lg": "Fr2",
+   "lgname": "France Ligue 2",
+   "h": "Pau",
+   "a": "Dunkerque",
+   "t": "19:00",
+   "p": [
+    23,
+    40,
+    36
+   ],
+   "fb": "X",
+   "cs": "0-0",
+   "avg": 2.11,
+   "odds": [
+    120,
+    210,
+    190
+   ],
+   "coef": 210
+  },
+  {
+   "lg": "Fr2",
+   "lgname": "France Ligue 2",
+   "h": "Stade Laval",
+   "a": "FC Sochaux",
+   "t": "19:00",
+   "p": [
+    12,
+    49,
+    39
+   ],
+   "fb": "X",
+   "cs": "1-1",
+   "avg": 2.14,
+   "odds": [
+    120,
+    200,
+    210
+   ],
+   "coef": 200
+  },
+  {
+   "lg": "Fr2",
+   "lgname": "France Ligue 2",
+   "h": "Grenoble",
+   "a": "Clermont",
+   "t": "19:00",
+   "p": [
+    26,
+    55,
+    19
+   ],
+   "fb": "X",
+   "cs": "0-0",
+   "avg": 2.42,
+   "odds": [
+    130,
+    180,
+    210
+   ],
+   "coef": 180
+  },
+  {
+   "lg": "Fr2",
+   "lgname": "France Ligue 2",
+   "h": "Annecy",
+   "a": "Dijon FCO",
+   "t": "19:00",
+   "p": [
+    40,
+    49,
+    11
+   ],
+   "fb": "X",
+   "cs": "0-0",
+   "avg": 2.0,
+   "odds": [
+    110,
+    210,
+    220
+   ],
+   "coef": 210
+  },
+  {
+   "lg": "Nl1",
+   "lgname": "Netherlands Eredivisie",
+   "h": "Groningen",
+   "a": "PEC Zwolle",
+   "t": "19:00",
+   "p": [
+    47,
+    30,
+    23
+   ],
+   "fb": "1",
+   "cs": "3-1",
+   "avg": 3.05,
+   "odds": [
+    -189,
+    350,
+    450
+   ],
+   "coef": -189
+  },
+  {
+   "lg": "Nl2",
+   "lgname": "Netherlands Eerste Divisie",
+   "h": "Waalwijk",
+   "a": "MVV Maastricht",
+   "t": "19:00",
+   "p": [
+    27,
+    35,
+    39
+   ],
+   "fb": "2",
+   "cs": "2-3",
+   "avg": 3.55,
+   "odds": [
+    -133,
+    280,
+    350
+   ],
+   "coef": 350
+  },
+  {
+   "lg": "Nl2",
+   "lgname": "Netherlands Eerste Divisie",
+   "h": "Jong Utrecht",
+   "a": "VVV Venlo",
+   "t": "19:00",
+   "p": [
+    21,
+    24,
+    54
+   ],
+   "fb": "2",
+   "cs": "1-3",
+   "avg": 3.75,
+   "odds": [
+    140,
+    280,
+    160
+   ],
+   "coef": 160
+  },
+  {
+   "lg": "Nl2",
+   "lgname": "Netherlands Eerste Divisie",
+   "h": "Jong AZ Alkmaar",
+   "a": "Volendam",
+   "t": "19:00",
+   "p": [
+    32,
+    25,
+    43
+   ],
+   "fb": "2",
+   "cs": "1-3",
+   "avg": 3.38,
+   "odds": [
+    187,
+    280,
+    120
+   ],
+   "coef": 120
+  },
+  {
+   "lg": "Nl2",
+   "lgname": "Netherlands Eerste Divisie",
+   "h": "Jong Ajax",
+   "a": "Roda Kerkrade",
+   "t": "19:00",
+   "p": [
+    19,
+    32,
+    49
+   ],
+   "fb": "2",
+   "cs": "1-2",
+   "avg": 2.99,
+   "odds": [
+    230,
+    300,
+    -105
+   ],
+   "coef": -105
+  },
+  {
+   "lg": "Nl2",
+   "lgname": "Netherlands Eerste Divisie",
+   "h": "FC Eindhoven",
+   "a": "Emmen",
+   "t": "19:00",
+   "p": [
+    30,
+    18,
+    52
+   ],
+   "fb": "2",
+   "cs": "1-3",
+   "avg": 3.4,
+   "odds": [
+    300,
+    300,
+    -133
+   ],
+   "coef": -133
+  },
+  {
+   "lg": "Nl2",
+   "lgname": "Netherlands Eerste Divisie",
+   "h": "FC Den Bosch",
+   "a": "Helmond Sport",
+   "t": "19:00",
+   "p": [
+    38,
+    32,
+    30
+   ],
+   "fb": "1",
+   "cs": "2-1",
+   "avg": 4.07,
+   "odds": [
+    -120,
+    300,
+    275
+   ],
+   "coef": -120,
+   "note": "Forebet featured match"
+  },
+  {
+   "lg": "Nl2",
+   "lgname": "Netherlands Eerste Divisie",
+   "h": "Almere City",
+   "a": "Heracles",
+   "t": "19:00",
+   "p": [
+    15,
+    29,
+    56
+   ],
+   "fb": "2",
+   "cs": "1-3",
+   "avg": 3.5,
+   "odds": [
+    200,
+    320,
+    105
+   ],
+   "coef": 105
+  },
+  {
+   "lg": "Nl2",
+   "lgname": "Netherlands Eerste Divisie",
+   "h": "TOP Oss",
+   "a": "FC Dordrecht",
+   "t": "19:00",
+   "p": [
+    45,
+    32,
+    23
+   ],
+   "fb": "1",
+   "cs": "2-1",
+   "avg": 3.61,
+   "odds": [
+    150,
+    250,
+    162
+   ],
+   "coef": 150
+  },
+  {
+   "lg": "Tr1",
+   "lgname": "T\u00fcrkiye S\u00fcper Lig",
+   "h": "Kas\u0131mpa\u015fa",
+   "a": "Konyaspor",
+   "t": "18:00",
+   "p": [
+    54,
+    28,
+    18
+   ],
+   "fb": "1",
+   "cs": "2-1",
+   "avg": 3.38,
+   "odds": [
+    135,
+    220,
+    200
+   ],
+   "coef": 135
+  },
+  {
+   "lg": "At1",
+   "lgname": "Austria Bundesliga",
+   "h": "Rapid Wien",
+   "a": "WSG Tirol",
+   "t": "18:30",
+   "p": [
+    53,
+    26,
+    21
+   ],
+   "fb": "1",
+   "cs": "3-1",
+   "avg": 3.65,
+   "odds": [
+    -278,
+    400,
+    600
+   ],
+   "coef": -278
+  },
+  {
+   "lg": "Be1",
+   "lgname": "Belgium Pro League",
+   "h": "Gent",
+   "a": "Standard Li\u00e8ge",
+   "t": "19:45",
+   "p": [
+    43,
+    31,
+    26
+   ],
+   "fb": "1",
+   "cs": "3-1",
+   "avg": 3.08,
+   "odds": [
+    -125,
+    240,
+    320
+   ],
+   "coef": -125
+  },
+  {
+   "lg": "Ar1",
+   "lgname": "Argentina Liga Profesional",
+   "h": "Central C\u00f3rdoba SdE",
+   "a": "Defensa y Justicia",
+   "t": "22:00",
+   "p": [
+    34,
+    25,
+    41
+   ],
+   "fb": "2",
+   "cs": "0-2",
+   "avg": 2.21,
+   "odds": [
+    180,
+    200,
+    175
+   ],
+   "coef": 175
+  },
+  {
+   "lg": "Ar1",
+   "lgname": "Argentina Liga Profesional",
+   "h": "Racing Club",
+   "a": "Sarmiento Jun\u00edn",
+   "t": "23:15",
+   "p": [
+    33,
+    20,
+    47
+   ],
+   "fb": "2",
+   "cs": "0-2",
+   "avg": 2.45,
+   "odds": [
+    -152,
+    260,
+    450
+   ],
+   "coef": 450,
+   "note": "Forebet pick of the day"
+  },
+  {
+   "lg": "Co1",
+   "lgname": "Colombia Primera A",
+   "h": "Rionegro \u00c1guilas",
+   "a": "Deportivo Pereira",
+   "t": "22:00",
+   "p": [
+    39,
+    43,
+    18
+   ],
+   "fb": "X",
+   "cs": "1-1",
+   "avg": 2.2,
+   "odds": [
+    -250,
+    333,
+    750
+   ],
+   "coef": 333
+  },
+  {
+   "lg": "Mx1",
+   "lgname": "Mexico Liga MX",
+   "h": "Puebla FC",
+   "a": "Atlante FC",
+   "t": "00:00+1",
+   "p": [
+    36,
+    38,
+    27
+   ],
+   "fb": "X",
+   "cs": "1-1",
+   "avg": 2.47,
+   "odds": [
+    120,
+    250,
+    210
+   ],
+   "coef": 250
+  },
+  {
+   "lg": "Mx1",
+   "lgname": "Mexico Liga MX",
+   "h": "FC Ju\u00e1rez",
+   "a": "Tigres UANL",
+   "t": "02:00+1",
+   "p": [
+    21,
+    40,
+    39
+   ],
+   "fb": "X",
+   "cs": "0-0",
+   "avg": 1.8,
+   "odds": [
+    333,
+    260,
+    -118
+   ],
+   "coef": 260
+  },
+  {
+   "lg": "Cn1",
+   "lgname": "China Super League",
+   "h": "Zhejiang FC",
+   "a": "Wuhan Three Towns",
+   "t": "12:35",
+   "p": [
+    42,
+    37,
+    21
+   ],
+   "fb": "1",
+   "cs": "3-1",
+   "avg": 4.24,
+   "odds": [
+    -125,
+    333,
+    260
+   ],
+   "coef": -125
+  },
+  {
+   "lg": "FA",
+   "lgname": "England FA Cup",
+   "h": "Worcester",
+   "a": "Stratford Town",
+   "t": "19:45",
+   "p": [
+    34,
+    36,
+    30
+   ],
+   "fb": "X",
+   "cs": "0-0",
+   "avg": 1.77,
+   "odds": [
+    -118,
+    240,
+    260
+   ],
+   "coef": 240
+  },
+  {
+   "lg": "FA",
+   "lgname": "England FA Cup",
+   "h": "Yate Town",
+   "a": "Chippenham",
+   "t": "19:45",
+   "p": [
+    31,
+    34,
+    35
+   ],
+   "fb": "2",
+   "cs": "1-2",
+   "avg": 3.22,
+   "odds": [
+    135,
+    225,
+    155
+   ],
+   "coef": 155
+  },
+  {
+   "lg": "NL",
+   "lgname": "England National League",
+   "h": "Yeovil Town",
+   "a": "Solihull Moors",
+   "t": "19:45",
+   "p": [
+    56,
+    28,
+    17
+   ],
+   "fb": "1",
+   "cs": "3-1",
+   "avg": 3.04,
+   "odds": [
+    100,
+    250,
+    220
+   ],
+   "coef": 100
+  },
+  {
+   "lg": "PL2",
+   "lgname": "England Premier League 2",
+   "h": "Birmingham U21",
+   "a": "Arsenal U23s",
+   "t": "13:00",
+   "p": [
+    31,
+    40,
+    29
+   ],
+   "fb": "X",
+   "cs": "1-1",
+   "avg": 2.0,
+   "odds": [
+    333,
+    400,
+    -200
+   ],
+   "coef": 400
+  },
+  {
+   "lg": "PL2",
+   "lgname": "England Premier League 2",
+   "h": "Wolves U23s",
+   "a": "Southampton U23s",
+   "t": "19:00",
+   "p": [
+    19,
+    23,
+    58
+   ],
+   "fb": "2",
+   "cs": "0-2",
+   "avg": 2.44,
+   "odds": [
+    240,
+    320,
+    -143
+   ],
+   "coef": -143
+  },
+  {
+   "lg": "PL2",
+   "lgname": "England Premier League 2",
+   "h": "West Brom U23s",
+   "a": "Nott'm Forest U21",
+   "t": "19:00",
+   "p": [
+    22,
+    25,
+    53
+   ],
+   "fb": "2",
+   "cs": "1-3",
+   "avg": 3.08,
+   "odds": [
+    170,
+    280,
+    105
+   ],
+   "coef": 105
+  },
+  {
+   "lg": "PL2",
+   "lgname": "England Premier League 2",
+   "h": "Sunderland U23s",
+   "a": "Norwich U23s",
+   "t": "19:00",
+   "p": [
+    30,
+    36,
+    34
+   ],
+   "fb": "2",
+   "cs": "2-2",
+   "avg": 3.61,
+   "odds": [
+    -118,
+    310,
+    190
+   ],
+   "coef": 310
+  },
+  {
+   "lg": "RO1",
+   "lgname": "Romania Liga 1",
+   "h": "UTA Arad",
+   "a": "Sepsi",
+   "t": "14:00",
+   "p": [
+    28,
+    38,
+    34
+   ],
+   "fb": "X",
+   "cs": "1-1",
+   "avg": 2.4,
+   "odds": [
+    -125,
+    225,
+    290
+   ],
+   "coef": 225,
+   "note": "No model data - market only"
+  },
+  {
+   "lg": "RO1",
+   "lgname": "Romania Liga 1",
+   "h": "Rapid Bucuresti",
+   "a": "Arges Pitesti",
+   "t": "19:00",
+   "p": [
+    54,
+    29,
+    16
+   ],
+   "fb": "1",
+   "cs": "2-0",
+   "avg": 1.94,
+   "odds": [
+    -182,
+    250,
+    425
+   ],
+   "coef": -182,
+   "note": "No model data - market only"
+  },
+  {
+   "lg": "Az1",
+   "lgname": "Azerbaijan Premier League",
+   "h": "Qarabag",
+   "a": "Shafa Baku",
+   "t": "16:45",
+   "p": [
+    80,
+    14,
+    6
+   ],
+   "fb": "1",
+   "cs": "2-0",
+   "avg": 0,
+   "odds": [
+    114,
+    700,
+    1500
+   ],
+   "coef": 114,
+   "note": "Qarabag unbeaten in 31/36"
+  },
+  {
+   "lg": "Dz1",
+   "lgname": "Algeria Ligue 1",
+   "h": "MO Bejaia",
+   "a": "MO Constantine",
+   "t": "16:00",
+   "p": [
+    0,
+    0,
+    0
+   ],
+   "fb": "1",
+   "cs": "1-0",
+   "avg": 0,
+   "odds": [
+    140,
+    380,
+    750
+   ],
+   "coef": 140
+  },
+  {
+   "lg": "Dz1",
+   "lgname": "Algeria Ligue 1",
+   "h": "USM Annaba",
+   "a": "NC Magra",
+   "t": "16:00",
+   "p": [
+    0,
+    0,
+    0
+   ],
+   "fb": "1",
+   "cs": "1-0",
+   "avg": 0,
+   "odds": [
+    166,
+    320,
+    500
+   ],
+   "coef": 166
+  },
+  {
+   "lg": "SM",
+   "lgname": "San Marino Campionato",
+   "h": "SS Murata",
+   "a": "SS Cosmos",
+   "t": "18:15",
+   "p": [
+    0,
+    0,
+    0
+   ],
+   "fb": "2",
+   "cs": "0-2",
+   "avg": 0,
+   "odds": [
+    650,
+    475,
+    133
+   ],
+   "coef": 133
+  },
+  {
+   "lg": "Fw",
+   "lgname": "France Women's Division 1",
+   "h": "Le Havre W",
+   "a": "Lyon W",
+   "t": "19:00",
+   "p": [
+    0,
+    0,
+    0
+   ],
+   "fb": "2",
+   "cs": "0-2",
+   "avg": 0,
+   "odds": [
+    0,
+    0,
+    100
+   ],
+   "coef": 100,
+   "note": "Lyon W unbeaten in 26"
+  },
+  {
+   "lg": "Sw",
+   "lgname": "Spain Women's Liga F",
+   "h": "Alaves W",
+   "a": "Barcelona W",
+   "t": "20:00",
+   "p": [
+    0,
+    0,
+    0
+   ],
+   "fb": "2",
+   "cs": "0-3",
+   "avg": 0,
+   "odds": [
+    0,
+    0,
+    103
+   ],
+   "coef": 103,
+   "note": "Barca W won 24 of 26"
+  },
+  {
+   "lg": "Jp2",
+   "lgname": "Japan J2 League",
+   "h": "Vanraure Hachinohe",
+   "a": "Tegevajaro Miyazaki",
+   "t": "05:00",
+   "p": [
+    41,
+    34,
+    26
+   ],
+   "fb": "1",
+   "cs": "2-1",
+   "avg": 2.58,
+   "odds": [
+    250,
+    220,
+    110
+   ],
+   "coef": 250,
+   "status": "FT 0-3"
+  },
+  {
+   "lg": "Mx2",
+   "lgname": "Mexico Liga de Expansion",
+   "h": "Alacranes Durango",
+   "a": "Cruz Azul Hidalgo",
+   "t": "00:00-1",
+   "p": [
+    24,
+    61,
+    15
+   ],
+   "fb": "X",
+   "cs": "1-1",
+   "avg": 2.3,
+   "odds": [
+    -105,
+    250,
+    275
+   ],
+   "coef": 250,
+   "status": "FT 2-0"
+  },
+  {
+   "lg": "Cn2",
+   "lgname": "China League 2",
+   "h": "Changchun Xidu",
+   "a": "Guangdong Mingtu",
+   "t": "09:00",
+   "p": [
+    29,
+    36,
+    34
+   ],
+   "fb": "X",
+   "cs": "0-0",
+   "avg": 1.17,
+   "odds": [
+    150,
+    170,
+    190
+   ],
+   "coef": 170,
+   "status": "was live"
+  },
+  {
+   "lg": "Cn2",
+   "lgname": "China League 2",
+   "h": "Rizhao Yuqi",
+   "a": "Yichun",
+   "t": "09:00",
+   "p": [
+    26,
+    49,
+    25
+   ],
+   "fb": "X",
+   "cs": "0-0",
+   "avg": 1.13,
+   "odds": [
+    105,
+    190,
+    260
+   ],
+   "coef": 190,
+   "status": "was live"
+  },
+  {
+   "lg": "RuY",
+   "lgname": "Russia U19",
+   "h": "Ural U19",
+   "a": "Dinamo Makhachkala U19",
+   "t": "09:00",
+   "p": [
+    50,
+    24,
+    26
+   ],
+   "fb": "1",
+   "cs": "3-1",
+   "avg": 4.83,
+   "odds": [
+    118,
+    220,
+    187
+   ],
+   "coef": 118,
+   "status": "was live"
+  },
+  {
+   "lg": "Id1",
+   "lgname": "Indonesia Liga 1",
+   "h": "Arema",
+   "a": "Persik Kediri",
+   "t": "09:30",
+   "p": [
+    45,
+    21,
+    35
+   ],
+   "fb": "1",
+   "cs": "2-1",
+   "avg": 3.11,
+   "odds": [
+    -133,
+    240,
+    310
+   ],
+   "coef": -133,
+   "status": "played"
+  },
+  {
+   "lg": "Id2",
+   "lgname": "Indonesia Liga 2",
+   "h": "Persipura Jayapura",
+   "a": "Tornado",
+   "t": "09:30",
+   "p": [
+    23,
+    25,
+    51
+   ],
+   "fb": "2",
+   "cs": "2-3",
+   "avg": 2.61,
+   "odds": [
+    -118,
+    230,
+    260
+   ],
+   "coef": 260,
+   "status": "played"
+  },
+  {
+   "lg": "Th3",
+   "lgname": "Thailand League 3",
+   "h": "Suranaree University",
+   "a": "Ubon United",
+   "t": "09:30",
+   "p": [
+    45,
+    16,
+    39
+   ],
+   "fb": "1",
+   "cs": "3-1",
+   "avg": 3.18,
+   "odds": [
+    -400,
+    500,
+    1100
+   ],
+   "coef": -400,
+   "status": "played"
+  },
+  {
+   "lg": "Il3",
+   "lgname": "Israel Liga Leumit",
+   "h": "Ironi Nesher",
+   "a": "Maccabi Umm Al Fahm",
+   "t": "09:50",
+   "p": [
+    32,
+    37,
+    30
+   ],
+   "fb": "X",
+   "cs": "3-3",
+   "avg": 2.5,
+   "odds": [
+    100,
+    240,
+    210
+   ],
+   "coef": 240,
+   "status": "played"
+  },
+  {
+   "lg": "Il3",
+   "lgname": "Israel Liga Leumit",
+   "h": "Hapoel Marmorek",
+   "a": "Ramat HaSharon",
+   "t": "09:50",
+   "p": [
+    22,
+    53,
+    25
+   ],
+   "fb": "X",
+   "cs": "1-1",
+   "avg": 2.3,
+   "odds": [
+    275,
+    260,
+    -133
+   ],
+   "coef": 260,
+   "status": "played"
+  },
+  {
+   "lg": "Cn2",
+   "lgname": "China League 2",
+   "h": "Wuhan Three Towns B",
+   "a": "Nantong Haimen",
+   "t": "10:00",
+   "p": [
+    27,
+    39,
+    34
+   ],
+   "fb": "X",
+   "cs": "0-0",
+   "avg": 1.33,
+   "odds": [
+    170,
+    200,
+    145
+   ],
+   "coef": 200,
+   "status": "played"
+  },
+  {
+   "lg": "Bd1",
+   "lgname": "Bangladesh Premier League",
+   "h": "PWD Club",
+   "a": "Abahani Limited",
+   "t": "10:00",
+   "p": [
+    23,
+    31,
+    46
+   ],
+   "fb": "2",
+   "cs": "1-2",
+   "avg": 2.55,
+   "odds": [
+    850,
+    450,
+    -455
+   ],
+   "coef": -455,
+   "status": "played"
+  },
+  {
+   "lg": "Bd1",
+   "lgname": "Bangladesh Premier League",
+   "h": "Brothers Union",
+   "a": "City Club",
+   "t": "10:00",
+   "p": [
+    32,
+    35,
+    33
+   ],
+   "fb": "X",
+   "cs": "1-1",
+   "avg": 1.39,
+   "odds": [
+    -120,
+    280,
+    225
+   ],
+   "coef": 280,
+   "status": "played"
+  },
+  {
+   "lg": "Bd1",
+   "lgname": "Bangladesh Premier League",
+   "h": "Fakirerpool",
+   "a": "Dhaka Wanderers",
+   "t": "10:00",
+   "p": [
+    47,
+    18,
+    35
+   ],
+   "fb": "1",
+   "cs": "3-1",
+   "avg": 3.78,
+   "odds": [
+    110,
+    270,
+    175
+   ],
+   "coef": 110,
+   "status": "played"
+  },
+  {
+   "lg": "Bd1",
+   "lgname": "Bangladesh Premier League",
+   "h": "Bangladesh Police",
+   "a": "Rahmatganj MFS",
+   "t": "10:00",
+   "p": [
+    45,
+    36,
+    19
+   ],
+   "fb": "1",
+   "cs": "2-0",
+   "avg": 2.32,
+   "odds": [
+    -263,
+    333,
+    500
+   ],
+   "coef": -263,
+   "status": "played"
+  },
+  {
+   "lg": "Bd1",
+   "lgname": "Bangladesh Premier League",
+   "h": "Fortis FC",
+   "a": "Chattogram Abahani",
+   "t": "10:00",
+   "p": [
+    39,
+    33,
+    28
+   ],
+   "fb": "1",
+   "cs": "2-0",
+   "avg": 1.06,
+   "odds": [
+    -250,
+    333,
+    500
+   ],
+   "coef": -250,
+   "status": "played"
+  },
+  {
+   "lg": "Ua1",
+   "lgname": "Ukraine Premier League",
+   "h": "Chernomorets Odessa",
+   "a": "Obolon Kyiv",
+   "t": "11:00",
+   "p": [
+    33,
+    50,
+    17
+   ],
+   "fb": "X",
+   "cs": "0-0",
+   "avg": 1.81,
+   "odds": [
+    135,
+    200,
+    180
+   ],
+   "coef": 200,
+   "status": "played"
+  },
+  {
+   "lg": "Cn1",
+   "lgname": "China Super League",
+   "h": "Yanbian Longding",
+   "a": "Guangdong GZ-Power",
+   "t": "11:00",
+   "p": [
+    26,
+    33,
+    41
+   ],
+   "fb": "2",
+   "cs": "1-3",
+   "avg": 4.17,
+   "odds": [
+    270,
+    250,
+    -125
+   ],
+   "coef": 250,
+   "status": "played"
+  },
+  {
+   "lg": "Jp3",
+   "lgname": "Japan J3 League",
+   "h": "Roasso Kumamoto",
+   "a": "Matsumoto Yamaga",
+   "t": "11:00",
+   "p": [
+    25,
+    53,
+    22
+   ],
+   "fb": "X",
+   "cs": "0-0",
+   "avg": 2.17,
+   "odds": [
+    125,
+    220,
+    180
+   ],
+   "coef": 220,
+   "status": "played"
+  },
+  {
+   "lg": "Jp3",
+   "lgname": "Japan J3 League",
+   "h": "FC Osaka",
+   "a": "Fukushima United",
+   "t": "11:00",
+   "p": [
+    61,
+    20,
+    19
+   ],
+   "fb": "1",
+   "cs": "2-1",
+   "avg": 3.08,
+   "odds": [
+    -139,
+    270,
+    280
+   ],
+   "coef": -139,
+   "status": "played"
+  },
+  {
+   "lg": "Kz2",
+   "lgname": "Kazakhstan 1 League",
+   "h": "FC Astana Youth",
+   "a": "FC Ekibastuz",
+   "t": "11:00",
+   "p": [
+    51,
+    26,
+    23
+   ],
+   "fb": "1",
+   "cs": "3-1",
+   "avg": 3.6,
+   "odds": null,
+   "coef": null,
+   "status": "played"
+  },
+  {
+   "lg": "Kz2",
+   "lgname": "Kazakhstan 1 League",
+   "h": "Khan Tengri",
+   "a": "Kairat Academy",
+   "t": "11:00",
+   "p": [
+    12,
+    24,
+    64
+   ],
+   "fb": "2",
+   "cs": "1-2",
+   "avg": 2.98,
+   "odds": null,
+   "coef": null,
+   "status": "played"
+  },
+  {
+   "lg": "Ua3",
+   "lgname": "Ukraine Amatorska Liga",
+   "h": "Karbon Kropyvnytskyi",
+   "a": "FC Oleksandria II",
+   "t": "11:00",
+   "p": [
+    29,
+    40,
+    31
+   ],
+   "fb": "X",
+   "cs": "1-1",
+   "avg": 0.83,
+   "odds": [
+    135,
+    200,
+    180
+   ],
+   "coef": 200,
+   "status": "played"
+  },
+  {
+   "lg": "Pl4",
+   "lgname": "Poland IV Liga Opole",
+   "h": "MKS II Lubin",
+   "a": "Carina Gubin",
+   "t": "11:00",
+   "p": [
+    72,
+    14,
+    15
+   ],
+   "fb": "1",
+   "cs": "3-0",
+   "avg": 2.63,
+   "odds": [
+    -227,
+    350,
+    400
+   ],
+   "coef": -227,
+   "status": "played"
+  },
+  {
+   "lg": "Il3",
+   "lgname": "Israel Liga Leumit",
+   "h": "Maccabi Ashdod",
+   "a": "Ironi Beit Shemesh",
+   "t": "11:30",
+   "p": [
+    42,
+    32,
+    26
+   ],
+   "fb": "1",
+   "cs": "2-0",
+   "avg": 1.7,
+   "odds": [
+    150,
+    230,
+    140
+   ],
+   "coef": 230,
+   "status": "played"
+  },
+  {
+   "lg": "Il3",
+   "lgname": "Israel Liga Leumit",
+   "h": "Maccabi Yavne",
+   "a": "Hapoel Herzliya",
+   "t": "11:35",
+   "p": [
+    29,
+    21,
+    50
+   ],
+   "fb": "2",
+   "cs": "1-2",
+   "avg": 2.63,
+   "odds": [
+    -125,
+    250,
+    260
+   ],
+   "coef": 250,
+   "status": "played"
+  },
+  {
+   "lg": "Kz1",
+   "lgname": "Kazakhstan Premier League",
+   "h": "Okzhetpes",
+   "a": "Zhenis",
+   "t": "12:00",
+   "p": [
+    41,
+    34,
+    26
+   ],
+   "fb": "1",
+   "cs": "1-0",
+   "avg": 1.93,
+   "odds": [
+    -105,
+    230,
+    230
+   ],
+   "coef": -105,
+   "status": "played"
+  },
+  {
+   "lg": "Cn1",
+   "lgname": "China Super League",
+   "h": "Dalian Kuncheng",
+   "a": "Shanghai Jiading",
+   "t": "12:00",
+   "p": [
+    23,
+    36,
+    41
+   ],
+   "fb": "2",
+   "cs": "1-2",
+   "avg": 2.83,
+   "odds": [
+    -111,
+    250,
+    240
+   ],
+   "coef": 240,
+   "status": "played"
+  },
+  {
+   "lg": "Ru2",
+   "lgname": "Russia First League",
+   "h": "FC Zvezda SPb",
+   "a": "Murom",
+   "t": "12:00",
+   "p": [
+    15,
+    24,
+    60
+   ],
+   "fb": "2",
+   "cs": "1-2",
+   "avg": 2.94,
+   "odds": [
+    350,
+    230,
+    -135
+   ],
+   "coef": -135,
+   "status": "played"
+  },
+  {
+   "lg": "VnC",
+   "lgname": "Vietnam Cup",
+   "h": "Binh Dinh",
+   "a": "Ba Ria Vung Tau",
+   "t": "12:00",
+   "p": [
+    37,
+    36,
+    27
+   ],
+   "fb": "1",
+   "cs": "2-1",
+   "avg": 2.8,
+   "odds": null,
+   "coef": null,
+   "status": "played"
+  },
+  {
+   "lg": "Il3",
+   "lgname": "Israel Liga Leumit",
+   "h": "Ironi Kiryat Malakhi",
+   "a": "Hapoel Azor",
+   "t": "12:00",
+   "p": [
+    41,
+    38,
+    21
+   ],
+   "fb": "1",
+   "cs": "1-0",
+   "avg": 1.97,
+   "odds": [
+    140,
+    200,
+    175
+   ],
+   "coef": 200,
+   "status": "played"
+  },
+  {
+   "lg": "Il3",
+   "lgname": "Israel Liga Leumit",
+   "h": "Hapoel Bnei Musmus",
+   "a": "Beitar Nahariya",
+   "t": "12:25",
+   "p": [
+    26,
+    31,
+    42
+   ],
+   "fb": "2",
+   "cs": "0-1",
+   "avg": 1.08,
+   "odds": [
+    200,
+    240,
+    105
+   ],
+   "coef": 105,
+   "status": "played"
+  },
+  {
+   "lg": "Sg1",
+   "lgname": "Singapore Premier League",
+   "h": "Albirex Niigata (S)",
+   "a": "Hougang United",
+   "t": "12:30",
+   "p": [
+    46,
+    37,
+    17
+   ],
+   "fb": "1",
+   "cs": "3-1",
+   "avg": 3.22,
+   "odds": [
+    -167,
+    350,
+    270
+   ],
+   "coef": -167,
+   "status": "played"
+  },
+  {
+   "lg": "Cn1",
+   "lgname": "China Super League",
+   "h": "Nantong Zhiyun",
+   "a": "Guangxi Hengchen Forest",
+   "t": "12:30",
+   "p": [
+    27,
+    49,
+    24
+   ],
+   "fb": "X",
+   "cs": "1-1",
+   "avg": 1.5,
+   "odds": [
+    -111,
+    225,
+    270
+   ],
+   "coef": 225,
+   "status": "played"
+  },
+  {
+   "lg": "Cn2",
+   "lgname": "China League 2",
+   "h": "Jiangxi Liansheng",
+   "a": "Shandong Taishan II",
+   "t": "12:30",
+   "p": [
+    23,
+    28,
+    49
+   ],
+   "fb": "2",
+   "cs": "1-2",
+   "avg": 3.17,
+   "odds": [
+    188,
+    200,
+    130
+   ],
+   "coef": 200,
+   "status": "played"
+  },
+  {
+   "lg": "Id1",
+   "lgname": "Indonesia Liga 1",
+   "h": "Madura United",
+   "a": "PSIM Yogyakarta",
+   "t": "13:00",
+   "p": [
+    39,
+    28,
+    33
+   ],
+   "fb": "1",
+   "cs": "2-1",
+   "avg": 2.8,
+   "odds": [
+    -111,
+    225,
+    250
+   ],
+   "coef": -111,
+   "status": "played"
+  },
+  {
+   "lg": "Kz1",
+   "lgname": "Kazakhstan Premier League",
+   "h": "Altai Semey",
+   "a": "Irtysh Pavlodar",
+   "t": "13:00",
+   "p": [
+    35,
+    37,
+    28
+   ],
+   "fb": "X",
+   "cs": "1-1",
+   "avg": 1.38,
+   "odds": [
+    125,
+    220,
+    180
+   ],
+   "coef": 220,
+   "status": "played"
+  },
+  {
+   "lg": "Kz1",
+   "lgname": "Kazakhstan Premier League",
+   "h": "Zhetysu",
+   "a": "Kaspij Aktau",
+   "t": "13:00",
+   "p": [
+    43,
+    28,
+    29
+   ],
+   "fb": "1",
+   "cs": "1-0",
+   "avg": 1.29,
+   "odds": [
+    115,
+    220,
+    200
+   ],
+   "coef": 200,
+   "status": "played"
+  },
+  {
+   "lg": "Th1",
+   "lgname": "Thailand League 1",
+   "h": "Ayutthaya FC",
+   "a": "Uthai Thani FC",
+   "t": "13:00",
+   "p": [
+    34,
+    28,
+    38
+   ],
+   "fb": "2",
+   "cs": "1-2",
+   "avg": 2.88,
+   "odds": [
+    130,
+    200,
+    180
+   ],
+   "coef": 200,
+   "status": "played"
+  },
+  {
+   "lg": "Id2",
+   "lgname": "Indonesia Liga 2",
+   "h": "PSG Pati",
+   "a": "Sulut United",
+   "t": "13:00",
+   "p": [
+    35,
+    17,
+    48
+   ],
+   "fb": "2",
+   "cs": "1-2",
+   "avg": 3.44,
+   "odds": [
+    -154,
+    250,
+    333
+   ],
+   "coef": 333,
+   "status": "played"
+  }
+ ],
+ "n_other": 90
+}
