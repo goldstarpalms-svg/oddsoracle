@@ -5,9 +5,11 @@
   "description": "OddsOracle — free multi-sport betting predictions (football, basketball, tennis) built for SEO and rankings.",
   "scripts": {
     "dev": "next dev",
+    "prebuild": "node scripts/bundle-data.mjs",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "bundle-data": "node scripts/bundle-data.mjs"
   },
   "dependencies": {
     "next": "^14.2.35",

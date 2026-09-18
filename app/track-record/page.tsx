@@ -1,18 +1,12 @@
 import Link from "next/link";
-import fs from "node:fs";
-import path from "node:path";
 import type { Metadata } from "next";
+import SNAPSHOT from "@/lib/data-snapshot.json";
 
 export const revalidate = 600;
 export const runtime = "nodejs";
 
 function loadHistory(): any {
-  try {
-    const p = path.join(process.cwd(), "backend", "app", "results", "history.json");
-    return JSON.parse(fs.readFileSync(p, "utf8"));
-  } catch {
-    return { days: {}, cumulative: null };
-  }
+  return (SNAPSHOT.history as any) || { days: {}, cumulative: null };
 }
 
 export const metadata: Metadata = {
