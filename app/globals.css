@@ -1,29 +1,36 @@
 :root {
-  --bg: #070b12;
-  --bg-2: #0b111b;
-  --surface: #101827;
-  --surface-2: #152033;
-  --border: #222e44;
-  --border-soft: #1a2437;
+  --bg: #05080f;
+  --bg-2: #0a0f1a;
+  --surface: #0e1524;
+  --surface-2: #131c30;
+  --border: #1e2a42;
+  --border-soft: #172136;
 
   --text: #eef2f8;
   --text-dim: #9aa9bd;
   --text-faint: #6b7a92;
 
-  --accent: #22d06b;      /* win green */
-  --accent-2: #f5b03c;    /* value amber */
-  --accent-3: #4c9cff;    /* info blue */
+  --accent: #1fd68b;      /* win emerald */
+  --accent-2: #fbbf24;    /* value gold */
+  --accent-3: #38bdf8;    /* info cyan */
   --danger: #ff5a5a;
 
-  --grad: linear-gradient(135deg, #22d06b 0%, #2fd6a0 55%, #4c9cff 100%);
-  --grad-amber: linear-gradient(135deg, #f5b03c 0%, #ffe08a 100%);
+  /* per-sport accents */
+  --c-football: #1fd68b;
+  --c-basketball: #ff8a3d;
+  --c-tennis: #d3f34f;
+  --c-other: #38bdf8;
+
+  --grad: linear-gradient(135deg, #1fd68b 0%, #2fd6a0 45%, #38bdf8 100%);
+  --grad-amber: linear-gradient(135deg, #fbbf24 0%, #ffe08a 100%);
+  --grad-gold: linear-gradient(135deg, rgba(251, 191, 36, 0.16), rgba(255, 224, 138, 0.05));
 
   --radius: 14px;
   --radius-sm: 9px;
   --maxw: 1180px;
 
-  --shadow: 0 10px 40px rgba(0, 0, 0, 0.35);
-  --shadow-soft: 0 4px 18px rgba(0, 0, 0, 0.25);
+  --shadow: 0 10px 40px rgba(2, 6, 16, 0.55);
+  --shadow-soft: 0 4px 18px rgba(2, 6, 16, 0.4);
 
   --font: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
     Helvetica, Arial, sans-serif;
@@ -210,8 +217,13 @@ p {
   color: #04130a;
   font-weight: 800;
   font-size: 14px;
-  box-shadow: var(--shadow-soft);
-  transition: transform 0.15s;
+  box-shadow: 0 4px 18px rgba(31, 214, 139, 0.28);
+  transition: transform 0.15s, box-shadow 0.15s;
+}
+
+.nav-cta:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 24px rgba(31, 214, 139, 0.4);
 }
 
 .nav-cta:hover {
@@ -236,8 +248,9 @@ p {
   overflow: hidden;
   padding: 92px 0 72px;
   background:
-    radial-gradient(60% 80% at 80% -10%, rgba(76, 156, 255, 0.22), transparent 60%),
-    radial-gradient(50% 70% at 10% 0%, rgba(34, 208, 107, 0.18), transparent 55%),
+    radial-gradient(55% 75% at 85% -10%, rgba(56, 189, 248, 0.2), transparent 60%),
+    radial-gradient(45% 65% at 8% 0%, rgba(31, 214, 139, 0.16), transparent 55%),
+    radial-gradient(70% 60% at 50% 115%, rgba(251, 191, 36, 0.07), transparent 60%),
     var(--bg);
 }
 
@@ -320,12 +333,12 @@ p {
 .btn-primary {
   background: var(--grad);
   color: #04130a;
-  box-shadow: var(--shadow-soft);
+  box-shadow: 0 6px 22px rgba(31, 214, 139, 0.3);
 }
 
 .btn-primary:hover {
   transform: translateY(-2px);
-  box-shadow: var(--shadow);
+  box-shadow: 0 10px 30px rgba(31, 214, 139, 0.42);
 }
 
 .btn-ghost {
@@ -465,8 +478,8 @@ p {
 
 .sport-card:hover {
   transform: translateY(-3px);
-  border-color: rgba(34, 208, 107, 0.4);
-  box-shadow: var(--shadow);
+  border-color: rgba(31, 214, 139, 0.45);
+  box-shadow: var(--shadow), 0 0 0 1px rgba(31, 214, 139, 0.12);
 }
 
 .sport-ico {
@@ -477,8 +490,22 @@ p {
   place-items: center;
   font-size: 22px;
   margin-bottom: 16px;
-  background: rgba(76, 156, 255, 0.12);
+  background: rgba(56, 189, 248, 0.12);
+  border: 1px solid var(--border-soft);
 }
+
+/* per-sport accent tints */
+.sport-football .sport-ico { background: rgba(31, 214, 139, 0.12); }
+.sport-football:hover { border-color: rgba(31, 214, 139, 0.5); box-shadow: var(--shadow), 0 0 24px rgba(31, 214, 139, 0.12); }
+.sport-basketball .sport-ico { background: rgba(255, 138, 61, 0.12); }
+.sport-basketball:hover { border-color: rgba(255, 138, 61, 0.5); box-shadow: var(--shadow), 0 0 24px rgba(255, 138, 61, 0.12); }
+.sport-basketball .count { color: var(--c-basketball); }
+.sport-tennis .sport-ico { background: rgba(211, 243, 79, 0.12); }
+.sport-tennis:hover { border-color: rgba(211, 243, 79, 0.5); box-shadow: var(--shadow), 0 0 24px rgba(211, 243, 79, 0.12); }
+.sport-tennis .count { color: var(--c-tennis); }
+.sport-other .sport-ico { background: rgba(56, 189, 248, 0.12); }
+.sport-other:hover { border-color: rgba(56, 189, 248, 0.5); box-shadow: var(--shadow), 0 0 24px rgba(56, 189, 248, 0.12); }
+.sport-other .count { color: var(--c-other); }
 
 .sport-card h3 {
   margin-bottom: 4px;
@@ -506,9 +533,30 @@ p {
   transition: 0.2s;
 }
 
+.pred-card {
+  position: relative;
+  overflow: hidden;
+}
+
+.pred-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: var(--grad);
+  opacity: 0;
+  transition: opacity 0.25s;
+}
+
 .pred-card:hover {
-  border-color: rgba(34, 208, 107, 0.35);
+  border-color: rgba(31, 214, 139, 0.35);
   box-shadow: var(--shadow-soft);
+}
+
+.pred-card:hover::before {
+  opacity: 1;
 }
 
 .pred-top {
@@ -579,8 +627,9 @@ p {
 .pred-odds {
   font-size: 14px;
   font-weight: 800;
-  color: var(--text);
-  background: rgba(255, 255, 255, 0.05);
+  color: #ffe9b8;
+  background: var(--grad-gold);
+  border: 1px solid rgba(251, 191, 36, 0.28);
   padding: 4px 10px;
   border-radius: 8px;
 }
@@ -608,18 +657,21 @@ p {
 }
 
 .conf-high {
-  color: #26d983;
-  background: rgba(34, 208, 107, 0.14);
+  color: #34e8a4;
+  background: rgba(31, 214, 139, 0.14);
+  box-shadow: inset 0 0 0 1px rgba(31, 214, 139, 0.28);
 }
 
 .conf-balanced {
-  color: #f5b03c;
-  background: rgba(245, 176, 60, 0.14);
+  color: #fbbf24;
+  background: rgba(251, 191, 36, 0.12);
+  box-shadow: inset 0 0 0 1px rgba(251, 191, 36, 0.28);
 }
 
 .conf-value {
-  color: #7cb8ff;
-  background: rgba(76, 156, 255, 0.14);
+  color: #7cd4ff;
+  background: rgba(56, 189, 248, 0.12);
+  box-shadow: inset 0 0 0 1px rgba(56, 189, 248, 0.28);
 }
 
 /* ---------- Category chips ---------- */
@@ -722,8 +774,11 @@ p {
 
 /* ---------- CTA / footer ---------- */
 .cta {
-  background: linear-gradient(135deg, rgba(34, 208, 107, 0.12), rgba(76, 156, 255, 0.12));
-  border: 1px solid var(--border);
+  background:
+    radial-gradient(60% 120% at 15% 0%, rgba(31, 214, 139, 0.14), transparent 55%),
+    radial-gradient(60% 120% at 90% 100%, rgba(56, 189, 248, 0.12), transparent 55%),
+    linear-gradient(135deg, rgba(31, 214, 139, 0.06), rgba(56, 189, 248, 0.06));
+  border: 1px solid rgba(31, 214, 139, 0.22);
   border-radius: var(--radius);
   padding: 44px 36px;
   text-align: center;

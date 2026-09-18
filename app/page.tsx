@@ -129,7 +129,7 @@ export default function Home() {
           </div>
           <div className="sport-grid">
             {spots.map((s) => (
-              <Link key={s.slug} href={`/predictions/${s.slug}/`} className="sport-card">
+              <Link key={s.slug} href={`/predictions/${s.slug}/`} className={`sport-card sport-${s.slug}`}>
                 <div className="sport-ico">{iconFor(s.slug)}</div>
                 <h3>{s.label}</h3>
                 <p className="section-sub" style={{ fontSize: 14 }}>{s.blurb}</p>
