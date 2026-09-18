@@ -1,0 +1,46 @@
+name: daily-forebet-refresh
+
+# Runs every morning at 05:00 UTC (06:00 WAT) — before the first European
+# kickoff — re-pulls Forebet's daily pick tables for football, basketball and
+# tennis, and commits fresh daily JSON files the site renders.
+#
+# Secrets (optional but recommended):
+#   TELEGRAM_BOT_TOKEN  — bot token from @BotFather
+#   TELEGRAM_CHAT_ID    — your chat id (send /start to the bot, then
+#                         https://api.telegram.org/bot<TOKEN>/getUpdates)
+
+on:
+  schedule:
+    - cron: "0 5 * * *"
+  workflow_dispatch: {}
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install deps
+        run: pip install requests
+
+      - name: Fetch Forebet daily picks
+        run: python3 backend/app/refresh_forebet.py
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+
+      - name: Commit if anything changed
+        run: |
+          git config user.name "oddsoracle-refresh"
+          git config user.email "refresh@oddsoracle.bot"
+          git add backend/app/daily
+          if git diff --cached --quiet; then
+            echo "no changes"
+          else
+            git commit -m "chore: daily forebet refresh ($(date -u +%F))"
+            git push
+          fi

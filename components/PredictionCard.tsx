@@ -30,6 +30,7 @@ export default function PredictionCard({ p }: { p: Prediction }) {
 
       <div className="pred-foot">
         <span className={`conf ${confClass[p.confidence]}`}>{p.confidence} confidence</span>
+        {p.banker && <span className="banker-badge">🏦 BANKER</span>}
       </div>
 
       <p className="analysis">{p.analysis}</p>

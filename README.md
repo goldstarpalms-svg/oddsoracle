@@ -46,8 +46,22 @@ The `/api/predictions` endpoint reports `source: "local"` and the dashboard show
 - `backend/data/` — football-data.co.uk season CSVs (26/27) the model trains on.
 - `backend/model.py`, `model2.py`, `backend/value.py` — the probability/edge models.
 
-**Daily refresh:** pull Forebet's day page, regenerate `backend/app/daily/<DATE>*.json`,
-then `npm run build` (or just wait — ISR revalidates every 10 min on a server).
+**Daily refresh (automatic):** `.github/workflows/daily-refresh.yml` runs every
+morning at 05:00 UTC (06:00 WAT). It executes `backend/app/refresh_forebet.py`,
+which re-pulls Forebet's daily pick tables for all three sports, converts times
+to WAT, and commits fresh `backend/app/daily/<DATE>*.json` files. The site's
+ISR then serves them within 10 minutes. If a fetch fails (Forebet layout change
+or IP block), the previous day's data is kept — nothing goes blank.
+
+**Track record:** `/track-record/` reads `backend/app/results/history.json`
+(written nightly by `backend/app/results.py`) and shows cumulative + per-day
+hit rates for 1X2, Over 2.5 and BTTS. Honest by design — losses included.
+
+**Telegram ticket (optional):** set `TELEGRAM_BOT_TOKEN` + `TELEGRAM_CHAT_ID`
+(repo secrets for CI, `.env` locally) and the daily refresh DMs a summary.
+
+**PWA:** the site is installable (manifest + theme color) for a native-feel
+mobile app of the day's picks.
 
 ## Sekta Cup (table-tennis) — `sekta-cup/`
 

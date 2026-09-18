@@ -22,5 +22,6 @@ export const NAV = [
   { label: "Football", href: "/predictions/football/" },
   { label: "Basketball", href: "/predictions/basketball/" },
   { label: "Tennis", href: "/predictions/tennis/" },
+  { label: "Track Record", href: "/track-record/" },
   { label: "About", href: "/about/" },
 ] as const;

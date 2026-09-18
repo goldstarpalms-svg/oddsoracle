@@ -14,6 +14,7 @@ export interface Prediction {
   confidence: Confidence;
   odds: string;
   analysis: string;
+  banker?: boolean; // flagged safe pick (🏦)
 }
 
 export const SPORTS: Record<
@@ -39,7 +40,7 @@ export const SPORTS: Record<
     singular: "Tennis match",
     slug: "tennis",
     blurb:
-      "Match winner, game handicap and total games markets across ATP, WTA and Grand Slam draws.",
+      "Match winner and set-score markets across ATP, WTA, Davis Cup and Challenger draws — plus Setka Cup table tennis via the Sekta app (sekta-cup/).",
   },
   other: {
     label: "More Sports",

@@ -47,7 +47,25 @@ const dec = (american?: number | null): string => {
 
 // ---------- FOOTBALL (full-crack: forebet + model fusion, ~95 games/day) ----
 function football(): Prediction[] {
-  const rows = loadLatest("_full_crack.json");
+  const files = dailyFiles();
+  const today = new Date().toLocaleDateString("sv-SE", { timeZone: "Africa/Lagos" });
+  let name: string | null = null;
+  const todaysFull = files.find((f) => f.startsWith(today) && f.endsWith("_full_crack.json"));
+  const todaysForebet = files.find((f) => f.startsWith(today) && f.endsWith("_forebet_football.json"));
+  if (todaysFull) name = todaysFull;
+  else if (todaysForebet) name = todaysForebet;
+  else {
+    const fc = files.filter((f) => f.endsWith("_full_crack.json"));
+    if (fc.length) name = fc[fc.length - 1];
+  }
+  let rows: any = null;
+  if (name) {
+    try {
+      rows = JSON.parse(fs.readFileSync(path.join(DAILY_DIR, name), "utf8"));
+    } catch {
+      rows = null;
+    }
+  }
   if (!Array.isArray(rows)) return [];
   const out: Prediction[] = [];
   rows.forEach((r: any, i: number) => {
@@ -89,6 +107,7 @@ function football(): Prediction[] {
       tip: String(final).replace(/^1$/, "Home (1)").replace(/^2$/, "Away (2)").replace(/^X$/, "Draw (X)"),
       confidence,
       odds,
+      banker: hasFb && Math.max(r.fb_pct[0], r.fb_pct[1], r.fb_pct[2]) >= 70,
       analysis: bits.join(" "),
     });
   });
@@ -116,6 +135,7 @@ function basketball(): Prediction[] {
       tip: g.pick || g.fb_pick || "",
       confidence:
         g.conf && /HIGH/.test(g.conf) ? "High" : g.conf && /SPLIT|LOW/.test(g.conf) ? "Value" : "Balanced",
+      banker: !!g.conf && /HIGH/.test(g.conf) && !/SPLIT/.test(g.conf),
       odds: g.fb_coef ? dec(Number(String(g.fb_coef).split(/[\s/]+/).find((s) => /^[+-]?\d+$/.test(s)))) : "—",
       analysis: [
         g.fb_prob ? `Forebet ${g.fb_prob[0]}% / ${g.fb_prob[1]}%.` : "Not covered by Forebet.",
@@ -175,6 +195,7 @@ function tennis(): Prediction[] {
       market: "Match winner",
       tip: g.pred || "",
       confidence: g.note && /BANKER/i.test(g.note) ? "High" : g.note && /SPLIT/i.test(g.note) ? "Value" : "Balanced",
+      banker: !!g.note && /BANKER/i.test(g.note),
       odds: am ? dec(Number(am[1])) : "—",
       analysis: [
         `Forebet ${g.prob || ""} (player 1 / player 2).`,
