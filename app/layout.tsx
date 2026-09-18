@@ -2,6 +2,9 @@ import type { Metadata, Viewport } from "next";
 import { SITE } from "@/lib/site";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import BottomNav from "@/components/BottomNav";
+import PwaInstall from "@/components/PwaInstall";
+import SwRegister from "@/components/SwRegister";
 import JsonLd from "@/components/JsonLd";
 import "./globals.css";
 
@@ -43,9 +46,20 @@ export const metadata: Metadata = {
       "max-video-preview": -1,
     },
   },
-  openGraph: {
-    type: "website",
-    siteName: SITE.name,
+    appleWebApp: {
+      capable: true,
+      statusBarStyle: "black-translucent",
+      title: SITE.name,
+    },
+    formatDetection: { telephone: false },
+    other: {
+      "mobile-web-app-capable": "yes",
+      "apple-mobile-web-app-capable": "yes",
+      "apple-mobile-web-app-status-bar-style": "black-translucent",
+    },
+    openGraph: {
+      type: "website",
+      siteName: SITE.name,
     title: `${SITE.name} — Free Multi-Sport Betting Predictions`,
     description: SITE.description,
     url: SITE.url,
@@ -102,6 +116,11 @@ export default function RootLayout({
 }) {
   return (
     <html lang={SITE.language}>
+      <head>
+        <link rel="apple-touch-icon" href="/icon-192.png" />
+        <link rel="icon" type="image/png" sizes="192x192" href="/icon-192.png" />
+        <link rel="icon" type="image/png" sizes="512x512" href="/icon-512.png" />
+      </head>
       <body>
         <a
           href="#main"
@@ -115,6 +134,9 @@ export default function RootLayout({
         <Navbar />
         <main id="main">{children}</main>
         <Footer />
+        <BottomNav />
+        <PwaInstall />
+        <SwRegister />
       </body>
     </html>
   );

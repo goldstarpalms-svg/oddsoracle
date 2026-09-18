@@ -1,14 +1,18 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
+import { SPORTS, type Sport } from "@/lib/predictions";
 import {
-  SPORTS,
-  type Sport,
-} from "@/lib/predictions";
-import { getPredictions } from "@/lib/generate";
-import PredictionCard from "@/components/PredictionCard";
+  bbPicks,
+  fbPicks,
+  fmtDate,
+  summary,
+  tnPicks,
+} from "@/lib/rich";
+import SportPicks from "@/components/SportPicks";
 import AdSlot from "@/components/AdSlot";
 import JsonLd from "@/components/JsonLd";
+import { SITE } from "@/lib/site";
 
 export const revalidate = 600;
 
@@ -18,26 +22,26 @@ const SEO: Record<Sport, { title: string; meta: string; intro: string[] }> = {
     meta:
       "Free football predictions today: 1X2, over/under 2.5, both teams to score and accumulator picks across the Premier League, La Liga, Serie A and more.",
     intro: [
-      "Our football predictions cut through the noise. We break down each fixture using recent form, head-to-head records, home and away splits and the wider market value, then we give you a clear pick — the 1X2, the over/under, or the both-teams-to-score call.",
-      "Whether you build single bets or weekend accumulators, the same rules apply: read the reasoning, check the team news, and stake responsibly. These are free predictions with honest logic, never guarantees.",
+      "Every game below carries Forebet&rsquo;s own 1/X/2 percentages, a predicted score and our model&rsquo;s cross-check — so you see exactly how sure each side is, not just a naked tip.",
+      "Start with the 🏦 Safe picks tab if you want the calm side of the day, or 💎 Value if you want fatter odds with the risk explained.",
     ],
   },
   basketball: {
-    title: "Basketball Predictions — Spreads & Totals",
+    title: "Basketball Predictions — Moneyline, Spreads & Totals",
     meta:
-      "Free basketball predictions and picks on point spreads, totals (over/under) and moneyline across the NBA, EuroLeague and Basketball Africa League.",
+      "Free basketball predictions and picks on moneyline, point spreads and totals (over/under) across the NBA, EuroLeague, VTB and international leagues.",
     intro: [
-      "Basketball is a numbers game, and that&rsquo;s exactly how we play it. We look at pace, three-point volume, defensive net rating and rest days to land on a spread or a total that makes sense.",
-      "From the NBA to EuroLeague and the Basketball Africa League, our basketball picks are built on the data that actually moves games. Read the reasoning, and bet only what you can afford.",
+      "Basketball is a numbers game — so we show you the numbers: Forebet&rsquo;s home/away split, the predicted final score, the average total and the confidence grade on every game.",
+      "Deep-crack games (full analysis) are flagged. The rest are straight from Forebet&rsquo;s board for today.",
     ],
   },
   tennis: {
-    title: "Tennis Predictions — Match Winner & Totals",
+    title: "Tennis Predictions — Match Winner & Set Scores",
     meta:
-      "Free tennis predictions on match winner and total games across ATP, WTA and Grand Slam draws. Surface, serve hold % and form, broken down simply.",
+      "Free tennis predictions on match winner and predicted set scores across ATP, WTA, Davis Cup and Challenger draws, with Forebet probabilities on every match.",
     intro: [
-      "Tennis rewards the small edges. We weigh surface, service hold percentage, recent match-sharpness and head-to-head history to come to a match-winner or total-games pick.",
-      "Our tennis predictions span the ATP, WTA and Challenger tours plus the Grand Slams. Every pick is written in plain English so you can see exactly why we&rsquo;ve made it.",
+      "Each match shows Forebet&rsquo;s probability split between the two players and the predicted set score — the two numbers that actually decide a tennis bet.",
+      "🏦 Banker flags go on matches at 70%+ — the ones we&rsquo;d happily stake before a meal.",
     ],
   },
   other: {
@@ -45,8 +49,8 @@ const SEO: Record<Sport, { title: string; meta: string; intro: string[] }> = {
     meta:
       "Free predictions for ice hockey, esports, MMA and more. Extra value in the markets everyone else skips, updated when the value is on the board.",
     intro: [
-      "There&rsquo;s value beyond the big three sports. When the market is right, we post ice hockey, esports and MMA picks with the same level-headed analysis we apply everywhere else.",
-      "These markets move fast. The odds shift quickly, so treat each pick as a snapshot and always verify current pricing before you bet.",
+      "There&rsquo;s value beyond the big three sports. When the market is right, we post picks here with the same plain-English breakdown.",
+      "These markets move fast — treat every pick as a snapshot and verify current odds before you stake.",
     ],
   },
 };
@@ -63,35 +67,40 @@ export async function generateMetadata({
   const { sport } = params;
   const meta = SEO[sport];
   if (!meta) return {};
-  const label = SPORTS[sport].label.toLowerCase();
   return {
     title: meta.title,
     description: meta.meta,
     alternates: { canonical: `/predictions/${sport}/` },
-    openGraph: {
-      title: meta.title,
-      description: meta.meta,
-    },
+    openGraph: { title: meta.title, description: meta.meta },
   };
 }
 
-export default async function SportPage({ params }: { params: { sport: Sport } }) {
+export default function SportPage({ params }: { params: { sport: Sport } }) {
   const { sport } = params;
   const meta = SEO[sport];
   const info = SPORTS[sport];
   if (!meta) notFound();
 
-  const result = await getPredictions();
-  const items = result.predictions.filter((p) => p.sport === sport);
+  const fb = fbPicks();
+  const bb = bbPicks();
+  const tn = tnPicks();
+  const items =
+    sport === "football" ? fb : sport === "basketball" ? bb : sport === "tennis" ? tn : [];
+  const sum = summary();
+  const s = sport === "football" ? fb.length : sport === "basketball" ? bb.length : tn.length;
+
+  const names = items.map((p: any) =>
+    "fb_pct" in p || "model" in p ? `${p.home} vs ${p.away}` : "p1" in p ? `${p.p1} vs ${p.p2}` : `${p.home} vs ${p.away}`
+  );
 
   const ld = {
     "@context": "https://schema.org",
     "@type": "ItemList",
     name: `${info.label} Predictions`,
-    itemListElement: items.map((p, i) => ({
+    itemListElement: names.slice(0, 60).map((n, i) => ({
       "@type": "ListItem",
       position: i + 1,
-      name: `${p.home} vs ${p.away} — ${p.market}: ${p.tip}`,
+      name: n,
     })),
   };
 
@@ -106,42 +115,41 @@ export default async function SportPage({ params }: { params: { sport: Sport } }
             <Link href="/predictions/">Predictions</Link> <span>/</span>{" "}
             <span>{info.label}</span>
           </div>
-          <h1>{info.label} Predictions</h1>
+          <span className="eyebrow">{fmtDate(sum.dataDate)} · {s} games · updated daily 07:00 WAT</span>
+          <h1>
+            {info.label} <span className="grad-text">Predictions</span>
+          </h1>
           <p className="section-sub">{info.blurb}</p>
+
+          <div className="chips" style={{ marginBottom: 0 }}>
+            <Link href="/predictions/" className="chip">All sports</Link>
+            {(["football", "basketball", "tennis", "other"] as Sport[]).map((x) => (
+              <Link key={x} href={`/predictions/${x}/`} className={`chip ${x === sport ? "active" : ""}`}>
+                {SPORTS[x].label}
+              </Link>
+            ))}
+          </div>
         </div>
       </section>
 
       <section className="sec">
         <div className="container">
-          <div className="chips" style={{ marginBottom: 24 }}>
-            <Link href="/predictions/" className="chip">All sports</Link>
-            {(["football", "basketball", "tennis", "other"] as Sport[]).map((s) => (
-              <Link
-                key={s}
-                href={`/predictions/${s}/`}
-                className={`chip ${s === sport ? "active" : ""}`}
-              >
-                {SPORTS[s].label}
-              </Link>
-            ))}
-          </div>
-
-          <div className="prose" style={{ maxWidth: 820, marginBottom: 32 }}>
+          <div className="prose" style={{ maxWidth: 860, marginBottom: 28 }}>
             {meta.intro.map((p, i) => (
               <p key={i} dangerouslySetInnerHTML={{ __html: p }} />
             ))}
           </div>
 
-          {items.length ? (
-            <div className="pred-grid">
-              {items.map((p) => (
-                <PredictionCard key={p.id} p={p} />
-              ))}
-            </div>
+          {s > 0 ? (
+            <SportPicks
+              sport={sport as "football" | "basketball" | "tennis"}
+              items={items as any}
+              combo={sport === "football" ? sum.combo : null}
+            />
           ) : (
-            <div className="callout callout-blue" style={{ maxWidth: 820 }}>
-              Fresh picks for this sport are being prepared. Check back shortly —
-              or explore the other sports in the meantime.
+            <div className="callout callout-blue">
+              Fresh picks for this sport are being prepared. Check back shortly — or explore the
+              other sports in the meantime.
             </div>
           )}
         </div>
@@ -152,11 +160,10 @@ export default async function SportPage({ params }: { params: { sport: Sport } }
       </div>
 
       <section className="sec-tight">
-        <div className="container prose" style={{ maxWidth: 820 }}>
+        <div className="container prose" style={{ maxWidth: 860 }}>
           <div className="callout">
-            <strong>Remember:</strong> these are free predictions and analytical
-            opinions — not guarantees. Always check team news and live odds, and
-            bet responsibly, 18+.
+            <strong>Remember:</strong> free predictions are opinions, not guarantees. Check team
+            news and live odds before staking, and bet only what you can afford to lose. 18+.
           </div>
         </div>
       </section>
