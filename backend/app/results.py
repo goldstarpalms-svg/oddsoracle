@@ -33,10 +33,12 @@ CODES.update({v: k for k, v in M2.LEAGUES2.items()})
 
 def fetch_season():
     for lg in CODES:
-        url = f"https://www.football-data.co.uk/mmz4281/{SEASON}/{lg}.csv"
+        url = f"https://www.football-data.co.uk/mmz4281/{SEASON}/{CODES[lg]}.csv"
         raw = subprocess.run(
             ["curl", "-s", "-L", "--compressed", "-A", "Mozilla/5.0", url],
             capture_output=True, timeout=60).stdout
+        if raw.startswith(b"\xef\xbb\xbf"):  # strip UTF-8 BOM (football-data added it)
+            raw = raw[3:]
         if not raw.startswith(b"Div,Date"):
             print(f"  ! {lg}: no data (keeping local copy)")
             continue
@@ -52,11 +54,14 @@ def load_results():
         p = os.path.join(DATA, f"{SEASON}_{lg}.csv")
         if not os.path.exists(p):
             continue
-        df = pd.read_csv(p, parse_dates=["Date"])
+        df = pd.read_csv(p)
+        # local copies are already ISO (YYYY-MM-DD); remote CSVs are dd/mm/yyyy —
+        # auto-detect handles both
+        df["Date"] = pd.to_datetime(df["Date"], errors="coerce", dayfirst=True)
         df = df[df["FTHG"].notna()]
         if df.empty:
             continue
-        df["league"] = lg
+        df["league"] = CODES[lg]  # tag with the league CODE (score_one matches on league_code)
         frames.append(df)
     if not frames:
         return None
@@ -94,7 +99,7 @@ def score_one(game, res):
         model_over25_win=1 if (model["o25"] >= 0.5) == (total > 2) else 0,
         model_btts=1 if model["btts"] >= 0.5 else 0,
         btts_actual=btts,
-        model_btts_win=1 if model["btts"] == btts else 0,
+        model_btts_win=1 if (1 if model["btts"] >= 0.5 else 0) == btts else 0,
     )
 
 
@@ -112,10 +117,16 @@ def main():
     for date in sorted(os.listdir(os.path.join(HERE, "daily"))):
         if not date.endswith(".json"):
             continue
+        # only the model-coverage files (dict with "games"); skip full_crack /
+        # basketball / tennis / forebet-all boards which have other shapes
+        if "_" in date[:-5]:
+            continue
         d = date[:-5]
         if only and d != only:
             continue
         day = json.load(open(os.path.join(HERE, "daily", date)))
+        if not isinstance(day, dict) or "games" not in day:
+            continue
         rows, n_res = [], 0
         for g in day["games"]:
             if not g.get("covered"):
