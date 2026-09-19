@@ -48,6 +48,8 @@ for (const cand of [
 let basketball = read(pick([/_basketball\.json$/]));
 let tennis = read(pick([/_tennis\.json$/]));
 
+let markets = read(pick([/_markets\.json$/]));
+
 let history = null;
 try {
   history = JSON.parse(
@@ -74,6 +76,7 @@ const snapshot = {
   tennis: tennis && tennis.games ? tennis : null,
   history: history && history.cumulative ? history : null,
   odds: odds || null,
+  markets: markets || null,
 };
 
 fs.mkdirSync(path.dirname(OUT), { recursive: true });

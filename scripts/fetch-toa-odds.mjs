@@ -100,6 +100,7 @@ async function fetchSport(sportKey) {
 
     const h2h = {};
     const totals = {};
+    const spreads = {};
     for (const b of e.books || []) {
       if (b.market === "h2h") {
         const o = b.outcomes || [];
@@ -119,6 +120,17 @@ async function fetchSport(sportKey) {
             under: americanToDec(under.price),
           };
         }
+      } else if (b.market === "spreads") {
+        const o = b.outcomes || [];
+        const home = o.find((x) => x.name === e.home_team);
+        const away = o.find((x) => x.name === e.away_team);
+        if (home || away) {
+          spreads[b.book] = {
+            point: home?.point ?? away?.point ?? null,
+            home: americanToDec(home?.price),
+            away: americanToDec(away?.price),
+          };
+        }
       }
     }
     // keep the well-known books first, then fill up to 10
@@ -134,13 +146,15 @@ async function fetchSport(sportKey) {
     };
     const h = keep(h2h);
     const t = keep(totals);
-    if (Object.keys(h).length === 0 && Object.keys(t).length === 0) continue;
+    const sp = keep(spreads);
+    if (Object.keys(h).length === 0 && Object.keys(t).length === 0 && Object.keys(sp).length === 0) continue;
     out.push({
       home: e.home_team,
       away: e.away_team,
       start: e.start_time || null,
       h2h: h,
       totals: t,
+      spreads: sp,
     });
   }
   out.sort((a, b) => (a.start || "").localeCompare(b.start || ""));

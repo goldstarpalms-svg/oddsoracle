@@ -112,7 +112,7 @@ function analyze(text: string, picks: SlipPick[]): AnalysisRow[] {
     });
 }
 
-type Tab = "build" | "analyze" | "code" | "odds";
+type Tab = "build" | "analyze" | "code" | "odds" | "markets";
 
 interface BookedLeg {
   home: string;
@@ -190,6 +190,133 @@ function bestTotals(
   return out;
 }
 
+// ---------- all markets (every game, every option, every bookie) ----------
+interface MktBook {
+  name: string;
+  h2h: (number | null)[] | null; // [1, X, 2] or [1, null, 2]
+  totals: { line: number | null; over: number | null; under: number | null }[];
+  spreads: { point: number | null; home: number | null; away: number | null }[];
+  tees: { line: number | null; over: number | null; under: number | null }[];
+}
+
+interface MktRow {
+  id: string;
+  sport: "Football" | "Basketball" | "Tennis" | "MLB";
+  t: string;
+  home: string;
+  away: string;
+  lg: string;
+  books: MktBook[];
+  fbPct: [number, number, number] | null;
+  fbPick: string;
+  fbScore: string;
+  fbDec: (number | null)[] | null;
+  model: { pick: string; p: [number, number, number] | null; o25: number | null; bank: string } | null;
+}
+
+const mnorm = (s: string) =>
+  String(s)
+    .toLowerCase()
+    .replace(/[’']/g, "")
+    .replace(/\b(fc|cf|sc|ac|calcio|club|cd|ud|sd|real|de|fk)\b/g, " ")
+    .replace(/[^a-z0-9. ]/g, " ")
+    .replace(/\s+/g, " ")
+    .trim();
+
+const mmatch = (a: string, b: string) => {
+  const x = mnorm(a), y = mnorm(b);
+  return !!x && !!y && (x === y || x.includes(y) || y.includes(x));
+};
+
+function buildMktRows(): MktRow[] {
+  const any = SNAPSHOT as any;
+  const rows: MktRow[] = [];
+
+  // Football — forebet board as the base, TOA bookmakers merged by team name
+  const fb: any[] = Array.isArray(any.football) ? any.football : [];
+  const toaSoc: any[] = Array.isArray(any.markets?.soccer) ? any.markets.soccer : [];
+  fb.forEach((f, i) => {
+    const m = toaSoc.find((t) => mmatch(t.home, f.home) && mmatch(t.away, f.away));
+    rows.push({
+      id: `soc-${i}`, sport: "Football", t: f.t || "", home: f.home, away: f.away, lg: f.lg || "Football",
+      books: m ? m.bookmakers || [] : [],
+      fbPct: Array.isArray(f.fb_pct) && f.fb_pct.some((x: number) => x > 0) ? f.fb_pct : null,
+      fbPick: f.fb_pick || "", fbScore: f.fb_score || "",
+      fbDec: Array.isArray(f.mkt_dec) ? f.mkt_dec : null,
+      model: f.model ? { pick: f.model.pick || "", p: f.model.p || null, o25: f.model.o25 ?? null, bank: f.model.bank || "" } : null,
+    });
+  });
+
+  // Basketball — forebet full board
+  const bbAll: any[] = Array.isArray(any.basketball?.forebet_today_all) ? any.basketball.forebet_today_all : [];
+  const toaBb: any[] = Array.isArray(any.markets?.basketball) ? any.markets.basketball : [];
+  bbAll.forEach((g, i) => {
+    const parts = String(g.match || "").split(/\sv\s/i);
+    const h = parts[0] || "", a = parts[1] || "";
+    const m = toaBb.find((t) => mmatch(t.home, h) && mmatch(t.away, a));
+    const prob = String(g.prob || "").split("/");
+    rows.push({
+      id: `bb-${i}`, sport: "Basketball", t: g.t || "", home: h, away: a, lg: g.league || "Basketball",
+      books: m ? m.bookmakers || [] : [],
+      fbPct: prob.length === 2 ? [Number(prob[0]), 0, Number(prob[1])] : null,
+      fbPick: g.pred === "1" ? "1" : "2", fbScore: g.score || "", fbDec: null, model: null,
+    });
+  });
+
+  // Tennis — forebet board
+  const tn: any[] = Array.isArray(any.tennis?.games) ? any.tennis.games : [];
+  const toaTn: any[] = Array.isArray(any.markets?.tennis) ? any.markets.tennis : [];
+  tn.forEach((g, i) => {
+    const m = toaTn.find((t) => mmatch(t.home, g.p1) && mmatch(t.away, g.p2));
+    const prob = String(g.prob || "").split("/");
+    rows.push({
+      id: `tn-${i}`, sport: "Tennis", t: g.t || "", home: g.p1 || "", away: g.p2 || "", lg: g.tourn || "Tennis",
+      books: m ? m.bookmakers || [] : [],
+      fbPct: prob.length === 2 ? [Number(prob[0]), 0, Number(prob[1])] : null,
+      fbPick: String(g.pred || "").startsWith("1") ? "1" : "2", fbScore: g.sets ? `sets ${g.sets}` : "", fbDec: null, model: null,
+    });
+  });
+
+  // MLB / NBA — existing multi-bookie feed (odds.json snapshot)
+  if (any.odds?.sports) {
+    for (const [key, s] of Object.entries<any>(any.odds.sports)) {
+      (s.events || []).forEach((e: any, i: number) => {
+        const books: MktBook[] = Object.entries<any>(e.h2h || {}).map(([bk, v]) => ({
+          name: bk,
+          h2h: [v.home ?? null, null, v.away ?? null],
+          totals: e.totals?.[bk]
+            ? [{ line: e.totals[bk].line, over: e.totals[bk].over, under: e.totals[bk].under }]
+            : [],
+          spreads: e.spreads?.[bk]
+            ? [{ point: e.spreads[bk].point ?? null, home: e.spreads[bk].home ?? null, away: e.spreads[bk].away ?? null }]
+            : [],
+          tees: [],
+        }));
+        const st = e.start
+          ? new Date(e.start).toLocaleTimeString("en-NG", {
+              hour: "2-digit", minute: "2-digit", hour12: false, timeZone: "Africa/Lagos",
+            })
+          : "";
+        rows.push({
+          id: `mlb-${key}-${i}`, sport: "MLB", t: st, home: e.home, away: e.away,
+          lg: s.label || key, books, fbPct: null, fbPick: "", fbScore: "", fbDec: null, model: null,
+        });
+      });
+    }
+  }
+
+  return rows.sort((a, b) => a.sport.localeCompare(b.sport) || (a.t || "99").localeCompare(b.t || "99"));
+}
+
+function mktColBest(books: MktBook[], pick: (b: MktBook) => number | null): number | null {
+  let best: number | null = null;
+  for (const b of books) {
+    const v = pick(b);
+    if (typeof v === "number" && v > 1 && (best == null || v > best)) best = v;
+  }
+  return best;
+}
+
 const normPick = (s: string) =>
   s.toLowerCase().replace(/[^a-z0-9. ]/g, "").replace(/\s+/g, " ").trim();
 
@@ -228,6 +355,26 @@ export default function SlipTools() {
   const [bookRes, setBookRes] = useState<BookedSlip | null>(null);
   const [openOdds, setOpenOdds] = useState<string | null>(null);
   const [oddsQuery, setOddsQuery] = useState("");
+
+  // all-markets tab state
+  const [openMkt, setOpenMkt] = useState<string | null>(null);
+  const [mktFilter, setMktFilter] = useState<"all" | "Football" | "Basketball" | "Tennis" | "MLB">("all");
+  const [mktQuery, setMktQuery] = useState("");
+  const mktRows = useMemo(() => buildMktRows(), []);
+  const mktSports = useMemo(
+    () => (["Football", "Basketball", "Tennis", "MLB"] as const).filter((s) => mktRows.some((r) => r.sport === s)),
+    [mktRows]
+  );
+  const anyBooks = useMemo(() => mktRows.some((r) => r.books.length > 0), [mktRows]);
+  const mktVisible = useMemo(() => {
+    let rows = mktRows;
+    if (mktFilter !== "all") rows = rows.filter((r) => r.sport === mktFilter);
+    if (!mktQuery.trim()) return rows;
+    const q = mktQuery.toLowerCase();
+    return rows.filter(
+      (r) => r.home.toLowerCase().includes(q) || r.away.toLowerCase().includes(q) || r.lg.toLowerCase().includes(q)
+    );
+  }, [mktRows, mktFilter, mktQuery]);
 
   const oddsData = useMemo(() => (SNAPSHOT as any).odds || null, []);
   const oddsSports = useMemo(() => {
@@ -382,6 +529,9 @@ export default function SlipTools() {
         </button>
         <button role="tab" aria-selected={tab === "odds"} className={`filter-tab ${tab === "odds" ? "active" : ""}`} onClick={() => setTab("odds")}>
           📊 Odds compare
+        </button>
+        <button role="tab" aria-selected={tab === "markets"} className={`filter-tab ${tab === "markets" ? "active" : ""}`} onClick={() => setTab("markets")}>
+          📚 All markets
         </button>
       </div>
 
@@ -643,6 +793,323 @@ export default function SlipTools() {
               </p>
             </div>
           )}
+        </div>
+      ) : tab === "markets" ? (
+        <div className="slip-analyze">
+          <div className="callout callout-blue">
+            <b>All markets, all bookies:</b> every game on today&rsquo;s board with every
+            betting option — match winner (1/X/2), totals (over/under), spreads and tees — at
+            every bookmaker&rsquo;s price. <b>💰</b> = best price in that column. Expand any game
+            to see the full table.
+          </div>
+          {!anyBooks && (
+            <div className="callout callout-red">
+              Bookmaker feed is not connected right now — so this tab shows{" "}
+              <b>Forebet&rsquo;s market prices</b> on every game. The moment the odds key is
+              switched on, every bookmaker fills in automatically, no extra work.
+            </div>
+          )}
+          <div className="callout">
+            <b>Live bookmaker prices right now:</b> MLB — 15+ books with moneyline, totals and
+            run lines. Football, basketball and tennis show Forebet&rsquo;s market (their pick,
+            their %, their score) — the odds key&rsquo;s free plan covers MLB + NBA, so the
+            real bookmaker prices for the other sports switch on automatically the moment it&rsquo;s
+            upgraded to the Pro plan.
+          </div>
+          <div className="filter-tabs" role="tablist">
+            {(["all", "Football", "Basketball", "Tennis", "MLB"] as const)
+              .filter((s) => s === "all" || (mktSports as readonly string[]).includes(s))
+              .map((s) => (
+                <button
+                  key={s}
+                  role="tab"
+                  aria-selected={mktFilter === s}
+                  className={`filter-tab ${mktFilter === s ? "active" : ""}`}
+                  onClick={() => setMktFilter(s)}
+                >
+                  {s === "all" ? "All sports" : s}
+                </button>
+              ))}
+          </div>
+          <input
+            className="slip-search"
+            type="search"
+            placeholder="Search a team or league…"
+            value={mktQuery}
+            onChange={(e) => setMktQuery(e.target.value)}
+            aria-label="Search all markets"
+          />
+          {(SNAPSHOT as any).markets?.generatedAt && (
+            <p className="slip-note">
+              Bookmaker odds as of{" "}
+              {new Date((SNAPSHOT as any).markets.generatedAt).toLocaleString("en-NG", {
+                day: "numeric", month: "short", hour: "2-digit", minute: "2-digit", timeZone: "Africa/Lagos",
+              })}{" "}
+              WAT.
+            </p>
+          )}
+          {mktSports.map((sp) => {
+            const rows = mktVisible.filter((r) => r.sport === sp);
+            if (rows.length === 0) return null;
+            const threeWay = sp === "Football";
+            return (
+              <div key={sp}>
+                <div className="league-head">
+                  <h3>{sp}</h3>
+                  <span className="league-count">{rows.length} games</span>
+                </div>
+                <div className="odds-list">
+                  {rows.map((r) => {
+                    const open = openMkt === r.id;
+                    const bh = mktColBest(r.books, (b) => (b.h2h ? b.h2h[0] : null));
+                    const bx = threeWay ? mktColBest(r.books, (b) => (b.h2h ? b.h2h[1] : null)) : null;
+                    const ba = mktColBest(r.books, (b) => (b.h2h ? b.h2h[2] : null));
+                    const lineCounts: Record<number, number> = {};
+                    for (const b of r.books) for (const t of b.totals) if (typeof t.line === "number") lineCounts[t.line] = (lineCounts[t.line] || 0) + 1;
+                    const mainLine = Object.entries(lineCounts)
+                      .map(([k, v]) => [Number(k), v] as [number, number])
+                      .sort((a, b) => b[1] - a[1])[0]?.[0] ?? null;
+                    const tOf = (b: MktBook) => b.totals.find((t) => t.line === mainLine) || b.totals[0] || null;
+                    const bt = mktColBest(r.books, (b) => tOf(b)?.over ?? null);
+                    const bu = mktColBest(r.books, (b) => tOf(b)?.under ?? null);
+                    const hasSpreads = r.books.some((b) => b.spreads.length > 0);
+                    const hasTees = r.books.some((b) => b.tees.length > 0);
+                    const bsH = hasSpreads ? mktColBest(r.books, (b) => b.spreads[0]?.home ?? null) : null;
+                    const bsA = hasSpreads ? mktColBest(r.books, (b) => b.spreads[0]?.away ?? null) : null;
+                    return (
+                      <div key={r.id} className={`odds-card ${open ? "open" : ""}`}>
+                        <button className="odds-card-head" onClick={() => setOpenMkt(open ? null : r.id)} aria-expanded={open}>
+                          <span className="odds-card-match">
+                            {r.home} <em>vs</em> {r.away}
+                          </span>
+                          <span className="odds-card-time">
+                            {r.t ? `${r.t} WAT` : ""}{r.lg ? ` · ${r.lg}` : ""}
+                            {r.books.length > 0 ? ` · ${r.books.length} bookies` : ""}
+                          </span>
+                          <span className="odds-card-chev">{open ? "▲" : "▼"}</span>
+                        </button>
+                        {r.books.length > 0 ? (
+                          <div className="odds-card-best">
+                            <div className="odds-best-col">
+                              <span>{threeWay ? "1 (Home)" : r.home}</span>
+                              {bh != null ? <b className="odds-hot">💰 @{bh.toFixed(2)}</b> : <b>—</b>}
+                            </div>
+                            <div className="odds-best-col">
+                              <span>{mainLine != null ? `Over/Under ${mainLine}` : "Totals"}</span>
+                              {bt != null ? (
+                                <>
+                                  <b>O {bt.toFixed(2)}</b>
+                                  {bu != null && <b> &nbsp;U {bu.toFixed(2)}</b>}
+                                </>
+                              ) : (
+                                <b>—</b>
+                              )}
+                            </div>
+                            {threeWay && (
+                              <div className="odds-best-col">
+                                <span>X (Draw)</span>
+                                {bx != null ? <b className="odds-hot">💰 @{bx.toFixed(2)}</b> : <b>—</b>}
+                              </div>
+                            )}
+                            <div className="odds-best-col">
+                              <span>{threeWay ? "2 (Away)" : r.away}</span>
+                              {ba != null ? <b className="odds-hot">💰 @{ba.toFixed(2)}</b> : <b>—</b>}
+                            </div>
+                          </div>
+                        ) : null}
+                        {open && (
+                          <div className="odds-table-wrap">
+                            {r.books.length > 0 ? (
+                              <>
+                                <table className="odds-table">
+                                  <thead>
+                                    <tr>
+                                      <th>Bookie</th>
+                                      {threeWay ? (
+                                        <>
+                                          <th>1</th>
+                                          <th>X</th>
+                                          <th>2</th>
+                                        </>
+                                      ) : (
+                                        <>
+                                          <th>{r.home}</th>
+                                          <th>{r.away}</th>
+                                        </>
+                                      )}
+                                      <th>Line</th>
+                                      <th>Over</th>
+                                      <th>Under</th>
+                                      <th>Lines</th>
+                                    </tr>
+                                  </thead>
+                                  <tbody>
+                                    {r.books.map((b) => {
+                                      const tl = tOf(b);
+                                      const hIs = bh != null && b.h2h && b.h2h[0] === bh;
+                                      const xIs = threeWay && bx != null && b.h2h && b.h2h[1] === bx;
+                                      const aIs = ba != null && b.h2h && b.h2h[2] === ba;
+                                      const oIs = bt != null && tl && tl.over === bt;
+                                      const uIs = bu != null && tl && tl.under === bu;
+                                      return (
+                                        <tr key={b.name}>
+                                          <td className="odds-book">{prettyBook(b.name)}</td>
+                                          {threeWay ? (
+                                            <>
+                                              <td className={hIs ? "odds-best-cell" : ""}>{b.h2h && b.h2h[0] ? b.h2h[0].toFixed(2) : "—"}</td>
+                                              <td className={xIs ? "odds-best-cell" : ""}>{b.h2h && b.h2h[1] ? b.h2h[1].toFixed(2) : "—"}</td>
+                                              <td className={aIs ? "odds-best-cell" : ""}>{b.h2h && b.h2h[2] ? b.h2h[2].toFixed(2) : "—"}</td>
+                                            </>
+                                          ) : (
+                                            <>
+                                              <td className={hIs ? "odds-best-cell" : ""}>{b.h2h && b.h2h[0] ? b.h2h[0].toFixed(2) : "—"}</td>
+                                              <td className={aIs ? "odds-best-cell" : ""}>{b.h2h && b.h2h[2] ? b.h2h[2].toFixed(2) : "—"}</td>
+                                            </>
+                                          )}
+                                          <td>{tl?.line ?? "—"}</td>
+                                          <td className={oIs ? "odds-best-cell" : ""}>{tl?.over ? tl.over.toFixed(2) : "—"}</td>
+                                          <td className={uIs ? "odds-best-cell" : ""}>{tl?.under ? tl.under.toFixed(2) : "—"}</td>
+                                          <td className="dim">
+                                            {Array.from(
+                                              new Set(
+                                                b.totals.map((t) => t.line).filter((l): l is number => typeof l === "number")
+                                              )
+                                            )
+                                              .sort((a, b) => a - b)
+                                              .join(" / ") || "—"}
+                                          </td>
+                                        </tr>
+                                      );
+                                    })}
+                                  </tbody>
+                                </table>
+                                {hasSpreads && (
+                                  <>
+                                    <p className="slip-note"><b>Spread (handicap)</b> — home side carries the point.</p>
+                                    <table className="odds-table">
+                                      <thead>
+                                        <tr>
+                                          <th>Bookie</th>
+                                          <th>Point</th>
+                                          <th>{r.home}</th>
+                                          <th>{r.away}</th>
+                                        </tr>
+                                      </thead>
+                                      <tbody>
+                                        {r.books.filter((b) => b.spreads.length > 0).map((b) => {
+                                          const s = b.spreads[0];
+                                          return (
+                                            <tr key={b.name}>
+                                              <td className="odds-book">{prettyBook(b.name)}</td>
+                                              <td>{s.point != null ? s.point : "—"}</td>
+                                              <td className={bsH != null && s.home === bsH ? "odds-best-cell" : ""}>{s.home ? s.home.toFixed(2) : "—"}</td>
+                                              <td className={bsA != null && s.away === bsA ? "odds-best-cell" : ""}>{s.away ? s.away.toFixed(2) : "—"}</td>
+                                            </tr>
+                                          );
+                                        })}
+                                      </tbody>
+                                    </table>
+                                  </>
+                                )}
+                                {hasTees && (
+                                  <>
+                                    <p className="slip-note"><b>Totals (each bookie&rsquo;s full lines)</b></p>
+                                    <table className="odds-table">
+                                      <thead>
+                                        <tr>
+                                          <th>Bookie</th>
+                                          <th>Line</th>
+                                          <th>Over</th>
+                                          <th>Under</th>
+                                        </tr>
+                                      </thead>
+                                      <tbody>
+                                        {r.books
+                                          .flatMap((b) => b.tees.map((t) => ({ book: b.name, t })))
+                                          .map((row, i) => (
+                                            <tr key={i}>
+                                              <td className="odds-book">{prettyBook(row.book)}</td>
+                                              <td>{row.t.line ?? "—"}</td>
+                                              <td>{row.t.over ? row.t.over.toFixed(2) : "—"}</td>
+                                              <td>{row.t.under ? row.t.under.toFixed(2) : "—"}</td>
+                                            </tr>
+                                          ))}
+                                      </tbody>
+                                    </table>
+                                  </>
+                                )}
+                              </>
+                            ) : (
+                              <>
+                                <table className="odds-table">
+                                  <thead>
+                                    <tr>
+                                      <th>Market</th>
+                                      {threeWay ? (
+                                        <>
+                                          <th>1 (Home)</th>
+                                          <th>X (Draw)</th>
+                                          <th>2 (Away)</th>
+                                        </>
+                                      ) : (
+                                        <>
+                                          <th>{r.home}</th>
+                                          <th>{r.away}</th>
+                                        </>
+                                      )}
+                                    </tr>
+                                  </thead>
+                                  <tbody>
+                                    <tr>
+                                      <td className="odds-book">Forebet market</td>
+                                      {threeWay ? (
+                                        <>
+                                          <td>{r.fbDec?.[0] ?? (r.fbPct && r.fbPct[0] > 0 ? (100 / r.fbPct[0]).toFixed(2) : "—")}</td>
+                                          <td>{r.fbDec?.[1] ?? (r.fbPct && r.fbPct[1] > 0 ? (100 / r.fbPct[1]).toFixed(2) : "—")}</td>
+                                          <td>{r.fbDec?.[2] ?? (r.fbPct && r.fbPct[2] > 0 ? (100 / r.fbPct[2]).toFixed(2) : "—")}</td>
+                                        </>
+                                      ) : (
+                                        <>
+                                          <td>{r.fbDec?.[0] ?? "—"}</td>
+                                          <td>{r.fbDec?.[2] ?? "—"}</td>
+                                        </>
+                                      )}
+                                    </tr>
+                                  </tbody>
+                                </table>
+                                <p className="slip-note">
+                                  Real bookmaker prices for this sport fill in automatically
+                                  once the odds key is upgraded to the Pro plan (the free plan
+                                  covers MLB + NBA). Forebet&rsquo;s market is shown above in
+                                  the meantime.
+                                </p>
+                              </>
+                            )}
+                            {r.fbPct && (
+                              <p className="slip-note dim">
+                                Forebet: {r.fbPct[0]}%{threeWay ? ` / ${r.fbPct[1]}% / ${r.fbPct[2]}%` : ` / ${r.fbPct[2]}%`}
+                                {r.fbPick ? ` · pick ${r.fbPick}` : ""}
+                                {r.fbScore ? ` · ${r.fbScore}` : ""}
+                                {r.model && r.model.p ? (
+                                  <>
+                                    {" "}· Our model: {r.model.p[0]}% / {r.model.p[1]}% / {r.model.p[2]}% →{" "}
+                                    <b>{r.model.pick}</b>
+                                    {r.model.o25 != null ? ` · O2.5 ${r.model.o25}%` : ""}
+                                    {r.model.bank ? ` · ${r.model.bank}` : ""}
+                                  </>
+                                ) : null}
+                              </p>
+                            )}
+                          </div>
+                        )}
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+            );
+          })}
+          {mktVisible.length === 0 && <div className="callout callout-blue">No games match that search.</div>}
         </div>
       ) : (
         <div className="slip-analyze">
