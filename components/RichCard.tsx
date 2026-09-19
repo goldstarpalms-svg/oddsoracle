@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import type { BbPick, FbPick, TnPick } from "@/lib/rich";
+import type { AmPick, BbPick, FbPick, OptRow, TnPick } from "@/lib/rich";
 import TimeChip from "./TimeChip";
 
 /** Three-segment (1/X/2) or two-segment (home/away) probability bar. */
@@ -150,6 +150,41 @@ function MktMenu({ p }: { p: FbPick }) {
   );
 }
 
+/** Generic all-options menu: every market the Nigerian bookies list, with OUR call (same look as MktMenu). */
+function OptMenu({ rows }: { rows: OptRow[] | null | undefined }) {
+  const [open, setOpen] = useState(false);
+  if (!rows || rows.length === 0) return null;
+  return (
+    <div className="mkt-menu">
+      <button className="why-toggle mkt-toggle" onClick={() => setOpen((o) => !o)} aria-expanded={open}>
+        {open ? "▾ Hide all options" : `▸ All options (${rows.length}) — the full menu`}
+      </button>
+      {open && (
+        <table className="mkt-table">
+          <thead>
+            <tr>
+              <th>Market</th>
+              <th>We expect</th>
+              <th>Our call</th>
+              <th>Tag</th>
+            </tr>
+          </thead>
+          <tbody>
+            {rows.map((r) => (
+              <tr key={r.name}>
+                <td className="mkt-name">{r.name}</td>
+                <td className="mkt-detail">{r.detail}</td>
+                <td className="mkt-call">{r.call}</td>
+                <td>{mktTag(r.tag)}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      )}
+    </div>
+  );
+}
+
 function Why({ text }: { text: string }) {
   const [open, setOpen] = useState(false);
   if (!text) return null;
@@ -227,8 +262,47 @@ export function BasketballCard({ p }: { p: BbPick }) {
       </div>
 
       {p.conf && <div className="rich-model">Forebet confidence: <b>{p.conf}</b></div>}
+      <OptMenu rows={p.opts} />
       <Badges banker={p.banker} value={p.value} />
       <Why text={p.why || (p.fb_score ? `Forebet score ${p.fb_score}.` : "")} />
+    </article>
+  );
+}
+
+export function AmericanCard({ p }: { p: AmPick }) {
+  const pickedKey = p.pickSide === "1" ? "h" : "a";
+  const icon = p.sport === "MLB" ? "⚾" : "🏈";
+  return (
+    <article className={`rich-card ${p.banker ? "rich-banker" : ""}`}>
+      <div className="rich-top">
+        <span className="league">{p.league}</span>
+        <TimeChip t={p.t} />
+      </div>
+
+      <div className="rich-teams">
+        <span>{p.home}</span>
+        <span className="pred-vs">vs</span>
+        <span>{p.away}</span>
+      </div>
+
+      {p.prob ? <ProbBar pct={[p.prob[0], p.prob[1]]} picked={pickedKey} labels={[p.home, p.away]} /> : null}
+
+      <div className="rich-pick-row">
+        <span className="rich-tip">{p.pick || "—"}</span>
+        <OddsChip odds={p.odds} />
+        {p.score && <span className="score-chip">{icon} {p.score}</span>}
+        {p.total != null && <span className="score-chip">{icon} total {p.total}</span>}
+      </div>
+
+      {p.pickProb != null && (
+        <div className="rich-model">
+          {p.sport === "MLB" ? "Market reads this at " : "Forebet reads this at "}
+          <b>{p.pickProb}%</b>
+        </div>
+      )}
+      <OptMenu rows={p.opts} />
+      <Badges banker={p.banker} value={p.value} />
+      <Why text={p.why || ""} />
     </article>
   );
 }
@@ -256,6 +330,7 @@ export function TennisCard({ p }: { p: TnPick }) {
         {p.sets && <span className="score-chip">🎾 sets {p.sets}</span>}
       </div>
 
+      <OptMenu rows={p.opts} />
       <Badges banker={p.banker} value={p.value} />
       <Why text={p.why} />
     </article>

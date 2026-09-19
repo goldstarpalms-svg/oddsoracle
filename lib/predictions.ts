@@ -47,7 +47,7 @@ export const SPORTS: Record<
     singular: "Fixture",
     slug: "other",
     blurb:
-      "Ice hockey, esports, MMA and niche markets when the value is on the board.",
+      "MLB with live bookmaker prices on every game — plus NFL and NCAA basketball when they're on the board.",
   },
 };
 
@@ -271,34 +271,8 @@ export const PREDICTIONS: Prediction[] = [
   },
 
   // ---------------- MORE SPORTS ----------------
-  {
-    id: "ot-01",
-    sport: "other",
-    league: "NHL",
-    home: "Toronto Maple Leafs",
-    away: "Boston Bruins",
-    kickoff: "Today · 01:00",
-    market: "Match Winner",
-    tip: "Home Win",
-    confidence: "Balanced",
-    odds: "1.95",
-    analysis:
-      "Toronto's power play has been among the league's most efficient and Boston are shorthanded on the back end. At home, with the extra-man edge, the hosts are the value play."
-  },
-  {
-    id: "ot-02",
-    sport: "other",
-    league: "UFC",
-    home: "Alex Pereira",
-    away: "Magomed Ankalaev",
-    kickoff: "Upcoming",
-    market: "Match Result",
-    tip: "Ankalaev",
-    confidence: "Balanced",
-    odds: "1.72",
-    analysis:
-      "A stylistic clash that favours disciplined pressure over a single-tool power game. Ankalaev's wrestling and volume should neutralise the striking threat over five rounds and control the pace."
-  },
+  // MLB board renders live from the odds snapshot (components/MlbBoard.tsx).
+  // NFL/NCAA land here when the schedule is priced — no static picks.
 ];
 
 // Helpers

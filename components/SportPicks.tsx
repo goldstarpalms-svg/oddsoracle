@@ -1,27 +1,29 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import type { BbPick, ComboLeg, FbPick, TnPick } from "@/lib/rich";
-import { BasketballCard, FootballCard, TennisCard } from "./RichCard";
+import type { AmPick, BbPick, ComboLeg, FbPick, TnPick } from "@/lib/rich";
+import { AmericanCard, BasketballCard, FootballCard, TennisCard } from "./RichCard";
 
-type AnyPick = FbPick | BbPick | TnPick;
+type AnyPick = FbPick | BbPick | TnPick | AmPick;
 type Filter = "all" | "safe" | "value" | "scores";
 type Sort = "time" | "prob" | "odds";
 type OddsRange = "any" | "low" | "mid" | "high";
 
 interface Props {
-  sport: "football" | "basketball" | "tennis";
+  sport: "football" | "basketball" | "tennis" | "other";
   items: AnyPick[];
   combo?: { legs: ComboLeg[]; totalOdds: number; allHitProb: number } | null;
 }
 
 const isFb = (p: AnyPick): p is FbPick => "fb_pct" in p || "model" in p;
 const isBb = (p: AnyPick): p is BbPick => "fb_prob" in p && "deep" in p;
+const isAm = (p: AnyPick): p is AmPick => (p as any).kind === "am";
 const name2 = (p: AnyPick): [string, string] =>
-  isFb(p) || isBb(p) ? [(p as any).home, (p as any).away] : [(p as any).p1, (p as any).p2];
+  isFb(p) || isBb(p) || isAm(p) ? [(p as any).home, (p as any).away] : [(p as any).p1, (p as any).p2];
 const hasScore = (p: AnyPick): boolean => {
   if (isFb(p)) return !!(p as FbPick).fb_score;
   if (isBb(p)) return !!(p as BbPick).fb_score;
+  if (isAm(p)) return !!(p as AmPick).score;
   return !!(p as TnPick).sets;
 };
 const league = (p: AnyPick): string => {
@@ -88,6 +90,7 @@ export default function SportPicks({ sport, items, combo }: Props) {
   const renderCard = (p: AnyPick) => {
     if (isFb(p)) return <FootballCard key={p.id} p={p} />;
     if (isBb(p)) return <BasketballCard key={p.id} p={p} />;
+    if (isAm(p)) return <AmericanCard key={p.id} p={p} />;
     return <TennisCard key={(p as TnPick).id} p={p as TnPick} />;
   };
 

@@ -4,6 +4,7 @@ import { bbPicks, fbPicks, fmtDate, freshness, summary, tnPicks } from "@/lib/ri
 import { FootballCard, BasketballCard, TennisCard } from "@/components/RichCard";
 import BestPicks from "@/components/BestPicks";
 import LivePicks from "@/components/LivePicks";
+import SafeCombos from "@/components/SafeCombos";
 import AdSlot from "@/components/AdSlot";
 import FaqList from "@/components/FaqList";
 import JsonLd from "@/components/JsonLd";
@@ -13,7 +14,7 @@ const SPORT_ICONS: Record<string, string> = {
   football: "⚽",
   basketball: "🏀",
   tennis: "🎾",
-  other: "🏒",
+  other: "⚾",
 };
 
 export default function Home() {
@@ -35,6 +36,7 @@ export default function Home() {
     { slug: "football", label: "Football", count: sum.football, blurb: "1X2 with Forebet % bars, predicted scores, O/U and BTTS across 90+ games daily." },
     { slug: "basketball", label: "Basketball", count: sum.basketball, blurb: "Moneyline with Forebet home/away split, predicted final scores and totals." },
     { slug: "tennis", label: "Tennis", count: sum.tennis, blurb: "Match winner + predicted set scores with the full probability split." },
+    { slug: "other", label: "More Sports", count: sum.other, blurb: "MLB with live bookmaker prices + NCAA American football with Forebet picks." },
   ];
 
   const featuredLd = {
@@ -182,6 +184,9 @@ export default function Home() {
           </div>
         </section>
       )}
+
+      {/* DAILY SAFE 20 / 10 / 5 — auto-generated, every leg 80%+ */}
+      <SafeCombos />
 
       {/* SPORTS */}
       <section className="sec">
