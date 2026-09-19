@@ -1,0 +1,1522 @@
+[
+ {
+  "t": "11:15",
+  "home": "Feyenoord",
+  "away": "Utrecht",
+  "lg": "Eredivisie",
+  "fb_pct": null,
+  "fb_score": "",
+  "avg": null,
+  "odds": [
+   1.87,
+   4.57,
+   4.07
+  ],
+  "status": "",
+  "note": "Model pick (Forebet feed refreshes at 06:00 WAT)",
+  "fb_pick": "1",
+  "mkt_dec": [
+   1.280112044817927,
+   5.75,
+   9.5
+  ],
+  "mkt_imp": null,
+  "mkt_pick": null,
+  "final": "1",
+  "src": "MODEL",
+  "ou": "O2.5",
+  "model": {
+   "pick": "1",
+   "p": [
+    54,
+    22,
+    25
+   ],
+   "o25": 63,
+   "btts": 62,
+   "bank": "MODERATE"
+  }
+ },
+ {
+  "t": "11:30",
+  "home": "Fiorentina",
+  "away": "Napoli",
+  "lg": "Serie A",
+  "fb_pct": null,
+  "fb_score": "",
+  "avg": null,
+  "odds": [
+   3.77,
+   4.34,
+   1.98
+  ],
+  "status": "",
+  "note": "Model pick (Forebet feed refreshes at 06:00 WAT)",
+  "fb_pick": "2",
+  "mkt_dec": [
+   3.3,
+   3.4,
+   2.2
+  ],
+  "mkt_imp": null,
+  "mkt_pick": null,
+  "final": "2",
+  "src": "MODEL",
+  "ou": "O2.5",
+  "model": {
+   "pick": "2",
+   "p": [
+    27,
+    23,
+    50
+   ],
+   "o25": 58,
+   "btts": 58,
+   "bank": "MODERATE"
+  }
+ },
+ {
+  "t": "12:00",
+  "home": "Celtic",
+  "away": "Rangers",
+  "lg": "Scottish Prem",
+  "fb_pct": null,
+  "fb_score": "",
+  "avg": null,
+  "odds": [
+   2.09,
+   4.52,
+   3.33
+  ],
+  "status": "",
+  "note": "Model pick (Forebet feed refreshes at 06:00 WAT)",
+  "fb_pick": "1",
+  "mkt_dec": [
+   2.2,
+   3.7,
+   3.0
+  ],
+  "mkt_imp": null,
+  "mkt_pick": null,
+  "final": "1",
+  "src": "MODEL",
+  "ou": "O2.5",
+  "model": {
+   "pick": "1",
+   "p": [
+    48,
+    22,
+    30
+   ],
+   "o25": 68,
+   "btts": 67,
+   "bank": "RISKY"
+  }
+ },
+ {
+  "t": "13:00",
+  "home": "Getafe",
+  "away": "Malaga",
+  "lg": "La Liga",
+  "fb_pct": null,
+  "fb_score": "",
+  "avg": null,
+  "odds": [
+   2.28,
+   3.26,
+   3.94
+  ],
+  "status": "",
+  "note": "Model pick (Forebet feed refreshes at 06:00 WAT)",
+  "fb_pick": "1",
+  "mkt_dec": [
+   2.05,
+   3.1,
+   3.9
+  ],
+  "mkt_imp": null,
+  "mkt_pick": null,
+  "final": "1",
+  "src": "MODEL",
+  "ou": "U2.5",
+  "model": {
+   "pick": "1",
+   "p": [
+    44,
+    31,
+    25
+   ],
+   "o25": 26,
+   "btts": 33,
+   "bank": "RISKY"
+  }
+ },
+ {
+  "t": "13:00",
+  "home": "Sabadell",
+  "away": "Oviedo",
+  "lg": "LaLiga 2",
+  "fb_pct": null,
+  "fb_score": "",
+  "avg": null,
+  "odds": [
+   2.17,
+   3.58,
+   3.86
+  ],
+  "status": "",
+  "note": "Model pick (Forebet feed refreshes at 06:00 WAT)",
+  "fb_pick": "1",
+  "mkt_dec": [
+   2.35,
+   3.0,
+   3.3
+  ],
+  "mkt_imp": null,
+  "mkt_pick": null,
+  "final": "1",
+  "src": "MODEL",
+  "ou": "U2.5",
+  "model": {
+   "pick": "1",
+   "p": [
+    46,
+    28,
+    26
+   ],
+   "o25": 35,
+   "btts": 40,
+   "bank": "RISKY"
+  }
+ },
+ {
+  "t": "13:30",
+  "home": "AZ Alkmaar",
+  "away": "Telstar",
+  "lg": "Eredivisie",
+  "fb_pct": null,
+  "fb_score": "",
+  "avg": null,
+  "odds": [
+   1.8,
+   4.77,
+   4.23
+  ],
+  "status": "",
+  "note": "Model pick (Forebet feed refreshes at 06:00 WAT)",
+  "fb_pick": "1",
+  "mkt_dec": [
+   1.25,
+   6.0,
+   10.0
+  ],
+  "mkt_imp": null,
+  "mkt_pick": null,
+  "final": "1",
+  "src": "MODEL",
+  "ou": "O2.5",
+  "model": {
+   "pick": "1",
+   "p": [
+    55,
+    21,
+    24
+   ],
+   "o25": 66,
+   "btts": 64,
+   "bank": "SAFE"
+  }
+ },
+ {
+  "t": "13:30",
+  "home": "Twente",
+  "away": "PSV Eindhoven",
+  "lg": "Eredivisie",
+  "fb_pct": null,
+  "fb_score": "",
+  "avg": null,
+  "odds": [
+   3.68,
+   4.83,
+   1.92
+  ],
+  "status": "",
+  "note": "Model pick (Forebet feed refreshes at 06:00 WAT)",
+  "fb_pick": "2",
+  "mkt_dec": [
+   2.87,
+   4.0,
+   2.2
+  ],
+  "mkt_imp": null,
+  "mkt_pick": null,
+  "final": "2",
+  "src": "MODEL",
+  "ou": "O2.5",
+  "model": {
+   "pick": "2",
+   "p": [
+    27,
+    21,
+    52
+   ],
+   "o25": 71,
+   "btts": 69,
+   "bank": "MODERATE"
+  }
+ },
+ {
+  "t": "14:00",
+  "home": "Man City",
+  "away": "Sunderland",
+  "lg": "Premier League",
+  "fb_pct": null,
+  "fb_score": "",
+  "avg": null,
+  "odds": [
+   1.55,
+   5.08,
+   6.33
+  ],
+  "status": "",
+  "note": "Model pick (Forebet feed refreshes at 06:00 WAT)",
+  "fb_pick": "1",
+  "mkt_dec": [
+   1.3003003003003002,
+   5.5,
+   9.0
+  ],
+  "mkt_imp": null,
+  "mkt_pick": null,
+  "final": "1",
+  "src": "MODEL",
+  "ou": "O2.5",
+  "model": {
+   "pick": "1",
+   "p": [
+    64,
+    20,
+    16
+   ],
+   "o25": 56,
+   "btts": 47,
+   "bank": "BANKER"
+  }
+ },
+ {
+  "t": "14:00",
+  "home": "Leeds",
+  "away": "Crystal Palace",
+  "lg": "Premier League",
+  "fb_pct": null,
+  "fb_score": "",
+  "avg": null,
+  "odds": [
+   2.1,
+   4.06,
+   3.61
+  ],
+  "status": "",
+  "note": "Model pick (Forebet feed refreshes at 06:00 WAT)",
+  "fb_pick": "1",
+  "mkt_dec": [
+   1.7518796992481203,
+   3.8,
+   4.5
+  ],
+  "mkt_imp": null,
+  "mkt_pick": null,
+  "final": "1",
+  "src": "MODEL",
+  "ou": "O2.5",
+  "model": {
+   "pick": "1",
+   "p": [
+    48,
+    25,
+    28
+   ],
+   "o25": 52,
+   "btts": 54,
+   "bank": "RISKY"
+  }
+ },
+ {
+  "t": "14:00",
+  "home": "Bournemouth",
+  "away": "Liverpool",
+  "lg": "Premier League",
+  "fb_pct": null,
+  "fb_score": "",
+  "avg": null,
+  "odds": [
+   2.41,
+   4.34,
+   2.82
+  ],
+  "status": "",
+  "note": "Model pick (Forebet feed refreshes at 06:00 WAT)",
+  "fb_pick": "1",
+  "mkt_dec": [
+   3.1,
+   3.8,
+   2.15
+  ],
+  "mkt_imp": null,
+  "mkt_pick": null,
+  "final": "1",
+  "src": "MODEL",
+  "ou": "O2.5",
+  "model": {
+   "pick": "1",
+   "p": [
+    41,
+    23,
+    35
+   ],
+   "o25": 66,
+   "btts": 66,
+   "bank": "RISKY"
+  }
+ },
+ {
+  "t": "14:00",
+  "home": "Frosinone",
+  "away": "Como",
+  "lg": "Serie A",
+  "fb_pct": null,
+  "fb_score": "",
+  "avg": null,
+  "odds": [
+   6.96,
+   6.29,
+   1.43
+  ],
+  "status": "",
+  "note": "Model pick (Forebet feed refreshes at 06:00 WAT)",
+  "fb_pick": "2",
+  "mkt_dec": [
+   6.0,
+   4.5,
+   1.5
+  ],
+  "mkt_imp": null,
+  "mkt_pick": null,
+  "final": "2",
+  "src": "MODEL",
+  "ou": "O2.5",
+  "model": {
+   "pick": "2",
+   "p": [
+    14,
+    16,
+    70
+   ],
+   "o25": 71,
+   "btts": 56,
+   "bank": "BANKER"
+  }
+ },
+ {
+  "t": "14:00",
+  "home": "Parma",
+  "away": "Genoa",
+  "lg": "Serie A",
+  "fb_pct": null,
+  "fb_score": "",
+  "avg": null,
+  "odds": [
+   3.37,
+   3.64,
+   2.34
+  ],
+  "status": "",
+  "note": "Model pick (Forebet feed refreshes at 06:00 WAT)",
+  "fb_pick": "2",
+  "mkt_dec": [
+   3.1,
+   3.1,
+   2.45
+  ],
+  "mkt_imp": null,
+  "mkt_pick": null,
+  "final": "2",
+  "src": "MODEL",
+  "ou": "U2.5",
+  "model": {
+   "pick": "2",
+   "p": [
+    30,
+    28,
+    43
+   ],
+   "o25": 40,
+   "btts": 45,
+   "bank": "RISKY"
+  }
+ },
+ {
+  "t": "14:00",
+  "home": "Auxerre",
+  "away": "Brest",
+  "lg": "Ligue 1",
+  "fb_pct": null,
+  "fb_score": "",
+  "avg": null,
+  "odds": [
+   2.74,
+   4.09,
+   2.56
+  ],
+  "status": "",
+  "note": "Model pick (Forebet feed refreshes at 06:00 WAT)",
+  "fb_pick": "2",
+  "mkt_dec": [
+   2.8,
+   3.5,
+   2.45
+  ],
+  "mkt_imp": null,
+  "mkt_pick": null,
+  "final": "2",
+  "src": "MODEL",
+  "ou": "O2.5",
+  "model": {
+   "pick": "2",
+   "p": [
+    36,
+    24,
+    39
+   ],
+   "o25": 55,
+   "btts": 59,
+   "bank": "RISKY"
+  }
+ },
+ {
+  "t": "14:00",
+  "home": "Verona",
+  "away": "Vicenza",
+  "lg": "Serie B",
+  "fb_pct": null,
+  "fb_score": "",
+  "avg": null,
+  "odds": [
+   1.62,
+   5.11,
+   5.33
+  ],
+  "status": "",
+  "note": "Model pick (Forebet feed refreshes at 06:00 WAT)",
+  "fb_pick": "1",
+  "mkt_dec": [
+   1.900900900900901,
+   3.4,
+   4.2
+  ],
+  "mkt_imp": null,
+  "mkt_pick": null,
+  "final": "1",
+  "src": "MODEL",
+  "ou": "O2.5",
+  "model": {
+   "pick": "1",
+   "p": [
+    62,
+    20,
+    19
+   ],
+   "o25": 72,
+   "btts": 52,
+   "bank": "BANKER"
+  }
+ },
+ {
+  "t": "14:00",
+  "home": "Arezzo",
+  "away": "Sudtirol",
+  "lg": "Serie B",
+  "fb_pct": null,
+  "fb_score": "",
+  "avg": null,
+  "odds": [
+   2.6,
+   3.51,
+   3.03
+  ],
+  "status": "",
+  "note": "Model pick (Forebet feed refreshes at 06:00 WAT)",
+  "fb_pick": "1",
+  "mkt_dec": [
+   2.25,
+   3.1,
+   3.4
+  ],
+  "mkt_imp": null,
+  "mkt_pick": null,
+  "final": "1",
+  "src": "MODEL",
+  "ou": "U2.5",
+  "model": {
+   "pick": "1",
+   "p": [
+    39,
+    28,
+    33
+   ],
+   "o25": 35,
+   "btts": 42,
+   "bank": "RISKY"
+  }
+ },
+ {
+  "t": "14:30",
+  "home": "Leverkusen",
+  "away": "RB Leipzig",
+  "lg": "Bundesliga",
+  "fb_pct": null,
+  "fb_score": "",
+  "avg": null,
+  "odds": [
+   2.03,
+   4.69,
+   3.39
+  ],
+  "status": "",
+  "note": "Model pick (Forebet feed refreshes at 06:00 WAT)",
+  "fb_pick": "1",
+  "mkt_dec": [
+   1.9523809523809523,
+   4.2,
+   3.25
+  ],
+  "mkt_imp": null,
+  "mkt_pick": null,
+  "final": "1",
+  "src": "MODEL",
+  "ou": "O2.5",
+  "model": {
+   "pick": "1",
+   "p": [
+    49,
+    21,
+    29
+   ],
+   "o25": 70,
+   "btts": 69,
+   "bank": "MODERATE"
+  }
+ },
+ {
+  "t": "14:30",
+  "home": "Wolves",
+  "away": "West Brom",
+  "lg": "Championship",
+  "fb_pct": null,
+  "fb_score": "",
+  "avg": null,
+  "odds": [
+   1.82,
+   4.45,
+   4.42
+  ],
+  "status": "",
+  "note": "Model pick (Forebet feed refreshes at 06:00 WAT)",
+  "fb_pick": "1",
+  "mkt_dec": [
+   1.8,
+   3.7,
+   4.33
+  ],
+  "mkt_imp": null,
+  "mkt_pick": null,
+  "final": "1",
+  "src": "MODEL",
+  "ou": "O2.5",
+  "model": {
+   "pick": "1",
+   "p": [
+    55,
+    22,
+    23
+   ],
+   "o25": 54,
+   "btts": 48,
+   "bank": "MODERATE"
+  }
+ },
+ {
+  "t": "14:30",
+  "home": "Norwich",
+  "away": "Bolton",
+  "lg": "Championship",
+  "fb_pct": null,
+  "fb_score": "",
+  "avg": null,
+  "odds": [
+   1.85,
+   4.53,
+   4.2
+  ],
+  "status": "",
+  "note": "Model pick (Forebet feed refreshes at 06:00 WAT)",
+  "fb_pick": "1",
+  "mkt_dec": [
+   1.529100529100529,
+   4.33,
+   5.5
+  ],
+  "mkt_imp": null,
+  "mkt_pick": null,
+  "final": "1",
+  "src": "MODEL",
+  "ou": "O2.5",
+  "model": {
+   "pick": "1",
+   "p": [
+    54,
+    22,
+    24
+   ],
+   "o25": 62,
+   "btts": 56,
+   "bank": "MODERATE"
+  }
+ },
+ {
+  "t": "15:00",
+  "home": "Erzurumspor",
+  "away": "Samsunspor",
+  "lg": "Super Lig",
+  "fb_pct": null,
+  "fb_score": "",
+  "avg": null,
+  "odds": [
+   5.61,
+   3.89,
+   1.77
+  ],
+  "status": "",
+  "note": "Model pick (Forebet feed refreshes at 06:00 WAT)",
+  "fb_pick": "2",
+  "mkt_dec": [
+   2.62,
+   3.2,
+   2.62
+  ],
+  "mkt_imp": null,
+  "mkt_pick": null,
+  "final": "2",
+  "src": "MODEL",
+  "ou": "U2.5",
+  "model": {
+   "pick": "2",
+   "p": [
+    18,
+    26,
+    56
+   ],
+   "o25": 40,
+   "btts": 41,
+   "bank": "SAFE"
+  }
+ },
+ {
+  "t": "15:00",
+  "home": "Fenerbahce",
+  "away": "Eyupspor",
+  "lg": "Super Lig",
+  "fb_pct": null,
+  "fb_score": "",
+  "avg": null,
+  "odds": [
+   1.24,
+   7.92,
+   14.96
+  ],
+  "status": "",
+  "note": "Model pick (Forebet feed refreshes at 06:00 WAT)",
+  "fb_pick": "1",
+  "mkt_dec": [
+   1.1798561151079137,
+   6.5,
+   13.0
+  ],
+  "mkt_imp": null,
+  "mkt_pick": null,
+  "final": "1",
+  "src": "MODEL",
+  "ou": "O2.5",
+  "model": {
+   "pick": "1",
+   "p": [
+    81,
+    13,
+    7
+   ],
+   "o25": 68,
+   "btts": 47,
+   "bank": "BANKER"
+  }
+ },
+ {
+  "t": "15:15",
+  "home": "Ath Madrid",
+  "away": "Real Madrid",
+  "lg": "La Liga",
+  "fb_pct": null,
+  "fb_score": "",
+  "avg": null,
+  "odds": [
+   3.68,
+   4.41,
+   1.99
+  ],
+  "status": "",
+  "note": "Model pick (Forebet feed refreshes at 06:00 WAT)",
+  "fb_pick": "2",
+  "mkt_dec": [
+   3.4,
+   3.9,
+   1.9523809523809523
+  ],
+  "mkt_imp": null,
+  "mkt_pick": null,
+  "final": "2",
+  "src": "MODEL",
+  "ou": "O2.5",
+  "model": {
+   "pick": "2",
+   "p": [
+    27,
+    23,
+    50
+   ],
+   "o25": 60,
+   "btts": 60,
+   "bank": "MODERATE"
+  }
+ },
+ {
+  "t": "15:15",
+  "home": "Ceuta",
+  "away": "Valladolid",
+  "lg": "LaLiga 2",
+  "fb_pct": null,
+  "fb_score": "",
+  "avg": null,
+  "odds": [
+   2.34,
+   3.59,
+   3.41
+  ],
+  "status": "",
+  "note": "Model pick (Forebet feed refreshes at 06:00 WAT)",
+  "fb_pick": "1",
+  "mkt_dec": [
+   2.62,
+   3.25,
+   2.62
+  ],
+  "mkt_imp": null,
+  "mkt_pick": null,
+  "final": "1",
+  "src": "MODEL",
+  "ou": "U2.5",
+  "model": {
+   "pick": "1",
+   "p": [
+    43,
+    28,
+    29
+   ],
+   "o25": 38,
+   "btts": 44,
+   "bank": "RISKY"
+  }
+ },
+ {
+  "t": "15:45",
+  "home": "Nijmegen",
+  "away": "Go Ahead Eagles",
+  "lg": "Eredivisie",
+  "fb_pct": null,
+  "fb_score": "",
+  "avg": null,
+  "odds": [
+   2.14,
+   4.88,
+   3.05
+  ],
+  "status": "",
+  "note": "Model pick (Forebet feed refreshes at 06:00 WAT)",
+  "fb_pick": "1",
+  "mkt_dec": [
+   1.9523809523809523,
+   4.0,
+   3.5
+  ],
+  "mkt_imp": null,
+  "mkt_pick": null,
+  "final": "1",
+  "src": "MODEL",
+  "ou": "O2.5",
+  "model": {
+   "pick": "1",
+   "p": [
+    47,
+    21,
+    33
+   ],
+   "o25": 76,
+   "btts": 74,
+   "bank": "RISKY"
+  }
+ },
+ {
+  "t": "16:15",
+  "home": "Nice",
+  "away": "Lille",
+  "lg": "Ligue 1",
+  "fb_pct": null,
+  "fb_score": "",
+  "avg": null,
+  "odds": [
+   3.89,
+   4.38,
+   1.94
+  ],
+  "status": "",
+  "note": "Model pick (Forebet feed refreshes at 06:00 WAT)",
+  "fb_pick": "2",
+  "mkt_dec": [
+   3.6,
+   3.5,
+   2.05
+  ],
+  "mkt_imp": null,
+  "mkt_pick": null,
+  "final": "2",
+  "src": "MODEL",
+  "ou": "O2.5",
+  "model": {
+   "pick": "2",
+   "p": [
+    26,
+    23,
+    51
+   ],
+   "o25": 56,
+   "btts": 56,
+   "bank": "MODERATE"
+  }
+ },
+ {
+  "t": "16:15",
+  "home": "Mantova",
+  "away": "Pisa",
+  "lg": "Serie B",
+  "fb_pct": null,
+  "fb_score": "",
+  "avg": null,
+  "odds": [
+   2.81,
+   3.9,
+   2.58
+  ],
+  "status": "",
+  "note": "Model pick (Forebet feed refreshes at 06:00 WAT)",
+  "fb_pick": "2",
+  "mkt_dec": [
+   2.7,
+   3.2,
+   2.6
+  ],
+  "mkt_imp": null,
+  "mkt_pick": null,
+  "final": "2",
+  "src": "MODEL",
+  "ou": "O2.5",
+  "model": {
+   "pick": "2",
+   "p": [
+    36,
+    26,
+    39
+   ],
+   "o25": 55,
+   "btts": 57,
+   "bank": "RISKY"
+  }
+ },
+ {
+  "t": "16:30",
+  "home": "Fulham",
+  "away": "Man United",
+  "lg": "Premier League",
+  "fb_pct": null,
+  "fb_score": "",
+  "avg": null,
+  "odds": [
+   3.08,
+   4.32,
+   2.25
+  ],
+  "status": "",
+  "note": "Model pick (Forebet feed refreshes at 06:00 WAT)",
+  "fb_pick": "2",
+  "mkt_dec": [
+   3.5,
+   3.8,
+   2.0
+  ],
+  "mkt_imp": null,
+  "mkt_pick": null,
+  "final": "2",
+  "src": "MODEL",
+  "ou": "O2.5",
+  "model": {
+   "pick": "2",
+   "p": [
+    32,
+    23,
+    44
+   ],
+   "o25": 62,
+   "btts": 63,
+   "bank": "RISKY"
+  }
+ },
+ {
+  "t": "16:30",
+  "home": "Schalke 04",
+  "away": "Elversberg",
+  "lg": "Bundesliga",
+  "fb_pct": null,
+  "fb_score": "",
+  "avg": null,
+  "odds": [
+   2.2,
+   4.83,
+   2.96
+  ],
+  "status": "",
+  "note": "Model pick (Forebet feed refreshes at 06:00 WAT)",
+  "fb_pick": "1",
+  "mkt_dec": [
+   2.0,
+   3.7,
+   3.5
+  ],
+  "mkt_imp": null,
+  "mkt_pick": null,
+  "final": "1",
+  "src": "MODEL",
+  "ou": "O2.5",
+  "model": {
+   "pick": "1",
+   "p": [
+    45,
+    21,
+    34
+   ],
+   "o25": 76,
+   "btts": 74,
+   "bank": "RISKY"
+  }
+ },
+ {
+  "t": "17:00",
+  "home": "Juventus",
+  "away": "Atalanta",
+  "lg": "Serie A",
+  "fb_pct": null,
+  "fb_score": "",
+  "avg": null,
+  "odds": [
+   1.88,
+   4.22,
+   4.3
+  ],
+  "status": "",
+  "note": "Model pick (Forebet feed refreshes at 06:00 WAT)",
+  "fb_pick": "1",
+  "mkt_dec": [
+   1.6993006993006992,
+   3.9,
+   4.75
+  ],
+  "mkt_imp": null,
+  "mkt_pick": null,
+  "final": "1",
+  "src": "MODEL",
+  "ou": "O2.5",
+  "model": {
+   "pick": "1",
+   "p": [
+    53,
+    24,
+    23
+   ],
+   "o25": 51,
+   "btts": 51,
+   "bank": "MODERATE"
+  }
+ },
+ {
+  "t": "17:30",
+  "home": "La Coruna",
+  "away": "Betis",
+  "lg": "La Liga",
+  "fb_pct": null,
+  "fb_score": "",
+  "avg": null,
+  "odds": [
+   3.77,
+   3.66,
+   2.16
+  ],
+  "status": "",
+  "note": "Model pick (Forebet feed refreshes at 06:00 WAT)",
+  "fb_pick": "2",
+  "mkt_dec": [
+   3.31,
+   3.64,
+   2.19
+  ],
+  "mkt_imp": null,
+  "mkt_pick": null,
+  "final": "2",
+  "src": "MODEL",
+  "ou": "U2.5",
+  "model": {
+   "pick": "2",
+   "p": [
+    26,
+    27,
+    46
+   ],
+   "o25": 37,
+   "btts": 42,
+   "bank": "RISKY"
+  }
+ },
+ {
+  "t": "17:30",
+  "home": "Villarreal",
+  "away": "Levante",
+  "lg": "La Liga",
+  "fb_pct": null,
+  "fb_score": "",
+  "avg": null,
+  "odds": [
+   1.64,
+   5.29,
+   4.97
+  ],
+  "status": "",
+  "note": "Model pick (Forebet feed refreshes at 06:00 WAT)",
+  "fb_pick": "1",
+  "mkt_dec": [
+   1.5494505494505495,
+   4.2,
+   5.5
+  ],
+  "mkt_imp": null,
+  "mkt_pick": null,
+  "final": "1",
+  "src": "MODEL",
+  "ou": "O2.5",
+  "model": {
+   "pick": "1",
+   "p": [
+    61,
+    19,
+    20
+   ],
+   "o25": 72,
+   "btts": 65,
+   "bank": "BANKER"
+  }
+ },
+ {
+  "t": "17:30",
+  "home": "Las Palmas",
+  "away": "Burgos",
+  "lg": "LaLiga 2",
+  "fb_pct": null,
+  "fb_score": "",
+  "avg": null,
+  "odds": [
+   2.4,
+   3.32,
+   3.54
+  ],
+  "status": "",
+  "note": "Model pick (Forebet feed refreshes at 06:00 WAT)",
+  "fb_pick": "1",
+  "mkt_dec": [
+   2.0,
+   3.4,
+   3.75
+  ],
+  "mkt_imp": null,
+  "mkt_pick": null,
+  "final": "1",
+  "src": "MODEL",
+  "ou": "U2.5",
+  "model": {
+   "pick": "1",
+   "p": [
+    42,
+    30,
+    28
+   ],
+   "o25": 26,
+   "btts": 34,
+   "bank": "RISKY"
+  }
+ },
+ {
+  "t": "17:30",
+  "home": "Almeria",
+  "away": "Celta B",
+  "lg": "LaLiga 2",
+  "fb_pct": null,
+  "fb_score": "",
+  "avg": null,
+  "odds": [
+   1.89,
+   4.36,
+   4.12
+  ],
+  "status": "",
+  "note": "Model pick (Forebet feed refreshes at 06:00 WAT)",
+  "fb_pick": "1",
+  "mkt_dec": [
+   1.4,
+   4.5,
+   8.0
+  ],
+  "mkt_imp": null,
+  "mkt_pick": null,
+  "final": "1",
+  "src": "MODEL",
+  "ou": "O2.5",
+  "model": {
+   "pick": "1",
+   "p": [
+    53,
+    23,
+    24
+   ],
+   "o25": 72,
+   "btts": 67,
+   "bank": "MODERATE"
+  }
+ },
+ {
+  "t": "18:00",
+  "home": "Goztep",
+  "away": "Rizespor",
+  "lg": "Super Lig",
+  "fb_pct": null,
+  "fb_score": "",
+  "avg": null,
+  "odds": [
+   1.89,
+   4.24,
+   4.26
+  ],
+  "status": "",
+  "note": "Model pick (Forebet feed refreshes at 06:00 WAT)",
+  "fb_pick": "1",
+  "mkt_dec": [
+   2.35,
+   3.4,
+   2.8
+  ],
+  "mkt_imp": null,
+  "mkt_pick": null,
+  "final": "1",
+  "src": "MODEL",
+  "ou": "O2.5",
+  "model": {
+   "pick": "1",
+   "p": [
+    53,
+    24,
+    23
+   ],
+   "o25": 54,
+   "btts": 55,
+   "bank": "MODERATE"
+  }
+ },
+ {
+  "t": "18:00",
+  "home": "Amedspor",
+  "away": "Besiktas",
+  "lg": "Super Lig",
+  "fb_pct": null,
+  "fb_score": "",
+  "avg": null,
+  "odds": [
+   1.72,
+   4.23,
+   5.53
+  ],
+  "status": "",
+  "note": "Model pick (Forebet feed refreshes at 06:00 WAT)",
+  "fb_pick": "1",
+  "mkt_dec": [
+   3.9,
+   3.6,
+   1.8333333333333335
+  ],
+  "mkt_imp": null,
+  "mkt_pick": null,
+  "final": "1",
+  "src": "MODEL",
+  "ou": "U2.5",
+  "model": {
+   "pick": "1",
+   "p": [
+    58,
+    24,
+    18
+   ],
+   "o25": 47,
+   "btts": 47,
+   "bank": "SAFE"
+  }
+ },
+ {
+  "t": "18:30",
+  "home": "Paderborn",
+  "away": "Hoffenheim",
+  "lg": "Bundesliga",
+  "fb_pct": null,
+  "fb_score": "",
+  "avg": null,
+  "odds": [
+   4.65,
+   3.83,
+   1.91
+  ],
+  "status": "",
+  "note": "Model pick (Forebet feed refreshes at 06:00 WAT)",
+  "fb_pick": "2",
+  "mkt_dec": [
+   4.33,
+   4.5,
+   1.6578947368421053
+  ],
+  "mkt_imp": null,
+  "mkt_pick": null,
+  "final": "2",
+  "src": "MODEL",
+  "ou": "U2.5",
+  "model": {
+   "pick": "2",
+   "p": [
+    22,
+    26,
+    52
+   ],
+   "o25": 38,
+   "btts": 40,
+   "bank": "MODERATE"
+  }
+ },
+ {
+  "t": "18:30",
+  "home": "Modena",
+  "away": "Empoli",
+  "lg": "Serie B",
+  "fb_pct": null,
+  "fb_score": "",
+  "avg": null,
+  "odds": [
+   2.05,
+   3.72,
+   4.13
+  ],
+  "status": "",
+  "note": "Model pick (Forebet feed refreshes at 06:00 WAT)",
+  "fb_pick": "1",
+  "mkt_dec": [
+   1.6578947368421053,
+   3.6,
+   5.25
+  ],
+  "mkt_imp": null,
+  "mkt_pick": null,
+  "final": "1",
+  "src": "MODEL",
+  "ou": "U2.5",
+  "model": {
+   "pick": "1",
+   "p": [
+    49,
+    27,
+    24
+   ],
+   "o25": 36,
+   "btts": 38,
+   "bank": "MODERATE"
+  }
+ },
+ {
+  "t": "19:45",
+  "home": "Milan",
+  "away": "Lecce",
+  "lg": "Serie A",
+  "fb_pct": null,
+  "fb_score": "",
+  "avg": null,
+  "odds": [
+   1.61,
+   4.76,
+   5.97
+  ],
+  "status": "",
+  "note": "Model pick (Forebet feed refreshes at 06:00 WAT)",
+  "fb_pick": "1",
+  "mkt_dec": [
+   1.2702702702702702,
+   5.75,
+   11.0
+  ],
+  "mkt_imp": null,
+  "mkt_pick": null,
+  "final": "1",
+  "src": "MODEL",
+  "ou": "O2.5",
+  "model": {
+   "pick": "1",
+   "p": [
+    62,
+    21,
+    17
+   ],
+   "o25": 51,
+   "btts": 46,
+   "bank": "BANKER"
+  }
+ },
+ {
+  "t": "19:45",
+  "home": "Marseille",
+  "away": "Paris SG",
+  "lg": "Ligue 1",
+  "fb_pct": null,
+  "fb_score": "",
+  "avg": null,
+  "odds": [
+   3.66,
+   4.63,
+   1.96
+  ],
+  "status": "",
+  "note": "Model pick (Forebet feed refreshes at 06:00 WAT)",
+  "fb_pick": "2",
+  "mkt_dec": [
+   7.0,
+   5.0,
+   1.4
+  ],
+  "mkt_imp": null,
+  "mkt_pick": null,
+  "final": "2",
+  "src": "MODEL",
+  "ou": "O2.5",
+  "model": {
+   "pick": "2",
+   "p": [
+    27,
+    22,
+    51
+   ],
+   "o25": 65,
+   "btts": 64,
+   "bank": "MODERATE"
+  }
+ },
+ {
+  "t": "20:00",
+  "home": "Leganes",
+  "away": "Granada",
+  "lg": "LaLiga 2",
+  "fb_pct": null,
+  "fb_score": "",
+  "avg": null,
+  "odds": [
+   2.39,
+   3.4,
+   3.48
+  ],
+  "status": "",
+  "note": "Model pick (Forebet feed refreshes at 06:00 WAT)",
+  "fb_pick": "1",
+  "mkt_dec": [
+   2.0,
+   3.1,
+   4.1
+  ],
+  "mkt_imp": null,
+  "mkt_pick": null,
+  "final": "1",
+  "src": "MODEL",
+  "ou": "U2.5",
+  "model": {
+   "pick": "1",
+   "p": [
+    42,
+    29,
+    29
+   ],
+   "o25": 29,
+   "btts": 37,
+   "bank": "RISKY"
+  }
+ },
+ {
+  "t": "",
+  "home": "Valencia",
+  "away": "Sociedad",
+  "lg": "La Liga",
+  "fb_pct": null,
+  "fb_score": "",
+  "avg": null,
+  "odds": [
+   2.68,
+   4.09,
+   2.61
+  ],
+  "status": "",
+  "note": "Model pick (Forebet feed refreshes at 06:00 WAT)",
+  "fb_pick": "2",
+  "mkt_dec": [
+   2.62,
+   3.4,
+   2.55
+  ],
+  "mkt_imp": null,
+  "mkt_pick": null,
+  "final": "2",
+  "src": "MODEL",
+  "ou": "O2.5",
+  "model": {
+   "pick": "2",
+   "p": [
+    37,
+    24,
+    38
+   ],
+   "o25": 57,
+   "btts": 60,
+   "bank": "RISKY"
+  }
+ }
+]

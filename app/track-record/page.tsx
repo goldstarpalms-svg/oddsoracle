@@ -46,9 +46,7 @@ function WL({ won }: { won: number | null | undefined }) {
 export default function TrackRecordPage() {
   const data = loadHistory();
   const c = data.cumulative;
-  const days: Record<string, any> = Object.entries(
-    data.days || {}
-  ) as Record<string, any>;
+  const days: Record<string, any> = (data.days || {}) as Record<string, any>;
 
   // Flat, newest-first list of every scored pick (the permanent audit trail).
   const audit = (c ? Object.entries(days) : [])
