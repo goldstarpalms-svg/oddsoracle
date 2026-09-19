@@ -55,6 +55,17 @@ try {
   );
 } catch {}
 
+let odds = null;
+try {
+  const raw = JSON.parse(
+    fs.readFileSync(path.join(DAILY, "odds.json"), "utf8")
+  );
+  // keep the odds snapshot only if it fetched at least one event
+  const hasEvents = raw && raw.sports &&
+    Object.values(raw.sports).some((s) => Array.isArray(s.events) && s.events.length);
+  if (hasEvents) odds = raw;
+} catch {}
+
 const snapshot = {
   generatedAt: new Date().toISOString(),
   dataDate: today,
@@ -62,13 +73,18 @@ const snapshot = {
   basketball: basketball && basketball.games ? basketball : null,
   tennis: tennis && tennis.games ? tennis : null,
   history: history && history.cumulative ? history : null,
+  odds: odds || null,
 };
 
 fs.mkdirSync(path.dirname(OUT), { recursive: true });
 fs.writeFileSync(OUT, JSON.stringify(snapshot));
 const kb = (fs.statSync(OUT).size / 1024).toFixed(1);
+const oddsCount = odds
+  ? Object.values(odds.sports).reduce((acc, s) => acc + (s.events ? s.events.length : 0), 0)
+  : 0;
 console.log(
   `data-snapshot.json written (${kb} KB) — football: ${snapshot.football.length}, ` +
   `basketball: ${snapshot.basketball ? snapshot.basketball.games.length + " deep + " + (snapshot.basketball.forebet_today_all || []).length : 0}, ` +
-  `tennis: ${snapshot.tennis ? snapshot.tennis.games.length : 0}`
+  `tennis: ${snapshot.tennis ? snapshot.tennis.games.length : 0}, ` +
+  `odds events: ${oddsCount}`
 );

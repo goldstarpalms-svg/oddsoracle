@@ -46,10 +46,12 @@ export default function SlipPage() {
         <div className="container prose" style={{ maxWidth: 820 }}>
           <h2>Coming to Slip Tools</h2>
           <p>
-            Paste-a-booking-code analysis (SportyBet, Bet9ja, NairaBet), one-tap code conversion
-            between bookmakers and live multi-book odds comparison are on the roadmap. They need
-            licensed bookmaker data feeds, so they switch on as soon as the right providers are
-            wired up.
+            The booking-code decoder is live — Sportybet, Bet9ja and Nairabet Nigeria codes can
+            be opened and checked against today&rsquo;s model (free decodes are limited each day,
+            so spend them on slips you really care about). The odds-compare tool shows live
+            bookmaker prices side by side as the feed allows (more sports and more bookies land
+            as the data plan grows). One-tap code conversion between bookmakers is next on the
+            roadmap.
           </p>
           <div className="callout">
             <strong>Be careful with anyone who promises a “100% slip”.</strong> No slip is
