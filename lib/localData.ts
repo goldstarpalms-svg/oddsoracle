@@ -11,7 +11,7 @@ import SNAPSHOT from "./data-snapshot.json";
  */
 
 const dec = (american?: number | null): string => {
-  if (american == null) return "—";
+  if (american == null || !Number.isFinite(american)) return "—";
   try {
     const d = american > 0 ? 1 + american / 100 : 1 + 100 / Math.abs(american);
     return d.toFixed(2);
@@ -34,12 +34,14 @@ function football(): Prediction[] {
     const confidence: Prediction["confidence"] =
       bank === "BANKER" ? "High" : bank === "ODD" || r.src === "FOREBET" ? "Balanced" : "Value";
     let odds = "—";
-    if (r.mkt_dec != null) {
+    const mktDecArr = Array.isArray(r.mkt_dec) ? r.mkt_dec : null;
+    const kO = final === "1" ? 0 : final === "2" ? 2 : 1;
+    if (mktDecArr && typeof mktDecArr[kO] === "number" && (mktDecArr[kO] as number) > 1) {
+      odds = (mktDecArr[kO] as number).toFixed(2);
+    } else if (typeof r.mkt_dec === "number") {
       odds = Number(r.mkt_dec).toFixed(2);
     } else if (Array.isArray(r.fb_pct) && r.fb_pct.length === 3) {
-      const pickNum = Number(String(final).charAt(0));
-      const p =
-        final === "1" ? r.fb_pct[0] : final === "2" ? r.fb_pct[2] : r.fb_pct[1];
+      const p = final === "1" ? r.fb_pct[0] : final === "2" ? r.fb_pct[2] : r.fb_pct[1];
       if (p > 0) odds = (100 / p).toFixed(2);
     }
     const bits: string[] = [];
