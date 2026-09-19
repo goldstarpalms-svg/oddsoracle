@@ -27,6 +27,7 @@ export interface FbPick {
   odds: number | null; // decimal
   oddsSrc: "market" | "implied" | null; // where the displayed odds came from
   pickProb: number | null; // probability of the picked side (%)
+  mktImp: number | null; // market-implied probability of the picked side (%)
   edge: number | null; // model prob − market implied prob (pp), only when market odds exist
   mkt_pick: string | null;
   model: ModelInfo | null;
@@ -163,10 +164,22 @@ export function fbPicks(): FbPick[] {
         : null;
     let odds: number | null = null;
     let oddsSrc: FbPick["oddsSrc"] = null;
+    let mktImp: number | null = null;
     const k1 = final === "1" ? 0 : final === "2" ? 2 : 1;
-    if (r.mkt_dec != null && r.mkt_dec > 1) {
-      odds = Math.round(r.mkt_dec * 100) / 100;
+    // Market odds + implied probability for the picked side.
+    // mkt_dec / mkt_imp are per-market arrays [1, X, 2] (or scalars in older data).
+    const mktDecArr = Array.isArray(r.mkt_dec) ? r.mkt_dec : null;
+    const mktImpArr = Array.isArray(r.mkt_imp) ? r.mkt_imp : null;
+    const mktDec: number | null = mktDecArr
+      ? mktDecArr[k1]
+      : typeof r.mkt_dec === "number"
+        ? r.mkt_dec
+        : null;
+    const mktImpRaw: number | null = mktImpArr ? mktImpArr[k1] : null;
+    if (typeof mktDec === "number" && mktDec > 1) {
+      odds = Math.round(mktDec * 100) / 100;
       oddsSrc = "market";
+      mktImp = mktImpRaw ?? Math.round((100 / mktDec) * 10) / 10;
     } else if (pct) {
       if (pct[k1] > 0) odds = Math.round((100 / pct[k1]) * 100) / 100;
       oddsSrc = "implied";
@@ -174,11 +187,12 @@ export function fbPicks(): FbPick[] {
       if (m.p[k1] > 0) odds = implied(m.p[k1]);
       oddsSrc = "implied";
     }
+    // "Model" probability of the picked side (Forebet when covered, else our model)
     const pickProb: number | null = pct ? pct[k1] : m && m.p ? m.p[k1] : null;
-    // edge (percentage points) only when we have REAL market odds to compare against
+    // Edge (pp) = model prob − market implied prob; only shown when real market data exists
     let edge: number | null = null;
-    if (oddsSrc === "market" && odds != null && pickProb != null) {
-      edge = Math.round(pickProb - 100 / odds);
+    if (oddsSrc === "market" && pickProb != null && mktImp != null) {
+      edge = Math.round(pickProb - mktImp);
     }
     const why = [
       pct
@@ -211,6 +225,7 @@ export function fbPicks(): FbPick[] {
       odds,
       oddsSrc,
       pickProb,
+      mktImp,
       edge,
       mkt_pick: r.mkt_pick || null,
       model: m,
@@ -218,8 +233,8 @@ export function fbPicks(): FbPick[] {
       final: labelPick(final),
       ou: r.ou || "",
       note: r.note || "",
-      banker: maxPct >= 70,
-      value: !!(odds && maxPct >= 55 && odds >= 1.6),
+      banker: (pickProb ?? maxPct) >= 70,
+      value: !!(odds && (pickProb ?? maxPct) >= 55 && odds >= 1.6),
       why,
     });
   });
@@ -351,10 +366,10 @@ export function summary(): DailySummary {
     tn.filter((x) => x.sets).length;
   const forebetCovered = fb.filter((x) => x.fb_pct).length;
 
-  // Safe combo: 3 strongest football picks with real probabilities.
+  // Daily combo: 3 strongest football picks with real probabilities.
   const cands = fb
-    .filter((x) => x.fb_pct && Math.max(...x.fb_pct!) >= 65 && x.odds)
-    .sort((a, b) => Math.max(...b.fb_pct!) - Math.max(...a.fb_pct!))
+    .filter((x) => x.pickProb != null && x.pickProb >= 65 && x.odds)
+    .sort((a, b) => (b.pickProb ?? 0) - (a.pickProb ?? 0))
     .slice(0, 3);
   let combo: DailySummary["combo"] = null;
   if (cands.length >= 2) {
@@ -364,7 +379,7 @@ export function summary(): DailySummary {
       away: x.away,
       pick: x.final,
       odds: x.odds!,
-      prob: Math.max(...x.fb_pct!),
+      prob: x.pickProb!,
     }));
     combo = {
       legs,

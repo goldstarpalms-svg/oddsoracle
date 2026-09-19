@@ -74,8 +74,9 @@ const srcBadge = (src: string): string | null =>
 
 /** Value transparency: model chance vs market-implied chance vs edge. */
 function EdgeRow({ p }: { p: FbPick }) {
-  if (p.edge == null || p.pickProb == null || p.odds == null) return null;
-  const implied = Math.round(100 / p.odds);
+  if (p.edge == null || p.pickProb == null) return null;
+  const implied = p.mktImp ?? (p.odds != null ? Math.round(100 / p.odds) : null);
+  if (implied == null) return null;
   return (
     <div className="edge-row">
       <span>Model {p.pickProb}%</span>
