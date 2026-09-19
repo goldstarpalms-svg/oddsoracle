@@ -21,6 +21,7 @@ Run:  python3 backend/app/refresh_forebet.py
 import json
 import os
 import re
+import time
 from datetime import datetime, timedelta, timezone
 
 import requests
@@ -72,11 +73,14 @@ def wat_time(edt_str: str):
 def split_names(names: str, slug: str):
     """Split concatenated 'HomeAway' using the URL slug as a guide."""
     parts = slug.split("-")
+    best = None
     for i in range(1, len(parts)):
         h = " ".join(parts[:i])
         a = " ".join(parts[i:])
         if norm(names) == norm(h) + norm(a):
-            return h, a
+            best = (h, a)  # keep updating: the LONGEST home-side split wins
+    if best:
+        return best
     # fuzzy: allow minor character differences (W suffixes, accents...)
     nn = norm(names)
     best = None
@@ -120,6 +124,7 @@ def parse_rows(html: str, sport: str):
                 home=home,
                 away=away,
                 cells=cells,
+                url=f"https://www.forebet.com/en/{sport}/matches/{league_slug}/{match_slug}/{_mid}",
             )
         )
     return out
@@ -235,6 +240,201 @@ def build_tennis(rows):
     return games
 
 
+# ---------- H2H (head-to-head) + form + stats from forebet game pages ----------
+# Learned from forebet's game-page layout: a "Head to head" table of past
+# meetings (date | score | teams), market-stat rows (Over 2.5, BTTS, ...),
+# and per-team recent form (5-char W/D/L strings). Parsers are deliberately
+# tolerant: any missing section just stays empty.
+
+def parse_match_page(html: str):
+    out = {"h2h": [], "stats": {}, "form": {}}
+    m = re.search(r"head\s*to\s*head", html, re.I)
+    if m:
+        seg = html[m.start():m.start() + 15000]
+        for tr in re.findall(r"<tr[^>]*>(.*?)</tr>", seg, re.S):
+            cells = [strip_tags(c).strip() for c in re.findall(r"<t[dh][^>]*>(.*?)</t[dh]>", tr, re.S)]
+            if len(cells) < 3:
+                continue
+            date = next((c for c in cells if re.fullmatch(r"\d{2}/\d{2}/\d{4}", c)), None)
+            score = next((c for c in cells if re.fullmatch(r"\d{1,3}\s*-\s*\d{1,3}", c.replace(" ", "")) and ":" not in c), None)
+            if not date or not score:
+                continue
+            # team names: last name-cell before the score = past home, first after = past away
+            si = next((i for i, c in enumerate(cells) if c.replace(" ", "") == score.replace(" ", "")), None)
+            home_n = away_n = ""
+            if si is not None:
+                for j in range(si - 1, -1, -1):
+                    if re.search(r"[A-Za-zÀ-ÿ]{3,}", cells[j]) and not re.search(r"\d{2}/\d{2}/\d{4}", cells[j]):
+                        home_n = cells[j]
+                        break
+                for j in range(si + 1, len(cells)):
+                    if re.search(r"[A-Za-zÀ-ÿ]{3,}", cells[j]) and not re.search(r"\d{2}/\d{2}/\d{4}", cells[j]):
+                        away_n = cells[j]
+                        break
+            out["h2h"].append([date, score.replace(" ", ""), home_n, away_n])
+    for label, key in (("over 2.5", "over25"), ("both teams to score", "btts"), ("clean sheet", "clean"), ("goals", "goals")):
+        mm = re.search(r"<tr[^>]*>(?:(?!</tr>).)*?" + re.escape(label) + r"(?:(?!</tr>).)*?</tr>", html, re.I | re.S)
+        if mm:
+            cells = [strip_tags(c).strip() for c in re.findall(r"<t[dh][^>]*>(.*?)</t[dh]>", mm.group(0), re.S)]
+            nums = [c for c in cells if re.fullmatch(r"[\d.]+|\d+/\d+", c)]
+            if len(nums) >= 2:
+                out["stats"][key] = [nums[0], nums[1]]
+    seen = []
+    for c in re.findall(r"<t[dh][^>]*>\s*([WDLR]{5})\s*</t[dh]>", html):
+        if c not in seen:
+            seen.append(c)
+        if len(seen) == 2:
+            break
+    if len(seen) == 2:
+        out["form"] = {"home": seen[0], "away": seen[1]}
+    return out
+
+
+def fetch_h2h(jobs, max_games=150):
+    """jobs: [(sport, row)] with row["url"]. Returns ({'home|away': data}, [sample_raw_pages])."""
+    games = {}
+    sample = []
+    n = 0
+    for _sport, r in jobs:
+        url = r.get("url")
+        if not url:
+            continue
+        if n >= max_games:
+            break
+        n += 1
+        key = f"{r['home']}|{r['away']}"
+        try:
+            html = fetch(url)
+            if len(sample) < 2:
+                sample.append({"url": url, "text": re.sub(r"<script.*?</script>", "", html, flags=re.S)[:80000]})
+            data = parse_match_page(html)
+            if data["h2h"] or data["stats"] or data["form"]:
+                games[key] = data
+        except Exception:
+            pass
+        time.sleep(1.2)
+    return games, sample
+
+
+# ---------- results from forebet's "yesterday" board (final scores) ----------
+YESTERDAY = "https://www.forebet.com/en/football-tips-and-predictions-for-yesterday"
+
+
+def parse_result_rows(html: str):
+    """Yesterday board: same row layout but no kickoff time needed.
+    Score = LAST score-like cell (predicted score comes before final score)."""
+    out = []
+    for tr in re.findall(r"<tr[^>]*>.*?</tr>", html, re.S):
+        m = re.search(r'href="https://www\.forebet\.com/en/football/matches/([^/"]+)/([^/"]+)/(\d+)"', tr)
+        if not m:
+            continue
+        _lg, match_slug, _mid = m.groups()
+        cells = [strip_tags(c) for c in re.findall(r"<t[dh][^>]*>(.*?)</t[dh]>", tr, re.S)]
+        if not any(re.search(r"\d{2}/\d{2}/\d{4}", c) for c in cells):
+            continue
+        scores = [c.strip() for c in cells if re.fullmatch(r"\d{1,2}\s*-\s*\d{1,2}", c.strip())]
+        if not scores:
+            continue
+        # names sit in the anchor cell, BEFORE the date (same layout as parse_rows)
+        anchor = next((c for c in cells if re.search(r"\d{2}/\d{2}/\d{4}", c)), "")
+        m2 = re.match(r"^(.+?)\d{2}/\d{2}/\d{4}", anchor)
+        names = m2.group(1).strip() if m2 else ""
+        home, away = split_names(names, match_slug)
+        out.append(dict(home=home, away=away, score=scores[-1].replace(" ", "")))
+    return out
+
+
+def _rate(rows, k):
+    v = [r[k] for r in rows if r.get(k) is not None]
+    return round(100 * sum(v) / len(v), 1) if v else None
+
+
+def score_with_forebet():
+    """Score our picks against forebet's final scores from yesterday's board.
+    Merges into results/history.json (keeps any football-data rows)."""
+    try:
+        rows = parse_result_rows(fetch(YESTERDAY))
+    except Exception as e:
+        print(f"yesterday board: SKIPPED ({e})")
+        return
+    finals = {}
+    for r in rows:
+        if r["home"] and r["away"] and r["score"]:
+            finals[norm(r["home"]) + "|" + norm(r["away"])] = r["score"]
+    if not finals:
+        print("yesterday board: no final scores parsed")
+        return
+    res_dir = os.path.join(HERE, "results")
+    hist_path = os.path.join(res_dir, "history.json")
+    hist = json.load(open(hist_path)) if os.path.exists(hist_path) else {"days": {}, "cumulative": {}}
+    scored = 0
+    for datef in sorted(os.listdir(DAILY)):
+        if not datef.endswith(".json") or "_" in datef[:-5]:
+            continue
+        day = json.load(open(os.path.join(DAILY, datef)))
+        games = day["games"] if isinstance(day, dict) and "games" in day else (day if isinstance(day, list) else [])
+        day_rows = []
+        for g in games:
+            if not isinstance(g, dict) or not g.get("home") or not g.get("away"):
+                continue
+            k = norm(g["home"]) + "|" + norm(g["away"])
+            if k not in finals:
+                continue
+            parts = finals[k].split("-")
+            if len(parts) != 2 or not parts[0].isdigit() or not parts[1].isdigit():
+                continue
+            hg, ag = int(parts[0]), int(parts[1])
+            full = "1" if hg > ag else ("X" if hg == ag else "2")
+            total, btts = hg + ag, hg > 0 and ag > 0
+            model = g.get("model") or {}
+            pick_m = model.get("pick")
+            pick_fb = g.get("fb_pick") or g.get("final")
+            day_rows.append(
+                dict(
+                    match=f"{g['home']} v {g['away']}",
+                    league=g.get("league", ""),
+                    score=f"{hg}-{ag}",
+                    full=full,
+                    model_pick=pick_m,
+                    model_win=(1 if pick_m == full else 0) if pick_m else None,
+                    fb_pick=pick_fb,
+                    fb_win=(1 if pick_fb == full else 0) if pick_fb else None,
+                    over25=1 if total > 2 else 0,
+                    model_over25_win=(1 if (model.get("o25", 0) >= 0.5) == (total > 2) else 0) if model else None,
+                    model_btts=1 if model.get("btts", 0) >= 0.5 else 0,
+                    btts_actual=1 if btts else 0,
+                    model_btts_win=(1 if (1 if model.get("btts", 0) >= 0.5 else 0) == (1 if btts else 0) else 0) if model else None,
+                )
+            )
+            scored += 1
+        if day_rows:
+            d = datef[:-5]
+            entry = hist["days"].setdefault(d, {"stats": {}, "rows": []})
+            have = {r["match"] for r in entry["rows"]}
+            entry["rows"].extend(r for r in day_rows if r["match"] not in have)
+            entry["stats"] = dict(
+                played=len(entry["rows"]),
+                model_1x2=_rate(entry["rows"], "model_win"),
+                fb_1x2=_rate(entry["rows"], "fb_win"),
+                model_over25=_rate(entry["rows"], "model_over25_win"),
+                model_btts=_rate(entry["rows"], "model_btts_win"),
+            )
+    allrows = [r for v in hist["days"].values() for r in v["rows"]]
+    if allrows:
+        hist["cumulative"] = dict(
+            matches=len(allrows),
+            days=len(hist["days"]),
+            model_1x2=_rate(allrows, "model_win"),
+            market_1x2=_rate(allrows, "market_win"),
+            fb_1x2=_rate(allrows, "fb_win"),
+            model_over25=_rate(allrows, "model_over25_win"),
+            model_btts=_rate(allrows, "model_btts_win"),
+        )
+    os.makedirs(res_dir, exist_ok=True)
+    json.dump(hist, open(hist_path, "w"), indent=1)
+    print(f"results: {scored} games scored from forebet yesterday board -> {hist.get('cumulative', {})}")
+
+
 def telegram_ticket(text: str):
     tok = os.environ.get("TELEGRAM_BOT_TOKEN")
     chat = os.environ.get("TELEGRAM_CHAT_ID")
@@ -263,9 +463,11 @@ def write_if_better(path, payload, min_rows, key=None):
 def main():
     today = datetime.now(WAT).strftime("%Y-%m-%d")
     summary = []
+    board_rows = {}
 
     try:
         rows = parse_rows(fetch(PAGES["football"]), "football")
+        board_rows["football"] = rows
         data = build_football(rows)
         p = os.path.join(DAILY, f"{today}_forebet_football.json")
         if write_if_better(p, data, 20):
@@ -278,6 +480,7 @@ def main():
 
     try:
         rows = parse_rows(fetch(PAGES["basketball"]), "basketball")
+        board_rows["basketball"] = rows
         games, all_rows = build_basketball(rows)
         payload = {
             "date": today,
@@ -296,6 +499,7 @@ def main():
 
     try:
         rows = parse_rows(fetch(PAGES["tennis"]), "tennis")
+        board_rows["tennis"] = rows
         games = build_tennis(rows)
         payload = {"date": today, "source": "Forebet daily feed (auto-refresh)", "games": games}
         p = os.path.join(DAILY, f"{today}_tennis.json")
@@ -306,6 +510,29 @@ def main():
             print(f"tennis: SKIPPED ({len(games)} rows parsed)")
     except Exception as e:
         print(f"tennis: SKIPPED ({e})")
+
+    # --- H2H + stats + form for today's games (forebet game pages) ---
+    try:
+        jobs = [(s, r) for s, rs in board_rows.items() for r in rs if r.get("url")]
+        h2h_games, sample = fetch_h2h(jobs)
+        if h2h_games:
+            p = os.path.join(DAILY, f"{today}_h2h.json")
+            json.dump({"date": today, "games": h2h_games}, open(p, "w"), indent=1)
+            summary.append(f"h2h: {len(h2h_games)} games")
+            print(f"h2h: {len(h2h_games)} games -> {p}")
+        else:
+            print("h2h: nothing parsed (layout check needed — see _h2h_sample.json)")
+        if sample:
+            json.dump(sample, open(os.path.join(DAILY, "_h2h_sample.json"), "w"), indent=1)
+            print(f"h2h sample pages saved ({len(sample)})")
+    except Exception as e:
+        print(f"h2h: SKIPPED ({e})")
+
+    # --- results: score picks against forebet's final scores (yesterday board) ---
+    try:
+        score_with_forebet()
+    except Exception as e:
+        print(f"results: SKIPPED ({e})")
 
     if summary:
         telegram_ticket(f" OddsOracle daily refresh ({today}): " + " | ".join(summary))

@@ -1,0 +1,80 @@
+name: nightly-refresh
+
+# Runs every day at 23:10 UTC = 00:10 WAT (just after midnight Lagos time).
+# Re-pulls every bookmaker's prices for today's board, rebuilds the data
+# snapshot (which regenerates the daily Safe 20/10/5 combos), commits and
+# pushes. Vercel picks up the push and redeploys the site automatically.
+#
+# The forebet game board itself is refreshed separately in the morning data
+# drop (Forebet blocks server-side scrapers), so this job refreshes the
+# prices + combos on the existing board.
+
+on:
+  schedule:
+    - cron: "10 23 * * *"
+  workflow_dispatch: {}
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Prepare API key
+        run: |
+          # secret wins if it's set; otherwise fall back to the committed
+          # .env.nightly (private repo) which the fetcher reads via .env.local
+          if [ -z "${{ secrets.ODDSPAPI_KEY }}" ]; then
+            cp .env.nightly .env.local
+          fi
+          if ! grep -q ODDSPAPI_KEY .env.local 2>/dev/null; then
+            echo "::error::no ODDSPAPI_KEY available — aborting before we burn API budget"
+            exit 1
+          fi
+        env:
+          ODDSPAPI_KEY: ${{ secrets.ODDSPAPI_KEY }}
+
+      - name: Wait out any API cooldown (max ~5 min)
+        run: |
+          KEY=$(grep -o 'ODDSPAPI_KEY=.*' .env.local | cut -d= -f2)
+          for i in 1 2 3 4 5; do
+            code=$(curl -s -o /dev/null -w "%{http_code}" "https://api.oddspapi.io/v4/sports?apiKey=$KEY")
+            echo "probe $i: HTTP $code"
+            [ "$code" = "200" ] && exit 0
+            sleep 60
+          done
+          echo "::warning::API still cooling down after 5 min — skipping tonight's price refresh (nothing breaks; tomorrow's run retries)"
+          exit 0
+
+      - name: Refresh bookmaker prices (OddsPapi, 350+ books)
+        if: always()
+        run: |
+          KEY=$(grep -o 'ODDSPAPI_KEY=.*' .env.local | cut -d= -f2)
+          code=$(curl -s -o /dev/null -w "%{http_code}" "https://api.oddspapi.io/v4/sports?apiKey=$KEY")
+          if [ "$code" != "200" ]; then
+            echo "skipping fetch (HTTP $code); keeping existing data"
+            exit 0
+          fi
+          node scripts/fetch-oddspapi-markets.mjs
+        env:
+          ODDSPAPI_KEY: ${{ secrets.ODDSPAPI_KEY }}
+
+      - name: Rebuild data snapshot (safe 20/10/5 + all data)
+        run: node scripts/bundle-data.mjs
+
+      - name: Commit and push
+        run: |
+          git config user.name "OddsOracle Nightly"
+          git config user.email "nightly@oddsoracle.bot"
+          git add backend/app/daily lib/data-snapshot.json
+          if git diff --cached --quiet; then
+            echo "no changes to push"
+          else
+            git commit -m "nightly 00:10 WAT: refreshed bookmaker prices + safe combos"
+            git push
+          fi

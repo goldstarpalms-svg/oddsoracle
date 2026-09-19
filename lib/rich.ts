@@ -52,6 +52,7 @@ export interface FbPick {
   banker: boolean;
   value: boolean;
   why: string; // plain-English "why this pick"
+  h2h: H2hData | null; // forebet head-to-head data (past meetings, stats, form)
 }
 
 export interface BbPick {
@@ -73,6 +74,8 @@ export interface BbPick {
   pickProb: number | null;
   banker: boolean;
   value: boolean;
+  opts: OptRow[];
+  h2h: H2hData | null;
 }
 
 export interface TnPick {
@@ -90,6 +93,8 @@ export interface TnPick {
   banker: boolean;
   value: boolean;
   why: string;
+  opts: OptRow[];
+  h2h: H2hData | null;
 }
 
 export interface ComboLeg {
@@ -108,6 +113,7 @@ export interface DailySummary {
   football: number;
   basketball: number;
   tennis: number;
+  other: number;
   bankers: number;
   scoreCalls: number;
   forebetCovered: number;
@@ -268,6 +274,7 @@ export function fbPicks(): FbPick[] {
       banker: (pickProb ?? maxPct) >= 70,
       value: !!(odds && (pickProb ?? maxPct) >= 55 && odds >= 1.6),
       why,
+      h2h: h2hFor(r.home, r.away),
     });
   });
   return out;
@@ -310,6 +317,8 @@ export function bbPicks(): BbPick[] {
       pickProb: prob ? (predHome ? prob[0] : prob[1]) : null,
       banker: /HIGH/.test(conf) && !/SPLIT/.test(conf),
       value: /SPLIT|LOW|MEDIUM/.test(conf) || false,
+      opts: bbOpts(g, prob),
+      h2h: h2hFor(g.home, g.away),
     });
   });
   (d.forebet_today_all || []).forEach((g: any, i: number) => {
@@ -339,6 +348,8 @@ export function bbPicks(): BbPick[] {
       pickProb: prob ? (pred === "1" ? prob[0] : prob[1]) : null,
       banker: !!prob && Math.max(prob[0], prob[1]) >= 68,
       value: !!prob && Math.max(prob[0], prob[1]) >= 55 && odds != null && odds >= 1.6,
+      opts: bbOpts(g, prob),
+      h2h: h2hFor(home, away),
     });
   });
   return out;
@@ -377,6 +388,8 @@ export function tnPicks(): TnPick[] {
       ]
         .filter(Boolean)
         .join(" "),
+      opts: tnOpts(g, prob),
+      h2h: h2hFor(g.p1, g.p2),
     });
   });
   return out;
@@ -420,6 +433,11 @@ export function summary(): DailySummary {
     };
   }
 
+  const any = SNAPSHOT as any;
+  const mlbCount = (any.odds?.sports?.baseball_mlb?.events || []).length;
+  const ncaaCount = (any.ncaafb?.games || []).length;
+  const other = mlbCount + ncaaCount;
+
   return {
     generatedAt: SNAPSHOT.generatedAt || "",
     dataDate: SNAPSHOT.dataDate || "",
@@ -427,6 +445,7 @@ export function summary(): DailySummary {
     football: fb.length,
     basketball: bb.length,
     tennis: tn.length,
+    other,
     bankers,
     scoreCalls,
     forebetCovered,
@@ -468,4 +487,463 @@ export function fmtDate(d: string): string {
   } catch {
     return d;
   }
+}
+
+// ---------- American sports (MLB + NCAA football) — same card experience -----
+export interface AmBook {
+  name: string;
+  home: number | null;
+  away: number | null;
+  totals: { line: number | null; over: number | null; under: number | null }[];
+  spreads: { point: number | null; home: number | null; away: number | null }[];
+}
+
+// ---------- H2H (forebet's head-to-head data, fetched per game) ----------
+
+export interface H2hData {
+  h2h: string[][]; // [date, "H-A", pastHome, pastAway]...
+  stats?: Record<string, [string, string]>;
+  form?: { home?: string; away?: string };
+}
+
+const H2H_MAP: Record<string, H2hData> = ((SNAPSHOT as any).h2h?.games as any) || {};
+
+function h2hFor(home: string, away: string): H2hData | null {
+  for (const key of Object.keys(H2H_MAP)) {
+    const [h, a] = key.split("|");
+    if (mmatch(h, home) && mmatch(a, away)) return H2H_MAP[key];
+  }
+  return null;
+}
+
+/** One options-menu row summarising the head-to-head record, oriented to today's home side. */
+export function h2hRow(d: H2hData, home: string, away: string, unit: "goals" | "points" | "games"): OptRow | null {
+  const m = (d.h2h || []).slice(0, 5);
+  if (!m.length) return null;
+  let homeWins = 0, awayWins = 0, draws = 0;
+  const totals: number[] = [];
+  const recent: string[] = [];
+  m.forEach((row) => {
+    const sc = String(row[1] || "");
+    const [a, b] = sc.split("-").map(Number);
+    if (Number.isNaN(a) || Number.isNaN(b)) return;
+    const n1 = String(row[2] || ""), n2 = String(row[3] || "");
+    // past meeting may have been played in reverse — orient to today's home side
+    let h = a, g = b;
+    if (n1 && n2 && mmatch(n1, away) && mmatch(n2, home) && !(mmatch(n1, home) && mmatch(n2, away))) {
+      h = b;
+      g = a;
+    }
+    if (h > g) homeWins++;
+    else if (g > h) awayWins++;
+    else draws++;
+    totals.push(h + g);
+    recent.push(`${sc} (${row[0]})`);
+  });
+  const n = totals.length;
+  if (!n) return null;
+  const avg = Math.round((totals.reduce((s, x) => s + x, 0) / n) * 10) / 10;
+  let detail = `${n} past meetings · ${homeWins} ${home} / ${awayWins} ${away} / ${draws} draw`;
+  if (unit === "goals") {
+    const overs = totals.filter((t) => t > 2.5).length;
+    detail += ` · ${overs} of ${n} over 2.5 goals`;
+  } else {
+    detail += ` · avg ${avg} ${unit} per meeting`;
+  }
+  detail += ` · last: ${recent.slice(0, 3).join(", ")}`;
+  const best = Math.max(homeWins, awayWins);
+  return {
+    name: "Head-to-head (forebet)",
+    detail,
+    call: homeWins > awayWins ? `${home} edge in history` : awayWins > homeWins ? `${away} edge in history` : "Even history",
+    tag: Math.round((100 * best) / n),
+  };
+}
+
+/** O/U context from H2H: "H2H: 3 of 5 past meetings over 2.5" (football only). */
+export function h2hOuCtxt(d: H2hData): string | null {
+  const totals: number[] = [];
+  (d.h2h || []).slice(0, 5).forEach((row) => {
+    const [a, b] = String(row[1] || "").split("-").map(Number);
+    if (Number.isNaN(a) || Number.isNaN(b)) return;
+    totals.push(a + b);
+  });
+  if (!totals.length) return null;
+  const overs = totals.filter((t) => t > 2.5).length;
+  return `H2H: ${overs} of ${totals.length} past meetings over 2.5`;
+}
+
+// ---------- all-options menus (what the Nigerian bookies list, with OUR call) ----------
+// Markets are aligned to what SportyBet / 1xBet / Bet9ja / Nairabet list:
+// football: 1X2, O/U, BTTS, D/C, DNB, handicap, CS  · basketball: result, total points, spread
+// tennis: result, total games, games handicap, straight sets  · afoot/MLB: ML, total, spread/run line
+
+export interface OptRow {
+  name: string;
+  detail: string;
+  call: string;
+  tag: number | null; // our confidence % (null = no call)
+}
+
+// standard normal CDF (Abramowitz & Stegun approx) — used to turn an expected total into P(over)
+function normCdf(z: number): number {
+  const t = 1 / (1 + 0.2316419 * Math.abs(z));
+  const d = 0.3989423 * Math.exp((-z * z) / 2);
+  const p = d * t * (0.3193815 + t * (-0.3565638 + t * (1.781478 + t * (-1.821256 + t * 1.330274))));
+  return z > 0 ? 1 - p : p;
+}
+const halfLine = (n: number): number => Math.floor(n - 0.5) + 0.5; // half-point line just below expectation
+
+// BASKETBALL — from forebet's form-based split + predicted score
+function bbOpts(g: any, prob: [number, number] | null): OptRow[] {
+  if (!prob) return [];
+  const [p1, p2] = prob;
+  const favH = p1 >= p2;
+  const pFav = Math.max(p1, p2);
+  const rows: OptRow[] = [
+    { name: "Match result (1/2)", detail: `Home ${p1}% · Away ${p2}%`, call: favH ? "1 (Home)" : "2 (Away)", tag: pFav },
+  ];
+  const s = String(g.fb_score || g.score || "");
+  const [sh, sa] = s.split("-").map((x) => Number.parseFloat(x));
+  const E = Number.isFinite(sh) && Number.isFinite(sa) ? sh + sa : (g.fb_avg ?? g.avg ?? null);
+  if (E) {
+    const avgLine = g.fb_avg ?? g.avg ?? E;
+    const line = Math.round(avgLine * 2) / 2;
+    const pOver = Math.round(normCdf(((E as number) - line) / 13) * 100);
+    rows.push({
+      name: "Total points (over/under)",
+      detail: `Line ${line} · we expect about ${Math.round(E as number)} points from the two teams' form`,
+      call: pOver >= 50 ? `Over ${line}` : `Under ${line}`,
+      tag: Math.max(pOver, 100 - pOver),
+    });
+  }
+  if (Math.abs(p1 - p2) >= 8) {
+    const m = Math.abs(p1 - p2) * 0.25; // expected point margin
+    const pCover = Math.round(pFav * normCdf((m - 1.5) / 11));
+    rows.push({
+      name: "Point spread (−1.5)",
+      detail: `${favH ? g.home : g.away} must win by 2+`,
+      call: pCover >= 50 ? `${favH ? g.home : g.away} −1.5` : `Underdog +1.5`,
+      tag: Math.max(pCover, 100 - pCover),
+    });
+  } else {
+    rows.push({ name: "Point spread", detail: "Teams within 8% — no clean side", call: "Too close — skip", tag: null });
+  }
+  const h = h2hFor(g.home, g.away);
+  if (h) {
+    const hr = h2hRow(h, g.home, g.away, "points");
+    if (hr) rows.push(hr);
+  }
+  return rows;
+}
+
+// TENNIS — from forebet's split + predicted set score
+function tnOpts(g: any, prob: [number, number] | null): OptRow[] {
+  if (!prob) return [];
+  const [p1, p2] = prob;
+  const favH = p1 >= p2;
+  const pFav = Math.max(p1, p2);
+  const favName = favH ? g.p1 : g.p2;
+  const rows: OptRow[] = [
+    { name: "Match result (1/2)", detail: `${g.p1} ${p1}% · ${g.p2} ${p2}%`, call: favH ? "1 (First listed)" : "2 (Second listed)", tag: pFav },
+  ];
+  const msets = String(g.sets || "").match(/(\d)\s*-\s*(\d)/);
+  const nSets = msets ? Number.parseInt(msets[1]) + Number.parseInt(msets[2]) : pFav >= 62 ? 2 : 3;
+  const E = 11.2 * nSets + 0.5; // a set runs about 11 games
+  const line = halfLine(E);
+  const pOver = Math.round(normCdf((E - line) / 3) * 100);
+  rows.push({
+    name: "Total games (over/under)",
+    detail: `Line ${line} · we expect about ${Math.round(E)} games in a ${nSets}-set match`,
+    call: pOver >= 50 ? `Over ${line}` : `Under ${line}`,
+    tag: Math.max(pOver, 100 - pOver),
+  });
+  if (pFav >= 60) {
+    const margin = (pFav - Math.min(p1, p2)) * 20; // expected game margin
+    const pCover = Math.round(pFav * normCdf((margin - 4.5) / 3));
+    rows.push({
+      name: "Games handicap (−4.5)",
+      detail: `${favName} must win by 5+ games overall`,
+      call: pCover >= 50 ? `${favName} −4.5` : `Underdog +4.5`,
+      tag: Math.max(pCover, 100 - pCover),
+    });
+  }
+  if (nSets === 2) {
+    const pSS = Math.round(Math.pow(pFav / 100, 2) * 100);
+    rows.push({ name: "Straight sets (2-0)", detail: `${favName} wins both sets`, call: pSS >= 50 ? "Yes" : "No", tag: Math.max(pSS, 100 - pSS) });
+  }
+  const h = h2hFor(g.p1, g.p2);
+  if (h) {
+    const hr = h2hRow(h, g.p1, g.p2, "games");
+    if (hr) rows.push(hr);
+  }
+  return rows;
+}
+
+// AMERICAN FOOTBALL (NCAA) — from forebet's split + predicted score
+function amOptsAfoot(g: any, p1: number, p2: number): OptRow[] {
+  const favH = p1 >= p2;
+  const pFav = Math.max(p1, p2);
+  const rows: OptRow[] = [
+    { name: "Match result (1/2)", detail: `Home ${p1}% · Away ${p2}%`, call: favH ? "1 (Home)" : "2 (Away)", tag: pFav },
+  ];
+  const [sh, sa] = String(g.score || "").split("-").map((x) => Number.parseFloat(x));
+  const E = Number.isFinite(sh) && Number.isFinite(sa) ? sh + sa : null;
+  if (E) {
+    const line = halfLine(E);
+    const pOver = Math.round(normCdf((E - line) / 13) * 100);
+    rows.push({
+      name: "Total points (over/under)",
+      detail: `Line ${line} · we expect about ${Math.round(E)} points from both teams' form`,
+      call: pOver >= 50 ? `Over ${line}` : `Under ${line}`,
+      tag: Math.max(pOver, 100 - pOver),
+    });
+    const m = Math.abs(p1 - p2) * 30; // expected point margin
+    const pCover = Math.round(pFav * normCdf((m - 3.5) / 10));
+    rows.push({
+      name: "Point spread (−3.5)",
+      detail: `${favH ? g.home : g.away} must win by 4+`,
+      call: pCover >= 50 ? `${favH ? g.home : g.away} −3.5` : `Underdog +3.5`,
+      tag: Math.max(pCover, 100 - pCover),
+    });
+  }
+  const h = h2hFor(g.home, g.away);
+  if (h) {
+    const hr = h2hRow(h, g.home, g.away, "points");
+    if (hr) rows.push(hr);
+  }
+  return rows;
+}
+
+// MLB — no form model, so we show the market's own consensus (books' average), labelled honestly
+function mlbOpts(e: any): OptRow[] {
+  const rows: OptRow[] = [];
+  const h2h: any = e.h2h || {};
+  const hnames = Object.keys(h2h);
+  if (hnames.length) {
+    const hAvg = hnames.reduce((s: number, n) => s + h2h[n].home, 0) / hnames.length;
+    const aAvg = hnames.reduce((s: number, n) => s + h2h[n].away, 0) / hnames.length;
+    const ih = 1 / hAvg, ia = 1 / aAvg, t = ih + ia;
+    const p1 = Math.round((ih / t) * 100);
+    rows.push({
+      name: "Moneyline (1/2)",
+      detail: `${e.home} ${p1}% · ${e.away} ${100 - p1}% (book average, vig removed)`,
+      call: p1 >= 50 ? `1 (${e.home})` : `2 (${e.away})`,
+      tag: Math.max(p1, 100 - p1),
+    });
+  }
+  const tot: any = e.totals || {};
+  const tnames = Object.keys(tot);
+  if (tnames.length) {
+    const lines: Record<string, number> = {};
+    tnames.forEach((n) => {
+      const L = String(tot[n].line);
+      lines[L] = (lines[L] || 0) + 1;
+    });
+    const line = Object.entries(lines).sort((a, b) => b[1] - a[1])[0][0];
+    const oAvg = tnames.reduce((s: number, n) => s + tot[n].over, 0) / tnames.length;
+    const uAvg = tnames.reduce((s: number, n) => s + tot[n].under, 0) / tnames.length;
+    const io = 1 / oAvg, iu = 1 / uAvg, t2 = io + iu;
+    const pOver = Math.round((io / t2) * 100);
+    rows.push({
+      name: "Total runs (over/under)",
+      detail: `Line ${line} · books average over ${oAvg.toFixed(2)} / under ${uAvg.toFixed(2)}`,
+      call: pOver >= 50 ? `Over ${line}` : `Under ${line}`,
+      tag: Math.max(pOver, 100 - pOver),
+    });
+  }
+  const sp: any = e.spreads || {};
+  const snames = Object.keys(sp);
+  if (snames.length) {
+    const pts: Record<string, number> = {};
+    snames.forEach((n) => {
+      const L = String(sp[n].point);
+      pts[L] = (pts[L] || 0) + 1;
+    });
+    const pt = Number(Object.entries(pts).sort((a, b) => b[1] - a[1])[0][0]);
+    const hAvg = snames.reduce((s: number, n) => s + sp[n].home, 0) / snames.length;
+    const aAvg = snames.reduce((s: number, n) => s + sp[n].away, 0) / snames.length;
+    const ih = 1 / hAvg, ia = 1 / aAvg, t3 = ih + ia;
+    const pH = Math.round((ih / t3) * 100);
+    rows.push({
+      name: "Run line",
+      detail: `Line ${pt} · book average over/under vig`,
+      call: pH >= 50 ? `Favourite ${pt}` : `Underdog +${Math.abs(pt)}`,
+      tag: Math.max(pH, 100 - pH),
+    });
+  }
+  return rows;
+}
+
+export interface AmPick {
+  kind: "am";
+  id: string;
+  sport: "MLB" | "American Football";
+  t: string;
+  home: string;
+  away: string;
+  league: string;
+  prob: [number, number] | null; // home/away %
+  pickSide: "1" | "2";
+  pick: string; // display pick (team name)
+  odds: number | null; // best odds for the picked side
+  pickProb: number | null;
+  score: string; // predicted score (NCAA) or "" (MLB)
+  total: number | null; // main total line
+  banker: boolean;
+  value: boolean;
+  why: string;
+  books: AmBook[]; // every bookmaker's full markets (empty until prices load)
+  opts: OptRow[]; // the market menu with OUR calls
+  h2h: H2hData | null;
+}
+
+const watTime = (iso: string): string => {
+  if (!iso) return "";
+  const d = new Date(iso);
+  if (isNaN(d.getTime())) return "";
+  return d.toLocaleTimeString("en-NG", { hour: "2-digit", minute: "2-digit", hour12: false, timeZone: "Africa/Lagos" });
+};
+
+export function mlbPicks(): AmPick[] {
+  const events: any[] = (SNAPSHOT as any).odds?.sports?.baseball_mlb?.events || [];
+  const out: AmPick[] = [];
+  events.forEach((e, i) => {
+    let oh: [number, string] | null = null;
+    let oa: [number, string] | null = null;
+    const lineCount: Record<number, number> = {};
+    for (const [bk, v] of Object.entries<any>(e.h2h || {})) {
+      if (typeof v.home === "number" && v.home > 1 && (!oh || v.home < oh[0])) oh = [v.home, bk];
+      if (typeof v.away === "number" && v.away > 1 && (!oa || v.away < oa[0])) oa = [v.away, bk];
+    }
+    for (const v of Object.values<any>(e.totals || {})) if (typeof v.line === "number") lineCount[v.line] = (lineCount[v.line] || 0) + 1;
+    const total =
+      Object.entries(lineCount)
+        .map(([k, v]) => [Number(k), v] as [number, number])
+        .sort((a, b) => b[1] - a[1])[0]?.[0] ?? null;
+    if (!oh || !oa) return;
+    const ih = 100 / oh[0];
+    const ia = 100 / oa[0];
+    const norm = ih + ia;
+    const prob: [number, number] = [Math.round((ih / norm) * 100), Math.round((ia / norm) * 100)];
+    const pickHome = ih >= ia;
+    const pickProb = Math.round(pickHome ? ih : ia);
+    const books: AmBook[] = Object.entries<any>(e.h2h || {}).map(([bk, v]) => ({
+      name: bk,
+      home: typeof v.home === "number" ? v.home : null,
+      away: typeof v.away === "number" ? v.away : null,
+      totals:
+        e.totals?.[bk] != null
+          ? [
+              {
+                line: typeof e.totals[bk].line === "number" ? e.totals[bk].line : null,
+                over: typeof e.totals[bk].over === "number" ? e.totals[bk].over : null,
+                under: typeof e.totals[bk].under === "number" ? e.totals[bk].under : null,
+              },
+            ]
+          : [],
+      spreads:
+        e.spreads?.[bk] != null
+          ? [
+              {
+                point: e.spreads[bk].point ?? null,
+                home: typeof e.spreads[bk].home === "number" ? e.spreads[bk].home : null,
+                away: typeof e.spreads[bk].away === "number" ? e.spreads[bk].away : null,
+              },
+            ]
+          : [],
+    }));
+    out.push({
+      kind: "am",
+      id: `mlb-${i}`,
+      sport: "MLB",
+      t: watTime(e.start || ""),
+      home: e.home,
+      away: e.away,
+      league: "MLB",
+      prob,
+      pickSide: pickHome ? "1" : "2",
+      pick: pickHome ? e.home : e.away,
+      odds: pickHome ? oh[0] : oa[0],
+      pickProb,
+      score: "",
+      total,
+      banker: pickProb >= 80,
+      value: false,
+      why: `Market favourite — best moneyline ${pickHome ? oh[0] : oa[0]} across ${Object.keys(e.h2h || {}).length} bookmakers.`,
+      books,
+      opts: mlbOpts(e),
+      h2h: h2hFor(e.home, e.away),
+    });
+  });
+  return out.sort((a, b) => a.t.localeCompare(b.t));
+}
+
+const mnorm = (s: string) =>
+  String(s)
+    .toLowerCase()
+    .replace(/fc|cf|sc|ac|club|cd|ud|sd|real|de|fk/g, " ")
+    .replace(/[^a-z0-9. ]/g, " ")
+    .replace(/\s+/g, " ")
+    .trim();
+const mmatch = (a: string, b: string): boolean => {
+  const x = mnorm(a), y = mnorm(b);
+  return !!x && !!y && (x === y || x.includes(y) || y.includes(x));
+};
+
+export function ncaaFbPicks(): AmPick[] {
+  const games: any[] = (SNAPSHOT as any).ncaafb?.games || [];
+  const afBooks: any[] = (SNAPSHOT as any).markets?.americanfootball || [];
+  const out: AmPick[] = [];
+  games.forEach((g, i) => {
+    const [p1, p2] = String(g.prob || "50/50").split("/").map((x) => Number(x));
+    if (!p1 || !p2) return;
+    const pickHome = String(g.pred) === "1";
+    const favPct = pickHome ? p1 : p2;
+    const m = afBooks.find((t) => mmatch(t.home, g.home) && mmatch(t.away, g.away));
+    const books: AmBook[] = (m?.bookmakers || []).map((b: any) => {
+      // h2h is either [home, away] (2-way) or [home, draw, away] (3-way)
+      const h2h = Array.isArray(b.h2h) ? b.h2h : null;
+      const home = h2h && typeof h2h[0] === "number" ? h2h[0] : null;
+      const away = h2h && typeof h2h[h2h.length - 1] === "number" ? h2h[h2h.length - 1] : null;
+      return {
+        name: b.name,
+        home,
+        away,
+        totals: (b.totals || []).map((t: any) => ({
+          line: typeof t.line === "number" ? t.line : null,
+          over: typeof t.over === "number" ? t.over : null,
+          under: typeof t.under === "number" ? t.under : null,
+        })),
+        spreads: (b.spreads || []).map((sp: any) => ({
+          point: sp.point ?? null,
+          home: typeof sp.home === "number" ? sp.home : null,
+          away: typeof sp.away === "number" ? sp.away : null,
+        })),
+      };
+    });
+    out.push({
+      kind: "am",
+      id: `afoot-${i}`,
+      sport: "American Football",
+      t: g.t || "",
+      home: g.home,
+      away: g.away,
+      league: g.league || "NCAA",
+      prob: [p1, p2],
+      pickSide: pickHome ? "1" : "2",
+      pick: pickHome ? g.home : g.away,
+      odds: Math.round((100 / favPct) * 100) / 100,
+      pickProb: favPct,
+      score: g.score || "",
+      total: null,
+      banker: favPct >= 80,
+      value: false,
+      why: `Forebet split ${p1}/${p2} · predicted score ${g.score || "—"}.`,
+      books,
+      opts: amOptsAfoot(g, p1, p2),
+      h2h: h2hFor(g.home, g.away),
+    });
+  });
+  return out.sort((a, b) => a.t.localeCompare(b.t));
 }

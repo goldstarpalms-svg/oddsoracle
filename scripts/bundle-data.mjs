@@ -38,18 +38,32 @@ function read(name) {
 }
 
 let football = null;
+let footballFile = null;
 for (const cand of [
   pick([/full_crack\.json$/, /_forebet_football\.json$/]),
 ]) {
   football = read(cand);
-  if (football && Array.isArray(football) && football.length) break;
+  if (football && Array.isArray(football) && football.length) {
+    footballFile = cand;
+    break;
+  }
 }
+// Price files must match the football board's date — the nightly 00:10 WAT
+// job can create tomorrow's price file before tomorrow's board exists, and
+// we must not strand today's board without its prices.
+const fbDate = footballFile ? footballFile.slice(0, 10) : today;
+const pickD = (patterns) => {
+  const f = files.filter((x) => x.startsWith(fbDate) && patterns.some((re) => re.test(x)));
+  return f.length ? f[f.length - 1] : pick(patterns);
+};
 
 let basketball = read(pick([/_basketball\.json$/]));
 let tennis = read(pick([/_tennis\.json$/]));
+let ncaafb = read(pick([/_ncaafb\.json$/]));
+let h2h = read(pick([/^\d{4}-\d{2}-\d{2}_h2h\.json$/]));
 
-let markets = read(pick([/_markets\.json$/]));
-let oddspapi = read(pick([/_oddspapi\.json$/]));
+let markets = read(pickD([/_markets\.json$/]));
+let oddspapi = read(pickD([/_oddspapi\.json$/]));
 
 // OddsPapi (350+ books) is preferred where it has data; TOA fills the rest.
 if (oddspapi) {
@@ -59,8 +73,10 @@ if (oddspapi) {
     soccer: oddspapi.soccer?.length ? oddspapi.soccer : markets?.soccer || [],
     basketball: oddspapi.basketball?.length ? oddspapi.basketball : markets?.basketball || [],
     tennis: oddspapi.tennis?.length ? oddspapi.tennis : markets?.tennis || [],
+    americanfootball: oddspapi.americanfootball || [],
   };
-  if (merged.soccer.length || merged.basketball.length || merged.tennis.length) markets = merged;
+  if (merged.soccer.length || merged.basketball.length || merged.tennis.length || merged.americanfootball.length)
+    markets = merged;
 }
 
 let history = null;
@@ -73,7 +89,7 @@ try {
 // Enrich football rows with the FULL model (o15/o25/o35, BTTS, double chance,
 // DNB, handicap, top-2 correct score, edge vs market) from the dated model file.
 try {
-  const modelFile = pick([/^\d{4}-\d{2}-\d{2}\.json$/]);
+  const modelFile = pickD([/^\d{4}-\d{2}-\d{2}\.json$/]);
   if (modelFile && Array.isArray(football)) {
     const modelDoc = read(modelFile);
     const games = (modelDoc && modelDoc.games) || [];
@@ -117,15 +133,181 @@ try {
   if (hasEvents) odds = raw;
 } catch {}
 
+// ---------------------------------------------------------------------------
+// SAFE COMBOS — auto-generate the daily 20 / 10 / 5-leg safe accumulators.
+// Every leg is a pick the model (or Forebet) rates >= 80% likely to win.
+// One leg per game (best probability), highest-probability legs first.
+// Priced with a real bookmaker where one carries the line, else the fair
+// price 100/prob (labelled "est."). Combined chance = product of leg probs.
+// ---------------------------------------------------------------------------
+const mnorm = (s) =>
+  String(s)
+    .toLowerCase()
+    .replace(/fc|cf|sc|ac|club|cd|ud|sd|real|de|fk/g, " ")
+    .replace(/[^a-z0-9. ]/g, " ")
+    .replace(/\s+/g, " ")
+    .trim();
+const mm = (a, b) => {
+  const x = mnorm(a), y = mnorm(b);
+  return !!x && !!y && (x === y || x.includes(y) || y.includes(x));
+};
+
+function realOdds(group, home, away, kind) {
+  for (const g of oddspapi?.[group] || []) {
+    if (mm(g.home, home) && mm(g.away, away)) {
+      const best = {};
+      for (const b of g.bookmakers || []) {
+        if (kind === "1x2" && Array.isArray(b.h2h)) {
+          ["home", "draw", "away"].forEach((side, i) => {
+            const v = b.h2h[i];
+            if (v && (best[side] == null || v > best[side][0])) best[side] = [v, b.name];
+          });
+        }
+        if (kind === "o15") {
+          for (const t of b.totals || []) {
+            if (t.line === 1.5 && t.over && (best.over == null || t.over > best.over[0]))
+              best.over = [t.over, b.name];
+          }
+        }
+      }
+      return best;
+    }
+  }
+  return {};
+}
+
+function buildSafeSlips() {
+  const legs = [];
+  const add = (sport, game, t, market, side, prob, odds, book) => {
+    if (odds && odds > 1)
+      legs.push({ sport, game, t, market, side, prob, odds: Math.round(odds * 100) / 100, book });
+  };
+
+  // ---- Football (full model) ----
+  const modelFile = pickD([/^\d{4}-\d{2}-\d{2}\.json$/]);
+  const modelDoc = modelFile ? read(modelFile) : null;
+  const fbr = Array.isArray(football) ? football : [];
+  for (const g of modelDoc?.games || []) {
+    const h = g.home, a = g.away, t = g.kickoff || "";
+    const m = g.model;
+    if (!m) continue;
+    const f = fbr.find((x) => mm(x.home, h) && mm(x.away, a));
+    const fPct = f?.fb_pct;
+    const mkt = realOdds("soccer", h, a, "1x2");
+    const tot = realOdds("soccer", h, a, "o15");
+    // 1X2 favourite
+    const pm = Math.max(m.p1, m.px, m.p2);
+    const fMax = fPct ? Math.max(...fPct) : 0; // forebet pct is already 0-100
+    const prob = Math.max(pm * 100, fMax);
+    if (prob >= 80) {
+      const sideKey = { 1: "home", X: "draw", 2: "away" }[m.pick];
+      const label = { 1: "1 (Home)", X: "X (Draw)", 2: "2 (Away)" }[m.pick];
+      const r = mkt[sideKey];
+      add("⚽", `${h} v ${a}`, t, "Match winner", label, Math.round(prob), r ? r[0] : 100 / prob, r ? r[1] : "est.");
+    }
+    // Double chance
+    for (const [dc, lab] of [["dc12", "12 (No draw)"], ["dc1x", "1X"], ["dcx2", "X2"]]) {
+      if (m[dc] >= 0.8) add("⚽", `${h} v ${a}`, t, "Double chance", lab, Math.round(m[dc] * 100), 100 / (m[dc] * 100), "est.");
+    }
+    // Over 1.5 goals
+    if (m.o15 >= 0.8) {
+      const r = tot.over;
+      add("⚽", `${h} v ${a}`, t, "Over 1.5 goals", "Over", Math.round(m.o15 * 100), r ? r[0] : 100 / (m.o15 * 100), r ? r[1] : "est.");
+    }
+    // Draw no bet
+    for (const [k, lab] of [["dnbH", `DNB ${h}`], ["dnbA", `DNB ${a}`]]) {
+      if (m[k] >= 0.8) {
+        const r = mkt[k === "dnbH" ? "home" : "away"];
+        add("⚽", `${h} v ${a}`, t, "Draw no bet", lab, Math.round(m[k] * 100), r ? r[0] : 100 / (m[k] * 100), r ? r[1] : "est.");
+      }
+    }
+  }
+
+  const pushMl = (sport, g, h, a, t, probStr, pred) => {
+    const [p1, p2] = String(probStr).split("/").map((x) => Number(x));
+    if (!p1 || !p2) return;
+    const favHome = Number(pred) === 1;
+    const prob = Math.max(p1, p2);
+    if (prob >= 80) {
+      const mkt = realOdds("basketball", h, a, "1x2");
+      const r = mkt[favHome ? "home" : "away"];
+      add(sport, `${h} v ${a}`, t, "Moneyline", favHome ? h : a, prob, r ? r[0] : 100 / prob, r ? r[1] : "est.");
+    }
+  };
+  for (const g of basketball?.forebet_today_all || []) {
+    const [h, a] = String(g.match || "").split(/ v /i);
+    if (h && a) pushMl("🏀", g, h, a, g.t || "", g.prob, g.pred);
+  }
+  for (const g of ncaafb?.games || []) {
+    pushMl("🏈", g, g.home, g.away, g.t || "", g.prob, g.pred);
+  }
+  for (const g of tennis?.games || []) {
+    const [p1, p2] = String(g.prob || "").split("/").map((x) => Number(x));
+    if (!p1 || !p2) continue;
+    const prob = Math.max(p1, p2);
+    if (prob >= 80) add("🎾", `${g.p1} v ${g.p2}`, g.t || "", "Match winner", String(g.pred || "1").startsWith("1") ? g.p1 : g.p2, prob, 100 / prob, "est.");
+  }
+  // MLB (implied probability from real moneyline)
+  for (const e of odds?.sports?.baseball_mlb?.events || []) {
+    let besth = null, besta = null;
+    for (const [bk, v] of Object.entries(e.h2h || {})) {
+      if (v.home && (besth == null || v.home < besth[0])) besth = [v.home, bk];
+      if (v.away && (besta == null || v.away < besta[0])) besta = [v.away, bk];
+    }
+    const cands = [];
+    if (besth) cands.push([100 / besth[0], e.home, besth]);
+    if (besta) cands.push([100 / besta[0], e.away, besta]);
+    cands.sort((x, y) => y[0] - x[0]);
+    if (cands.length && cands[0][0] >= 80)
+      add("⚾", `${e.home} v ${e.away}`, (e.start || "").slice(5, 16), "Moneyline", cands[0][1], Math.round(cands[0][0]), cands[0][2][0], cands[0][2][1]);
+  }
+
+  // one leg per game, keep the highest-probability leg
+  const seen = {};
+  for (const l of legs) if (!seen[l.game] || l.prob > seen[l.game].prob) seen[l.game] = l;
+  const ranked = Object.values(seen).sort((a, b) => b.prob - a.prob);
+
+  const make = (n) => {
+    const list = ranked.slice(0, n);
+    let total = 1, allp = 1;
+    for (const l of list) { total *= l.odds; allp *= l.prob / 100; }
+    return { legs: list, totalOdds: Math.round(total * 100) / 100, allHitProb: Math.round(allp * 1000) / 10 };
+  };
+  return {
+    generatedAt: new Date().toISOString(),
+    dataDate: today,
+    minProb: 80,
+    uniqueGames: ranked.length,
+    totalLegs80: legs.length,
+    s20: make(20),
+    s10: make(10),
+    s5: make(5),
+  };
+}
+
+let safe = null;
+try {
+  safe = buildSafeSlips();
+  console.log(
+    `safe combos: ${safe.totalLegs80} legs >=80% across ${safe.uniqueGames} games | ` +
+    `S20 @${safe.s20.totalOdds} (${safe.s20.allHitProb}%) · S10 @${safe.s10.totalOdds} (${safe.s10.allHitProb}%) · S5 @${safe.s5.totalOdds} (${safe.s5.allHitProb}%)`
+  );
+} catch (e) {
+  console.log("safe combos skipped:", e.message);
+}
+
 const snapshot = {
   generatedAt: new Date().toISOString(),
   dataDate: today,
   football: Array.isArray(football) ? football : [],
   basketball: basketball && basketball.games ? basketball : null,
   tennis: tennis && tennis.games ? tennis : null,
-  history: history && history.cumulative ? history : null,
+    ncaafb: ncaafb && ncaafb.games ? ncaafb : null,
+    h2h: h2h && h2h.games ? h2h : null,
+    history: history && history.cumulative ? history : null,
   odds: odds || null,
   markets: markets || null,
+  safe: safe || null,
 };
 
 fs.mkdirSync(path.dirname(OUT), { recursive: true });

@@ -17,6 +17,7 @@ on:
 jobs:
   refresh:
     runs-on: ubuntu-latest
+    timeout-minutes: 45
     steps:
       - uses: actions/checkout@v4
 
@@ -37,7 +38,7 @@ jobs:
         run: |
           git config user.name "oddsoracle-refresh"
           git config user.email "refresh@oddsoracle.bot"
-          git add backend/app/daily
+          git add backend/app/daily backend/app/results
           if git diff --cached --quiet; then
             echo "no changes"
           else

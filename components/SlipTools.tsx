@@ -201,7 +201,7 @@ interface MktBook {
 
 interface MktRow {
   id: string;
-  sport: "Football" | "Basketball" | "Tennis" | "MLB";
+  sport: "Football" | "Basketball" | "Tennis" | "MLB" | "American Football";
   t: string;
   home: string;
   away: string;
@@ -274,6 +274,22 @@ function buildMktRows(): MktRow[] {
       books: m ? m.bookmakers || [] : [],
       fbPct: prob.length === 2 ? [Number(prob[0]), 0, Number(prob[1])] : null,
       fbPick: String(g.pred || "").startsWith("1") ? "1" : "2", fbScore: g.sets ? `sets ${g.sets}` : "", fbDec: null, model: null,
+    });
+  });
+
+  // American football (NCAA) — forebet board + OddsPapi bookmakers when present
+  const af: any[] = Array.isArray(any.ncaafb?.games) ? any.ncaafb.games : [];
+  const toaAf: any[] = Array.isArray(any.markets?.americanfootball) ? any.markets.americanfootball : [];
+  af.forEach((g, i) => {
+    const m = toaAf.find((t) => mmatch(t.home, g.home) && mmatch(t.away, g.away));
+    const [p1, p2] = String(g.prob || "50/50").split("/").map((x) => Number(x));
+    rows.push({
+      id: `afoot-${i}`, sport: "American Football", t: g.t || "", home: g.home || "", away: g.away || "",
+      lg: g.league || "NCAA",
+      books: m ? m.bookmakers || [] : [],
+      fbPct: p1 || p2 ? [p1, 0, p2] : null,
+      fbPick: String(g.pred || "1") === "1" ? "1" : "2",
+      fbScore: g.score || "", fbDec: null, model: null,
     });
   });
 
@@ -356,13 +372,22 @@ export default function SlipTools() {
   const [openOdds, setOpenOdds] = useState<string | null>(null);
   const [oddsQuery, setOddsQuery] = useState("");
 
+  // generate booking code
+  const [genBookie, setGenBookie] = useState("sportybet:ng");
+  const [generating, setGenerating] = useState(false);
+  const [genRes, setGenRes] = useState<{ ok: boolean; code?: string; error?: string; raw?: string } | null>(null);
+  const [genCopied, setGenCopied] = useState(false);
+
   // all-markets tab state
   const [openMkt, setOpenMkt] = useState<string | null>(null);
-  const [mktFilter, setMktFilter] = useState<"all" | "Football" | "Basketball" | "Tennis" | "MLB">("all");
+  const [mktFilter, setMktFilter] = useState<"all" | "Football" | "Basketball" | "Tennis" | "MLB" | "American Football">("all");
   const [mktQuery, setMktQuery] = useState("");
   const mktRows = useMemo(() => buildMktRows(), []);
   const mktSports = useMemo(
-    () => (["Football", "Basketball", "Tennis", "MLB"] as const).filter((s) => mktRows.some((r) => r.sport === s)),
+    () =>
+      (["Football", "MLB", "American Football", "Basketball", "Tennis"] as const).filter((s) =>
+        mktRows.some((r) => r.sport === s)
+      ),
     [mktRows]
   );
   const anyBooks = useMemo(() => mktRows.some((r) => r.books.length > 0), [mktRows]);
@@ -465,6 +490,90 @@ export default function SlipTools() {
     } finally {
       setDecoding(false);
     }
+  };
+
+  // Map a slip leg's human pick to the booking-code engine's market vocabulary.
+  const pickToMarket = (pick: string): { market: string; specifier: string; pick: string } => {
+    const s = pick.toLowerCase();
+    if (/over\s*(1\.5|2\.5|3\.5|1\.75|2\.25)/.test(s)) {
+      const line = s.match(/(1\.5|1\.75|2\.25|2\.5|3\.5)/)?.[1] || "2.5";
+      return { market: "over_under", specifier: line, pick: "over" };
+    }
+    if (/under\s*(1\.5|2\.5|3\.5|1\.75|2\.25)/.test(s)) {
+      const line = s.match(/(1\.5|1\.75|2\.25|2.5|3\.5)/)?.[1] || "2.5";
+      return { market: "over_under", specifier: line, pick: "under" };
+    }
+    if (/\b1x\b|home or draw/.test(s)) return { market: "double_chance", specifier: "", pick: "1x" };
+    if (/\bx2\b|draw or away/.test(s)) return { market: "double_chance", specifier: "", pick: "x2" };
+    if (/no draw|\b12\b/.test(s)) return { market: "double_chance", specifier: "", pick: "12" };
+    if (/draw no bet|dnb/.test(s)) {
+      const home = /home|\b1\b/.test(s);
+      return { market: "draw_no_bet", specifier: "", pick: home ? "home" : "away" };
+    }
+    if (/both teams to score|btts/.test(s)) {
+      return { market: "gg_ng", specifier: "", pick: /no\b|not\b/.test(s) ? "ng" : "gg" };
+    }
+    if (/\bx\b|draw/.test(s) && !/double/.test(s)) return { market: "1x2", specifier: "", pick: "draw" };
+    if (/away|\b2\b/.test(s)) return { market: "1x2", specifier: "", pick: "away" };
+    if (/home|\b1\b/.test(s)) return { market: "1x2", specifier: "", pick: "home" };
+    return { market: "1x2", specifier: "", pick: "home" };
+  };
+
+  // Build a best-effort UTC kickoff from a WAT wall-clock time + the data date.
+  const kickoffUtc = (t: string): string => {
+    const m = String(t).match(/(\d{1,2}):(\d{2})/);
+    const date = (SNAPSHOT as any).dataDate || new Date().toLocaleDateString("sv-SE", { timeZone: "Africa/Lagos" });
+    if (!m) return date;
+    let h = Number(m[1]);
+    const min = m[2];
+    // WAT is UTC+1 → subtract one hour for UTC; roll back a day if it crosses midnight.
+    let dayOffset = 0;
+    if (h === 0) { dayOffset = -1; h = 24; }
+    h -= 1;
+    const d = new Date(`${date}T00:00:00Z`);
+    d.setUTCDate(d.getUTCDate() + dayOffset);
+    return `${d.toISOString().slice(0, 10)}T${String(h).padStart(2, "0")}:${min}:00Z`;
+  };
+
+  const generateCode = async () => {
+    if (slip.length === 0 || generating) return;
+    setGenerating(true);
+    setGenRes(null);
+    try {
+      const selections = slip.map((l) => {
+        const mk = pickToMarket(l.pick);
+        return {
+          home: l.home,
+          away: l.away,
+          kickoff_utc: kickoffUtc(l.t),
+          competition: l.league,
+          market: mk.market,
+          specifier: mk.specifier,
+          pick: mk.pick,
+          ...(typeof l.odds === "number" ? { odds: l.odds } : {}),
+        };
+      });
+      const r = await fetch("/api/book-code/generate", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ bookie: genBookie, selections }),
+      });
+      const j = await r.json();
+      setGenRes(j);
+    } catch {
+      setGenRes({ ok: false, error: "Network hiccup talking to our server — try again." });
+    } finally {
+      setGenerating(false);
+    }
+  };
+
+  const copyGenCode = async () => {
+    if (!genRes?.code) return;
+    try {
+      await navigator.clipboard.writeText(genRes.code);
+      setGenCopied(true);
+      setTimeout(() => setGenCopied(false), 2000);
+    } catch {}
   };
 
   const crossCheck = (leg: BookedLeg): SlipPick | null => {
@@ -607,6 +716,49 @@ export default function SlipTools() {
                   <button className="btn btn-ghost btn-sm" onClick={() => setSelected([])}>
                     Clear
                   </button>
+                </div>
+
+                <div className="slip-gen">
+                  <div className="slip-gen-row">
+                    <select
+                      className="slip-gen-select"
+                      value={genBookie}
+                      onChange={(e) => setGenBookie(e.target.value)}
+                      aria-label="Bookmaker for booking code"
+                    >
+                      {BOOKIES.map((b) => (
+                        <option key={b.id} value={b.id}>
+                          {b.label}
+                        </option>
+                      ))}
+                    </select>
+                    <button className="btn btn-primary btn-sm" onClick={generateCode} disabled={generating}>
+                      {generating ? "Generating…" : "🔑 Generate code"}
+                    </button>
+                  </div>
+                  <p className="slip-note">
+                    We build a real booking code for this exact slip at the bookie you pick —
+                    enter it in their app and the games load by themselves. Uses a small daily
+                    free allowance.
+                  </p>
+                  {genRes && genRes.ok && genRes.code && (
+                    <div className="slip-gen-result ok">
+                      <div>
+                        <span>Your booking code</span>
+                        <b className="grad-text" style={{ fontSize: 22, letterSpacing: 1 }}>
+                          {genRes.code}
+                        </b>
+                      </div>
+                      <button className="btn btn-ghost btn-sm" onClick={copyGenCode}>
+                        {genCopied ? "✓ Copied" : "Copy code"}
+                      </button>
+                    </div>
+                  )}
+                  {genRes && !genRes.ok && (
+                    <div className="callout callout-red" style={{ fontSize: 12.5 }}>
+                      {genRes.error}
+                    </div>
+                  )}
                 </div>
                 <p className="slip-note">
                   “Model chance all hit” multiplies each leg&rsquo;s probability — it drops fast
@@ -809,15 +961,18 @@ export default function SlipTools() {
               switched on, every bookmaker fills in automatically, no extra work.
             </div>
           )}
+          <div className="callout" style={{ borderLeft: "3px solid #f59e0b" }}>
+            ⚾ <b>Can&rsquo;t find MLB?</b> It&rsquo;s the <b>2nd section, right after Football</b> below
+            — or tap the <b>MLB</b> chip above to jump straight to it.
+          </div>
           <div className="callout">
-            <b>Live bookmaker prices right now:</b> MLB — 15+ books with moneyline, totals and
-            run lines. Football, basketball and tennis show Forebet&rsquo;s market (their pick,
-            their %, their score) — the real bookmaker prices for those sports switch on
-            automatically the moment the odds feed key is active. The pipeline is already built;
-            no extra work.
+            <b>Live bookmaker prices right now:</b> Football — {mktRows.filter((r) => r.sport === "Football" && r.books.length > 0).length} games ·
+            Basketball — {mktRows.filter((r) => r.sport === "Basketball" && r.books.length > 0).length} games ·
+            MLB — {mktRows.filter((r) => r.sport === "MLB" && r.books.length > 0).length} games, all with
+            real bookmaker prices (moneyline, totals, run lines). The rest fill in with each daily drop.
           </div>
           <div className="filter-tabs" role="tablist">
-            {(["all", "Football", "Basketball", "Tennis", "MLB"] as const)
+            {(["all", "Football", "MLB", "American Football", "Basketball", "Tennis"] as const)
               .filter((s) => s === "all" || (mktSports as readonly string[]).includes(s))
               .map((s) => (
                 <button

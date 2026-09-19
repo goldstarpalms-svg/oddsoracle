@@ -1730,6 +1730,32 @@ tr:last-child td {
 .slip-totals b.good { color: var(--accent); }
 .slip-totals b.warn { color: var(--accent-2); }
 .slip-actions { display: flex; gap: 8px; flex-wrap: wrap; }
+
+/* Generate booking code */
+.slip-gen { margin-top: 14px; padding-top: 14px; border-top: 1px solid var(--border); }
+.slip-gen-row { display: flex; gap: 8px; flex-wrap: wrap; }
+.slip-gen-select {
+  flex: 1;
+  min-width: 150px;
+  background: var(--bg-card, #10151f);
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: 9px;
+  padding: 8px 10px;
+  font-size: 13px;
+}
+.slip-gen-result {
+  margin-top: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  background: var(--bg-card, #10151f);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 10px 12px;
+}
+.slip-gen-result span { display: block; font-size: 10.5px; color: var(--text-faint); }
 .slip-note {
   margin: 12px 0 0;
   font-size: 11.5px;

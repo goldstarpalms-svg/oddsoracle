@@ -2,11 +2,14 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { SPORTS, type Sport } from "@/lib/predictions";
+import SNAPSHOT from "@/lib/data-snapshot.json";
 import {
   bbPicks,
   fbPicks,
   fmtDate,
   freshness,
+  mlbPicks,
+  ncaaFbPicks,
   summary,
   tnPicks,
 } from "@/lib/rich";
@@ -46,12 +49,12 @@ const SEO: Record<Sport, { title: string; meta: string; intro: string[] }> = {
     ],
   },
   other: {
-    title: "Ice Hockey, Esports & MMA Predictions",
+    title: "MLB & NCAA American Football Predictions — American Sports Board",
     meta:
-      "Free predictions for ice hockey, esports, MMA and more. Extra value in the markets everyone else skips, updated when the value is on the board.",
+      "MLB with live bookmaker prices on every game, and NCAA American football with Forebet's 1/2 split, pick and predicted score. American sports board updated daily.",
     intro: [
-      "There&rsquo;s value beyond the big three sports. When the market is right, we post picks here with the same plain-English breakdown.",
-      "These markets move fast — treat every pick as a snapshot and verify current odds before you stake.",
+      "⚾ <b>MLB is live below</b> — every game with the best bookmaker price on each side and the main total. 🏈 <b>NCAA American football</b> is also on this board with Forebet&rsquo;s 1/2 split, pick and score call.",
+      "🏈 <b>NFL</b> has no games today — Week 1 opens Friday 25/9 and the board fills that day. Times in WAT.",
     ],
   },
 };
@@ -85,10 +88,19 @@ export default function SportPage({ params }: { params: { sport: Sport } }) {
   const fb = fbPicks();
   const bb = bbPicks();
   const tn = tnPicks();
+  const isOther = sport === "other";
+  const am = isOther ? [...mlbPicks(), ...ncaaFbPicks()] : [];
   const items =
-    sport === "football" ? fb : sport === "basketball" ? bb : sport === "tennis" ? tn : [];
+    sport === "football" ? fb : sport === "basketball" ? bb : sport === "tennis" ? tn : am;
   const sum = summary();
-  const s = sport === "football" ? fb.length : sport === "basketball" ? bb.length : tn.length;
+  const s = isOther
+    ? ((SNAPSHOT as any).odds?.sports?.baseball_mlb?.events?.length ?? 0) +
+      ((SNAPSHOT as any).ncaafb?.games?.length ?? 0)
+    : sport === "football"
+    ? fb.length
+    : sport === "basketball"
+    ? bb.length
+    : tn.length;
 
   const names = items.map((p: any) =>
     "fb_pct" in p || "model" in p ? `${p.home} vs ${p.away}` : "p1" in p ? `${p.p1} vs ${p.p2}` : `${p.home} vs ${p.away}`
@@ -145,7 +157,7 @@ export default function SportPage({ params }: { params: { sport: Sport } }) {
 
           {s > 0 ? (
             <SportPicks
-              sport={sport as "football" | "basketball" | "tennis"}
+              sport={sport}
               items={items as any}
               combo={sport === "football" ? sum.combo : null}
             />
