@@ -2,6 +2,7 @@ import Link from "next/link";
 import { SITE } from "@/lib/site";
 import { bbPicks, fbPicks, fmtDate, freshness, summary, tnPicks } from "@/lib/rich";
 import { FootballCard, BasketballCard, TennisCard } from "@/components/RichCard";
+import BestPicks from "@/components/BestPicks";
 import LivePicks from "@/components/LivePicks";
 import AdSlot from "@/components/AdSlot";
 import FaqList from "@/components/FaqList";
@@ -135,6 +136,13 @@ export default function Home() {
               <div className="l">Cost — everything free</div>
             </div>
           </div>
+        </div>
+      </section>
+
+      {/* ALWAYS-ON BEST PICKS */}
+      <section className="sec-tight">
+        <div className="container">
+          <BestPicks limit={6} />
         </div>
       </section>
 

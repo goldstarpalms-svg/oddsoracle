@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import { SPORTS, type Sport } from "@/lib/predictions";
 import { bbPicks, fbPicks, fmtDate, summary, tnPicks } from "@/lib/rich";
 import { BasketballCard, FootballCard, TennisCard } from "@/components/RichCard";
+import BestPicks from "@/components/BestPicks";
 import AdSlot from "@/components/AdSlot";
 import JsonLd from "@/components/JsonLd";
 
@@ -69,6 +70,12 @@ export default function PredictionsPage() {
             {sum.total} picks across football, basketball and tennis — each with the real
             probabilities, a predicted score and the reasoning in plain words. Free forever.
           </p>
+        </div>
+      </section>
+
+      <section className="sec">
+        <div className="container">
+          <BestPicks limit={6} />
         </div>
       </section>
 

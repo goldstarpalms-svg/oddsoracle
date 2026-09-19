@@ -91,6 +91,65 @@ function EdgeRow({ p }: { p: FbPick }) {
   );
 }
 
+/** SaferStake-style safety tag from a model probability. */
+function mktTag(p: number | null) {
+  if (p == null) return null;
+  if (p >= 70) return <span className="mkt-tag mkt-safe">🟢 SAFE</span>;
+  if (p >= 55) return <span className="mkt-tag mkt-steady">🟡 STEADY</span>;
+  return <span className="mkt-tag mkt-risky">🔴 RISKY</span>;
+}
+
+/** Every option the model prices for this game — expandable per card. */
+function MktMenu({ p }: { p: FbPick }) {
+  const [open, setOpen] = useState(false);
+  const m = p.model;
+  if (!m || (m.o15 == null && m.dc1x == null && m.btts == null)) return null;
+  const side = (v: number | null) => (v == null ? "—" : v >= 50 ? "Over" : "Under");
+  const rows: { name: string; detail: string; call: string; tag: number | null }[] = [];
+  if (m.p) rows.push({ name: "Match winner (1/X/2)", detail: `1 ${m.p[0]}% · X ${m.p[1]}% · 2 ${m.p[2]}%`, call: p.final, tag: Math.max(...m.p) });
+  if (m.o15 != null) rows.push({ name: "Over 1.5 goals", detail: `${m.o15}% for over`, call: side(m.o15), tag: Math.max(m.o15, 100 - m.o15) });
+  if (m.o25 != null) rows.push({ name: "Over 2.5 goals", detail: `${m.o25}% for over`, call: side(m.o25), tag: Math.max(m.o25, 100 - m.o25) });
+  if (m.o35 != null) rows.push({ name: "Over 3.5 goals", detail: `${m.o35}% for over`, call: side(m.o35), tag: Math.max(m.o35, 100 - m.o35) });
+  if (m.btts != null) rows.push({ name: "Both teams score", detail: `Yes ${m.btts}% / No ${m.no_btts ?? 100 - m.btts}%`, call: m.btts >= 50 ? "Yes" : "No", tag: Math.max(m.btts, m.no_btts ?? 0) });
+  if (m.dc1x != null) {
+    const best = Math.max(m.dc1x, m.dcx2 ?? 0, m.dc12 ?? 0);
+    const call = best === m.dc1x ? "1X (Home or draw)" : best === (m.dcx2 ?? 0) ? "X2 (Draw or away)" : "12 (No draw)";
+    rows.push({ name: "Double chance", detail: `1X ${m.dc1x}% · X2 ${m.dcx2 ?? "—"}% · No draw ${m.dc12 ?? "—"}%`, call, tag: best });
+  }
+  if (m.dnbH != null) rows.push({ name: "Draw no bet", detail: `Home ${m.dnbH}% / Away ${m.dnbA ?? "—"}%`, call: m.dnbH >= (m.dnbA ?? 0) ? `Home (${p.home})` : `Away (${p.away})`, tag: Math.max(m.dnbH, m.dnbA ?? 0) });
+  if (m.ahH != null) rows.push({ name: "Handicap (home -1)", detail: `Home -1: ${m.ahH}% / Away: ${m.ahA ?? "—"}%`, call: m.ahH >= (m.ahA ?? 0) ? p.home : `${p.away} +1`, tag: Math.max(m.ahH, m.ahA ?? 0) });
+  if (m.cs1) rows.push({ name: "Correct score", detail: `Model: ${m.cs1} (or ${m.cs2})${p.fb_score ? ` · Forebet: ${p.fb_score}` : ""}`, call: m.cs1, tag: null });
+  return (
+    <div className="mkt-menu">
+      <button className="why-toggle mkt-toggle" onClick={() => setOpen((o) => !o)} aria-expanded={open}>
+        {open ? "▾ Hide all options" : `▸ All options (${rows.length}) — the full menu`}
+      </button>
+      {open && (
+        <table className="mkt-table">
+          <thead>
+            <tr>
+              <th>Market</th>
+              <th>Model says</th>
+              <th>Our call</th>
+              <th>Tag</th>
+            </tr>
+          </thead>
+          <tbody>
+            {rows.map((r) => (
+              <tr key={r.name}>
+                <td className="mkt-name">{r.name}</td>
+                <td className="mkt-detail">{r.detail}</td>
+                <td className="mkt-call">{r.call}</td>
+                <td>{mktTag(r.tag)}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      )}
+    </div>
+  );
+}
+
 function Why({ text }: { text: string }) {
   const [open, setOpen] = useState(false);
   if (!text) return null;
@@ -135,15 +194,7 @@ export function FootballCard({ p }: { p: FbPick }) {
 
       <EdgeRow p={p} />
 
-      {p.model && (p.model.o25 != null || p.model.btts != null) && (
-        <div className="rich-model">
-          Model: 1/X/2 {p.model.p ? `${p.model.p[0]} / ${p.model.p[1]} / ${p.model.p[2]}` : "—"}
-          {p.model.o25 != null && <> · O2.5 <b>{p.model.o25}%</b></>}
-          {p.model.btts != null && <> · BTTS <b>{p.model.btts}%</b></>}
-          {p.model.bank && p.model.bank !== "SAFE" && <> · <b>{p.model.bank}</b></>}
-        </div>
-      )}
-
+      <MktMenu p={p} />
       <Badges banker={p.banker} value={p.value} />
       <Why text={p.why} />
     </article>

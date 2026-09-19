@@ -10,9 +10,21 @@ import SNAPSHOT from "./data-snapshot.json";
 export interface ModelInfo {
   pick: string;
   p: [number, number, number] | null; // 1/X/2 %
+  o15: number | null;
   o25: number | null;
+  o35: number | null;
   btts: number | null;
-  bank: string; // e.g. "SAFE", "RISKY", "ODD"
+  no_btts: number | null;
+  dc1x: number | null;
+  dcx2: number | null;
+  dc12: number | null;
+  dnbH: number | null;
+  dnbA: number | null;
+  ahH: number | null; // home -1 (win by 2+)
+  ahA: number | null; // away -1 (win by 2+)
+  cs1: string;
+  cs2: string;
+  bank: string; // e.g. "BANKER", "SAFE", "MODERATE", "RISKY"
 }
 
 export interface FbPick {
@@ -31,6 +43,8 @@ export interface FbPick {
   edge: number | null; // model prob − market implied prob (pp), only when market odds exist
   mkt_pick: string | null;
   model: ModelInfo | null;
+  mktEdge: [number, number, number] | null; // model − market implied (pp) per 1/X/2
+  fair: [number, number, number] | null; // model fair decimal odds per 1/X/2
   src: string; // FOREBET | MODEL | FUSION
   final: string; // final pick, e.g. "1"
   ou: string;
@@ -153,8 +167,20 @@ export function fbPicks(): FbPick[] {
       ? {
           pick: r.model.pick || "",
           p: Array.isArray(r.model.p) ? (r.model.p as [number, number, number]) : null,
+          o15: r.model.o15 ?? null,
           o25: r.model.o25 ?? null,
+          o35: r.model.o35 ?? null,
           btts: r.model.btts ?? null,
+          no_btts: r.model.no_btts ?? null,
+          dc1x: r.model.dc1x ?? null,
+          dcx2: r.model.dcx2 ?? null,
+          dc12: r.model.dc12 ?? null,
+          dnbH: r.model.dnbH ?? null,
+          dnbA: r.model.dnbA ?? null,
+          ahH: r.model.ahH ?? null,
+          ahA: r.model.ahA ?? null,
+          cs1: r.model.cs1 || "",
+          cs2: r.model.cs2 || "",
           bank: r.model.bank || "",
         }
       : null;
@@ -229,6 +255,12 @@ export function fbPicks(): FbPick[] {
       edge,
       mkt_pick: r.mkt_pick || null,
       model: m,
+      mktEdge:
+        Array.isArray(r.mktEdge) && r.mktEdge.length === 3
+          ? (r.mktEdge as [number, number, number])
+          : null,
+      fair:
+        Array.isArray(r.fair) && r.fair.length === 3 ? (r.fair as [number, number, number]) : null,
       src: r.src || (pct ? "FOREBET" : "MODEL"),
       final: labelPick(final),
       ou: r.ou || "",

@@ -57,6 +57,42 @@ try {
   );
 } catch {}
 
+// Enrich football rows with the FULL model (o15/o25/o35, BTTS, double chance,
+// DNB, handicap, top-2 correct score, edge vs market) from the dated model file.
+try {
+  const modelFile = pick([/^\d{4}-\d{2}-\d{2}\.json$/]);
+  if (modelFile && Array.isArray(football)) {
+    const modelDoc = read(modelFile);
+    const games = (modelDoc && modelDoc.games) || [];
+    const byKey = new Map();
+    for (const g of games) byKey.set(`${g.home}|${g.away}`, g);
+    const pct = (v) => (typeof v === "number" ? Math.round(v * 100) : null);
+    let enriched = 0;
+    for (const r of football) {
+      const g = byKey.get(`${r.home}|${r.away}`);
+      if (!g || !g.model) continue;
+      const m = g.model;
+      r.model = {
+        pick: m.pick || "",
+        p: [pct(m.p1), pct(m.px), pct(m.p2)],
+        o15: pct(m.o15), o25: pct(m.o25), o35: pct(m.o35),
+        btts: pct(m.btts), no_btts: pct(m.no_btts),
+        dc1x: pct(m.dc1x), dcx2: pct(m.dcx2), dc12: pct(m.dc12),
+        dnbH: pct(m.dnbH), dnbA: pct(m.dnbA),
+        ahH: pct(m.ah_h_minus1), ahA: pct(m.ah_h_plus1),
+        cs1: m.cs1 || "", cs2: m.cs2 || "",
+        bank: m.bank || "",
+      };
+      r.mktEdge = Array.isArray(g.edge) ? g.edge.map((x) => Math.round(x * 1000) / 10) : null;
+      r.fair = [m.fair1, m.fairX, m.fair2].map((x) => Math.round(x * 100) / 100);
+      enriched += 1;
+    }
+    console.log(`model enrichment: ${enriched}/${football.length} football rows`);
+  }
+} catch (e) {
+  console.log("model enrichment skipped:", e.message);
+}
+
 let odds = null;
 try {
   const raw = JSON.parse(
