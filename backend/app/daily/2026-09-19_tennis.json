@@ -1,0 +1,563 @@
+{
+ "date": "2026-09-19",
+ "generated_at": "2026-09-19T09:45:00+01:00",
+ "source": "forebet.com (fetched 19/9)",
+ "games": [
+  {
+   "tourn": "Davis Cup WG II",
+   "t": "09:00",
+   "p1": "P. Photiades",
+   "p2": "G. Kravchenko",
+   "prob": "53/47",
+   "pred": "1 (Photiades)",
+   "sets": "2-0",
+   "coef": "+1100"
+  },
+  {
+   "tourn": "Davis Cup WG II",
+   "t": "09:30",
+   "p1": "A. Shevchenko",
+   "p2": "K. Samrej",
+   "prob": "42/58",
+   "pred": "2 (Samrej)",
+   "sets": "1-2",
+   "coef": "+200"
+  },
+  {
+   "tourn": "Davis Cup WG II",
+   "t": "10:30",
+   "p1": "M. Efstathiou",
+   "p2": "O. Krutykh",
+   "prob": "33/67",
+   "pred": "2 (Krutykh)",
+   "sets": "0-2",
+   "coef": "-200"
+  },
+  {
+   "tourn": "Davis Cup WG II",
+   "t": "11:00",
+   "p1": "K. Bennani",
+   "p2": "C. Abua",
+   "prob": "75/25",
+   "pred": "1 (Bennani)",
+   "sets": "2-0",
+   "coef": "n/a"
+  },
+  {
+   "tourn": "Davis Cup WG II",
+   "t": "11:00",
+   "p1": "T. Skatov",
+   "p2": "M. Jones",
+   "prob": "49/51",
+   "pred": "2 (Jones)",
+   "sets": "1-2",
+   "coef": "+175"
+  },
+  {
+   "tourn": "Davis Cup WG II",
+   "t": "11:30",
+   "p1": "F. J. Planinsek",
+   "p2": "A. Vales",
+   "prob": "45/55",
+   "pred": "2 (Vales)",
+   "sets": "1-2",
+   "coef": "n/a"
+  },
+  {
+   "tourn": "Davis Cup WG II",
+   "t": "12:30",
+   "p1": "Y. Dlimi",
+   "p2": "D. Adeleye",
+   "prob": "63/37",
+   "pred": "1 (Dlimi)",
+   "sets": "2-1",
+   "coef": "n/a"
+  },
+  {
+   "tourn": "Davis Cup WG II",
+   "t": "12:30",
+   "p1": "M. Echargui",
+   "p2": "M. Shoaib",
+   "prob": "70/30",
+   "pred": "1 (Echargui)",
+   "sets": "2-0",
+   "coef": "n/a"
+  },
+  {
+   "tourn": "Davis Cup WG II",
+   "t": "13:00",
+   "p1": "B. Artnak",
+   "p2": "O. Kimhi",
+   "prob": "53/47",
+   "pred": "1 (Artnak)",
+   "sets": "2-0",
+   "coef": "n/a"
+  },
+  {
+   "tourn": "Davis Cup WG II",
+   "t": "14:00",
+   "p1": "P. Henning",
+   "p2": "A. Nedic",
+   "prob": "39/61",
+   "pred": "2 (Nedic)",
+   "sets": "0-2",
+   "coef": "+240"
+  },
+  {
+   "tourn": "Davis Cup WG II",
+   "t": "14:00",
+   "p1": "A. Dougaz",
+   "p2": "M. Murtaza",
+   "prob": "77/23",
+   "pred": "1 (Dougaz)",
+   "sets": "2-0",
+   "coef": "n/a"
+  },
+  {
+   "tourn": "Davis Cup WG II",
+   "t": "15:00",
+   "p1": "D. Phillips",
+   "p2": "A. Magadan",
+   "prob": "52/48",
+   "pred": "1 (Phillips)",
+   "sets": "2-0",
+   "coef": "+275"
+  },
+  {
+   "tourn": "Davis Cup WG II",
+   "t": "15:30",
+   "p1": "K. Montsi",
+   "p2": "D. Dzumhur",
+   "prob": "37/63",
+   "pred": "2 (Dzumhur)",
+   "sets": "1-2",
+   "coef": "-250"
+  },
+  {
+   "tourn": "Davis Cup WG II",
+   "t": "16:30",
+   "p1": "R. Mallory",
+   "p2": "A. Hernandez",
+   "prob": "45/55",
+   "pred": "2 (Hernandez)",
+   "sets": "0-2",
+   "coef": "n/a"
+  },
+  {
+   "tourn": "Davis Cup WG II",
+   "t": "17:30",
+   "p1": "N. Hardt",
+   "p2": "A. Elsayed",
+   "prob": "66/34",
+   "pred": "1 (Hardt)",
+   "sets": "2-0",
+   "coef": "n/a"
+  },
+  {
+   "tourn": "Davis Cup WG II",
+   "t": "19:00",
+   "p1": "D. Duran",
+   "p2": "N. Borges",
+   "prob": "55/45",
+   "pred": "1 (Duran)",
+   "sets": "2-1",
+   "coef": "n/a"
+  },
+  {
+   "tourn": "Davis Cup WG II",
+   "t": "19:00",
+   "p1": "R. Cid Subervi",
+   "p2": "K. Mabrouk",
+   "prob": "76/24",
+   "pred": "1 (Subervi)",
+   "sets": "2-0",
+   "coef": "n/a"
+  },
+  {
+   "tourn": "Davis Cup WG II",
+   "t": "20:30",
+   "p1": "C. Cruz",
+   "p2": "J. Faria",
+   "prob": "16/84",
+   "pred": "2 (Faria)",
+   "sets": "0-2",
+   "coef": "n/a"
+  },
+  {
+   "tourn": "Davis Cup WG II",
+   "t": "20:30",
+   "p1": "F. Roncadelli",
+   "p2": "M. Molder",
+   "prob": "67/33",
+   "pred": "1 (Roncadelli)",
+   "sets": "2-0",
+   "coef": "n/a"
+  },
+  {
+   "tourn": "Davis Cup WG II",
+   "t": "22:00",
+   "p1": "J. Aguilar Cardozo",
+   "p2": "O. Ojakaar",
+   "prob": "49/51",
+   "pred": "2 (Ojakaar)",
+   "sets": "1-2",
+   "coef": "n/a"
+  },
+  {
+   "tourn": "Davis Cup WG II",
+   "t": "22:30",
+   "p1": "H. Dellien",
+   "p2": "T. F. Wong",
+   "prob": "85/15",
+   "pred": "1 (Dellien)",
+   "sets": "2-0",
+   "coef": "n/a"
+  },
+  {
+   "tourn": "WTA Singapore - QF",
+   "t": "07:20",
+   "p1": "N. Radisic",
+   "p2": "V. Morvayova",
+   "prob": "41/59",
+   "pred": "2 (Morvayova)",
+   "sets": "0-2",
+   "coef": "-455"
+  },
+  {
+   "tourn": "WTA Singapore - QF",
+   "t": "07:35",
+   "p1": "J. Garland",
+   "p2": "E. Perez",
+   "prob": "66/34",
+   "pred": "1 (Garland)",
+   "sets": "2-0",
+   "coef": "-1429"
+  },
+  {
+   "tourn": "WTA Singapore - QF",
+   "t": "08:50",
+   "p1": "M. Yamaguchi",
+   "p2": "U. Eikeri",
+   "prob": "63/37",
+   "pred": "1 (Yamaguchi)",
+   "sets": "2-0",
+   "coef": "-714"
+  },
+  {
+   "tourn": "WTA Singapore - QF",
+   "t": "09:05",
+   "p1": "E. M. Desvignes",
+   "p2": "K. Okamura",
+   "prob": "58/42",
+   "pred": "1 (Desvignes)",
+   "sets": "2-1",
+   "coef": "n/a"
+  },
+  {
+   "tourn": "WTA Seoul - QF",
+   "t": "08:00",
+   "p1": "X. Yao",
+   "p2": "P. Hon",
+   "prob": "48/52",
+   "pred": "2 (Hon)",
+   "sets": "0-2",
+   "coef": "n/a"
+  },
+  {
+   "tourn": "WTA Seoul - QF",
+   "t": "08:25",
+   "p1": "A. Ibragimova",
+   "p2": "R. Saigo",
+   "prob": "52/48",
+   "pred": "1 (Ibragimova)",
+   "sets": "2-0",
+   "coef": "-333"
+  },
+  {
+   "tourn": "WTA Seoul - QF",
+   "t": "09:30",
+   "p1": "E. S. Liang",
+   "p2": "S. Saito",
+   "prob": "66/34",
+   "pred": "1 (Liang)",
+   "sets": "2-0",
+   "coef": "n/a"
+  },
+  {
+   "tourn": "Challenger Guangzhou 2 - SF",
+   "t": "10:30",
+   "p1": "M. Sharipov",
+   "p2": "P. Bar Biryukov",
+   "prob": "63/37",
+   "pred": "1 (Sharipov)",
+   "sets": "2-0",
+   "coef": "-455"
+  },
+  {
+   "tourn": "Challenger Ljubljana - SF",
+   "t": "11:00",
+   "p1": "S. De Stefano",
+   "p2": "L. Samsonova",
+   "prob": "52/48",
+   "pred": "1 (Stefano)",
+   "sets": "2-0",
+   "coef": "+138"
+  },
+  {
+   "tourn": "Challenger Caldas da Rainha - SF",
+   "t": "11:00",
+   "p1": "M. Pohankova",
+   "p2": "G. Knutson",
+   "prob": "57/43",
+   "pred": "1 (Pohankova)",
+   "sets": "2-1",
+   "coef": "-137"
+  },
+  {
+   "tourn": "Challenger Guangzhou 2 - SF",
+   "t": "12:00",
+   "p1": "P. Kotov",
+   "p2": "B. Tomic",
+   "prob": "52/48",
+   "pred": "1 (Kotov)",
+   "sets": "2-0",
+   "coef": "n/a"
+  },
+  {
+   "tourn": "Challenger Ljubljana - SF",
+   "t": "12:30",
+   "p1": "M. Barthel",
+   "p2": "N. Basiletti",
+   "prob": "52/47",
+   "pred": "1 (Barthel)",
+   "sets": "2-0",
+   "coef": "-161"
+  },
+  {
+   "tourn": "Challenger Caldas da Rainha - SF",
+   "t": "12:30",
+   "p1": "L. Pigato",
+   "p2": "J. Vandromme",
+   "prob": "38/62",
+   "pred": "2 (Vandromme)",
+   "sets": "0-2",
+   "coef": "-345"
+  },
+  {
+   "tourn": "Challenger Biella - SF",
+   "t": "12:30",
+   "p1": "C. A. Caniato",
+   "p2": "A. Barrena",
+   "prob": "49/51",
+   "pred": "2 (Barrena)",
+   "sets": "0-2",
+   "coef": "n/a"
+  },
+  {
+   "tourn": "Challenger Rennes - SF",
+   "t": "12:30",
+   "p1": "T. Schoolkate",
+   "p2": "H. Mayot",
+   "prob": "60/40",
+   "pred": "1 (Schoolkate)",
+   "sets": "2-0",
+   "coef": "+100"
+  },
+  {
+   "tourn": "Challenger Szczecin - SF",
+   "t": "13:00",
+   "p1": "T. Monteiro",
+   "p2": "M. Trungelliti",
+   "prob": "55/45",
+   "pred": "1 (Monteiro)",
+   "sets": "2-0",
+   "coef": "+110"
+  },
+  {
+   "tourn": "Challenger Biella - SF",
+   "t": "14:00",
+   "p1": "A. Moro Canas",
+   "p2": "J. Clarke",
+   "prob": "55/45",
+   "pred": "1 (Canas)",
+   "sets": "2-0",
+   "coef": "-149"
+  },
+  {
+   "tourn": "Challenger Rennes - SF",
+   "t": "14:00",
+   "p1": "S. Gueymard Wayenburg",
+   "p2": "T. Droguet",
+   "prob": "40/60",
+   "pred": "2 (Droguet)",
+   "sets": "0-2",
+   "coef": "-250"
+  },
+  {
+   "tourn": "Challenger Szczecin - SF",
+   "t": "14:30",
+   "p1": "N. Sanchez Izquierdo",
+   "p2": "L. Mikrut",
+   "prob": "38/62",
+   "pred": "2 (Mikrut)",
+   "sets": "0-2",
+   "coef": "-125"
+  },
+  {
+   "tourn": "Challenger Valencia - SF",
+   "t": "16:00",
+   "p1": "C. Burel",
+   "p2": "L. S. Steur J.",
+   "prob": "48/52",
+   "pred": "2 (J.)",
+   "sets": "0-2",
+   "coef": "n/a"
+  },
+  {
+   "tourn": "WTA Sao Paulo - SF",
+   "t": "17:00",
+   "p1": "K. Quevedo",
+   "p2": "A. Blinkova",
+   "prob": "28/72",
+   "pred": "2 (Blinkova)",
+   "sets": "0-2",
+   "coef": "-161"
+  },
+  {
+   "tourn": "Challenger Valencia - SF",
+   "t": "17:30",
+   "p1": "A. Herrero Linana",
+   "p2": "Y. Kabbaj",
+   "prob": "60/40",
+   "pred": "1 (Linana)",
+   "sets": "2-1",
+   "coef": "-189"
+  },
+  {
+   "tourn": "WTA Sao Paulo - SF",
+   "t": "18:30",
+   "p1": "N. Podoroska",
+   "p2": "P. Badosa",
+   "prob": "25/75",
+   "pred": "2 (Badosa)",
+   "sets": "0-2",
+   "coef": "n/a"
+  },
+  {
+   "tourn": "Challenger Tiburon - SF",
+   "t": "23:00",
+   "p1": "M. Zheng",
+   "p2": "D. Blanch",
+   "prob": "66/34",
+   "pred": "1 (Zheng)",
+   "sets": "2-0",
+   "coef": "n/a"
+  }
+ ],
+ "in_play_or_done_morning": [
+  {
+   "tourn": "WTA Singapore - QF",
+   "t": "05:50",
+   "match": "A. Ito v S. Lansere",
+   "prob": "52/48",
+   "pred": "1",
+   "sets": "2-1",
+   "coef": "-227",
+   "status": "Set 2 in play (Ito leading)"
+  },
+  {
+   "tourn": "WTA Seoul - QF",
+   "t": "06:35",
+   "match": "C. Zhao v Y. Ma",
+   "prob": "66/34",
+   "pred": "1",
+   "sets": "2-0",
+   "coef": "n/a",
+   "status": "S1 in play (Zhao leading)"
+  },
+  {
+   "tourn": "Challenger Phan Thiet 4 - SF",
+   "t": "06:30",
+   "match": "M. Kouame v R. Pacheco Mendez",
+   "prob": "49/51",
+   "pred": "2",
+   "sets": "0-2",
+   "coef": "+110",
+   "status": "S1 in play"
+  }
+ ],
+ "finished_today": [
+  {
+   "tourn": "WTA Guadalajara - SF",
+   "t": "00:00",
+   "match": "L. Samsonova v P. Stearns",
+   "prob": "47/53",
+   "pred": "2 (Stearns)",
+   "sets": "2-0",
+   "coef": "+130",
+   "status": "FT 0-2 (pred WON)"
+  },
+  {
+   "tourn": "Challenger Phan Thiet 4 - SF",
+   "t": "04:05",
+   "match": "I. Simakin v H. Heck",
+   "prob": "56/44",
+   "pred": "1 (Simakin)",
+   "sets": "2-1",
+   "coef": "-455",
+   "status": "FT 2-1 (pred WON)"
+  },
+  {
+   "tourn": "WTA Singapore - QF",
+   "t": "04:10",
+   "match": "J. Wang v A. Kulikova",
+   "prob": "39/61",
+   "pred": "2 (Kulikova)",
+   "sets": "0-2",
+   "coef": "+138",
+   "status": "FT 0-2 (pred WON)"
+  },
+  {
+   "tourn": "WTA Singapore - QF",
+   "t": "04:10",
+   "match": "A-L. Friedsam v D. Krawczyk",
+   "prob": "70/30",
+   "pred": "1 (Friedsam)",
+   "sets": "2-0",
+   "coef": "n/a",
+   "status": "FT 2-0 (pred WON)"
+  },
+  {
+   "tourn": "WTA Seoul - QF",
+   "t": "06:05",
+   "match": "N. Hibino v N. C. Ng",
+   "prob": "66/34",
+   "pred": "1 (Hibino)",
+   "sets": "2-0",
+   "coef": "n/a",
+   "status": "FT 2-0 (pred WON)"
+  }
+ ],
+ "tomorrow_early_excluded": [
+  {
+   "tourn": "Davis Cup WG II",
+   "t": "00:00",
+   "match": "J. C. Prado Angelo v W. F. Choi",
+   "prob": "77/23",
+   "pred": "1",
+   "sets": "2-0",
+   "coef": "n/a",
+   "status": "starts 09/20 WAT"
+  },
+  {
+   "tourn": "Challenger Tiburon - SF",
+   "t": "01:00",
+   "match": "M. Mmoh v J. Wolf",
+   "prob": "44/56",
+   "pred": "2",
+   "sets": "0-2",
+   "coef": "n/a",
+   "status": "starts 09/20 WAT"
+  }
+ ]
+}
