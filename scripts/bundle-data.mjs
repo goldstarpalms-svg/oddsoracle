@@ -49,6 +49,19 @@ let basketball = read(pick([/_basketball\.json$/]));
 let tennis = read(pick([/_tennis\.json$/]));
 
 let markets = read(pick([/_markets\.json$/]));
+let oddspapi = read(pick([/_oddspapi\.json$/]));
+
+// OddsPapi (350+ books) is preferred where it has data; TOA fills the rest.
+if (oddspapi) {
+  const merged = {
+    generatedAt: oddspapi.generatedAt || markets?.generatedAt || null,
+    source: "oddspapi+toa",
+    soccer: oddspapi.soccer?.length ? oddspapi.soccer : markets?.soccer || [],
+    basketball: oddspapi.basketball?.length ? oddspapi.basketball : markets?.basketball || [],
+    tennis: oddspapi.tennis?.length ? oddspapi.tennis : markets?.tennis || [],
+  };
+  if (merged.soccer.length || merged.basketball.length || merged.tennis.length) markets = merged;
+}
 
 let history = null;
 try {

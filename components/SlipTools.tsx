@@ -812,9 +812,9 @@ export default function SlipTools() {
           <div className="callout">
             <b>Live bookmaker prices right now:</b> MLB — 15+ books with moneyline, totals and
             run lines. Football, basketball and tennis show Forebet&rsquo;s market (their pick,
-            their %, their score) — the odds key&rsquo;s free plan covers MLB + NBA, so the
-            real bookmaker prices for the other sports switch on automatically the moment it&rsquo;s
-            upgraded to the Pro plan.
+            their %, their score) — the real bookmaker prices for those sports switch on
+            automatically the moment the odds feed key is active. The pipeline is already built;
+            no extra work.
           </div>
           <div className="filter-tabs" role="tablist">
             {(["all", "Football", "Basketball", "Tennis", "MLB"] as const)
@@ -1079,9 +1079,8 @@ export default function SlipTools() {
                                 </table>
                                 <p className="slip-note">
                                   Real bookmaker prices for this sport fill in automatically
-                                  once the odds key is upgraded to the Pro plan (the free plan
-                                  covers MLB + NBA). Forebet&rsquo;s market is shown above in
-                                  the meantime.
+                                  once the odds feed key is active — 350+ bookmakers on
+                                  standby. Forebet&rsquo;s market is shown above in the meantime.
                                 </p>
                               </>
                             )}
