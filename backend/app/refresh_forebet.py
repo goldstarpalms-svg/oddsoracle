@@ -40,7 +40,17 @@ PAGES = {
     "basketball": "https://www.forebet.com/en/basketball/predictions-today",
     "tennis": "https://www.forebet.com/en/tennis/predictions-today",
     "americanfootball": "https://www.forebet.com/en/american-football/predictions-today",
+    "hockey": "https://www.forebet.com/en/hockey/predictions-today",
+    "baseball": "https://www.forebet.com/en/baseball/predictions-today",
+    "handball": "https://www.forebet.com/en/handball/predictions-today",
 }
+
+# Block-based parser: handles the real page DOM and BOTH per-sport time
+# formats (football MM/DD 12h EDT, other sports DD/MM 24h CET).
+try:
+    from fetch_full_all_sports import parse_board as parse_board_blocks
+except Exception:  # noqa: BLE001
+    parse_board_blocks = None
 
 
 def fetch(url: str) -> str:
@@ -344,6 +354,91 @@ def build_tennis(rows):
             )
         )
     return games
+
+
+def build_from_blocks(board_rows, sport):
+    """Block-parsed Forebet board rows -> daily-file rows (lenient, no-pick safe).
+
+    Returns (games, all_rows); all_rows is only used for basketball.
+    """
+    games, all_rows = [], []
+    for r in board_rows:
+        probs = r.get("probs") or []
+        if len(probs) < 2 or not r.get("home") or not r.get("away"):
+            continue
+        p1, p2 = probs[0], probs[1]
+        pred = str(r.get("pick") or "")
+        if sport == "basketball":
+            all_rows.append(dict(
+                league=r.get("league", ""), t=r.get("t", ""),
+                match=f"{r['home']} v {r['away']}",
+                prob=f"{p1}/{p2}", pred=pred, score=r.get("score", ""),
+                avg=r.get("avg") or None, coef=r.get("coef") or None,
+            ))
+            if pred and max(p1, p2) >= 60:
+                nm = r["home"] if pred == "1" else r["away"]
+                games.append(dict(
+                    league=r.get("league", ""), t=r.get("t", ""),
+                    home=r["home"], away=r["away"],
+                    fb_prob=[p1, p2], fb_pick=f"{pred} ({nm})",
+                    fb_score=r.get("score", ""), fb_avg=r.get("avg") or None,
+                    fb_coef=r.get("coef") or "none",
+                    pick=f"{pred} ({nm}) — Forebet",
+                    conf="MEDIUM (Forebet auto-feed)",
+                    total=f"avg {r['avg']}" if r.get("avg") else "",
+                    why="Auto-refreshed from the Forebet daily feed.",
+                ))
+        elif sport == "tennis":
+            games.append(dict(
+                tourn=r.get("league", ""), t=r.get("t", ""),
+                p1=r["home"], p2=r["away"],
+                prob=f"{p1}/{p2}",
+                pred=f"{pred} ({r['home'] if pred == '1' else r['away']})" if pred else "",
+                sets=r.get("score", ""), coef=r.get("coef") or "n/a",
+                note="auto-refresh from Forebet daily feed",
+            ))
+        else:  # hockey / baseball / handball — two-way
+            games.append(dict(
+                match=f"{r['home']} v {r['away']}",
+                home=r["home"], away=r["away"], league=r.get("league", ""),
+                t=r.get("t", ""), prob=f"{p1}/{p2}", pred=pred,
+                score=r.get("score", ""), coef=r.get("coef") or None,
+                avg=r.get("avg") or None,
+            ))
+    return games, all_rows
+
+
+def _row_key(g):
+    if g.get("home") is not None and g.get("away") is not None:
+        return norm(f"{g.get('home')}|{g.get('away')}")
+    if g.get("p1") is not None and g.get("p2") is not None:
+        return norm(f"{g.get('p1')}|{g.get('p2')}")
+    return norm(str(g.get("match") or ""))
+
+
+def merge_daily(path, games, all_rows):
+    """Merge fresh rows into the existing daily file (keeps curated rows, dedupes)."""
+    existing = {}
+    if os.path.exists(path):
+        try:
+            existing = json.load(open(path))
+        except Exception:  # noqa: BLE001
+            existing = {}
+    ex_g = list(existing.get("games") or [])
+    seen = {_row_key(g) for g in ex_g}
+    for g in games:
+        k = _row_key(g)
+        if k and k not in seen:
+            ex_g.append(g)
+            seen.add(k)
+    ex_a = list(existing.get("forebet_today_all") or [])
+    seenm = {norm(str(g.get("match") or "")) for g in ex_a}
+    for g in all_rows:
+        k = norm(str(g.get("match") or ""))
+        if k and k not in seenm:
+            ex_a.append(g)
+            seenm.add(k)
+    return ex_g, ex_a
 
 
 # ---------- forebet's EXTRA market boards (HT, HT/FT, corners, cards, goalscorers) ----------
@@ -655,16 +750,24 @@ def main():
         print(f"football-full: SKIPPED ({e})")
 
     try:
-        rows = parse_rows(fetch(PAGES["basketball"]), "basketball")
-        board_rows["basketball"] = rows
-        games, all_rows = build_basketball(rows)
+        html = fetch(PAGES["basketball"])
+        games, all_rows = [], []
+        if parse_board_blocks:
+            br = parse_board_blocks(html)
+            if br:
+                games, all_rows = build_from_blocks(br, "basketball")
+        if not all_rows:
+            rows = parse_rows(html, "basketball")
+            board_rows["basketball"] = rows
+            games, all_rows = build_basketball(rows)
+        p = os.path.join(DAILY, f"{today}_basketball.json")
+        games, all_rows = merge_daily(p, games, all_rows)
         payload = {
             "date": today,
             "source": "Forebet daily feed (auto-refresh)",
             "games": games,
             "forebet_today_all": all_rows,
         }
-        p = os.path.join(DAILY, f"{today}_basketball.json")
         if write_if_better(p, payload, 5, key="forebet_today_all"):
             summary.append(f"basketball: {len(all_rows)} picks")
             print(f"basketball: {len(all_rows)} picks -> {p}")
@@ -674,11 +777,19 @@ def main():
         print(f"basketball: SKIPPED ({e})")
 
     try:
-        rows = parse_rows(fetch(PAGES["tennis"]), "tennis")
-        board_rows["tennis"] = rows
-        games = build_tennis(rows)
-        payload = {"date": today, "source": "Forebet daily feed (auto-refresh)", "games": games}
+        html = fetch(PAGES["tennis"])
+        games = []
+        if parse_board_blocks:
+            br = parse_board_blocks(html)
+            if br:
+                games, _ = build_from_blocks(br, "tennis")
+        if not games:
+            rows = parse_rows(html, "tennis")
+            board_rows["tennis"] = rows
+            games = build_tennis(rows)
         p = os.path.join(DAILY, f"{today}_tennis.json")
+        games, _ = merge_daily(p, games, [])
+        payload = {"date": today, "source": "Forebet daily feed (auto-refresh)", "games": games}
         if write_if_better(p, payload, 5, key="games"):
             summary.append(f"tennis: {len(games)} picks")
             print(f"tennis: {len(games)} picks -> {p}")
@@ -686,6 +797,27 @@ def main():
             print(f"tennis: SKIPPED ({len(games)} rows parsed)")
     except Exception as e:
         print(f"tennis: SKIPPED ({e})")
+
+    for sport in ("hockey", "baseball", "handball"):
+        try:
+            games = []
+            if parse_board_blocks:
+                br = parse_board_blocks(fetch(PAGES[sport]))
+                if br:
+                    games, _ = build_from_blocks(br, sport)
+            if not games:
+                print(f"{sport}: no rows parsed (SKIPPED)")
+                continue
+            p = os.path.join(DAILY, f"{today}_{sport}.json")
+            ex_g, _ = merge_daily(p, games, [])
+            payload = {"date": today, "source": "Forebet daily feed (auto-refresh)", "games": ex_g}
+            if write_if_better(p, payload, 3, key="games"):
+                summary.append(f"{sport}: {len(ex_g)} games")
+                print(f"{sport}: {len(ex_g)} games -> {p}")
+            else:
+                print(f"{sport}: SKIPPED ({len(ex_g)} rows)")
+        except Exception as e:  # noqa: BLE001
+            print(f"{sport}: SKIPPED ({e})")
 
     try:
         rows = parse_rows(fetch(PAGES["americanfootball"]), "american-football")

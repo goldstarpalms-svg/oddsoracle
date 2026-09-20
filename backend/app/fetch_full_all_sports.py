@@ -88,13 +88,13 @@ def parse_board(html: str):
             league = " ".join(_fix.get(w, w.capitalize()) for w in href_m.group(1).split("-"))
         # teams
         tm = re.search(
-            r'class="homeTeam"[^>]*>(?:<[^>]+>)?([^<]+?)<', blk)
+            r'class="[^"]*homeTeam[^"]*"[^>]*>(?:<[^>]+>)?([^<]+?)<', blk)
         ta = re.search(
-            r'class="awayTeam"[^>]*>(?:<[^>]+>)?([^<]+?)<', blk)
+            r'class="[^"]*awayTeam[^"]*"[^>]*>(?:<[^>]+>)?([^<]+?)<', blk)
         if not tm or not ta:
             continue
         home, away = clean(tm.group(1)), clean(ta.group(1))
-        dtm = re.search(r'class="date_bah">([^<]+)</span>', blk)
+        dtm = re.search(r'class="[^"]*date_bah[^"]*"[^>]*>\s*([^<]+?)\s*</span>', blk)
         if not dtm or not home or not away:
             continue
         t, shift = wat_time_any(dtm.group(1).strip())
@@ -106,7 +106,7 @@ def parse_board(html: str):
             probs = [int(x) for x in re.findall(r">\s*(\d{1,3})\s*<", pm.group(1))]
         pick = ""
         score = ""
-        pm = re.search(r'class="predict(?:_no)?"[^>]*>(.*?)(?=<div class="ex_sc|<div class="avg_sc|<div class="bigOnly|<div class="schema_border|<div class="lmin_td|$)', blk, re.S)
+        pm = re.search(r'class="[^"]*predict(?:_no)?[^"]*"[^>]*>(.*?)(?=<div class="ex_sc|<div class="avg_sc|<div class="bigOnly|<div class="schema_border|<div class="lmin_td|$)', blk, re.S)
         if pm:
             txt = clean(pm.group(1))
             mtk = re.search(r"\b([12X])\b", txt)
@@ -115,20 +115,20 @@ def parse_board(html: str):
             msc = re.search(r"(\d{1,3})\s*[-–]\s*(\d{1,3})", txt)
             if msc:
                 score = f"{msc.group(1)}-{msc.group(2)}"
-        avgm = re.search(r'class="avg_sc tabonly">([\d.]+)<', blk)
+        avgm = re.search(r'class="[^"]*avg_sc[^"]*"[^>]*>\s*([\d.]+)\s*<', blk)
         avg = avgm.group(1) if avgm else ""
         coefm = re.search(r"getHodd\(this,\s*\d+[^)]*\)\s*\">\s*([+-]?\d{2,4})\s*<", blk)
         coef = coefm.group(1) if coefm else ""
         # FINAL score only when the board marks it FT (in-play scores ignored)
         ft = ""
-        slm = re.search(r'<div class="scoreLnk">(.*?)</div>', blk, re.S)
+        slm = re.search(r'<div class="[^"]*scoreLnk[^"]*">(.*?)</div>', blk, re.S)
         if slm and re.search(r'>\s*FT\s*<', slm.group(1)):
             ftm = re.search(r'<b class="l_scr">(\d+)\s*[-–]\s*(\d+)</b>', blk)
             if ftm:
                 ft = f"{ftm.group(1)}-{ftm.group(2)}"
         rows.append(dict(
             home=home, away=away, t=t,
-            league=league or (slug.replace("-", " ").title() if slug else ""),
+            league=league,
             probs=probs, pick=pick, score=score,
             avg=avg, coef=coef, ft=ft,
         ))
@@ -221,6 +221,10 @@ SPORTS = {
 
 def main():
     only = sys.argv[1] if len(sys.argv) > 1 else None
+    tries = 6
+    for a in sys.argv[2:]:
+        if a.isdigit():
+            tries = int(a)
     for sport, (url, fname, merge) in SPORTS.items():
         if only and sport != only:
             continue
@@ -229,7 +233,7 @@ def main():
             print(f"{sport}: no local file {fname} — skipped")
             continue
         try:
-            html = fetch_jina(url)
+            html = fetch_jina(url, tries=tries)
         except Exception as e:
             print(f"{sport}: fetch failed ({e})")
             continue
