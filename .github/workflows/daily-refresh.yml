@@ -32,7 +32,11 @@ jobs:
       - name: Install deps
         run: pip install requests
 
+      # Forebet regularly 403s datacentre IPs (CI runners included). When it does,
+      # the rest of the pipeline — prices, Pulse enrichment, snapshot — must still run.
       - name: Fetch Forebet daily picks (+ extra markets: HT, HT/FT, corners, cards, goalscorers)
+        continue-on-error: true
+        id: forebet
         run: python3 backend/app/refresh_forebet.py
         env:
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
@@ -45,6 +49,7 @@ jobs:
         run: python3 backend/app/oracle_engine.py
 
       - name: Score settled picks against ESPN official results
+        continue-on-error: true
         run: python3 backend/app/score_espn.py
 
       - name: Rebuild track record (ROI / units / drawdown / calibration)
@@ -86,7 +91,14 @@ jobs:
           git add backend/app/daily backend/app/results lib/data-snapshot.json
           if git diff --cached --quiet; then
             echo "no changes"
-          else
-            git commit -m "chore: daily forebet refresh + model halves + finals ($(date -u +%F))"
-            git push
+            exit 0
           fi
+          # Guard: an empty football board means the upstream fetch was blocked.
+          # Publishing that would wipe the site, so we keep yesterday's data instead.
+          if ! node -e "const s=require('./lib/data-snapshot.json'); process.exit((s.football && s.football.length) ? 0 : 1)"; then
+            echo "::warning::football board is empty — refusing to commit"
+            git reset
+            exit 0
+          fi
+          git commit -m "chore: daily refresh + halves + oddschecker + pulse enrichment ($(date -u +%F))"
+          git push
