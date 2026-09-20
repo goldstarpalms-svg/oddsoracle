@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import { SPORTS, type Sport } from "@/lib/predictions";
 import { bbPicks, fbPicks, fmtDate, summary, tnPicks } from "@/lib/rich";
 import PickGrid from "@/components/PickGrid";
+import BoardStatus from "@/components/BoardStatus";
 import { cardFromFootball, cardFromBasketball, cardFromTennis } from "@/lib/card";
 import BestPicks from "@/components/BestPicks";
 import AdSlot from "@/components/AdSlot";
@@ -95,6 +96,7 @@ export default function PredictionsPage() {
 
       <section className="sec">
         <div className="container">
+          <BoardStatus generatedAt={sum.generatedAt} />
           <div className="chips" style={{ marginBottom: 10 }}>
             {sections.map((s) => (
               <Link key={s.sport} href={`/predictions/${s.sport}/`} className="chip active">

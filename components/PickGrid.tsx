@@ -7,9 +7,12 @@ import { isFinished, kickoffMs, useNow } from "@/lib/live";
 
 /**
  * The board surface. It splits events into live and finished on every render,
- * so a match disappears from the board the moment it is over — without waiting
- * for a rebuild. Finished events collapse into a single strip; they are never
- * presented as upcoming picks.
+ * so a match leaves the board the moment it is over — no rebuild, no cron.
+ *
+ * Finished events are never shown as upcoming picks. If the board has nothing
+ * left live (which is what a stale data feed looks like), we say so plainly
+ * and show the completed events underneath, labelled — an empty page with a
+ * cheerful "nothing here" is worse than the truth.
  */
 export default function PickGrid({
   cards,
@@ -35,35 +38,43 @@ export default function PickGrid({
     }
   }
 
+  // Nothing live but plenty finished: the board is between drops. Show the
+  // completed events rather than an empty page.
+  const showDone = showFinished || (live.length === 0 && done.length > 0);
+
   return (
     <div>
-      {live.length === 0 ? (
-        <div className="ds-state">
-          <div className="ds-state-title">Nothing upcoming</div>
-          <div>{emptyMessage}</div>
-        </div>
-      ) : (
+      {live.length > 0 ? (
         <div className="pick-grid">
           {live.map((c) => (
             <PredictionCard key={c.id} card={c} />
           ))}
+        </div>
+      ) : (
+        <div className="ds-state">
+          <div className="ds-state-title">Nothing upcoming on the board</div>
+          <div>
+            {done.length > 0
+              ? "Every event currently loaded has kicked off. The completed ones are listed below — the next board publishes after the morning data drop."
+              : emptyMessage}
+          </div>
         </div>
       )}
 
       {done.length > 0 && (
         <div className="finished-strip" style={{ marginTop: "var(--s-4)" }}>
           <span>
-            {done.length} event{done.length === 1 ? "" : "s"} finished and removed from the board
-            {showFinished ? " — showing for reference" : ""}
+            {done.length} completed event{done.length === 1 ? "" : "s"}
+            {live.length > 0 ? " — removed from the board" : " — awaiting the next data drop"}
           </span>
           <button onClick={() => setShowFinished((s) => !s)}>
-            {showFinished ? "Hide finished" : "Show finished"}
+            {showDone ? "Hide completed" : "Show completed"}
           </button>
         </div>
       )}
 
-      {showFinished && done.length > 0 && (
-        <div className="pick-grid" style={{ marginTop: "var(--s-3)", opacity: 0.62 }}>
+      {showDone && done.length > 0 && (
+        <div className="pick-grid" style={{ marginTop: "var(--s-3)", opacity: 0.6 }}>
           {done.map((c) => (
             <PredictionCard key={c.id} card={{ ...c, status: "SETTLED" }} />
           ))}
