@@ -25,23 +25,36 @@ jobs:
         with:
           python-version: "3.11"
 
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
       - name: Install deps
         run: pip install requests
 
-      - name: Fetch Forebet daily picks
+      - name: Fetch Forebet daily picks (+ extra markets: HT, HT/FT, corners, cards, goalscorers)
         run: python3 backend/app/refresh_forebet.py
         env:
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
 
+      - name: Build HT / HT-FT / Asian-handicap model for every dated board
+        run: python3 backend/app/halves.py
+
+      - name: Rebuild data snapshot (+ stamp FINAL scores of finished matches)
+        run: |
+          npm ci --no-audit --no-fund
+          node scripts/bundle-data.mjs
+          node scripts/fetch-final.mjs
+
       - name: Commit if anything changed
         run: |
           git config user.name "oddsoracle-refresh"
           git config user.email "refresh@oddsoracle.bot"
-          git add backend/app/daily backend/app/results
+          git add backend/app/daily backend/app/results lib/data-snapshot.json
           if git diff --cached --quiet; then
             echo "no changes"
           else
-            git commit -m "chore: daily forebet refresh ($(date -u +%F))"
+            git commit -m "chore: daily forebet refresh + model halves + finals ($(date -u +%F))"
             git push
           fi

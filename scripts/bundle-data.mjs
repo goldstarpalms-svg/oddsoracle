@@ -11,6 +11,7 @@
  */
 import fs from "node:fs";
 import path from "node:path";
+import { stampFinals } from "./fetch-final.mjs";
 
 const DAILY = path.join(process.cwd(), "backend", "app", "daily");
 const OUT = path.join(process.cwd(), "lib", "data-snapshot.json");
@@ -123,6 +124,44 @@ try {
   }
 } catch (e) {
   console.log("model enrichment skipped:", e.message);
+}
+
+// ---- half-time / HT-FT / Asian-handicap model (backend/app/halves.py) ----
+try {
+  const halvesFile = pickD([/^\d{4}-\d{2}-\d{2}_halves\.json$/]);
+  const halves = halvesFile ? read(halvesFile) : null;
+  if (halves?.games && Array.isArray(football)) {
+    let n = 0;
+    for (const r of football) {
+      const h = halves.games[`${r.home}|${r.away}`];
+      if (!h) continue;
+      r.ht = h.ht;
+      r.ht_pick = h.ht_pick;
+      r.htft = h.htft;
+      r.ah15 = h.ah15;
+      n += 1;
+    }
+    console.log(`halves enrichment: ${n}/${football.length} football rows (HT + HT/FT + AH 1.5)`);
+  }
+} catch (e) {
+  console.log("halves enrichment skipped:", e.message);
+}
+
+// Rows already flagged FT by Forebet carry the REAL final score — mark them
+// so the site can show "🏁 FINAL x-y" (GameGate) instead of stale cards.
+for (const g of [
+  ...(hockey?.games || []),
+  ...(forebetBaseball?.games || []),
+  ...(handball?.games || []),
+  ...(basketball?.forebet_today_all || []),
+  ...(basketball?.games || []),
+  ...(tennis?.games || []),
+]) {
+  if (/^FT/i.test(String(g.status || "")) && g.score) g.final = g.score;
+}
+if (Array.isArray(football)) {
+  for (const r of football)
+    if (/^FT/i.test(String(r.status || "")) && r.fb_score) r.result = r.fb_score;
 }
 
 let odds = null;
@@ -292,6 +331,29 @@ function buildSafeSlips() {
   for (const l of legs) if (!seen[l.game] || l.prob > seen[l.game].prob) seen[l.game] = l;
   const ranked = Object.values(seen).sort((a, b) => b.prob - a.prob);
 
+  // attach the final score to legs whose game is already over (FT rows)
+  const finalByName = new Map();
+  const addFinal = (h, a, s) => {
+    const x = mnorm(h), y = mnorm(a);
+    if (x && y && s) finalByName.set(`${x}|${y}`, s);
+  };
+  for (const g of [
+    ...(hockey?.games || []),
+    ...(forebetBaseball?.games || []),
+    ...(handball?.games || []),
+    ...(basketball?.forebet_today_all || []),
+    ...(basketball?.games || []),
+  ])
+    if (/^FT/i.test(String(g.status || "")) && g.score) addFinal(g.home, g.away, g.score);
+  if (Array.isArray(football))
+    for (const r of football)
+      if (/^FT/i.test(String(r.status || "")) && r.fb_score) addFinal(r.home, r.away, r.fb_score);
+  for (const l of ranked) {
+    const [h, a] = String(l.game).split(/\sv\s/i);
+    const x = mnorm(h), y = mnorm(a);
+    if (x && y && finalByName.has(`${x}|${y}`)) l.result = finalByName.get(`${x}|${y}`);
+  }
+
   // S20/S10/S5 reserve a few slots for non-football legs so the daily combo
   // always mixes sports (user request 20/9). Reserved slots fall back to
   // football when fewer than the slot count of other-sport legs exist.
@@ -328,6 +390,31 @@ try {
   console.log("safe combos skipped:", e.message);
 }
 
+// ---- Forebet's extra markets (HT / HT-FT / corners / cards / goalscorers) ----
+// Fetched by refresh_forebet.py daily into <date>_fb_extra.json (best effort).
+try {
+  const extraFile = pickD([/^\d{4}-\d{2}-\d{2}_fb_extra\.json$/]);
+  const extra = extraFile ? read(extraFile) : null;
+  if (extra?.games && Array.isArray(football)) {
+    let n = 0;
+    for (const r of football) {
+      const x = extra.games[`${r.home}|${r.away}`];
+      if (!x) {
+        const key = Object.keys(extra.games).find((k) => {
+          const [h, a] = k.split("|");
+          return mmatch(h, r.home) && mmatch(a, r.away);
+        });
+        if (!key) continue;
+        r.fbExtra = extra.games[key];
+      } else r.fbExtra = x;
+      n += 1;
+    }
+    console.log(`forebet extra markets: ${n}/${football.length} football rows`);
+  }
+} catch (e) {
+  console.log("forebet extra skipped:", e.message);
+}
+
 const snapshot = {
   generatedAt: new Date().toISOString(),
   dataDate: today,
@@ -344,6 +431,13 @@ const snapshot = {
   markets: markets || null,
   safe: safe || null,
 };
+
+// ---- FINAL scores: stamp every match that is already over (best effort) ----
+try {
+  await stampFinals(snapshot);
+} catch (e) {
+  console.log("finals stamping skipped:", e.message);
+}
 
 fs.mkdirSync(path.dirname(OUT), { recursive: true });
 fs.writeFileSync(OUT, JSON.stringify(snapshot));

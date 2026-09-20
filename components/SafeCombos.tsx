@@ -1,7 +1,8 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import SNAPSHOT from "@/lib/data-snapshot.json";
+import { matchState, SPORT_DUR, parseKickoff } from "@/lib/matchClock";
 
 interface Leg {
   sport: string;
@@ -12,7 +13,18 @@ interface Leg {
   prob: number;
   odds: number;
   book: string;
+  result?: string | null; // final score, stamped when the game is over
 }
+
+const EMOJI_SPORT: Record<string, string> = {
+  "⚽": "football",
+  "🏀": "basketball",
+  "🏈": "ncaafb",
+  "🏒": "hockey",
+  "⚾": "baseball",
+  "🤾": "handball",
+  "🎾": "tennis",
+};
 
 export default function SafeCombos() {
   const safe = useMemo(() => (SNAPSHOT as any).safe as
@@ -24,6 +36,13 @@ export default function SafeCombos() {
       }
     | null, []);
   const [copied, setCopied] = useState<string | null>(null);
+  const [now, setNow] = useState<number>(0);
+
+  useEffect(() => {
+    setNow(Date.now());
+    const id = setInterval(() => setNow(Date.now()), 30 * 1000);
+    return () => clearInterval(id);
+  }, []);
 
   if (!safe) return null;
 
@@ -53,19 +72,36 @@ export default function SafeCombos() {
         </span>
       </div>
       <div className="combo-legs" style={{ maxHeight: 320, overflowY: "auto" }}>
-        {data.legs.map((l, i) => (
-          <div className="combo-leg" key={i}>
-            <span className="combo-leg-n">{i + 1}</span>
-            <span className="combo-leg-match">
-              {l.sport} {l.game}
-            </span>
-            <span className="combo-leg-pick">
-              {l.market}: {l.side}
-            </span>
-            <span className="combo-leg-odds">@{l.odds.toFixed(2)}</span>
-            <span className="combo-leg-prob">{l.prob}%</span>
-          </div>
-        ))}
+        {data.legs.map((l, i) => {
+          const st = now
+            ? matchState(l.t, now, SPORT_DUR[EMOJI_SPORT[l.sport] || "football"] ?? 170, safe.dataDate)
+            : null;
+          const stCls = st === "done" ? " combo-leg-done" : st === "live" ? " combo-leg-live" : "";
+          return (
+            <div className={`combo-leg${stCls}`} key={i}>
+              <span className="combo-leg-n">{i + 1}</span>
+              <span className="combo-leg-match">
+                {l.sport} {l.game}
+                {l.t ? (
+                  <span className="combo-leg-time">
+                    {st === "done"
+                      ? l.result
+                        ? `🏁 FINAL ${l.result}`
+                        : "🏁 finished"
+                      : st === "live"
+                        ? "· 🔴 live"
+                        : `· ⏰ ${String(l.t).replace(/^\d{1,2}\/\d{1,2}\s+/, "")} WAT`}
+                  </span>
+                ) : null}
+              </span>
+              <span className="combo-leg-pick">
+                {l.market}: {l.side}
+              </span>
+              <span className="combo-leg-odds">@{l.odds.toFixed(2)}</span>
+              <span className="combo-leg-prob">{l.prob}%</span>
+            </div>
+          );
+        })}
       </div>
       <div className="combo-foot" style={{ display: "flex", alignItems: "center", gap: 10, flexWrap: "wrap" }}>
         <button className="btn btn-primary btn-sm" onClick={() => copy(key, n, data.legs)}>

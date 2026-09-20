@@ -2,6 +2,7 @@
 
 import { useMemo } from "react";
 import SNAPSHOT from "@/lib/data-snapshot.json";
+import GameGate from "./GameGate";
 
 interface Ev {
   home: string;
@@ -77,7 +78,8 @@ export default function MlbBoard() {
       </div>
       <div className="odds-list" style={{ marginTop: 14 }}>
         {events.map((e, i) => (
-          <div key={i} className="odds-card">
+          <GameGate key={i} iso={e.start} sport="baseball" final={(e as any).final} icon="⚾">
+            <div className="odds-card">
             <div className="odds-card-head" style={{ cursor: "default" }}>
               <span className="odds-card-match">
                 {e.home} <em>vs</em> {e.away}
@@ -108,7 +110,8 @@ export default function MlbBoard() {
                 {e.ba ? <b className="odds-hot">💰 @{e.ba[1].toFixed(2)}</b> : <b>—</b>}
               </div>
             </div>
-          </div>
+            </div>
+          </GameGate>
         ))}
         {events.length === 0 && (
           <div className="callout callout-blue">No MLB games on the board right now.</div>

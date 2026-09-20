@@ -1,0 +1,885 @@
+{
+ "date": "2026-09-19",
+ "games": {
+  "Tottenham|Aston Villa": {
+   "ht": [
+    30,
+    40,
+    30
+   ],
+   "ht_pick": "X",
+   "htft": {
+    "combo": "2/2",
+    "p": 23
+   },
+   "ah15": {
+    "h": 17,
+    "a": 18
+   }
+  },
+  "Stoke|Sheffield United": {
+   "ht": [
+    32,
+    41,
+    27
+   ],
+   "ht_pick": "X",
+   "htft": {
+    "combo": "1/1",
+    "p": 24
+   },
+   "ah15": {
+    "h": 19,
+    "a": 15
+   }
+  },
+  "Millwall|West Ham": {
+   "ht": [
+    30,
+    38,
+    32
+   ],
+   "ht_pick": "X",
+   "htft": {
+    "combo": "2/2",
+    "p": 24
+   },
+   "ah15": {
+    "h": 17,
+    "a": 20
+   }
+  },
+  "Cardiff|Charlton": {
+   "ht": [
+    37,
+    40,
+    22
+   ],
+   "ht_pick": "X",
+   "htft": {
+    "combo": "1/1",
+    "p": 31
+   },
+   "ah15": {
+    "h": 26,
+    "a": 10
+   }
+  },
+  "Osasuna|Vallecano": {
+   "ht": [
+    31,
+    44,
+    26
+   ],
+   "ht_pick": "X",
+   "htft": {
+    "combo": "1/1",
+    "p": 24
+   },
+   "ah15": {
+    "h": 18,
+    "a": 13
+   }
+  },
+  "Sociedad B|Mallorca": {
+   "ht": [
+    24,
+    47,
+    28
+   ],
+   "ht_pick": "X",
+   "htft": {
+    "combo": "2/2",
+    "p": 22
+   },
+   "ah15": {
+    "h": 12,
+    "a": 16
+   }
+  },
+  "Bologna|Torino": {
+   "ht": [
+    43,
+    35,
+    22
+   ],
+   "ht_pick": "1",
+   "htft": {
+    "combo": "1/1",
+    "p": 36
+   },
+   "ah15": {
+    "h": 33,
+    "a": 10
+   }
+  },
+  "Udinese|Cagliari": {
+   "ht": [
+    34,
+    39,
+    27
+   ],
+   "ht_pick": "X",
+   "htft": {
+    "combo": "1/1",
+    "p": 27
+   },
+   "ah15": {
+    "h": 22,
+    "a": 14
+   }
+  },
+  "Palermo|Padova": {
+   "ht": [
+    40,
+    42,
+    18
+   ],
+   "ht_pick": "X",
+   "htft": {
+    "combo": "1/1",
+    "p": 34
+   },
+   "ah15": {
+    "h": 29,
+    "a": 7
+   }
+  },
+  "Cremonese|Virtus Entella": {
+   "ht": [
+    34,
+    47,
+    19
+   ],
+   "ht_pick": "X",
+   "htft": {
+    "combo": "1/1",
+    "p": 28
+   },
+   "ah15": {
+    "h": 22,
+    "a": 7
+   }
+  },
+  "Carrarese|Benevento": {
+   "ht": [
+    34,
+    42,
+    24
+   ],
+   "ht_pick": "X",
+   "htft": {
+    "combo": "1/1",
+    "p": 28
+   },
+   "ah15": {
+    "h": 22,
+    "a": 11
+   }
+  },
+  "Ein Frankfurt|Freiburg": {
+   "ht": [
+    37,
+    34,
+    29
+   ],
+   "ht_pick": "1",
+   "htft": {
+    "combo": "1/1",
+    "p": 29
+   },
+   "ah15": {
+    "h": 26,
+    "a": 16
+   }
+  },
+  "M'gladbach|Mainz": {
+   "ht": [
+    30,
+    40,
+    30
+   ],
+   "ht_pick": "X",
+   "htft": {
+    "combo": "2/2",
+    "p": 22
+   },
+   "ah15": {
+    "h": 17,
+    "a": 17
+   }
+  },
+  "Hamburg|FC Koln": {
+   "ht": [
+    32,
+    38,
+    29
+   ],
+   "ht_pick": "X",
+   "htft": {
+    "combo": "1/1",
+    "p": 25
+   },
+   "ah15": {
+    "h": 20,
+    "a": 17
+   }
+  },
+  "Werder Bremen|Augsburg": {
+   "ht": [
+    31,
+    40,
+    29
+   ],
+   "ht_pick": "X",
+   "htft": {
+    "combo": "1/1",
+    "p": 24
+   },
+   "ah15": {
+    "h": 19,
+    "a": 17
+   }
+  },
+  "Brighton|Arsenal": {
+   "ht": [
+    21,
+    42,
+    37
+   ],
+   "ht_pick": "X",
+   "htft": {
+    "combo": "2/2",
+    "p": 31
+   },
+   "ah15": {
+    "h": 9,
+    "a": 26
+   }
+  },
+  "Everton|Ipswich": {
+   "ht": [
+    34,
+    39,
+    27
+   ],
+   "ht_pick": "X",
+   "htft": {
+    "combo": "1/1",
+    "p": 26
+   },
+   "ah15": {
+    "h": 22,
+    "a": 14
+   }
+  },
+  "Newcastle|Hull": {
+   "ht": [
+    37,
+    43,
+    20
+   ],
+   "ht_pick": "X",
+   "htft": {
+    "combo": "1/1",
+    "p": 31
+   },
+   "ah15": {
+    "h": 25,
+    "a": 8
+   }
+  },
+  "Wrexham|Southampton": {
+   "ht": [
+    33,
+    36,
+    31
+   ],
+   "ht_pick": "X",
+   "htft": {
+    "combo": "1/1",
+    "p": 24
+   },
+   "ah15": {
+    "h": 20,
+    "a": 19
+   }
+  },
+  "QPR|Preston": {
+   "ht": [
+    34,
+    39,
+    27
+   ],
+   "ht_pick": "X",
+   "htft": {
+    "combo": "1/1",
+    "p": 27
+   },
+   "ah15": {
+    "h": 22,
+    "a": 14
+   }
+  },
+  "Portsmouth|Blackburn": {
+   "ht": [
+    31,
+    46,
+    23
+   ],
+   "ht_pick": "X",
+   "htft": {
+    "combo": "1/1",
+    "p": 25
+   },
+   "ah15": {
+    "h": 19,
+    "a": 10
+   }
+  },
+  "Lincoln|Swansea": {
+   "ht": [
+    31,
+    45,
+    24
+   ],
+   "ht_pick": "X",
+   "htft": {
+    "combo": "1/1",
+    "p": 25
+   },
+   "ah15": {
+    "h": 19,
+    "a": 11
+   }
+  },
+  "Burnley|Derby": {
+   "ht": [
+    32,
+    39,
+    29
+   ],
+   "ht_pick": "X",
+   "htft": {
+    "combo": "1/1",
+    "p": 25
+   },
+   "ah15": {
+    "h": 20,
+    "a": 16
+   }
+  },
+  "Birmingham|Middlesbrough": {
+   "ht": [
+    30,
+    41,
+    29
+   ],
+   "ht_pick": "X",
+   "htft": {
+    "combo": "1/1",
+    "p": 23
+   },
+   "ah15": {
+    "h": 18,
+    "a": 16
+   }
+  },
+  "St Mirren|Dundee United": {
+   "ht": [
+    28,
+    42,
+    30
+   ],
+   "ht_pick": "X",
+   "htft": {
+    "combo": "2/2",
+    "p": 23
+   },
+   "ah15": {
+    "h": 16,
+    "a": 18
+   }
+  },
+  "St Johnstone|Falkirk": {
+   "ht": [
+    36,
+    38,
+    25
+   ],
+   "ht_pick": "X",
+   "htft": {
+    "combo": "1/1",
+    "p": 29
+   },
+   "ah15": {
+    "h": 25,
+    "a": 13
+   }
+  },
+  "Hibernian|Aberdeen": {
+   "ht": [
+    42,
+    39,
+    20
+   ],
+   "ht_pick": "1",
+   "htft": {
+    "combo": "1/1",
+    "p": 35
+   },
+   "ah15": {
+    "h": 32,
+    "a": 8
+   }
+  },
+  "Dundee|Motherwell": {
+   "ht": [
+    24,
+    40,
+    36
+   ],
+   "ht_pick": "X",
+   "htft": {
+    "combo": "2/2",
+    "p": 29
+   },
+   "ah15": {
+    "h": 11,
+    "a": 24
+   }
+  },
+  "Kocaelispor|Gaziantep": {
+   "ht": [
+    30,
+    47,
+    23
+   ],
+   "ht_pick": "X",
+   "htft": {
+    "combo": "1/1",
+    "p": 24
+   },
+   "ah15": {
+    "h": 18,
+    "a": 10
+   }
+  },
+  "Corum|Alanyaspor": {
+   "ht": [
+    32,
+    42,
+    27
+   ],
+   "ht_pick": "X",
+   "htft": {
+    "combo": "1/1",
+    "p": 24
+   },
+   "ah15": {
+    "h": 19,
+    "a": 14
+   }
+  },
+  "Ath Bilbao|Alaves": {
+   "ht": [
+    30,
+    41,
+    29
+   ],
+   "ht_pick": "X",
+   "htft": {
+    "combo": "1/1",
+    "p": 23
+   },
+   "ah15": {
+    "h": 18,
+    "a": 16
+   }
+  },
+  "Andorra|Sp Gijon": {
+   "ht": [
+    35,
+    41,
+    24
+   ],
+   "ht_pick": "X",
+   "htft": {
+    "combo": "1/1",
+    "p": 28
+   },
+   "ah15": {
+    "h": 23,
+    "a": 11
+   }
+  },
+  "Den Haag|Cambuur": {
+   "ht": [
+    15,
+    40,
+    45
+   ],
+   "ht_pick": "2",
+   "htft": {
+    "combo": "2/2",
+    "p": 40
+   },
+   "ah15": {
+    "h": 5,
+    "a": 37
+   }
+  },
+  "Paris FC|Strasbourg": {
+   "ht": [
+    37,
+    35,
+    28
+   ],
+   "ht_pick": "1",
+   "htft": {
+    "combo": "1/1",
+    "p": 29
+   },
+   "ah15": {
+    "h": 26,
+    "a": 15
+   }
+  },
+  "Sampdoria|Catanzaro": {
+   "ht": [
+    28,
+    43,
+    29
+   ],
+   "ht_pick": "X",
+   "htft": {
+    "combo": "2/2",
+    "p": 22
+   },
+   "ah15": {
+    "h": 15,
+    "a": 16
+   }
+  },
+  "Roma|Inter": {
+   "ht": [
+    30,
+    36,
+    34
+   ],
+   "ht_pick": "X",
+   "htft": {
+    "combo": "2/2",
+    "p": 26
+   },
+   "ah15": {
+    "h": 18,
+    "a": 22
+   }
+  },
+  "Nott'm Forest|Coventry": {
+   "ht": [
+    43,
+    39,
+    18
+   ],
+   "ht_pick": "1",
+   "htft": {
+    "combo": "1/1",
+    "p": 37
+   },
+   "ah15": {
+    "h": 33,
+    "a": 7
+   }
+  },
+  "Celta|Santander": {
+   "ht": [
+    41,
+    35,
+    24
+   ],
+   "ht_pick": "1",
+   "htft": {
+    "combo": "1/1",
+    "p": 34
+   },
+   "ah15": {
+    "h": 31,
+    "a": 12
+   }
+  },
+  "Stuttgart|Dortmund": {
+   "ht": [
+    28,
+    35,
+    37
+   ],
+   "ht_pick": "2",
+   "htft": {
+    "combo": "2/2",
+    "p": 29
+   },
+   "ah15": {
+    "h": 16,
+    "a": 25
+   }
+  },
+  "Eldense|Eibar": {
+   "ht": [
+    23,
+    50,
+    27
+   ],
+   "ht_pick": "X",
+   "htft": {
+    "combo": "X/X",
+    "p": 23
+   },
+   "ah15": {
+    "h": 10,
+    "a": 14
+   }
+  },
+  "Castellon|Tenerife": {
+   "ht": [
+    31,
+    52,
+    17
+   ],
+   "ht_pick": "X",
+   "htft": {
+    "combo": "1/1",
+    "p": 27
+   },
+   "ah15": {
+    "h": 19,
+    "a": 6
+   }
+  },
+  "Sparta Rotterdam|Heerenveen": {
+   "ht": [
+    23,
+    36,
+    41
+   ],
+   "ht_pick": "2",
+   "htft": {
+    "combo": "2/2",
+    "p": 34
+   },
+   "ah15": {
+    "h": 11,
+    "a": 31
+   }
+  },
+  "Kilmarnock|Hearts": {
+   "ht": [
+    21,
+    35,
+    44
+   ],
+   "ht_pick": "2",
+   "htft": {
+    "combo": "2/2",
+    "p": 38
+   },
+   "ah15": {
+    "h": 9,
+    "a": 35
+   }
+  },
+  "Buyuksehyr|Genclerbirligi": {
+   "ht": [
+    50,
+    35,
+    15
+   ],
+   "ht_pick": "1",
+   "htft": {
+    "combo": "1/1",
+    "p": 45
+   },
+   "ah15": {
+    "h": 44,
+    "a": 4
+   }
+  },
+  "Trabzonspor|Galatasaray": {
+   "ht": [
+    25,
+    36,
+    39
+   ],
+   "ht_pick": "2",
+   "htft": {
+    "combo": "2/2",
+    "p": 32
+   },
+   "ah15": {
+    "h": 12,
+    "a": 29
+   }
+  },
+  "Ascoli|Avellino": {
+   "ht": [
+    41,
+    36,
+    23
+   ],
+   "ht_pick": "1",
+   "htft": {
+    "combo": "1/1",
+    "p": 34
+   },
+   "ah15": {
+    "h": 31,
+    "a": 11
+   }
+  },
+  "Ajax|Excelsior": {
+   "ht": [
+    44,
+    37,
+    19
+   ],
+   "ht_pick": "1",
+   "htft": {
+    "combo": "1/1",
+    "p": 38
+   },
+   "ah15": {
+    "h": 35,
+    "a": 7
+   }
+  },
+  "Venezia|Lazio": {
+   "ht": [
+    21,
+    34,
+    45
+   ],
+   "ht_pick": "2",
+   "htft": {
+    "combo": "2/2",
+    "p": 38
+   },
+   "ah15": {
+    "h": 9,
+    "a": 36
+   }
+  },
+  "Angers|Troyes": {
+   "ht": [
+    31,
+    43,
+    26
+   ],
+   "ht_pick": "X",
+   "htft": {
+    "combo": "1/1",
+    "p": 24
+   },
+   "ah15": {
+    "h": 18,
+    "a": 14
+   }
+  },
+  "Le Mans|Lorient": {
+   "ht": [
+    38,
+    33,
+    29
+   ],
+   "ht_pick": "1",
+   "htft": {
+    "combo": "1/1",
+    "p": 29
+   },
+   "ah15": {
+    "h": 27,
+    "a": 17
+   }
+  },
+  "Lyon|Rennes": {
+   "ht": [
+    40,
+    35,
+    25
+   ],
+   "ht_pick": "1",
+   "htft": {
+    "combo": "1/1",
+    "p": 32
+   },
+   "ah15": {
+    "h": 29,
+    "a": 12
+   }
+  },
+  "Toulouse|Le Havre": {
+   "ht": [
+    40,
+    41,
+    19
+   ],
+   "ht_pick": "X",
+   "htft": {
+    "combo": "1/1",
+    "p": 35
+   },
+   "ah15": {
+    "h": 30,
+    "a": 7
+   }
+  },
+  "Sevilla|Barcelona": {
+   "ht": [
+    15,
+    30,
+    56
+   ],
+   "ht_pick": "2",
+   "htft": {
+    "combo": "2/2",
+    "p": 51
+   },
+   "ah15": {
+    "h": 4,
+    "a": 52
+   }
+  },
+  "Cadiz|Girona": {
+   "ht": [
+    32,
+    40,
+    28
+   ],
+   "ht_pick": "X",
+   "htft": {
+    "combo": "1/1",
+    "p": 25
+   },
+   "ah15": {
+    "h": 20,
+    "a": 15
+   }
+  },
+  "Willem II|For Sittard": {
+   "ht": [
+    28,
+    34,
+    38
+   ],
+   "ht_pick": "2",
+   "htft": {
+    "combo": "2/2",
+    "p": 30
+   },
+   "ah15": {
+    "h": 15,
+    "a": 27
+   }
+  }
+ }
+}

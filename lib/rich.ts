@@ -53,6 +53,18 @@ export interface FbPick {
   value: boolean;
   why: string; // plain-English "why this pick"
   h2h: H2hData | null; // forebet head-to-head data (past meetings, stats, form)
+  result: string | null; // FINAL score once the match is over (auto-stamped)
+  ht: [number, number, number] | null; // model half-time 1/X/2 %
+  ht_pick: string; // model half-time pick ("1" | "X" | "2")
+  htft: { combo: string; p: number } | null; // model half/full-time combo + %
+  ah15: { h: number; a: number } | null; // P(home -1.5) / P(away -1.5) %
+  fbExtra: {
+    ht?: string;
+    htft?: string;
+    corners?: string;
+    cards?: string;
+    scorers?: string;
+  } | null; // Forebet's own calls for the extra markets (when the feed has them)
 }
 
 export interface BbPick {
@@ -76,6 +88,7 @@ export interface BbPick {
   value: boolean;
   opts: OptRow[];
   h2h: H2hData | null;
+  result: string | null; // FINAL score once the match is over (auto-stamped)
 }
 
 export interface TnPick {
@@ -95,6 +108,7 @@ export interface TnPick {
   why: string;
   opts: OptRow[];
   h2h: H2hData | null;
+  result: string | null; // FINAL set score once the match is over
 }
 
 export interface ComboLeg {
@@ -275,6 +289,12 @@ export function fbPicks(): FbPick[] {
       value: !!(odds && (pickProb ?? maxPct) >= 55 && odds >= 1.6),
       why,
       h2h: h2hFor(r.home, r.away),
+      result: r.result || null,
+      ht: Array.isArray(r.ht) && r.ht.length === 3 ? (r.ht as [number, number, number]) : null,
+      ht_pick: r.ht_pick || "",
+      htft: r.htft && r.htft.combo ? { combo: r.htft.combo, p: r.htft.p } : null,
+      ah15: r.ah15 && typeof r.ah15.h === "number" ? { h: r.ah15.h, a: r.ah15.a } : null,
+      fbExtra: r.fbExtra || null,
     });
   });
   return out;
@@ -319,6 +339,7 @@ export function bbPicks(): BbPick[] {
       value: /SPLIT|LOW|MEDIUM/.test(conf) || false,
       opts: bbOpts(g, prob),
       h2h: h2hFor(g.home, g.away),
+      result: g.final || (/^FT/i.test(String(g.status || "")) ? g.score || g.fb_score || null : null),
     });
   });
   (d.forebet_today_all || []).forEach((g: any, i: number) => {
@@ -350,6 +371,7 @@ export function bbPicks(): BbPick[] {
       value: !!prob && Math.max(prob[0], prob[1]) >= 55 && odds != null && odds >= 1.6,
       opts: bbOpts(g, prob),
       h2h: h2hFor(home, away),
+      result: g.final || (/^FT/i.test(String(g.status || "")) ? g.score || null : null),
     });
   });
   return out;
@@ -390,6 +412,7 @@ export function tnPicks(): TnPick[] {
         .join(" "),
       opts: tnOpts(g, prob),
       h2h: h2hFor(g.p1, g.p2),
+      result: g.final || null,
     });
   });
   return out;
@@ -796,6 +819,7 @@ export interface AmPick {
   books: AmBook[]; // every bookmaker's full markets (empty until prices load)
   opts: OptRow[]; // the market menu with OUR calls
   h2h: H2hData | null;
+  result: string | null; // FINAL score once the match is over (auto-stamped)
 }
 
 const watTime = (iso: string): string => {
@@ -874,6 +898,7 @@ export function mlbPicks(): AmPick[] {
       books,
       opts: mlbOpts(e),
       h2h: h2hFor(e.home, e.away),
+      result: e.final || null,
     });
   });
   return out.sort((a, b) => a.t.localeCompare(b.t));
@@ -943,6 +968,7 @@ export function ncaaFbPicks(): AmPick[] {
       books,
       opts: amOptsAfoot(g, p1, p2),
       h2h: h2hFor(g.home, g.away),
+      result: g.final || null,
     });
   });
   return out.sort((a, b) => a.t.localeCompare(b.t));
@@ -1003,6 +1029,7 @@ function twoWayGames(snapKey: string, sport: AmPick["sport"], id: string, unit: 
       books: [],
       opts: amOpts2(g, p1, p2, unit, sigma),
       h2h: h2hFor(g.home, g.away),
+      result: g.final || null,
     });
   });
   return out.sort((a, b) => a.t.localeCompare(b.t));
@@ -1057,6 +1084,7 @@ export function handballPicks(): AmPick[] {
       books: [],
       opts: amOpts2(g, p1n, p2n, "goals", 8.5),
       h2h: h2hFor(g.home, g.away),
+      result: g.final || null,
     });
   });
   return out.sort((a, b) => a.t.localeCompare(b.t));

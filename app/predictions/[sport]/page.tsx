@@ -147,6 +147,9 @@ export default function SportPage({ params }: { params: { sport: Sport } }) {
                 {SPORTS[x].label}
               </Link>
             ))}
+            {sport === "football" && (
+              <Link href="/predictions/values/" className="chip">💎 Value bets</Link>
+            )}
           </div>
         </div>
       </section>

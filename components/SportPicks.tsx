@@ -3,6 +3,11 @@
 import { useMemo, useState } from "react";
 import type { AmPick, BbPick, ComboLeg, FbPick, TnPick } from "@/lib/rich";
 import { AmericanCard, BasketballCard, FootballCard, TennisCard } from "./RichCard";
+import GameGate from "./GameGate";
+import MarketBoard from "./MarketBoard";
+import SNAPSHOT from "@/lib/data-snapshot.json";
+
+const DATA_DATE = (SNAPSHOT as any).dataDate as string | null | undefined;
 
 type AnyPick = FbPick | BbPick | TnPick | AmPick;
 type Filter = "all" | "safe" | "value" | "scores";
@@ -39,10 +44,22 @@ const getTime = (p: AnyPick): number => {
   return m ? Number(m[1]) * 60 + Number(m[2]) : 9999;
 };
 
+const amSportKey = (p: AmPick): string =>
+  p.sport === "MLB" || p.sport === "Baseball (Forebet)"
+    ? "baseball"
+    : p.sport === "Hockey"
+      ? "hockey"
+      : p.sport === "Handball"
+        ? "handball"
+        : p.sport === "American Football"
+          ? "ncaafb"
+          : "football";
+
 export default function SportPicks({ sport, items, combo }: Props) {
   const [filter, setFilter] = useState<Filter>("all");
   const [sort, setSort] = useState<Sort>("time");
   const [oddsRange, setOddsRange] = useState<OddsRange>("any");
+  const [market, setMarket] = useState<"cards" | "boards">("cards");
 
   const filtered = useMemo(() => {
     let list = items;
@@ -88,11 +105,24 @@ export default function SportPicks({ sport, items, combo }: Props) {
   };
 
   const renderCard = (p: AnyPick) => {
-    if (isFb(p)) return <FootballCard key={p.id} p={p} />;
-    if (isBb(p)) return <BasketballCard key={p.id} p={p} />;
-    if (isAm(p)) return <AmericanCard key={p.id} p={p} />;
-    return <TennisCard key={(p as TnPick).id} p={p as TnPick} />;
+    const gate = (node: React.ReactNode) => {
+      const t = (p as any).t as string | undefined;
+      const gSport = isAm(p) ? amSportKey(p) : isFb(p) ? "football" : isBb(p) ? "basketball" : "tennis";
+      const finalScore = (p as any).result as string | undefined;
+      return (
+        <GameGate t={t} dataDate={DATA_DATE} sport={gSport} final={finalScore} icon="🏁">
+          {node}
+        </GameGate>
+      );
+    };
+    if (isFb(p)) return gate(<FootballCard key={p.id} p={p} />);
+    if (isBb(p)) return gate(<BasketballCard key={p.id} p={p} />);
+    if (isAm(p)) return gate(<AmericanCard key={p.id} p={p} />);
+    return gate(<TennisCard key={(p as TnPick).id} p={p as TnPick} />);
   };
+
+  const footballItems = sport === "football" ? (items as FbPick[]) : [];
+  const showBoards = sport === "football" && market === "boards";
 
   return (
     <div>
@@ -122,6 +152,28 @@ export default function SportPicks({ sport, items, combo }: Props) {
             Simple rule: this combo only makes sense if you take ALL the legs. Stake it small —
             1 unit max — because every extra leg multiplies the risk.
           </p>
+        </div>
+      )}
+
+      {/* VIEW SWITCH (football): full cards vs forebet-style market boards */}
+      {sport === "football" && (
+        <div className="view-switch" role="tablist" aria-label="View">
+          <button
+            role="tab"
+            aria-selected={market === "cards"}
+            className={`filter-tab ${market === "cards" ? "active" : ""}`}
+            onClick={() => setMarket("cards")}
+          >
+            🃏 Cards
+          </button>
+          <button
+            role="tab"
+            aria-selected={market === "boards"}
+            className={`filter-tab ${market === "boards" ? "active" : ""}`}
+            onClick={() => setMarket("boards")}
+          >
+            📊 Market boards (like Forebet)
+          </button>
         </div>
       )}
 
@@ -177,7 +229,9 @@ export default function SportPicks({ sport, items, combo }: Props) {
         you get ₦185 back (₦85 profit). Percentages are model estimates.
       </div>
 
-      {filtered.length === 0 ? (
+      {showBoards ? (
+        <MarketBoard items={footballItems} />
+      ) : filtered.length === 0 ? (
         <div className="callout callout-blue">
           No picks match this filter today — switch to “All” to see every game.
         </div>

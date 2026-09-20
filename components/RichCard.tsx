@@ -104,7 +104,8 @@ function mktTag(p: number | null) {
 function MktMenu({ p }: { p: FbPick }) {
   const [open, setOpen] = useState(false);
   const m = p.model;
-  if (!m || (m.o15 == null && m.dc1x == null && m.btts == null)) return null;
+  const hasFbExtra = !!(p.fbExtra && (p.fbExtra.ht || p.fbExtra.htft || p.fbExtra.corners || p.fbExtra.cards || p.fbExtra.scorers));
+  if (!m || ((m.o15 == null && m.dc1x == null && m.btts == null) && !p.ht && !p.htft && !p.ah15 && !hasFbExtra)) return null;
   const side = (v: number | null) => (v == null ? "—" : v >= 50 ? "Over" : "Under");
   const hCtx = p.h2h ? h2hOuCtxt(p.h2h) : null;
   const rows: { name: string; detail: string; call: string; tag: number | null }[] = [];
@@ -124,6 +125,17 @@ function MktMenu({ p }: { p: FbPick }) {
   }
   if (m.dnbH != null) rows.push({ name: "Draw no bet", detail: `Home ${m.dnbH}% / Away ${m.dnbA ?? "—"}%`, call: m.dnbH >= (m.dnbA ?? 0) ? `Home (${p.home})` : `Away (${p.away})`, tag: Math.max(m.dnbH, m.dnbA ?? 0) });
   if (m.ahH != null) rows.push({ name: "Handicap (home -1)", detail: `Home -1: ${m.ahH}% / Away: ${m.ahA ?? "—"}%`, call: m.ahH >= (m.ahA ?? 0) ? p.home : `${p.away} +1`, tag: Math.max(m.ahH, m.ahA ?? 0) });
+  if (p.ah15) rows.push({ name: "Asian handicap (−1.5)", detail: `Home −1.5 (win by 2+): ${p.ah15.h}% · Away −1.5: ${p.ah15.a}%`, call: p.ah15.h >= p.ah15.a ? `${p.home} −1.5` : p.ah15.a >= 30 ? `${p.away} −1.5` : `${p.ah15.h >= p.ah15.a ? p.home : p.away} +1.5 (safe side)`, tag: Math.max(p.ah15.h, p.ah15.a) });
+  if (p.ht) {
+    const [h1, hx, h2] = p.ht;
+    const best = Math.max(h1, hx, h2);
+    const call = best === h1 ? "1 (Home leads at HT)" : best === hx ? "X (Level at HT)" : "2 (Away leads at HT)";
+    rows.push({ name: "Half-time result (1/X/2)", detail: `1 ${h1}% · X ${hx}% · 2 ${h2}% (model half-split)${p.fbExtra?.ht ? ` · Forebet: ${p.fbExtra.ht}` : ""}`, call, tag: best });
+  }
+  if (p.htft) rows.push({ name: "Half/Full time (HT/FT)", detail: `Top combo: ${p.htft.combo} at ${p.htft.p}%${p.fbExtra?.htft ? ` · Forebet: ${p.fbExtra.htft}` : ""}`, call: p.htft.combo, tag: p.htft.p });
+  if (p.fbExtra?.corners) rows.push({ name: "Corners (over/under)", detail: `Forebet: ${p.fbExtra.corners}`, call: "See Forebet call", tag: null });
+  if (p.fbExtra?.cards) rows.push({ name: "Cards (over/under)", detail: `Forebet: ${p.fbExtra.cards}`, call: "See Forebet call", tag: null });
+  if (p.fbExtra?.scorers) rows.push({ name: "Top goalscorers", detail: `Forebet: ${p.fbExtra.scorers}`, call: "See Forebet call", tag: null });
   if (m.cs1) rows.push({ name: "Correct score", detail: `Model: ${m.cs1} (or ${m.cs2})${p.fb_score ? ` · Forebet: ${p.fb_score}` : ""}`, call: m.cs1, tag: null });
   return (
     <div className="mkt-menu">

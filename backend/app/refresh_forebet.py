@@ -240,6 +240,63 @@ def build_tennis(rows):
     return games
 
 
+# ---------- forebet's EXTRA market boards (HT, HT/FT, corners, cards, goalscorers) ----------
+# Same table layout as the main board; tolerant per-market parsers. Output:
+#   <date>_fb_extra.json  { "date": ..., "games": { "Home|Away": {"ht": ..., "htft": ...,
+#                                                       "corners": ..., "cards": ..., "scorers": ...} } }
+EXTRA_PAGES = {
+    "ht": "https://www.forebet.com/en/football-tips-and-predictions-for-today/predictions-ht",
+    "htft": "https://www.forebet.com/en/football-tips-and-predictions-for-today/predictions-ht-ft",
+    "corners": "https://www.forebet.com/en/football-tips-and-predictions-for-today/corners",
+    "cards": "https://www.forebet.com/en/football-tips-and-predictions-for-today/cards",
+    "scorers": "https://www.forebet.com/en/football-tips-and-predictions-for-today/predictions-goalscorers",
+}
+
+
+def build_extra(rows, market):
+    out = {}
+    for r in rows:
+        if not r["home"] or not r["away"]:
+            continue
+        cells = r["cells"]
+        key = f"{r['home']}|{r['away']}"
+        d = {}
+        if market == "ht":
+            n = ints_after(cells, 4)
+            if len(n) >= 4:
+                p1, px, p2, pred = n
+                pick = {1: "1", 2: "X", 3: "2"}.get(pred, str(pred))
+                score = first_match(cells, r"\d{1,2}-\d{1,2}")
+                d["ht"] = f"1 {p1}% / X {px}% / 2 {p2}%, call {pick}" + (f", score {score}" if score else "")
+        elif market == "htft":
+            combo = first_match(cells, r"^[1X2]/[1X2]$")
+            nums = [int(c) for c in cells[1:] if re.fullmatch(r"\d{1,3}", c)]
+            if combo:
+                d["htft"] = f"{combo} {nums[0]}%" if nums else combo
+        elif market in ("corners", "cards"):
+            score = first_match(cells, r"\d{1,2}-\d{1,2}")
+            nums = [int(c) for c in cells[1:] if re.fullmatch(r"\d{1,3}", c)]
+            if len(nums) >= 2:
+                over, under = nums[0], nums[1]
+                d[market] = f"{'Over' if over >= under else 'Under'} ({over}/{under})" + (f", score {score}" if score else "")
+            elif score:
+                d[market] = f"score {score}"
+        elif market == "scorers":
+            names = []
+            skip = {norm(r["home"]), norm(r["away"])}
+            for c in cells:
+                if re.fullmatch(r"[A-Z][A-Za-zÀ-ÿ'.-]+ [A-Z][A-Za-zÀ-ÿ'.-]+", c):
+                    nc = norm(c)
+                    if nc in skip or any(nc == norm(x) for x in names):
+                        continue
+                    names.append(c)
+            if names:
+                d["scorers"] = ", ".join(names[:3])
+        if d:
+            out[key] = d
+    return out
+
+
 # ---------- H2H (head-to-head) + form + stats from forebet game pages ----------
 # Learned from forebet's game-page layout: a "Head to head" table of past
 # meetings (date | score | teams), market-stat rows (Over 2.5, BTTS, ...),
@@ -510,6 +567,25 @@ def main():
             print(f"tennis: SKIPPED ({len(games)} rows parsed)")
     except Exception as e:
         print(f"tennis: SKIPPED ({e})")
+
+    # --- forebet's extra markets: HT / HT-FT / corners / cards / goalscorers ---
+    try:
+        extra = {}
+        for mkt, url in EXTRA_PAGES.items():
+            try:
+                part = build_extra(parse_rows(fetch(url), "football"), mkt)
+                for k, v in part.items():
+                    extra.setdefault(k, {}).update(v)
+                print(f"extra[{mkt}]: {len(part)} rows")
+                time.sleep(1.2)
+            except Exception as e:
+                print(f"extra[{mkt}]: SKIPPED ({e})")
+        if extra:
+            p = os.path.join(DAILY, f"{today}_fb_extra.json")
+            json.dump({"date": today, "games": extra}, open(p, "w"), indent=1)
+            summary.append(f"extra markets: {len(extra)} games")
+    except Exception as e:
+        print(f"extra markets: SKIPPED ({e})")
 
     # --- H2H + stats + form for today's games (forebet game pages) ---
     try:

@@ -2126,3 +2126,33 @@ tr:last-child td {
   .bp-prob { min-width: 0; }
   .mkt-table th:nth-child(2), .mkt-table td:nth-child(2) { display: none; }
 }
+
+/* ---- match life-cycle: final rows + combo leg states ---- */
+.game-final {
+  grid-column: 1 / -1;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  padding: 10px 14px;
+  border: 1px dashed var(--line, #d8dce6);
+  border-radius: 12px;
+  background: #f6f7fb;
+  color: #5b6272;
+  font-size: 13px;
+}
+.game-final-tag { font-weight: 800; letter-spacing: .4px; }
+.game-final-score { font-weight: 800; color: #2c3345; font-size: 14px; }
+.game-final-t { opacity: .75; }
+.combo-leg-time { display: block; font-size: 11px; opacity: .72; margin-top: 2px; }
+.combo-leg-done { opacity: .55; }
+.combo-leg-live { background: rgba(229, 57, 53, .05); border-radius: 8px; }
+
+/* ---- football market boards (forebet-style) ---- */
+.view-switch { display: flex; gap: 8px; flex-wrap: wrap; margin: 0 0 12px; }
+.board-intro { font-size: 13px; color: #5b6272; margin: 10px 0 8px; }
+.board-scroll { overflow-x: auto; border: 1px solid var(--line, #d8dce6); border-radius: 12px; }
+.board-table { min-width: 640px; }
+.board-table .board-time { white-space: nowrap; font-variant-numeric: tabular-nums; }
+.board-match em { font-style: normal; opacity: .6; padding: 0 2px; }
+.board-league { display: block; font-size: 11px; opacity: .65; margin-top: 1px; }

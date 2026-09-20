@@ -1,0 +1,133 @@
+{
+ "date": "2026-09-18",
+ "games": {
+  "Kasimpasa|Konyaspor": {
+   "ht": [
+    31,
+    44,
+    25
+   ],
+   "ht_pick": "X",
+   "htft": {
+    "combo": "1/1",
+    "p": 25
+   },
+   "ah15": {
+    "h": 19,
+    "a": 13
+   }
+  },
+  "Bristol City|Watford": {
+   "ht": [
+    36,
+    40,
+    24
+   ],
+   "ht_pick": "X",
+   "htft": {
+    "combo": "1/1",
+    "p": 29
+   },
+   "ah15": {
+    "h": 24,
+    "a": 11
+   }
+  },
+  "Groningen|Zwolle": {
+   "ht": [
+    41,
+    37,
+    23
+   ],
+   "ht_pick": "1",
+   "htft": {
+    "combo": "1/1",
+    "p": 34
+   },
+   "ah15": {
+    "h": 30,
+    "a": 10
+   }
+  },
+  "Juve Stabia|Cesena": {
+   "ht": [
+    32,
+    45,
+    23
+   ],
+   "ht_pick": "X",
+   "htft": {
+    "combo": "1/1",
+    "p": 26
+   },
+   "ah15": {
+    "h": 20,
+    "a": 10
+   }
+  },
+  "Albacete|Cordoba": {
+   "ht": [
+    35,
+    40,
+    25
+   ],
+   "ht_pick": "X",
+   "htft": {
+    "combo": "1/1",
+    "p": 28
+   },
+   "ah15": {
+    "h": 23,
+    "a": 12
+   }
+  },
+  "Bayern Munich|Union Berlin": {
+   "ht": [
+    74,
+    20,
+    7
+   ],
+   "ht_pick": "1",
+   "htft": {
+    "combo": "1/1",
+    "p": 72
+   },
+   "ah15": {
+    "h": 78,
+    "a": 1
+   }
+  },
+  "Monaco|Lens": {
+   "ht": [
+    28,
+    33,
+    39
+   ],
+   "ht_pick": "2",
+   "htft": {
+    "combo": "2/2",
+    "p": 31
+   },
+   "ah15": {
+    "h": 15,
+    "a": 28
+   }
+  },
+  "Espanol|Elche": {
+   "ht": [
+    34,
+    39,
+    27
+   ],
+   "ht_pick": "X",
+   "htft": {
+    "combo": "1/1",
+    "p": 26
+   },
+   "ah15": {
+    "h": 22,
+    "a": 14
+   }
+  }
+ }
+}
