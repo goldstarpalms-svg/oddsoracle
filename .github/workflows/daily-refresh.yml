@@ -12,7 +12,9 @@ name: daily-forebet-refresh
 on:
   schedule:
     - cron: "0 5 * * *"
-  workflow_dispatch: {}
+  workflow_dispatch:
+    inputs: {}
+
 
 jobs:
   refresh:
