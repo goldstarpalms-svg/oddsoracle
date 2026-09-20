@@ -177,6 +177,72 @@ def build_football(rows):
     return out
 
 
+def build_football_full(rows):
+    """FULL per-date 1X2 board — every league, every game with a Forebet
+    prediction. Lenient variant of build_football: keeps a row even when the
+    probability bar is missing (fb_pct=None); skips rows where no pick can be
+    identified (never guesses). Same row schema as build_football."""
+    out = []
+    for r in rows:
+        if r.get("shift"):
+            continue  # WAT date is tomorrow; appears on tomorrow's board
+        cells = r["cells"]
+        # probability bar: three consecutive integer cells, each 2..34, sum 95..105
+        probs = None
+        idxs = [i for i, c in enumerate(cells) if re.fullmatch(r"\d+", c)]
+        for j in range(len(idxs) - 2):
+            i1, i2, i3 = idxs[j], idxs[j + 1], idxs[j + 2]
+            if i2 != i1 + 1 or i3 != i2 + 1:
+                continue
+            p1, px, p2 = int(cells[i1]), int(cells[i2]), int(cells[i3])
+            if 1 <= p1 <= 90 and 1 <= px <= 90 and 1 <= p2 <= 90 and 95 <= p1 + px + p2 <= 105:
+                probs = (p1, px, p2, i3)
+                break
+        pick = ""
+        score = ""
+
+        def _pick_from(c):
+            # bare "1"/"2"/"3" (2 = draw/X), or combined "1 2-1" (pick + score)
+            if c in ("1", "2", "3"):
+                return {1: "1", 2: "X", 3: "2"}[int(c)]
+            m = re.fullmatch(r"([123])\s+(\d{1,2}-\d{1,2})", c)
+            if m:
+                nonlocal score
+                if not score:
+                    score = m.group(2)
+                return {1: "1", 2: "X", 3: "2"}[int(m.group(1))]
+            return ""
+
+        if probs:
+            for c in cells[probs[3] + 1:]:
+                pick = _pick_from(c)
+                if pick:
+                    break
+        if not pick:
+            for c in cells:
+                pick = _pick_from(c)
+                if pick:
+                    break
+        if not pick:
+            continue
+        if not score:
+            score = first_match(cells, r"\d{1,2}-\d{1,2}")
+        avg = ""
+        for c in cells:
+            if re.fullmatch(r"\d{2,3}(\.\d)?", c) and c != score:
+                avg = c
+        out.append(
+            dict(
+                t=r["t"], home=r["home"], away=r["away"], lg=r["league"],
+                fb_pct=list(probs[:3]) if probs else None, fb_score=score, avg=avg or None,
+                odds=None, status="", note="auto-refresh from Forebet (full board)",
+                fb_pick=pick, mkt_dec=None, mkt_imp=None, mkt_pick=None,
+                model=None, final=pick, src="FOREBET", ou="",
+            )
+        )
+    return out
+
+
 def build_basketball(rows):
     games, all_rows = [], []
     for r in rows:
@@ -574,6 +640,19 @@ def main():
             print(f"football: SKIPPED ({len(data)} rows parsed)")
     except Exception as e:
         print(f"football: SKIPPED ({e})")
+
+    try:
+        url = f"https://www.forebet.com/en/football-predictions/predictions-1x2/{today}"
+        rows = parse_rows(fetch(url), "football")
+        data = build_football_full(rows)
+        p = os.path.join(DAILY, f"{today}_full_forebet.json")
+        if write_if_better(p, data, 10):
+            summary.append(f"football-full: {len(data)} games (all leagues)")
+            print(f"football-full: {len(data)} games (all leagues) -> {p}")
+        else:
+            print(f"football-full: SKIPPED ({len(data)} rows parsed)")
+    except Exception as e:
+        print(f"football-full: SKIPPED ({e})")
 
     try:
         rows = parse_rows(fetch(PAGES["basketball"]), "basketball")

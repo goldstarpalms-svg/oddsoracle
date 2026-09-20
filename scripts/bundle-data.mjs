@@ -68,6 +68,23 @@ let handball = read(pick([/_handball\.json$/]));
 let h2h = read(pick([/^\d{4}-\d{2}-\d{2}_h2h\.json$/]));
 let setka = null;
 
+// 4.0: FULL Forebet board (every league) is the base when present; the
+// tips-board rows fill any gaps. Enrichment below still merges model/oracle
+// by team name, so only the model-covered games get model fields.
+{
+  const fullBoard = read(pickD([/_full_forebet\.json$/]));
+  if (Array.isArray(fullBoard) && fullBoard.length && Array.isArray(football) && football.length) {
+    const have = new Set(fullBoard.map((r) => `${r.home}|${r.away}`));
+    for (const r of football) {
+      if (!have.has(`${r.home}|${r.away}`)) fullBoard.push(r);
+    }
+    if (fullBoard.length > football.length) {
+      console.log(`football: full board ${fullBoard.length} games (tips board was ${football.length})`);
+      football = fullBoard;
+    }
+  }
+}
+
 let markets = read(pickD([/_markets\.json$/]));
 let oddspapi = read(pickD([/_oddspapi\.json$/]));
 
