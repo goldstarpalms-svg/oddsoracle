@@ -14,6 +14,11 @@ on:
     - cron: "0 5 * * *"
   workflow_dispatch: {}
 
+# The default GITHUB_TOKEN is read-only in this repo, so `git push` at the end
+# of the job fails with 403 unless we ask for write access explicitly.
+permissions:
+  contents: write
+
 jobs:
   refresh:
     runs-on: ubuntu-latest
@@ -97,6 +102,15 @@ jobs:
           # Publishing that would wipe the site, so we keep yesterday's data instead.
           if ! node -e "const s=require('./lib/data-snapshot.json'); process.exit((s.football && s.football.length) ? 0 : 1)"; then
             echo "::warning::football board is empty — refusing to commit"
+            git reset
+            exit 0
+          fi
+          # Guard 2: if the snapshot collapsed, the upstream fetches were blocked
+          # and the daily files got rewritten near-empty. Keep yesterday's data.
+          new_size=$(wc -c < lib/data-snapshot.json)
+          old_size=$(git show HEAD:lib/data-snapshot.json 2>/dev/null | wc -c || echo 0)
+          if [ "$old_size" -gt 0 ] && [ "$new_size" -lt $((old_size * 85 / 100)) ]; then
+            echo "::warning::snapshot shrank ${old_size} -> ${new_size} bytes — refusing to commit"
             git reset
             exit 0
           fi
