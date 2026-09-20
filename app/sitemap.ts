@@ -5,8 +5,11 @@ import { SPORTS, type Sport } from "@/lib/predictions";
 export default function sitemap(): MetadataRoute.Sitemap {
   const staticPages = [
     "",
+    "/board/",
     "/predictions/",
     "/slip/",
+    "/live/",
+    "/table-tennis/",
     "/search/",
     "/methodology/",
     "/track-record/",

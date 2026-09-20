@@ -18,6 +18,7 @@ import {
   tnPicks,
 } from "@/lib/rich";
 import SportPicks from "@/components/SportPicks";
+import SportIntel from "@/components/SportIntel";
 import AdSlot from "@/components/AdSlot";
 import JsonLd from "@/components/JsonLd";
 import { SITE } from "@/lib/site";
@@ -157,11 +158,12 @@ export default function SportPage({ params }: { params: { sport: Sport } }) {
 
       <section className="sec">
         <div className="container">
-          <div className="prose" style={{ maxWidth: 860, marginBottom: 28 }}>
+          <div className="prose" style={{ maxWidth: 860, marginBottom: 20 }}>
             {meta.intro.map((p, i) => (
               <p key={i} dangerouslySetInnerHTML={{ __html: p }} />
             ))}
           </div>
+          <SportIntel sport={sport} />
 
           {s > 0 ? (
             <SportPicks

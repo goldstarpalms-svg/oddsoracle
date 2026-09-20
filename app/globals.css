@@ -2785,3 +2785,28 @@ body::before {
 .st-warn { background: rgba(251, 191, 36, 0.15); color: #fcd34d; }
 .st-off { background: rgba(100, 116, 139, 0.2); color: #94a3b8; }
 .status-note { color: var(--text-dim); font-size: 12.5px; }
+
+/* Sport intelligence panel (4.0: what the model can see / cannot see) */
+.intel-panel {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+  margin: 0 0 28px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--glass);
+  padding: 16px 18px;
+}
+.intel-col h4 {
+  margin: 0 0 8px;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--accent);
+}
+.intel-missing h4 { color: #fca5a5; }
+.intel-col ul { margin: 0; padding-left: 18px; font-size: 13.5px; color: var(--text-dim); }
+.intel-col li { margin: 4px 0; }
+@media (max-width: 720px) {
+  .intel-panel { grid-template-columns: 1fr; }
+}
