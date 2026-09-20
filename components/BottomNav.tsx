@@ -9,6 +9,7 @@ const ITEMS = [
   { href: "/predictions/football/", icon: "⚽", label: "Football" },
   { href: "/predictions/basketball/", icon: "🏀", label: "Hoops" },
   { href: "/predictions/tennis/", icon: "🎾", label: "Tennis" },
+  { href: "/table-tennis/", icon: "🏓", label: "TT" },
   { href: "/track-record/", icon: "📈", label: "Record" },
 ];
 

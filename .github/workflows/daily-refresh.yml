@@ -44,6 +44,9 @@ jobs:
       - name: Fetch LIVE OddsChecker odds (keyless, 26 books) for today's board
         run: python3 backend/app/fetch_oddschecker.py
 
+      - name: Build TABLE TENNIS Setka board (155k-match first-set model + official API)
+        run: python3 backend/app/fetch_setka.py
+
       - name: Build ODDSORACLE ENGINE (multi-model + Monte Carlo + EV + signal)
         run: python3 backend/app/oracle_engine.py
 

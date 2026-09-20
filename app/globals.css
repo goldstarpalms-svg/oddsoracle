@@ -2262,3 +2262,20 @@ tr:last-child td {
 .oc-strip .oc-odds { font-variant-numeric: tabular-nums; color: #cbd5e1; font-weight: 600; }
 .oc-strip .oc-odds b { color: #4ade80; font-weight: 800; }
 .oc-strip .oc-meta { margin-left: auto; font-size: 9.5px; color: #64748b; }
+
+/* ---- TABLE TENNIS (Setka) ---- */
+.tt-table { min-width: 860px; }
+.tt-winbar { position: relative; height: 14px; border-radius: 7px; background: rgba(59,130,246,.18); overflow: hidden; min-width: 110px; }
+.tt-winfill { position: absolute; inset: 0 auto 0 0; background: linear-gradient(90deg, #2563eb, #3b82f6); border-radius: 7px 0 0 7px; }
+.tt-winlabels { position: absolute; inset: 0; display: flex; justify-content: space-between; align-items: center; padding: 0 7px; font-size: 9px; font-weight: 800; color: #fff; text-shadow: 0 1px 2px rgba(0,0,0,.6); }
+.tt-sets { display: block; font-size: 9.5px; color: #8ea2c4; margin-top: 2px; }
+.tt-winner { color: #fbbf24; font-size: 11px; font-weight: 700; }
+.tt-exp { font-size: 10.5px; color: #8ea2c4; }
+.tt-exp b { color: #e2e8f0; font-size: 12px; }
+.tt-ou { display: flex; gap: 8px; margin-top: 2px; font-size: 10px; color: #8ea2c4; }
+.tt-ou .sig-strong, .tt-ou .sig-value, .tt-ou .sig-fair, .tt-ou .sig-pass { font-size: 10px; font-weight: 800; }
+.tt-prob { font-size: 10.5px; color: #8ea2c4; margin-left: 4px; }
+.tt-h2h { font-size: 10.5px; color: #cbd5e1; white-space: nowrap; }
+.tt-h2hs { font-size: 9.5px; color: #64748b; }
+.tt-data { font-size: 10px; color: #64748b; white-space: nowrap; }
+.tt-types { font-size: 9px; color: #475569; }

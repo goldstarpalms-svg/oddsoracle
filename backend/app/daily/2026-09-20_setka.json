@@ -1,0 +1,1784 @@
+{
+ "date": "2026-09-20",
+ "fetched_at": "2026-09-20T04:55:11+0000",
+ "source": "setkacup official API + 155k-match history",
+ "history": {
+  "matches": 155715,
+  "players": 885
+ },
+ "games": [
+  {
+   "match_id": 828466,
+   "time_wat": "04:35",
+   "tournament": "2026-09-20 Men Night1 Mexico",
+   "status": "Finished",
+   "p1": "Vladimir Scofari",
+   "p2": "Fiodor Ghimp",
+   "set_scores": "8-11, 11-7, 14-12, 6-11, 11-9",
+   "score": [
+    "3",
+    "2"
+   ],
+   "winner": "Vladimir Scofari",
+   "model": {
+    "win": {
+     "p1": 0.364,
+     "p2": 0.636
+    },
+    "first_set": {
+     "expected": 18.8,
+     "std": 3.27,
+     "p_over_18_5": 0.505,
+     "p_over_19_5": 0.383,
+     "pick": "Over 18.5",
+     "prob": 0.505,
+     "confidence": "WEAK"
+    },
+    "total_points": {
+     "expected": 77.1,
+     "p_over_75_5": 0.539
+    },
+    "h2h": {
+     "n": 0,
+     "p1_wins": 0,
+     "avg_first": null,
+     "over_18_5": null
+    },
+    "data": {
+     "p1_matches": 420,
+     "p2_matches": 1105
+    },
+    "types": {
+     "p1": "neutral starter / normal",
+     "p2": "neutral starter / normal"
+    }
+   }
+  },
+  {
+   "match_id": 827867,
+   "time_wat": "05:05",
+   "tournament": "2026-09-20 Men Night Tokyo",
+   "status": "Finished",
+   "p1": "Yan Krol",
+   "p2": "Oleksandr Melashenko",
+   "set_scores": "11-9, 11-9, 9-11, 11-9",
+   "score": [
+    "3",
+    "1"
+   ],
+   "winner": "Yan Krol",
+   "model": {
+    "win": {
+     "p1": 0.929,
+     "p2": 0.071
+    },
+    "first_set": {
+     "expected": 18.9,
+     "std": 3.37,
+     "p_over_18_5": 0.537,
+     "p_over_19_5": 0.419,
+     "pick": "Over 18.5",
+     "prob": 0.537,
+     "confidence": "WEAK"
+    },
+    "total_points": {
+     "expected": 75.9,
+     "p_over_75_5": 0.51
+    },
+    "h2h": {
+     "n": 65,
+     "p1_wins": 56,
+     "avg_first": 19.2,
+     "over_18_5": 0.57
+    },
+    "data": {
+     "p1_matches": 613,
+     "p2_matches": 858
+    },
+    "types": {
+     "p1": "neutral starter / normal",
+     "p2": "neutral starter / normal"
+    }
+   }
+  },
+  {
+   "match_id": 828199,
+   "time_wat": "05:25",
+   "tournament": "2026-09-20 Men Morning London",
+   "status": "Finished",
+   "p1": "Serhii Prus",
+   "p2": "Mykola Slozka",
+   "set_scores": "12-10, 11-6, 11-8",
+   "score": [
+    "3",
+    "0"
+   ],
+   "winner": "Serhii Prus",
+   "model": {
+    "win": {
+     "p1": 0.684,
+     "p2": 0.316
+    },
+    "first_set": {
+     "expected": 19.1,
+     "std": 2.82,
+     "p_over_18_5": 0.547,
+     "p_over_19_5": 0.406,
+     "pick": "Over 18.5",
+     "prob": 0.547,
+     "confidence": "WEAK"
+    },
+    "total_points": {
+     "expected": 75.6,
+     "p_over_75_5": 0.503
+    },
+    "h2h": {
+     "n": 7,
+     "p1_wins": 3,
+     "avg_first": 18.4,
+     "over_18_5": 0.57
+    },
+    "data": {
+     "p1_matches": 424,
+     "p2_matches": 798
+    },
+    "types": {
+     "p1": "fast over starter / normal",
+     "p2": "neutral starter / normal"
+    }
+   }
+  },
+  {
+   "match_id": 827882,
+   "time_wat": "05:25",
+   "tournament": "2026-09-20 Men Night Seoul",
+   "status": "Finished",
+   "p1": "Mykyta Smirnov",
+   "p2": "Oleg Gavryshko",
+   "set_scores": "11-9, 11-7, 9-11, 5-11, 11-8",
+   "score": [
+    "3",
+    "2"
+   ],
+   "winner": "Mykyta Smirnov",
+   "model": {
+    "win": {
+     "p1": 0.341,
+     "p2": 0.659
+    },
+    "first_set": {
+     "expected": 19.3,
+     "std": 3.36,
+     "p_over_18_5": 0.566,
+     "p_over_19_5": 0.448,
+     "pick": "Over 18.5",
+     "prob": 0.566,
+     "confidence": "MODERATE"
+    },
+    "total_points": {
+     "expected": 74.6,
+     "p_over_75_5": 0.48
+    },
+    "h2h": {
+     "n": 0,
+     "p1_wins": 0,
+     "avg_first": null,
+     "over_18_5": null
+    },
+    "data": {
+     "p1_matches": 0,
+     "p2_matches": 643
+    },
+    "types": {
+     "p1": "not enough data",
+     "p2": "fast over starter / normal"
+    }
+   }
+  },
+  {
+   "match_id": 828109,
+   "time_wat": "05:30",
+   "tournament": "2026-09-20 Men Morning Africa",
+   "status": "Finished",
+   "p1": "Andrii Droshchynskyi",
+   "p2": "Evhenii Holoborodko",
+   "set_scores": "11-6, 11-9, 11-6",
+   "score": [
+    "3",
+    "0"
+   ],
+   "winner": "Andrii Droshchynskyi",
+   "model": {
+    "win": {
+     "p1": 0.56,
+     "p2": 0.44
+    },
+    "first_set": {
+     "expected": 18.9,
+     "std": 2.97,
+     "p_over_18_5": 0.529,
+     "p_over_19_5": 0.395,
+     "pick": "Over 18.5",
+     "prob": 0.529,
+     "confidence": "WEAK"
+    },
+    "total_points": {
+     "expected": 76.7,
+     "p_over_75_5": 0.528
+    },
+    "h2h": {
+     "n": 21,
+     "p1_wins": 14,
+     "avg_first": 18.6,
+     "over_18_5": 0.52
+    },
+    "data": {
+     "p1_matches": 154,
+     "p2_matches": 484
+    },
+    "types": {
+     "p1": "neutral starter / normal",
+     "p2": "neutral starter / normal"
+    }
+   }
+  },
+  {
+   "match_id": 828064,
+   "time_wat": "05:30",
+   "tournament": "2026-09-20 Men Morning Rome",
+   "status": "Live",
+   "p1": "Volodymyr Tatarnіkov",
+   "p2": "Oleksandr Syksa",
+   "set_scores": "8-11, 13-15, 12-10, 8-7",
+   "score": [
+    "1",
+    "2"
+   ],
+   "winner": null,
+   "model": {
+    "win": {
+     "p1": 0.437,
+     "p2": 0.563
+    },
+    "first_set": {
+     "expected": 19.3,
+     "std": 3.29,
+     "p_over_18_5": 0.57,
+     "p_over_19_5": 0.45,
+     "pick": "Over 18.5",
+     "prob": 0.57,
+     "confidence": "MODERATE"
+    },
+    "total_points": {
+     "expected": 76.3,
+     "p_over_75_5": 0.52
+    },
+    "h2h": {
+     "n": 0,
+     "p1_wins": 0,
+     "avg_first": null,
+     "over_18_5": null
+    },
+    "data": {
+     "p1_matches": 0,
+     "p2_matches": 1093
+    },
+    "types": {
+     "p1": "not enough data",
+     "p2": "neutral starter / normal"
+    }
+   }
+  },
+  {
+   "match_id": 828184,
+   "time_wat": "05:35",
+   "tournament": "2026-09-20 Men Morning Beijing",
+   "status": "Live",
+   "p1": "Nazarii Kovalchuk",
+   "p2": "Ruslan Lazebnyi",
+   "set_scores": "11-7, 4-11, 11-5, 8-11, 4-1",
+   "score": [
+    "2",
+    "2"
+   ],
+   "winner": null,
+   "model": {
+    "win": {
+     "p1": 0.46,
+     "p2": 0.54
+    },
+    "first_set": {
+     "expected": 19.5,
+     "std": 2.97,
+     "p_over_18_5": 0.595,
+     "p_over_19_5": 0.463,
+     "pick": "Over 18.5",
+     "prob": 0.595,
+     "confidence": "MODERATE"
+    },
+    "total_points": {
+     "expected": 77.2,
+     "p_over_75_5": 0.543
+    },
+    "h2h": {
+     "n": 33,
+     "p1_wins": 18,
+     "avg_first": 18.9,
+     "over_18_5": 0.55
+    },
+    "data": {
+     "p1_matches": 587,
+     "p2_matches": 433
+    },
+    "types": {
+     "p1": "fast over starter / normal",
+     "p2": "neutral starter / normal"
+    }
+   }
+  },
+  {
+   "match_id": 828065,
+   "time_wat": "06:00",
+   "tournament": "",
+   "status": "Scheduled",
+   "p1": "Oleksandr Ziakun",
+   "p2": "Dmytro Kuzmenko",
+   "set_scores": null,
+   "score": null,
+   "winner": null,
+   "model": {
+    "win": {
+     "p1": 0.374,
+     "p2": 0.626
+    },
+    "first_set": {
+     "expected": 19.4,
+     "std": 3.19,
+     "p_over_18_5": 0.572,
+     "p_over_19_5": 0.449,
+     "pick": "Over 18.5",
+     "prob": 0.572,
+     "confidence": "MODERATE"
+    },
+    "total_points": {
+     "expected": 77.3,
+     "p_over_75_5": 0.542
+    },
+    "h2h": {
+     "n": 76,
+     "p1_wins": 31,
+     "avg_first": 18.6,
+     "over_18_5": 0.45
+    },
+    "data": {
+     "p1_matches": 718,
+     "p2_matches": 829
+    },
+    "types": {
+     "p1": "fast over starter / normal",
+     "p2": "neutral starter / normal"
+    }
+   }
+  },
+  {
+   "match_id": 828089,
+   "time_wat": "06:00",
+   "tournament": "",
+   "status": "Scheduled",
+   "p1": "Dmytro Tsys",
+   "p2": "Petro Kolesnik",
+   "set_scores": null,
+   "score": null,
+   "winner": null,
+   "model": {
+    "win": {
+     "p1": 0.672,
+     "p2": 0.328
+    },
+    "first_set": {
+     "expected": 19.5,
+     "std": 3.37,
+     "p_over_18_5": 0.581,
+     "p_over_19_5": 0.464,
+     "pick": "Over 18.5",
+     "prob": 0.581,
+     "confidence": "MODERATE"
+    },
+    "total_points": {
+     "expected": 75.9,
+     "p_over_75_5": 0.509
+    },
+    "h2h": {
+     "n": 22,
+     "p1_wins": 8,
+     "avg_first": 20.2,
+     "over_18_5": 0.68
+    },
+    "data": {
+     "p1_matches": 223,
+     "p2_matches": 331
+    },
+    "types": {
+     "p1": "neutral starter / normal",
+     "p2": "neutral starter / normal"
+    }
+   }
+  },
+  {
+   "match_id": 828110,
+   "time_wat": "06:00",
+   "tournament": "",
+   "status": "Scheduled",
+   "p1": "Oleh Kuzyshyn",
+   "p2": "Yaroslav Makovka",
+   "set_scores": null,
+   "score": null,
+   "winner": null,
+   "model": {
+    "win": {
+     "p1": 0.664,
+     "p2": 0.336
+    },
+    "first_set": {
+     "expected": 19.0,
+     "std": 3.29,
+     "p_over_18_5": 0.536,
+     "p_over_19_5": 0.415,
+     "pick": "Over 18.5",
+     "prob": 0.536,
+     "confidence": "WEAK"
+    },
+    "total_points": {
+     "expected": 75.6,
+     "p_over_75_5": 0.501
+    },
+    "h2h": {
+     "n": 28,
+     "p1_wins": 22,
+     "avg_first": 18.5,
+     "over_18_5": 0.54
+    },
+    "data": {
+     "p1_matches": 473,
+     "p2_matches": 338
+    },
+    "types": {
+     "p1": "neutral starter / normal",
+     "p2": "neutral starter / normal"
+    }
+   }
+  },
+  {
+   "match_id": 828124,
+   "time_wat": "06:05",
+   "tournament": "",
+   "status": "Scheduled",
+   "p1": "Vitalii Mukhin",
+   "p2": "Mykhailo Khalenko",
+   "set_scores": null,
+   "score": null,
+   "winner": null,
+   "model": {
+    "win": {
+     "p1": 0.333,
+     "p2": 0.667
+    },
+    "first_set": {
+     "expected": 19.1,
+     "std": 3.76,
+     "p_over_18_5": 0.508,
+     "p_over_19_5": 0.402,
+     "pick": "Over 18.5",
+     "prob": 0.508,
+     "confidence": "WEAK"
+    },
+    "total_points": {
+     "expected": 75.3,
+     "p_over_75_5": 0.494
+    },
+    "h2h": {
+     "n": 10,
+     "p1_wins": 3,
+     "avg_first": 19.7,
+     "over_18_5": 0.6
+    },
+    "data": {
+     "p1_matches": 319,
+     "p2_matches": 364
+    },
+    "types": {
+     "p1": "neutral starter / normal",
+     "p2": "neutral starter / normal"
+    }
+   }
+  },
+  {
+   "match_id": 828185,
+   "time_wat": "06:05",
+   "tournament": "",
+   "status": "Scheduled",
+   "p1": "Andrii Kotik",
+   "p2": "Oleh Napirko",
+   "set_scores": null,
+   "score": null,
+   "winner": null,
+   "model": {
+    "win": {
+     "p1": 0.429,
+     "p2": 0.571
+    },
+    "first_set": {
+     "expected": 19.0,
+     "std": 3.26,
+     "p_over_18_5": 0.515,
+     "p_over_19_5": 0.393,
+     "pick": "Over 18.5",
+     "prob": 0.515,
+     "confidence": "WEAK"
+    },
+    "total_points": {
+     "expected": 76.0,
+     "p_over_75_5": 0.512
+    },
+    "h2h": {
+     "n": 10,
+     "p1_wins": 5,
+     "avg_first": 18.3,
+     "over_18_5": 0.4
+    },
+    "data": {
+     "p1_matches": 558,
+     "p2_matches": 995
+    },
+    "types": {
+     "p1": "neutral starter / normal",
+     "p2": "neutral starter / normal"
+    }
+   }
+  },
+  {
+   "match_id": 828359,
+   "time_wat": "06:15",
+   "tournament": "",
+   "status": "Scheduled",
+   "p1": "Martin Bouska",
+   "p2": "Volodymyr Burylov",
+   "set_scores": null,
+   "score": null,
+   "winner": null,
+   "model": {
+    "win": {
+     "p1": 0.496,
+     "p2": 0.504
+    },
+    "first_set": {
+     "expected": 19.1,
+     "std": 3.08,
+     "p_over_18_5": 0.534,
+     "p_over_19_5": 0.405,
+     "pick": "Over 18.5",
+     "prob": 0.534,
+     "confidence": "WEAK"
+    },
+    "total_points": {
+     "expected": 78.7,
+     "p_over_75_5": 0.575
+    },
+    "h2h": {
+     "n": 23,
+     "p1_wins": 7,
+     "avg_first": 17.8,
+     "over_18_5": 0.48
+    },
+    "data": {
+     "p1_matches": 80,
+     "p2_matches": 343
+    },
+    "types": {
+     "p1": "neutral starter / normal",
+     "p2": "fast over starter / normal"
+    }
+   }
+  },
+  {
+   "match_id": 828201,
+   "time_wat": "06:25",
+   "tournament": "",
+   "status": "Scheduled",
+   "p1": "Oleksandr Sydorchuk",
+   "p2": "Taras Gil",
+   "set_scores": null,
+   "score": null,
+   "winner": null,
+   "model": {
+    "win": {
+     "p1": 0.736,
+     "p2": 0.264
+    },
+    "first_set": {
+     "expected": 19.0,
+     "std": 3.32,
+     "p_over_18_5": 0.537,
+     "p_over_19_5": 0.417,
+     "pick": "Over 18.5",
+     "prob": 0.537,
+     "confidence": "WEAK"
+    },
+    "total_points": {
+     "expected": 73.9,
+     "p_over_75_5": 0.459
+    },
+    "h2h": {
+     "n": 5,
+     "p1_wins": 2,
+     "avg_first": 18.8,
+     "over_18_5": 0.4
+    },
+    "data": {
+     "p1_matches": 283,
+     "p2_matches": 235
+    },
+    "types": {
+     "p1": "neutral starter / normal",
+     "p2": "neutral starter / normal"
+    }
+   }
+  },
+  {
+   "match_id": 828066,
+   "time_wat": "06:30",
+   "tournament": "",
+   "status": "Scheduled",
+   "p1": "Serhii Aristarkhov",
+   "p2": "Maksym Hubenko",
+   "set_scores": null,
+   "score": null,
+   "winner": null,
+   "model": {
+    "win": {
+     "p1": 0.479,
+     "p2": 0.521
+    },
+    "first_set": {
+     "expected": 19.0,
+     "std": 3.13,
+     "p_over_18_5": 0.505,
+     "p_over_19_5": 0.378,
+     "pick": "Over 18.5",
+     "prob": 0.505,
+     "confidence": "WEAK"
+    },
+    "total_points": {
+     "expected": 75.4,
+     "p_over_75_5": 0.498
+    },
+    "h2h": {
+     "n": 43,
+     "p1_wins": 22,
+     "avg_first": 18.0,
+     "over_18_5": 0.35
+    },
+    "data": {
+     "p1_matches": 653,
+     "p2_matches": 1063
+    },
+    "types": {
+     "p1": "neutral starter / normal",
+     "p2": "neutral starter / normal"
+    }
+   }
+  },
+  {
+   "match_id": 828090,
+   "time_wat": "06:30",
+   "tournament": "",
+   "status": "Scheduled",
+   "p1": "Oleh Torianyk",
+   "p2": "Nikita Priadko",
+   "set_scores": null,
+   "score": null,
+   "winner": null,
+   "model": {
+    "win": {
+     "p1": 0.708,
+     "p2": 0.292
+    },
+    "first_set": {
+     "expected": 19.1,
+     "std": 3.22,
+     "p_over_18_5": 0.53,
+     "p_over_19_5": 0.407,
+     "pick": "Over 18.5",
+     "prob": 0.53,
+     "confidence": "WEAK"
+    },
+    "total_points": {
+     "expected": 75.2,
+     "p_over_75_5": 0.492
+    },
+    "h2h": {
+     "n": 0,
+     "p1_wins": 0,
+     "avg_first": null,
+     "over_18_5": null
+    },
+    "data": {
+     "p1_matches": 537,
+     "p2_matches": 0
+    },
+    "types": {
+     "p1": "neutral starter / normal",
+     "p2": "not enough data"
+    }
+   }
+  },
+  {
+   "match_id": 828111,
+   "time_wat": "06:30",
+   "tournament": "",
+   "status": "Scheduled",
+   "p1": "Roman Pomin",
+   "p2": "Maksym Tiutiunnyk",
+   "set_scores": null,
+   "score": null,
+   "winner": null,
+   "model": {
+    "win": {
+     "p1": 0.637,
+     "p2": 0.363
+    },
+    "first_set": {
+     "expected": 19.2,
+     "std": 3.36,
+     "p_over_18_5": 0.55,
+     "p_over_19_5": 0.432,
+     "pick": "Over 18.5",
+     "prob": 0.55,
+     "confidence": "WEAK"
+    },
+    "total_points": {
+     "expected": 75.9,
+     "p_over_75_5": 0.511
+    },
+    "h2h": {
+     "n": 3,
+     "p1_wins": 2,
+     "avg_first": 20.7,
+     "over_18_5": 0.67
+    },
+    "data": {
+     "p1_matches": 144,
+     "p2_matches": 408
+    },
+    "types": {
+     "p1": "neutral starter / normal",
+     "p2": "fast over starter / normal"
+    }
+   }
+  },
+  {
+   "match_id": 828383,
+   "time_wat": "06:30",
+   "tournament": "",
+   "status": "Scheduled",
+   "p1": "Leon Kolman",
+   "p2": "Petr Orlowski",
+   "set_scores": null,
+   "score": null,
+   "winner": null,
+   "model": {
+    "win": {
+     "p1": 0.527,
+     "p2": 0.473
+    },
+    "first_set": {
+     "expected": 19.8,
+     "std": 3.39,
+     "p_over_18_5": 0.595,
+     "p_over_19_5": 0.481,
+     "pick": "Over 18.5",
+     "prob": 0.595,
+     "confidence": "MODERATE"
+    },
+    "total_points": {
+     "expected": 79.5,
+     "p_over_75_5": 0.605
+    },
+    "h2h": {
+     "n": 13,
+     "p1_wins": 5,
+     "avg_first": 19.5,
+     "over_18_5": 0.62
+    },
+    "data": {
+     "p1_matches": 688,
+     "p2_matches": 340
+    },
+    "types": {
+     "p1": "fast over starter / normal",
+     "p2": "fast over starter / normal"
+    }
+   }
+  },
+  {
+   "match_id": 828125,
+   "time_wat": "06:35",
+   "tournament": "",
+   "status": "Scheduled",
+   "p1": "Denys Khavanskyi",
+   "p2": "Serhii Semenets",
+   "set_scores": null,
+   "score": null,
+   "winner": null,
+   "model": {
+    "win": {
+     "p1": 0.242,
+     "p2": 0.758
+    },
+    "first_set": {
+     "expected": 18.5,
+     "std": 3.06,
+     "p_over_18_5": 0.471,
+     "p_over_19_5": 0.343,
+     "pick": "Under 18.5",
+     "prob": 0.529,
+     "confidence": "WEAK"
+    },
+    "total_points": {
+     "expected": 73.4,
+     "p_over_75_5": 0.45
+    },
+    "h2h": {
+     "n": 26,
+     "p1_wins": 14,
+     "avg_first": 18.2,
+     "over_18_5": 0.46
+    },
+    "data": {
+     "p1_matches": 341,
+     "p2_matches": 865
+    },
+    "types": {
+     "p1": "under starter / normal",
+     "p2": "neutral starter / normal"
+    }
+   }
+  },
+  {
+   "match_id": 828186,
+   "time_wat": "06:35",
+   "tournament": "",
+   "status": "Scheduled",
+   "p1": "Oleksii Mitla",
+   "p2": "Anton Shypilov",
+   "set_scores": null,
+   "score": null,
+   "winner": null,
+   "model": {
+    "win": {
+     "p1": 0.461,
+     "p2": 0.539
+    },
+    "first_set": {
+     "expected": 19.4,
+     "std": 3.25,
+     "p_over_18_5": 0.564,
+     "p_over_19_5": 0.443,
+     "pick": "Over 18.5",
+     "prob": 0.564,
+     "confidence": "MODERATE"
+    },
+    "total_points": {
+     "expected": 79.6,
+     "p_over_75_5": 0.601
+    },
+    "h2h": {
+     "n": 89,
+     "p1_wins": 49,
+     "avg_first": 19.3,
+     "over_18_5": 0.58
+    },
+    "data": {
+     "p1_matches": 626,
+     "p2_matches": 660
+    },
+    "types": {
+     "p1": "neutral starter / normal",
+     "p2": "neutral starter / normal"
+    }
+   }
+  },
+  {
+   "match_id": 828360,
+   "time_wat": "06:45",
+   "tournament": "",
+   "status": "Scheduled",
+   "p1": "Lukas Svoboda",
+   "p2": "Martin Kocvara",
+   "set_scores": null,
+   "score": null,
+   "winner": null,
+   "model": {
+    "win": {
+     "p1": 0.304,
+     "p2": 0.696
+    },
+    "first_set": {
+     "expected": 18.9,
+     "std": 3.02,
+     "p_over_18_5": 0.522,
+     "p_over_19_5": 0.39,
+     "pick": "Over 18.5",
+     "prob": 0.522,
+     "confidence": "WEAK"
+    },
+    "total_points": {
+     "expected": 77.3,
+     "p_over_75_5": 0.543
+    },
+    "h2h": {
+     "n": 0,
+     "p1_wins": 0,
+     "avg_first": null,
+     "over_18_5": null
+    },
+    "data": {
+     "p1_matches": 195,
+     "p2_matches": 68
+    },
+    "types": {
+     "p1": "neutral starter / normal",
+     "p2": "neutral starter / stable"
+    }
+   }
+  },
+  {
+   "match_id": 828139,
+   "time_wat": "06:50",
+   "tournament": "",
+   "status": "Scheduled",
+   "p1": "Andrii Kotiash",
+   "p2": "Eduard Populovskyi",
+   "set_scores": null,
+   "score": null,
+   "winner": null,
+   "model": {
+    "win": {
+     "p1": 0.539,
+     "p2": 0.461
+    },
+    "first_set": {
+     "expected": 19.1,
+     "std": 3.06,
+     "p_over_18_5": 0.527,
+     "p_over_19_5": 0.397,
+     "pick": "Over 18.5",
+     "prob": 0.527,
+     "confidence": "WEAK"
+    },
+    "total_points": {
+     "expected": 77.1,
+     "p_over_75_5": 0.538
+    },
+    "h2h": {
+     "n": 38,
+     "p1_wins": 16,
+     "avg_first": 19.0,
+     "over_18_5": 0.58
+    },
+    "data": {
+     "p1_matches": 484,
+     "p2_matches": 718
+    },
+    "types": {
+     "p1": "neutral starter / normal",
+     "p2": "neutral starter / normal"
+    }
+   }
+  },
+  {
+   "match_id": 828202,
+   "time_wat": "06:55",
+   "tournament": "",
+   "status": "Scheduled",
+   "p1": "Serhii Prus",
+   "p2": "Ihor Kvak",
+   "set_scores": null,
+   "score": null,
+   "winner": null,
+   "model": {
+    "win": {
+     "p1": 0.45,
+     "p2": 0.55
+    },
+    "first_set": {
+     "expected": 19.2,
+     "std": 3.15,
+     "p_over_18_5": 0.529,
+     "p_over_19_5": 0.403,
+     "pick": "Over 18.5",
+     "prob": 0.529,
+     "confidence": "WEAK"
+    },
+    "total_points": {
+     "expected": 73.6,
+     "p_over_75_5": 0.454
+    },
+    "h2h": {
+     "n": 0,
+     "p1_wins": 0,
+     "avg_first": null,
+     "over_18_5": null
+    },
+    "data": {
+     "p1_matches": 424,
+     "p2_matches": 30
+    },
+    "types": {
+     "p1": "fast over starter / normal",
+     "p2": "under starter / normal"
+    }
+   }
+  },
+  {
+   "match_id": 828067,
+   "time_wat": "07:00",
+   "tournament": "",
+   "status": "Scheduled",
+   "p1": "Volodymyr Tatarnіkov",
+   "p2": "Dmytro Kuzmenko",
+   "set_scores": null,
+   "score": null,
+   "winner": null,
+   "model": {
+    "win": {
+     "p1": 0.572,
+     "p2": 0.428
+    },
+    "first_set": {
+     "expected": 19.5,
+     "std": 3.22,
+     "p_over_18_5": 0.563,
+     "p_over_19_5": 0.441,
+     "pick": "Over 18.5",
+     "prob": 0.563,
+     "confidence": "MODERATE"
+    },
+    "total_points": {
+     "expected": 76.0,
+     "p_over_75_5": 0.511
+    },
+    "h2h": {
+     "n": 0,
+     "p1_wins": 0,
+     "avg_first": null,
+     "over_18_5": null
+    },
+    "data": {
+     "p1_matches": 0,
+     "p2_matches": 829
+    },
+    "types": {
+     "p1": "not enough data",
+     "p2": "neutral starter / normal"
+    }
+   }
+  },
+  {
+   "match_id": 828091,
+   "time_wat": "07:00",
+   "tournament": "",
+   "status": "Scheduled",
+   "p1": "Sergii Sideltsev",
+   "p2": "Petro Kolesnik",
+   "set_scores": null,
+   "score": null,
+   "winner": null,
+   "model": {
+    "win": {
+     "p1": 0.478,
+     "p2": 0.522
+    },
+    "first_set": {
+     "expected": 19.1,
+     "std": 3.4,
+     "p_over_18_5": 0.541,
+     "p_over_19_5": 0.424,
+     "pick": "Over 18.5",
+     "prob": 0.541,
+     "confidence": "WEAK"
+    },
+    "total_points": {
+     "expected": 75.3,
+     "p_over_75_5": 0.496
+    },
+    "h2h": {
+     "n": 5,
+     "p1_wins": 3,
+     "avg_first": 16.8,
+     "over_18_5": 0.4
+    },
+    "data": {
+     "p1_matches": 377,
+     "p2_matches": 331
+    },
+    "types": {
+     "p1": "neutral starter / normal",
+     "p2": "neutral starter / normal"
+    }
+   }
+  },
+  {
+   "match_id": 828112,
+   "time_wat": "07:00",
+   "tournament": "",
+   "status": "Scheduled",
+   "p1": "Andrii Droshchynskyi",
+   "p2": "Yaroslav Makovka",
+   "set_scores": null,
+   "score": null,
+   "winner": null,
+   "model": {
+    "win": {
+     "p1": 0.6,
+     "p2": 0.4
+    },
+    "first_set": {
+     "expected": 19.3,
+     "std": 3.47,
+     "p_over_18_5": 0.55,
+     "p_over_19_5": 0.435,
+     "pick": "Over 18.5",
+     "prob": 0.55,
+     "confidence": "WEAK"
+    },
+    "total_points": {
+     "expected": 76.2,
+     "p_over_75_5": 0.516
+    },
+    "h2h": {
+     "n": 10,
+     "p1_wins": 5,
+     "avg_first": 20.6,
+     "over_18_5": 0.5
+    },
+    "data": {
+     "p1_matches": 154,
+     "p2_matches": 338
+    },
+    "types": {
+     "p1": "neutral starter / normal",
+     "p2": "neutral starter / normal"
+    }
+   }
+  },
+  {
+   "match_id": 828384,
+   "time_wat": "07:00",
+   "tournament": "",
+   "status": "Scheduled",
+   "p1": "David Brichacek",
+   "p2": "Tomas Kanka",
+   "set_scores": null,
+   "score": null,
+   "winner": null,
+   "model": {
+    "win": {
+     "p1": 0.695,
+     "p2": 0.305
+    },
+    "first_set": {
+     "expected": 19.1,
+     "std": 3.16,
+     "p_over_18_5": 0.546,
+     "p_over_19_5": 0.42,
+     "pick": "Over 18.5",
+     "prob": 0.546,
+     "confidence": "WEAK"
+    },
+    "total_points": {
+     "expected": 76.4,
+     "p_over_75_5": 0.522
+    },
+    "h2h": {
+     "n": 4,
+     "p1_wins": 3,
+     "avg_first": 20.0,
+     "over_18_5": 0.5
+    },
+    "data": {
+     "p1_matches": 204,
+     "p2_matches": 400
+    },
+    "types": {
+     "p1": "neutral starter / normal",
+     "p2": "neutral starter / normal"
+    }
+   }
+  },
+  {
+   "match_id": 663293,
+   "time_wat": "10:15",
+   "tournament": "2025-07-29 Men Morning New Delhi",
+   "status": "Finished",
+   "p1": "Jatin Kumar",
+   "p2": "Chug Sahil",
+   "set_scores": "11-9, 11-6, 11-5",
+   "score": [
+    "3",
+    "0"
+   ],
+   "winner": "Jatin Kumar",
+   "model": {
+    "win": {
+     "p1": 0.624,
+     "p2": 0.376
+    },
+    "first_set": {
+     "expected": 18.7,
+     "std": 3.1,
+     "p_over_18_5": 0.485,
+     "p_over_19_5": 0.357,
+     "pick": "Under 18.5",
+     "prob": 0.515,
+     "confidence": "WEAK"
+    },
+    "total_points": {
+     "expected": 75.6,
+     "p_over_75_5": 0.501
+    },
+    "h2h": {
+     "n": 2,
+     "p1_wins": 2,
+     "avg_first": 17.0,
+     "over_18_5": 0.5
+    },
+    "data": {
+     "p1_matches": 101,
+     "p2_matches": 5
+    },
+    "types": {
+     "p1": "neutral starter / normal",
+     "p2": "under starter / normal"
+    }
+   }
+  },
+  {
+   "match_id": 290715,
+   "time_wat": "12:35",
+   "tournament": "2022-09-18 Men Morning Sydney",
+   "status": "Finished",
+   "p1": "Peter Kytlica",
+   "p2": "Peter Stracar",
+   "set_scores": "3-11, 5-11, 6-11",
+   "score": [
+    "0",
+    "3"
+   ],
+   "winner": "Peter Stracar",
+   "model": {
+    "win": {
+     "p1": 0.5,
+     "p2": 0.5
+    },
+    "first_set": {
+     "expected": 19.2,
+     "std": 3.23,
+     "p_over_18_5": 0.542,
+     "p_over_19_5": 0.419,
+     "pick": "Over 18.5",
+     "prob": 0.542,
+     "confidence": "WEAK"
+    },
+    "total_points": {
+     "expected": 76.9,
+     "p_over_75_5": 0.534
+    },
+    "h2h": {
+     "n": 0,
+     "p1_wins": 0,
+     "avg_first": null,
+     "over_18_5": null
+    },
+    "data": {
+     "p1_matches": 0,
+     "p2_matches": 0
+    },
+    "types": {
+     "p1": "not enough data",
+     "p2": "not enough data"
+    }
+   }
+  },
+  {
+   "match_id": 827717,
+   "time_wat": "13:05",
+   "tournament": "2026-09-19 Men Morning America",
+   "status": "Finished",
+   "p1": "Yaroslav Makovka",
+   "p2": "Yaroslav Kovshun",
+   "set_scores": "16-14, 15-13, 7-11, 10-12, 11-8",
+   "score": [
+    "3",
+    "2"
+   ],
+   "winner": "Yaroslav Makovka",
+   "model": {
+    "win": {
+     "p1": 0.344,
+     "p2": 0.656
+    },
+    "first_set": {
+     "expected": 19.3,
+     "std": 3.18,
+     "p_over_18_5": 0.571,
+     "p_over_19_5": 0.447,
+     "pick": "Over 18.5",
+     "prob": 0.571,
+     "confidence": "MODERATE"
+    },
+    "total_points": {
+     "expected": 76.2,
+     "p_over_75_5": 0.517
+    },
+    "h2h": {
+     "n": 15,
+     "p1_wins": 9,
+     "avg_first": 19.3,
+     "over_18_5": 0.67
+    },
+    "data": {
+     "p1_matches": 338,
+     "p2_matches": 718
+    },
+    "types": {
+     "p1": "neutral starter / normal",
+     "p2": "neutral starter / normal"
+    }
+   }
+  },
+  {
+   "match_id": 353880,
+   "time_wat": "13:10",
+   "tournament": "2023-03-31 Men Morning Gdansk",
+   "status": "Finished",
+   "p1": "Mieczyslaw Urbanczyk",
+   "p2": "Rafal Walczak",
+   "set_scores": "6-11, 6-11, 10-12",
+   "score": [
+    "0",
+    "3"
+   ],
+   "winner": "Rafal Walczak",
+   "model": {
+    "win": {
+     "p1": 0.5,
+     "p2": 0.5
+    },
+    "first_set": {
+     "expected": 19.2,
+     "std": 3.23,
+     "p_over_18_5": 0.542,
+     "p_over_19_5": 0.419,
+     "pick": "Over 18.5",
+     "prob": 0.542,
+     "confidence": "WEAK"
+    },
+    "total_points": {
+     "expected": 76.9,
+     "p_over_75_5": 0.534
+    },
+    "h2h": {
+     "n": 0,
+     "p1_wins": 0,
+     "avg_first": null,
+     "over_18_5": null
+    },
+    "data": {
+     "p1_matches": 0,
+     "p2_matches": 0
+    },
+    "types": {
+     "p1": "not enough data",
+     "p2": "not enough data"
+    }
+   }
+  },
+  {
+   "match_id": 241434,
+   "time_wat": "13:30",
+   "tournament": "2022-04-15 Men Day1 Athens",
+   "status": "Finished",
+   "p1": "Josef Pavelka",
+   "p2": "Jan Zydel",
+   "set_scores": "9-11, 5-11, 9-11",
+   "score": [
+    "0",
+    "3"
+   ],
+   "winner": "Jan Zydel",
+   "model": {
+    "win": {
+     "p1": 0.5,
+     "p2": 0.5
+    },
+    "first_set": {
+     "expected": 19.2,
+     "std": 3.23,
+     "p_over_18_5": 0.542,
+     "p_over_19_5": 0.419,
+     "pick": "Over 18.5",
+     "prob": 0.542,
+     "confidence": "WEAK"
+    },
+    "total_points": {
+     "expected": 76.9,
+     "p_over_75_5": 0.534
+    },
+    "h2h": {
+     "n": 0,
+     "p1_wins": 0,
+     "avg_first": null,
+     "over_18_5": null
+    },
+    "data": {
+     "p1_matches": 0,
+     "p2_matches": 0
+    },
+    "types": {
+     "p1": "not enough data",
+     "p2": "not enough data"
+    }
+   }
+  },
+  {
+   "match_id": 827732,
+   "time_wat": "13:50",
+   "tournament": "2026-09-19 Men Morning Australia",
+   "status": "Finished",
+   "p1": "Vadym Kucheriavyi",
+   "p2": "Volodymyr Varchenko",
+   "set_scores": "7-11, 10-12, 4-11",
+   "score": [
+    "0",
+    "3"
+   ],
+   "winner": "Volodymyr Varchenko",
+   "model": {
+    "win": {
+     "p1": 0.581,
+     "p2": 0.419
+    },
+    "first_set": {
+     "expected": 19.0,
+     "std": 3.11,
+     "p_over_18_5": 0.549,
+     "p_over_19_5": 0.422,
+     "pick": "Over 18.5",
+     "prob": 0.549,
+     "confidence": "WEAK"
+    },
+    "total_points": {
+     "expected": 75.1,
+     "p_over_75_5": 0.49
+    },
+    "h2h": {
+     "n": 3,
+     "p1_wins": 1,
+     "avg_first": 18.7,
+     "over_18_5": 0.67
+    },
+    "data": {
+     "p1_matches": 124,
+     "p2_matches": 186
+    },
+    "types": {
+     "p1": "neutral starter / normal",
+     "p2": "fast over starter / normal"
+    }
+   }
+  },
+  {
+   "match_id": 720491,
+   "time_wat": "14:00",
+   "tournament": "2025-12-25 Men Morning Asia",
+   "status": "Finished",
+   "p1": "Oleh Napirko",
+   "p2": "Oleksii Mitla",
+   "set_scores": "11-3, 14-12, 11-8",
+   "score": [
+    "3",
+    "0"
+   ],
+   "winner": "Oleh Napirko",
+   "model": {
+    "win": {
+     "p1": 0.754,
+     "p2": 0.246
+    },
+    "first_set": {
+     "expected": 18.9,
+     "std": 3.36,
+     "p_over_18_5": 0.519,
+     "p_over_19_5": 0.4,
+     "pick": "Over 18.5",
+     "prob": 0.519,
+     "confidence": "WEAK"
+    },
+    "total_points": {
+     "expected": 77.2,
+     "p_over_75_5": 0.539
+    },
+    "h2h": {
+     "n": 46,
+     "p1_wins": 34,
+     "avg_first": 18.7,
+     "over_18_5": 0.46
+    },
+    "data": {
+     "p1_matches": 995,
+     "p2_matches": 626
+    },
+    "types": {
+     "p1": "neutral starter / normal",
+     "p2": "neutral starter / normal"
+    }
+   }
+  },
+  {
+   "match_id": 828450,
+   "time_wat": "18:35",
+   "tournament": "2026-09-19 Men Evening Montreal",
+   "status": "Finished",
+   "p1": "Myhailo Levytskyi",
+   "p2": "Petro Kolesnik",
+   "set_scores": "11-9, 8-11, 11-8, 8-11, 12-10",
+   "score": [
+    "3",
+    "2"
+   ],
+   "winner": "Myhailo Levytskyi",
+   "model": {
+    "win": {
+     "p1": 0.638,
+     "p2": 0.362
+    },
+    "first_set": {
+     "expected": 19.4,
+     "std": 3.55,
+     "p_over_18_5": 0.563,
+     "p_over_19_5": 0.452,
+     "pick": "Over 18.5",
+     "prob": 0.563,
+     "confidence": "MODERATE"
+    },
+    "total_points": {
+     "expected": 75.2,
+     "p_over_75_5": 0.494
+    },
+    "h2h": {
+     "n": 24,
+     "p1_wins": 18,
+     "avg_first": 19.3,
+     "over_18_5": 0.5
+    },
+    "data": {
+     "p1_matches": 366,
+     "p2_matches": 331
+    },
+    "types": {
+     "p1": "neutral starter / normal",
+     "p2": "neutral starter / normal"
+    }
+   }
+  },
+  {
+   "match_id": 827747,
+   "time_wat": "18:40",
+   "tournament": "2026-09-19 Men Evening Europe",
+   "status": "Finished",
+   "p1": "Evhenii Holoborodko",
+   "p2": "Andrii Droshchynskyi",
+   "set_scores": "3-11, 4-11, 12-14",
+   "score": [
+    "0",
+    "3"
+   ],
+   "winner": "Andrii Droshchynskyi",
+   "model": {
+    "win": {
+     "p1": 0.44,
+     "p2": 0.56
+    },
+    "first_set": {
+     "expected": 18.9,
+     "std": 2.97,
+     "p_over_18_5": 0.529,
+     "p_over_19_5": 0.395,
+     "pick": "Over 18.5",
+     "prob": 0.529,
+     "confidence": "WEAK"
+    },
+    "total_points": {
+     "expected": 76.7,
+     "p_over_75_5": 0.528
+    },
+    "h2h": {
+     "n": 21,
+     "p1_wins": 7,
+     "avg_first": 18.6,
+     "over_18_5": 0.52
+    },
+    "data": {
+     "p1_matches": 484,
+     "p2_matches": 154
+    },
+    "types": {
+     "p1": "neutral starter / normal",
+     "p2": "neutral starter / normal"
+    }
+   }
+  },
+  {
+   "match_id": 828458,
+   "time_wat": "21:50",
+   "tournament": "2026-09-19 Men Evening Prague",
+   "status": "Finished",
+   "p1": "Lukas Veigl",
+   "p2": "Volodymyr Burylov",
+   "set_scores": "11-13, 11-13, 12-10, 7-11",
+   "score": [
+    "1",
+    "3"
+   ],
+   "winner": "Volodymyr Burylov",
+   "model": {
+    "win": {
+     "p1": 0.445,
+     "p2": 0.555
+    },
+    "first_set": {
+     "expected": 19.6,
+     "std": 3.02,
+     "p_over_18_5": 0.618,
+     "p_over_19_5": 0.489,
+     "pick": "Over 18.5",
+     "prob": 0.618,
+     "confidence": "MODERATE"
+    },
+    "total_points": {
+     "expected": 79.7,
+     "p_over_75_5": 0.601
+    },
+    "h2h": {
+     "n": 7,
+     "p1_wins": 2,
+     "avg_first": 20.1,
+     "over_18_5": 0.86
+    },
+    "data": {
+     "p1_matches": 600,
+     "p2_matches": 343
+    },
+    "types": {
+     "p1": "fast over starter / normal",
+     "p2": "fast over starter / normal"
+    }
+   }
+  },
+  {
+   "match_id": 828460,
+   "time_wat": "22:05",
+   "tournament": "2026-09-19 Men Evening Paris",
+   "status": "Finished",
+   "p1": "Matej Svitac",
+   "p2": "Leon Kolman",
+   "set_scores": "9-11, 11-13, 11-13",
+   "score": [
+    "0",
+    "3"
+   ],
+   "winner": "Leon Kolman",
+   "model": {
+    "win": {
+     "p1": 0.482,
+     "p2": 0.518
+    },
+    "first_set": {
+     "expected": 19.4,
+     "std": 2.99,
+     "p_over_18_5": 0.56,
+     "p_over_19_5": 0.429,
+     "pick": "Over 18.5",
+     "prob": 0.56,
+     "confidence": "MODERATE"
+    },
+    "total_points": {
+     "expected": 79.2,
+     "p_over_75_5": 0.591
+    },
+    "h2h": {
+     "n": 20,
+     "p1_wins": 13,
+     "avg_first": 18.4,
+     "over_18_5": 0.45
+    },
+    "data": {
+     "p1_matches": 388,
+     "p2_matches": 688
+    },
+    "types": {
+     "p1": "neutral starter / normal",
+     "p2": "fast over starter / normal"
+    }
+   }
+  },
+  {
+   "match_id": 828462,
+   "time_wat": "23:50",
+   "tournament": "2026-09-19 Men Night Rio",
+   "status": "Finished",
+   "p1": "Dmitri Gribcov",
+   "p2": "Mihail Copusciu",
+   "set_scores": "11-5, 6-11, 8-11, 11-7, 9-11",
+   "score": [
+    "2",
+    "3"
+   ],
+   "winner": "Mihail Copusciu",
+   "model": {
+    "win": {
+     "p1": 0.339,
+     "p2": 0.661
+    },
+    "first_set": {
+     "expected": 19.0,
+     "std": 3.13,
+     "p_over_18_5": 0.534,
+     "p_over_19_5": 0.407,
+     "pick": "Over 18.5",
+     "prob": 0.534,
+     "confidence": "WEAK"
+    },
+    "total_points": {
+     "expected": 75.0,
+     "p_over_75_5": 0.489
+    },
+    "h2h": {
+     "n": 3,
+     "p1_wins": 1,
+     "avg_first": 17.7,
+     "over_18_5": 0.33
+    },
+    "data": {
+     "p1_matches": 380,
+     "p2_matches": 264
+    },
+    "types": {
+     "p1": "neutral starter / normal",
+     "p2": "neutral starter / normal"
+    }
+   }
+  }
+ ]
+}

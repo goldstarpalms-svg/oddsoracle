@@ -65,6 +65,7 @@ let hockey = read(pick([/_hockey\.json$/]));
 let forebetBaseball = read(pick([/^\d{4}-\d{2}-\d{2}_baseball\.json$/]));
 let handball = read(pick([/_handball\.json$/]));
 let h2h = read(pick([/^\d{4}-\d{2}-\d{2}_h2h\.json$/]));
+let setka = null;
 
 let markets = read(pickD([/_markets\.json$/]));
 let oddspapi = read(pickD([/_oddspapi\.json$/]));
@@ -411,6 +412,25 @@ try {
   console.log("oracle engine skipped:", e.message);
 }
 
+// ---- TABLE TENNIS: Setka Cup intelligence -> snapshot.setka ---------------
+let setkaMeta = null;
+try {
+  const skFile = pickD([/^\d{4}-\d{2}-\d{2}_setka\.json$/]);
+  const sk = skFile ? read(skFile) : null;
+  if (sk?.games) {
+    setka = sk;
+    setkaMeta = {
+      fetchedAt: sk.fetched_at,
+      games: sk.games.length,
+      live: sk.games.filter((g) => g.status === "Live").length,
+      history: sk.history,
+    };
+    console.log(`setka table tennis: ${setkaMeta.games} games (${setkaMeta.live} live)`);
+  }
+} catch (e) {
+  console.log("setka skipped:", e.message);
+}
+
 // ---- LIVE odds: OddsChecker (keyless, 26 books) -> r.oc -------------------
 let oddscheckerMeta = null;
 try {
@@ -486,6 +506,7 @@ const snapshot = {
   odds: odds || null,
   markets: markets || null,
   safe: safe || null,
+  setka: setka || null,
 };
 
 // ---- FINAL scores: stamp every match that is already over (best effort) ----
