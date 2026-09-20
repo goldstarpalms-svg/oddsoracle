@@ -12,14 +12,7 @@ name: daily-forebet-refresh
 on:
   schedule:
     - cron: "0 5 * * *"
-  workflow_dispatch:
-    inputs: {}
-  # Manual refresh: push a change to backend/app/daily/refresh-trigger.txt
-  push:
-    branches: [main]
-    paths:
-      - "backend/app/daily/refresh-trigger.txt"
-
+  workflow_dispatch: {}
 
 jobs:
   refresh:
