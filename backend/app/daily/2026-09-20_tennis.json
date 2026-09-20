@@ -1,0 +1,168 @@
+{
+ "date": "2026-09-20",
+ "generated_at": "2026-09-20T01:30:00+01:00",
+ "source": "forebet.com (fetched 20/9 01:30 WAT)",
+ "note": "Remaining live/upcoming matches from forebet's tennis 'today' page as of 01:30 WAT - daytime Davis Cup, WTA Seoul/Singapore qualis and challenger sessions have finished. Big ones: WTA Guadalajara final (Stearns v Jovic 23:05 WAT) and Davis Cup WG I night session.",
+ "games": [
+  {
+   "tourn": "Davis Cup WG I",
+   "t": "22:30",
+   "p1": "I. Buse",
+   "p2": "D. Vallejo",
+   "prob": "74/26",
+   "pred": "2 (Vallejo)",
+   "sets": "0-2",
+   "coef": "-278"
+  },
+  {
+   "tourn": "Challenger Tiburon (SF)",
+   "t": "23:00",
+   "p1": "M. Mmoh",
+   "p2": "J. Wolf",
+   "prob": "44/56",
+   "pred": "2 (Wolf)",
+   "sets": "0-2",
+   "coef": "-161"
+  },
+  {
+   "tourn": "WTA Guadalajara (Final)",
+   "t": "23:05",
+   "p1": "P. Stearns",
+   "p2": "I. Jovic",
+   "prob": "44/56",
+   "pred": "2 (Jovic)",
+   "sets": "0-2",
+   "coef": "-345"
+  },
+  {
+   "tourn": "Davis Cup WG I",
+   "t": "00:30",
+   "p1": "J. P. Varillas",
+   "p2": "H. J. Escurra Isnardi",
+   "prob": "68/32",
+   "pred": "2 (Escurra Isnardi)",
+   "sets": "0-2",
+   "coef": "-3333"
+  },
+  {
+   "tourn": "WTA Seoul (SF qualification)",
+   "t": "01:00",
+   "p1": "E. Lee",
+   "p2": "Y. Ma",
+   "prob": "51/49",
+   "pred": "2 (Ma)",
+   "sets": "0-2",
+   "coef": "n/a"
+  },
+  {
+   "tourn": "WTA Seoul (SF qualification)",
+   "t": "01:00",
+   "p1": "A. Shubladze",
+   "p2": "D. Astakhova",
+   "prob": "45/55",
+   "pred": "2 (Astakhova)",
+   "sets": "0-2",
+   "coef": "+300"
+  },
+  {
+   "tourn": "Davis Cup WG I",
+   "t": "02:30",
+   "p1": "A. Shepp",
+   "p2": "S. Shimabukuro",
+   "prob": "34/66",
+   "pred": "2 (Shimabukuro)",
+   "sets": "0-2",
+   "coef": "-333"
+  },
+  {
+   "tourn": "Davis Cup WG I",
+   "t": "04:00",
+   "p1": "J. Watt",
+   "p2": "R. Sakamoto",
+   "prob": "47/53",
+   "pred": "2 (Sakamoto)",
+   "sets": "0-2",
+   "coef": "-714"
+  },
+  {
+   "tourn": "Challenger Phan Thiet 4 (Final)",
+   "t": "04:00",
+   "p1": "R. Pacheco Mendez",
+   "p2": "I. Simakin",
+   "prob": "38/62",
+   "pred": "2 (Simakin)",
+   "sets": "0-2",
+   "coef": "-149"
+  },
+  {
+   "tourn": "WTA Seoul (SF qualification)",
+   "t": "05:00",
+   "p1": "M. Kuramochi",
+   "p2": "X. Yao",
+   "prob": "53/47",
+   "pred": "1 (Kuramochi)",
+   "sets": "2-0",
+   "coef": "n/a"
+  },
+  {
+   "tourn": "WTA Singapore (Final qualification)",
+   "t": "05:00",
+   "p1": "N. Hibino",
+   "p2": "A. Ito",
+   "prob": "60/40",
+   "pred": "1 (Hibino)",
+   "sets": "2-0",
+   "coef": "-120"
+  },
+  {
+   "tourn": "WTA Singapore (Final qualification)",
+   "t": "05:00",
+   "p1": "A-L. Friedsam",
+   "p2": "A. Kulikova",
+   "prob": "47/53",
+   "pred": "2 (Kulikova)",
+   "sets": "1-2",
+   "coef": "+100"
+  },
+  {
+   "tourn": "Davis Cup WG I",
+   "t": "05:30",
+   "p1": "A. De Minaur",
+   "p2": "K. Majchrzak",
+   "prob": "60/40",
+   "pred": "1 (De Minaur)",
+   "sets": "2-1",
+   "coef": "-455"
+  },
+  {
+   "tourn": "Davis Cup WG I",
+   "t": "05:30",
+   "p1": "C. H. Tseng",
+   "p2": "O. Wallin",
+   "prob": "56/44",
+   "pred": "1 (Tseng)",
+   "sets": "2-1",
+   "coef": "-227"
+  },
+  {
+   "tourn": "WTA Seoul (SF qualification)",
+   "t": "05:30",
+   "p1": "A. Ibragimova",
+   "p2": "S. Saito",
+   "prob": "55/45",
+   "pred": "1 (Ibragimova)",
+   "sets": "2-0",
+   "coef": "-278"
+  },
+  {
+   "tourn": "Challenger Guangzhou 2 (Final)",
+   "t": "06:00",
+   "p1": "P. Kotov",
+   "p2": "M. Sharipov",
+   "prob": "38/62",
+   "pred": "2 (Sharipov)",
+   "sets": "0-2",
+   "coef": "-120"
+  }
+ ]
+}

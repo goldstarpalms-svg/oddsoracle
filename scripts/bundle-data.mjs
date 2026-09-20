@@ -235,6 +235,7 @@ function buildSafeSlips() {
     }
   };
   for (const g of basketball?.forebet_today_all || []) {
+    if (/^(FT|Cancl)/i.test(String(g.status || ""))) continue; // finished/cancelled - not bettable
     const [h, a] = String(g.match || "").split(/ v /i);
     if (h && a) pushMl("🏀", g, h, a, g.t || "", g.prob, g.pred);
   }
@@ -249,6 +250,7 @@ function buildSafeSlips() {
   }
   // MLB (implied probability from real moneyline)
   for (const e of odds?.sports?.baseball_mlb?.events || []) {
+    if (e.start && new Date(e.start) <= new Date()) continue; // snapshot can contain games that have already been played
     let besth = null, besta = null;
     for (const [bk, v] of Object.entries(e.h2h || {})) {
       if (v.home && (besth == null || v.home < besth[0])) besth = [v.home, bk];
@@ -267,8 +269,15 @@ function buildSafeSlips() {
   for (const l of legs) if (!seen[l.game] || l.prob > seen[l.game].prob) seen[l.game] = l;
   const ranked = Object.values(seen).sort((a, b) => b.prob - a.prob);
 
-  const make = (n) => {
-    const list = ranked.slice(0, n);
+  // S20/S10/S5 reserve a few slots for non-football legs so the daily combo
+  // always mixes sports (user request 20/9). Reserved slots fall back to
+  // football when fewer than the slot count of other-sport legs exist.
+  // Every leg still meets the 80% bar.
+  const other = ranked.filter((l) => l.sport !== "⚽");
+  const foot = ranked.filter((l) => l.sport === "⚽");
+  const make = (n, slots) => {
+    const o = Math.min(slots, other.length);
+    const list = [...other.slice(0, o), ...foot.slice(0, n - o)].sort((a, b) => b.prob - a.prob);
     let total = 1, allp = 1;
     for (const l of list) { total *= l.odds; allp *= l.prob / 100; }
     return { legs: list, totalOdds: Math.round(total * 100) / 100, allHitProb: Math.round(allp * 1000) / 10 };
@@ -279,9 +288,9 @@ function buildSafeSlips() {
     minProb: 80,
     uniqueGames: ranked.length,
     totalLegs80: legs.length,
-    s20: make(20),
-    s10: make(10),
-    s5: make(5),
+    s20: make(20, 4),
+    s10: make(10, 2),
+    s5: make(5, 1),
   };
 }
 

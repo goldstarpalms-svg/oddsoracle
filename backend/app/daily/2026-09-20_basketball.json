@@ -1,0 +1,242 @@
+{
+ "date": "2026-09-20",
+ "generated_at": "2026-09-20T01:30:00+01:00",
+ "source": "forebet.com (fetched 20/9 01:30 WAT)",
+ "note": "All 8 games from forebet's basketball 'today' page. WNBA games kick off 00:00 WAT (20/9) - they are the big ones tonight. Asian Games women 05:50 + NBL (Australia) 06:00 WAT are early morning.",
+ "games": [
+  {
+   "league": "WNBA",
+   "t": "00:00",
+   "home": "Atlanta Dream",
+   "away": "Chicago Sky",
+   "fb_prob": [
+    75,
+    25
+   ],
+   "fb_pick": "1 (Atlanta Dream)",
+   "fb_score": "93-86",
+   "fb_avg": 176.8,
+   "fb_coef": "-1250",
+   "pick": "1 (Atlanta Dream)",
+   "conf": "HIGH",
+   "total": "avg 176.8",
+   "why": "Forebet says 75% vs 25% for Atlanta at home against Chicago. Strongest basketball line of the day."
+  },
+  {
+   "league": "LNBP (Mexico)",
+   "t": "23:15",
+   "home": "Astros",
+   "away": "Dorados",
+   "fb_prob": [
+    62,
+    38
+   ],
+   "fb_pick": "1 (Astros)",
+   "fb_score": "91-77",
+   "fb_avg": 169.3,
+   "fb_coef": "-185",
+   "pick": "1 (Astros)",
+   "conf": "MODERATE",
+   "total": "avg 169.3",
+   "why": "Forebet says 62% vs 38%. Astros at home in the Mexican league - decent but not a banker."
+  },
+  {
+   "league": "WNBA",
+   "t": "00:00",
+   "home": "Golden State Valkyries",
+   "away": "Seattle Storm",
+   "fb_prob": [
+    78,
+    22
+   ],
+   "fb_pick": "1 (Golden State Valkyries)",
+   "fb_score": "83-76",
+   "fb_avg": 159.8,
+   "fb_coef": "n/a",
+   "pick": "1 (Golden State Valkyries)",
+   "conf": "HIGH",
+   "total": "avg 159.8",
+   "why": "Forebet says 78% vs 22%. Valkyries at home - the clear favourite of the night."
+  },
+  {
+   "league": "Asian Games Women",
+   "t": "00:00",
+   "home": "Hong Kong",
+   "away": "Philippines",
+   "fb_prob": [
+    33,
+    67
+   ],
+   "fb_pick": "2 (Philippines)",
+   "fb_score": "63-91",
+   "fb_avg": 158.1,
+   "fb_coef": "n/a",
+   "pick": "2 (Philippines)",
+   "conf": "MODERATE",
+   "total": "avg 158.1",
+   "why": "Forebet says 33% vs 67% - Philippines expected to win by a chunk. Asia Games women's group."
+  },
+  {
+   "league": "Asian Games Women",
+   "t": "05:50",
+   "home": "Kazakhstan",
+   "away": "Japan",
+   "fb_prob": [
+    25,
+    75
+   ],
+   "fb_pick": "2 (Japan)",
+   "fb_score": "63-92",
+   "fb_avg": 148.6,
+   "fb_coef": "n/a",
+   "pick": "2 (Japan)",
+   "conf": "HIGH",
+   "total": "avg 148.6",
+   "why": "Forebet says 25% vs 75% for Japan early in the morning. Big expected margin."
+  },
+  {
+   "league": "NBL (Australia)",
+   "t": "06:00",
+   "home": "New Zealand Breakers",
+   "away": "Illawarra Hawks",
+   "fb_prob": [
+    44,
+    56
+   ],
+   "fb_pick": "2 (Illawarra Hawks)",
+   "fb_score": "93-98",
+   "fb_avg": 189.5,
+   "fb_coef": "-122",
+   "pick": "2 (Illawarra Hawks)",
+   "conf": "LOW",
+   "total": "avg 189.5 (high-scoring)",
+   "why": "Forebet says 44% vs 56% - nearly a coin flip, Hawks slight edge on the road. High total (avg 189.5) if you want to play totals."
+  },
+  {
+   "league": "Sweden 2 W",
+   "t": "15:00",
+   "home": "Skuru W",
+   "away": "Ostersund 2 W",
+   "fb_prob": [
+    57,
+    43
+   ],
+   "fb_pick": "1 (Skuru W)",
+   "fb_score": "61-53",
+   "fb_avg": 116.3,
+   "fb_coef": "n/a",
+   "pick": "1 (Skuru W)",
+   "conf": "LOW",
+   "total": "avg 116.3",
+   "why": "Forebet says 57% vs 43%. Finished game listed on forebet's today page - reference only."
+  },
+  {
+   "league": "WBL Women (NL)",
+   "t": "18:30",
+   "home": "Grasshoppers W",
+   "away": "Zwolle W",
+   "fb_prob": [
+    86,
+    14
+   ],
+   "fb_pick": "1 (Grasshoppers W)",
+   "fb_score": "93-55",
+   "fb_avg": 145.9,
+   "fb_coef": "n/a",
+   "pick": "1 (Grasshoppers W)",
+   "conf": "HIGH",
+   "total": "avg 145.9",
+   "why": "Forebet says 86% vs 14% - huge favourite. NOTE: forebet shows this as finished 0-0, so treat as reference only - do NOT put it on a slip."
+  }
+ ],
+ "forebet_today_all": [
+  {
+   "league": "WNBA",
+   "t": "00:00",
+   "match": "Atlanta Dream v Chicago Sky",
+   "prob": "75/25",
+   "pred": "1",
+   "score": "93-86",
+   "avg": 176.8,
+   "coef": "-1250",
+   "status": ""
+  },
+  {
+   "league": "LNBP (Mexico)",
+   "t": "23:15",
+   "match": "Astros v Dorados",
+   "prob": "62/38",
+   "pred": "1",
+   "score": "91-77",
+   "avg": 169.3,
+   "coef": "-185",
+   "status": ""
+  },
+  {
+   "league": "WNBA",
+   "t": "00:00",
+   "match": "Golden State Valkyries v Seattle Storm",
+   "prob": "78/22",
+   "pred": "1",
+   "score": "83-76",
+   "avg": 159.8,
+   "coef": "n/a",
+   "status": ""
+  },
+  {
+   "league": "Asian Games Women",
+   "t": "00:00",
+   "match": "Hong Kong v Philippines",
+   "prob": "33/67",
+   "pred": "2",
+   "score": "63-91",
+   "avg": 158.1,
+   "coef": "n/a",
+   "status": ""
+  },
+  {
+   "league": "Asian Games Women",
+   "t": "05:50",
+   "match": "Kazakhstan v Japan",
+   "prob": "25/75",
+   "pred": "2",
+   "score": "63-92",
+   "avg": 148.6,
+   "coef": "n/a",
+   "status": ""
+  },
+  {
+   "league": "NBL (Australia)",
+   "t": "06:00",
+   "match": "New Zealand Breakers v Illawarra Hawks",
+   "prob": "44/56",
+   "pred": "2",
+   "score": "93-98",
+   "avg": 189.5,
+   "coef": "-122",
+   "status": ""
+  },
+  {
+   "league": "Sweden 2 W",
+   "t": "15:00",
+   "match": "Skuru W v Ostersund 2 W",
+   "prob": "57/43",
+   "pred": "1",
+   "score": "61-53",
+   "avg": 116.3,
+   "coef": "n/a",
+   "status": "FT"
+  },
+  {
+   "league": "WBL Women (NL)",
+   "t": "18:30",
+   "match": "Grasshoppers W v Zwolle W",
+   "prob": "86/14",
+   "pred": "1",
+   "score": "93-55",
+   "avg": 145.9,
+   "coef": "n/a",
+   "status": "FT"
+  }
+ ]
+}

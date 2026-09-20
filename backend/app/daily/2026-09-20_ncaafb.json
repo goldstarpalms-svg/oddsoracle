@@ -1,0 +1,297 @@
+{
+ "source": "forebet american-football (NCAA) 20/9 evening slate (fetched 20/9 01:30 WAT via forebet predictions-today)",
+ "fetchedAt": "2026-09-20T00:30:00.000Z",
+ "note": "Tonight's live/upcoming slate from forebet's today page (fetched 01:30 WAT). Daytime games on the page had already finished. Times are WAT; '21/9' = kick-off after midnight WAT.",
+ "games": [
+  {
+   "match": "Arkansas-Pine Bluff v Central State (OH)",
+   "home": "Arkansas-Pine Bluff",
+   "away": "Central State (OH)",
+   "league": "NCAA",
+   "t": "22:00",
+   "prob": "59/41",
+   "pred": "1",
+   "score": "28-21"
+  },
+  {
+   "match": "Charleston Southern v Point University",
+   "home": "Charleston Southern",
+   "away": "Point University",
+   "league": "NCAA",
+   "t": "23:00",
+   "prob": "73/27",
+   "pred": "1",
+   "score": "31-9"
+  },
+  {
+   "match": "Eastern Kentucky v Dayton",
+   "home": "Eastern Kentucky",
+   "away": "Dayton",
+   "league": "NCAA",
+   "t": "23:00",
+   "prob": "31/69",
+   "pred": "2",
+   "score": "17-44"
+  },
+  {
+   "match": "William & Mary v Fordham",
+   "home": "William & Mary",
+   "away": "Fordham",
+   "league": "NCAA",
+   "t": "23:00",
+   "prob": "79/21",
+   "pred": "1",
+   "score": "35-18"
+  },
+  {
+   "match": "Gardner-Webb v North Carolina Central",
+   "home": "Gardner-Webb",
+   "away": "North Carolina Central",
+   "league": "NCAA",
+   "t": "23:00",
+   "prob": "33/67",
+   "pred": "2",
+   "score": "35-50"
+  },
+  {
+   "match": "Towson v Morgan State",
+   "home": "Towson",
+   "away": "Morgan State",
+   "league": "NCAA",
+   "t": "23:00",
+   "prob": "45/55",
+   "pred": "2",
+   "score": "28-30"
+  },
+  {
+   "match": "Elon v Sacred Heart",
+   "home": "Elon",
+   "away": "Sacred Heart",
+   "league": "NCAA",
+   "t": "23:00",
+   "prob": "65/35",
+   "pred": "1",
+   "score": "31-10"
+  },
+  {
+   "match": "Campbell v North Carolina A&T",
+   "home": "Campbell",
+   "away": "North Carolina A&T",
+   "league": "NCAA",
+   "t": "23:00",
+   "prob": "61/39",
+   "pred": "1",
+   "score": "27-26"
+  },
+  {
+   "match": "Chattanooga v Wofford",
+   "home": "Chattanooga",
+   "away": "Wofford",
+   "league": "NCAA",
+   "t": "23:00",
+   "prob": "40/60",
+   "pred": "2",
+   "score": "10-34"
+  },
+  {
+   "match": "Alabama A&M v Bowie State",
+   "home": "Alabama A&M",
+   "away": "Bowie State",
+   "league": "NCAA",
+   "t": "21/9 00:00",
+   "prob": "62/38",
+   "pred": "1",
+   "score": "26-24"
+  },
+  {
+   "match": "Tarleton State v Merrimack",
+   "home": "Tarleton State",
+   "away": "Merrimack",
+   "league": "NCAA",
+   "t": "21/9 00:00",
+   "prob": "82/18",
+   "pred": "1",
+   "score": "45-10"
+  },
+  {
+   "match": "Western Illinois v Morehead State",
+   "home": "Western Illinois",
+   "away": "Morehead State",
+   "league": "NCAA",
+   "t": "21/9 00:00",
+   "prob": "65/35",
+   "pred": "1",
+   "score": "42-7"
+  },
+  {
+   "match": "Florida A&M v Tennessee State",
+   "home": "Florida A&M",
+   "away": "Tennessee State",
+   "league": "NCAA",
+   "t": "21/9 00:00",
+   "prob": "71/29",
+   "pred": "1",
+   "score": "27-13"
+  },
+  {
+   "match": "North Alabama v Alcorn State",
+   "home": "North Alabama",
+   "away": "Alcorn State",
+   "league": "NCAA",
+   "t": "21/9 00:00",
+   "prob": "46/54",
+   "pred": "2",
+   "score": "26-38"
+  },
+  {
+   "match": "Southeast Missouri State v Central Arkansas",
+   "home": "Southeast Missouri State",
+   "away": "Central Arkansas",
+   "league": "NCAA",
+   "t": "21/9 00:00",
+   "prob": "54/46",
+   "pred": "1",
+   "score": "30-28"
+  },
+  {
+   "match": "West Florida v Austin Peay",
+   "home": "West Florida",
+   "away": "Austin Peay",
+   "league": "NCAA",
+   "t": "21/9 00:00",
+   "prob": "69/31",
+   "pred": "1",
+   "score": "28-17"
+  },
+  {
+   "match": "Incarnate Word v Houston Christian",
+   "home": "Incarnate Word",
+   "away": "Houston Christian",
+   "league": "NCAA",
+   "t": "21/9 00:00",
+   "prob": "70/30",
+   "pred": "1",
+   "score": "27-16"
+  },
+  {
+   "match": "Furman v South Carolina State",
+   "home": "Furman",
+   "away": "South Carolina State",
+   "league": "NCAA",
+   "t": "21/9 00:00",
+   "prob": "31/69",
+   "pred": "2",
+   "score": "14-28"
+  },
+  {
+   "match": "Southern v Louisiana Christian",
+   "home": "Southern",
+   "away": "Louisiana Christian",
+   "league": "NCAA",
+   "t": "21/9 00:00",
+   "prob": "26/74",
+   "pred": "2",
+   "score": "10-31"
+  },
+  {
+   "match": "South Dakota State v Youngstown State",
+   "home": "South Dakota State",
+   "away": "Youngstown State",
+   "league": "NCAA",
+   "t": "21/9 00:00",
+   "prob": "69/31",
+   "pred": "1",
+   "score": "35-17"
+  },
+  {
+   "match": "Mississippi Valley State v Delta State",
+   "home": "Mississippi Valley State",
+   "away": "Delta State",
+   "league": "NCAA",
+   "t": "21/9 00:00",
+   "prob": "29/71",
+   "pred": "2",
+   "score": "3-41"
+  },
+  {
+   "match": "Jackson State v Tuskegee",
+   "home": "Jackson State",
+   "away": "Tuskegee",
+   "league": "NCAA",
+   "t": "21/9 00:00",
+   "prob": "74/26",
+   "pred": "1",
+   "score": "28-7"
+  },
+  {
+   "match": "Prairie View A&M v Stephen F. Austin",
+   "home": "Prairie View A&M",
+   "away": "Stephen F. Austin",
+   "league": "NCAA",
+   "t": "21/9 01:00",
+   "prob": "37/63",
+   "pred": "2",
+   "score": "27-31"
+  },
+  {
+   "match": "UT Rio Grande Valley v McNeese",
+   "home": "UT Rio Grande Valley",
+   "away": "McNeese",
+   "league": "NCAA",
+   "t": "21/9 01:00",
+   "prob": "75/25",
+   "pred": "1",
+   "score": "41-7"
+  },
+  {
+   "match": "Weber State v Northwestern State",
+   "home": "Weber State",
+   "away": "Northwestern State",
+   "league": "NCAA",
+   "t": "21/9 01:00",
+   "prob": "74/26",
+   "pred": "1",
+   "score": "48-19"
+  },
+  {
+   "match": "Northern Colorado v Northeastern State",
+   "home": "Northern Colorado",
+   "away": "Northeastern State",
+   "league": "NCAA",
+   "t": "21/9 01:00",
+   "prob": "35/65",
+   "pred": "2",
+   "score": "17-29"
+  },
+  {
+   "match": "Utah Tech v Northern Arizona",
+   "home": "Utah Tech",
+   "away": "Northern Arizona",
+   "league": "NCAA",
+   "t": "21/9 01:00",
+   "prob": "32/68",
+   "pred": "2",
+   "score": "21-35"
+  },
+  {
+   "match": "Cal Poly v San Diego",
+   "home": "Cal Poly",
+   "away": "San Diego",
+   "league": "NCAA",
+   "t": "21/9 01:00",
+   "prob": "58/42",
+   "pred": "1",
+   "score": "34-27"
+  },
+  {
+   "match": "UC Davis v Stetson",
+   "home": "UC Davis",
+   "away": "Stetson",
+   "league": "NCAA",
+   "t": "21/9 03:00",
+   "prob": "79/21",
+   "pred": "1",
+   "score": "40-14"
+  }
+ ]
+}
