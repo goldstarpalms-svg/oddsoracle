@@ -25,13 +25,16 @@ export default function PickGrid({
   graceMinutes?: number;
   emptyMessage?: string;
 }) {
+  // now === 0 until the component mounts, so the server and the first client
+  // render agree; expiry kicks in on the first tick.
   const now = useNow(60_000);
   const [showFinished, setShowFinished] = useState(false);
 
   const live: CardModel[] = [];
   const done: CardModel[] = [];
   for (const c of cards) {
-    if (c.status === "SETTLED" || isFinished(kickoffMs(dataDate, c.kickoff), now, graceMinutes)) {
+    const expired = now > 0 && isFinished(kickoffMs(dataDate, c.kickoff), now, graceMinutes);
+    if (c.status === "SETTLED" || expired) {
       done.push(c);
     } else {
       live.push(c);

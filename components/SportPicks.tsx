@@ -18,6 +18,8 @@ interface Props {
   sport: "football" | "basketball" | "tennis" | "other";
   items: AnyPick[];
   combo?: { legs: ComboLeg[]; totalOdds: number; allHitProb: number } | null;
+  /** false when the whole board has already kicked off — skip empty groups */
+  hasLive?: boolean;
 }
 
 const isFb = (p: AnyPick): p is FbPick => "fb_pct" in p || "model" in p;
@@ -55,7 +57,7 @@ const amSportKey = (p: AmPick): string =>
           ? "ncaafb"
           : "football";
 
-export default function SportPicks({ sport, items, combo }: Props) {
+export default function SportPicks({ sport, items, combo, hasLive = true }: Props) {
   const [filter, setFilter] = useState<Filter>("all");
   const [sort, setSort] = useState<Sort>("time");
   const [oddsRange, setOddsRange] = useState<OddsRange>("any");
@@ -223,18 +225,20 @@ export default function SportPicks({ sport, items, combo }: Props) {
         <div className="callout callout-blue">
           No picks match this filter today — switch to “All” to see every game.
         </div>
-      ) : (
+      ) : hasLive ? (
         <div className="league-groups">
-          {groups.map(([lg, picks]) => (
-            <section className="league-group" key={lg}>
-              <div className="league-head">
-                <h3>{lg}</h3>
-                <span className="league-count">{picks.length} game{picks.length > 1 ? "s" : ""}</span>
-              </div>
-              <PickGrid dataDate={DATA_DATE} cards={picks.map(toCard)} />
-            </section>
-          ))}
+            {groups.map(([lg, picks]) => (
+              <section className="league-group" key={lg}>
+                <div className="league-head">
+                  <h3>{lg}</h3>
+                  <span className="league-count">{picks.length} game{picks.length > 1 ? "s" : ""}</span>
+                </div>
+                <PickGrid dataDate={DATA_DATE} cards={picks.map(toCard)} />
+              </section>
+            ))}
         </div>
+      ) : (
+        <PickGrid dataDate={DATA_DATE} cards={filtered.map(toCard)} />
       )}
     </div>
   );

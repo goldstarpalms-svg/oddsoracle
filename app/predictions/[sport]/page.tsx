@@ -18,6 +18,7 @@ import {
   tnPicks,
 } from "@/lib/rich";
 import SportPicks from "@/components/SportPicks";
+import { isFinished, kickoffMs } from "@/lib/kickoff";
 import SportIntel from "@/components/SportIntel";
 import AdSlot from "@/components/AdSlot";
 import JsonLd from "@/components/JsonLd";
@@ -109,6 +110,12 @@ export default function SportPage({ params }: { params: { sport: Sport } }) {
     ? bb.length
     : tn.length;
 
+  const dataDate = (SNAPSHOT as any).dataDate as string | undefined;
+  const nowMs = Date.now();
+  const hasLive = items.some(
+    (p: any) => !p.result && !isFinished(kickoffMs(dataDate, p.t ?? (p as any).time_wat), nowMs)
+  );
+
   const names = items.map((p: any) =>
     "fb_pct" in p || "model" in p ? `${p.home} vs ${p.away}` : "p1" in p ? `${p.p1} vs ${p.p2}` : `${p.home} vs ${p.away}`
   );
@@ -167,7 +174,7 @@ export default function SportPage({ params }: { params: { sport: Sport } }) {
           <SportIntel sport={sport} />
 
           {s > 0 ? (
-            <SportPicks
+            <SportPicks hasLive={hasLive}
               sport={sport}
               items={items as any}
               combo={sport === "football" ? sum.combo : null}
