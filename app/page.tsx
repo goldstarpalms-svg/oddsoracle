@@ -2,7 +2,7 @@ import Link from "next/link";
 import { SITE } from "@/lib/site";
 import { bbPicks, fbPicks, fmtDate, freshness, summary, tnPicks, hockeyPicks, forebetBbPicks, handballPicks, oracleBoardRows } from "@/lib/rich";
 import SNAPSHOT from "@/lib/data-snapshot.json";
-import PredictionCard from "@/components/PredictionCardV2";
+import PickGrid from "@/components/PickGrid";
 import { cardFromBasketball, cardFromFootball, cardFromTennis } from "@/lib/card";
 import BestPicks from "@/components/BestPicks";
 import LiveBoard from "@/components/LiveBoard";
@@ -190,20 +190,16 @@ export default function Home() {
             <Link href="/predictions/" className="btn btn-ghost">View all →</Link>
           </div>
 
-          <div className="pred-grid" style={{ alignItems: "start" }}>
-            {featured.map((p: any, i) => (
-              <PredictionCard
-                key={p.id || i}
-                card={
-                  "model" in p || "fb_pct" in p
-                    ? cardFromFootball(p)
-                    : "fb_prob" in p
-                      ? cardFromBasketball(p)
-                      : cardFromTennis(p)
-                }
-              />
-            ))}
-          </div>
+          <PickGrid
+            dataDate={sum.dataDate}
+            cards={featured.map((p: any) =>
+              "model" in p || "fb_pct" in p
+                ? cardFromFootball(p)
+                : "fb_prob" in p
+                  ? cardFromBasketball(p)
+                  : cardFromTennis(p)
+            )}
+          />
         </div>
       </section>
 
