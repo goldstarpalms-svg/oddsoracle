@@ -111,6 +111,48 @@ export default function MethodologyPage() {
               accumulators lose so often.
             </p>
 
+            <h2>The 4.0 terminal: board, slip lab, and the new track record</h2>
+            <p>
+              Everything now lives on one <b>Oracle Model Board</b>: every scored event as one row —
+              model probability, market-implied probability, edge, EV, Oracle Score, engine
+              consensus, data quality, model version and timestamp. The board is grouped into
+              STRONG VALUE, VALUE, HIGH CONFIDENCE, FAIR and PASS sections, and you can filter by
+              league, edge, confidence or signal. One canonical daily snapshot feeds the homepage,
+              the board, the picks pages and the Slip Lab — the site never computes its own
+              “today”.
+            </p>
+            <p>
+              <b>Signals</b>: <span className="sig sig-strong">STRONG VALUE</span> a large,
+              well-supported edge on fresh prices · <span className="sig sig-value">VALUE</span> a
+              positive edge worth noting · <span className="sig sig-conf">HIGH CONFIDENCE</span> the
+              model is 80%+ sure of the outcome — <b>which is not the same as value</b> ·{" "}
+              <span className="sig sig-fair">FAIR</span> price and model agree ·{" "}
+              <span className="sig sig-pass">PASS / NO EDGE</span> the engine declined. A pick can be
+              81% likely and still a PASS: if the market prices it at 84.8%, the edge is −3.8pp and
+              you would be paying too much. We publish those declines instead of hiding them.
+            </p>
+            <p>
+              <b>Oracle Score (0–100)</b> is the engine&rsquo;s quality rating for a prediction —
+              built from edge, EV, consensus, data quality and price freshness. It is deliberately
+              <b> not</b> the chance of winning; that is the model-probability column, always shown
+              separately.
+            </p>
+            <p>
+              The <b>Slip Lab</b> now ends with a final read: joint model probability, total odds,
+              correlation risk (same-match and same-league legs are not independent), a verdict,
+              and the weakest leg with stronger real-data alternatives. It never calls a slip
+              “safe” — it describes the structure so you can judge it.
+            </p>
+            <p>
+              <b>Track Record 2.0</b> adds time windows (7/14/30/90 days and all-time), a
+              profit-and-loss curve, calibration against the perfect line, Brier score and log loss
+              versus the 50/50 baseline, and breakdowns by sport and market. Every number carries
+              its sample size, and losing picks are never deleted. Table tennis is first-class:
+              first-set O/U 18.5/19.5 and sets O/U 3.5 over the full 155,000-match Setka Cup
+              history, with real-data player dossiers — and anything unknown is shown as
+              unavailable, never invented.
+            </p>
+
             <h2>Data sources, honestly</h2>
             <p>
               The engine runs on: <b>Forebet&rsquo;s public boards</b> (probabilities, scores,

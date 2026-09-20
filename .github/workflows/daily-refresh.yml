@@ -56,6 +56,9 @@ jobs:
           node scripts/bundle-data.mjs
           node scripts/fetch-final.mjs
 
+      - name: QA — canonical snapshot + 4.0 invariants (blocks bad deploys)
+        run: node scripts/qa-checks.mjs
+
       - name: Commit if anything changed
         run: |
           git config user.name "oddsoracle-refresh"

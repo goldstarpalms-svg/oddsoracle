@@ -3,14 +3,14 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
+// 4.0 mobile bottom bar: the five core destinations (per master spec).
+// Sport sections stay one tap away from Home and Picks.
 const ITEMS = [
   { href: "/", icon: "🏠", label: "Home" },
+  { href: "/predictions/", icon: "🎯", label: "Picks" },
   { href: "/live/", icon: "", label: "Live" },
-  { href: "/predictions/football/", icon: "⚽", label: "Football" },
-  { href: "/predictions/basketball/", icon: "🏀", label: "Hoops" },
-  { href: "/predictions/tennis/", icon: "🎾", label: "Tennis" },
-  { href: "/table-tennis/", icon: "🏓", label: "TT" },
-  { href: "/track-record/", icon: "📈", label: "Record" },
+  { href: "/slip/", icon: "🧪", label: "Slip" },
+  { href: "/board/", icon: "🔮", label: "Oracle" },
 ];
 
 export default function BottomNav() {

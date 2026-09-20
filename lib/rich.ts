@@ -443,6 +443,76 @@ export function tnPicks(): TnPick[] {
 
 // ---------- summary + combo ----------------------------------------------
 
+// ---------------------------------------------------------------- 4.0 board
+export interface BoardRow {
+  id: string;
+  event: string;
+  league: string;
+  time: string; // "HH:MM"
+  market: string;
+  selection: string;
+  selLabel: string;
+  modelProb: number; // % for the selected outcome
+  marketProb: number; // % implied by the price
+  edge: number; // pp
+  ev: number; // %
+  signal: string;
+  oracleScore: number;
+  consensus: string; // "2/2"
+  dataQuality: number;
+  modelVersion: string;
+  ts: string; // ISO data timestamp
+  live: boolean;
+  modelFull: number[];
+  marketFull: number[];
+  odds: number;
+  whyPlus: string[];
+  whyMinus: string[];
+  mcTop: string[];
+}
+
+const SEL_LABEL: Record<string, string> = {
+  "1": "Home win", X: "Draw", "2": "Away win",
+  Over: "Over", Under: "Under", "BTTS Yes": "BTTS Yes", "BTTS No": "BTTS No",
+};
+
+export function oracleBoardRows(): BoardRow[] {
+  return (SNAPSHOT.football || [])
+    .filter((r) => r.oracle && r.oracle.signal)
+    .map((r: any) => {
+      const o = r.oracle;
+      const i = o.selection === "1" ? 0 : o.selection === "X" ? 1 : o.selection === "2" ? 2 : 0;
+      const mp = (o.model_probability || [0, 0, 0])[i] ?? 0;
+      const kmp = (o.market_probability || [0, 0, 0])[i] ?? 0;
+      return {
+        id: o.prediction_id,
+        event: o.event || `${r.home} v ${r.away}`,
+        league: o.league || r.lg || "—",
+        time: r.t || "",
+        market: o.market || "1X2",
+        selection: o.selection || "—",
+        selLabel: SEL_LABEL[o.selection] || o.selection || "—",
+        modelProb: Math.round(mp * 10) / 10,
+        marketProb: Math.round(kmp * 10) / 10,
+        edge: Math.round((o.edge ?? 0) * 10) / 10,
+        ev: Math.round((o.ev_pct ?? 0) * 10) / 10,
+        signal: o.signal,
+        oracleScore: o.oracle_score ?? 0,
+        consensus: o.agreement || "—",
+        dataQuality: o.data_quality ?? 0,
+        modelVersion: o.model_version || "—",
+        ts: o.data_timestamp || "",
+        live: !!o.prices_live,
+        modelFull: (o.model_probability || []).map((x: number) => Math.round(x * 10) / 10),
+        marketFull: (o.market_probability || []).map((x: number) => Math.round(x * 10) / 10),
+        odds: o.odds ?? 0,
+        whyPlus: (o.why?.plus || []).slice(0, 5),
+        whyMinus: (o.why?.minus || []).slice(0, 5),
+        mcTop: (o.mc?.top2 || []).slice(0, 2),
+      };
+    });
+}
+
 export function summary(): DailySummary {
   const fb = fbPicks();
   const bb = bbPicks();

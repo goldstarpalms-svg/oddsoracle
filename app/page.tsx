@@ -1,11 +1,12 @@
 import Link from "next/link";
 import { SITE } from "@/lib/site";
-import { bbPicks, fbPicks, fmtDate, freshness, summary, tnPicks, hockeyPicks, forebetBbPicks, handballPicks } from "@/lib/rich";
+import { bbPicks, fbPicks, fmtDate, freshness, summary, tnPicks, hockeyPicks, forebetBbPicks, handballPicks, oracleBoardRows } from "@/lib/rich";
+import SNAPSHOT from "@/lib/data-snapshot.json";
 import { FootballCard, BasketballCard, TennisCard } from "@/components/RichCard";
 import BestPicks from "@/components/BestPicks";
 import LivePicks from "@/components/LivePicks";
 import SafeCombos from "@/components/SafeCombos";
-import OracleTerminal from "@/components/OracleTerminal";
+import OracleBoard from "@/components/OracleBoard";
 import AdSlot from "@/components/AdSlot";
 import FaqList from "@/components/FaqList";
 import JsonLd from "@/components/JsonLd";
@@ -67,33 +68,38 @@ export default function Home() {
       <JsonLd data={featuredLd} />
       <JsonLd data={faqLd} />
 
-      {/* HERO */}
-      <section className="hero">
+      {/* HERO — 4.0 intelligence-first */}
+      <section className="hero hero-4">
         <div className="container">
           <div className="hero-inner">
             <div>
               <div className="hero-badge">
-                <span className="dot" /> {fmtDate(sum.dataDate)} · {sum.total} picks
+                <span className="dot" /> SPORTS INTELLIGENCE TERMINAL · {fmtDate(sum.dataDate)} WAT
                 <span className={`fresh-chip fresh-${freshness().level}`}>{freshness().label}</span>
               </div>
               <h1>
                 Sports <span className="grad-text">intelligence</span>, not guesswork.
               </h1>
               <p className="hero-tagline">
-                Probability. Value. Evidence.
+                Every number on every pick is inspectable: model, market, edge, EV, evidence.
               </p>
               <p className="lead">
-                Every game is scored by the OddsOracle engine: multiple independent models, a
-                10,000-match simulation, the bookmaker&rsquo;s price, and the edge between them.
-                When there is no edge, the engine says <b>PASS</b>. No hype, no guarantees — just
-                the numbers, in plain English.
+                The OddsOracle engine scores every event with a Poisson model, a 10,000-match
+                simulation and the live bookmaker price — then shows the edge between them in plain
+                English. When there is no edge, the engine says <b>PASS</b>. No hype, no
+                guarantees, no &ldquo;safe&rdquo; promises.
               </p>
+              <div className="hero-status">
+                <span><i>model</i> v{SNAPSHOT.generatedAt ? "3.0" : "—"} · {sum.total} events scored</span>
+                <span><i>live prices</i> {SNAPSHOT.football?.filter((r: any) => r.oracle?.prices_live).length ?? 0}/{sum.football} football</span>
+                <span><i>snapshot</i> {new Date(SNAPSHOT.generatedAt || 0).toLocaleString("en-NG", { day: "numeric", month: "short", hour: "2-digit", minute: "2-digit", timeZone: "Africa/Lagos" })} WAT</span>
+              </div>
               <div className="hero-actions">
-                <Link href="/predictions/" className="btn btn-primary">
-                  View Today&rsquo;s Picks →
+                <Link href="/board/" className="btn btn-primary">
+                  Explore the Oracle Board →
                 </Link>
-                <Link href="/predictions/football/" className="btn btn-ghost">
-                  Football Tips
+                <Link href="/slip/" className="btn btn-ghost">
+                  Analyze a Slip
                 </Link>
               </div>
 
@@ -122,11 +128,12 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ORACLE TERMINAL — today's model board */}
-      <OracleTerminal
-        fb={fb}
-        totalEvents={fb.length + bb.length + tn.length + hockeyPicks().length + forebetBbPicks().length + handballPicks().length + sum.other}
-      />
+      {/* ORACLE MODEL BOARD — 4.0 signature, compact */}
+      <section className="sec-tight">
+        <div className="container">
+          <OracleBoard rows={oracleBoardRows()} compact />
+        </div>
+      </section>
 
       {/* STATS BAND */}
       <section className="sec-tight">

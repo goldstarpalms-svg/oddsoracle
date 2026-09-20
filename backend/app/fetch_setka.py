@@ -39,6 +39,7 @@ UA = {"User-Agent": "OddsOracle/1.0 (setka-cup intelligence)"}
 
 RECENT_N = 20
 H2H_RECENT = 12
+MIN_MATCHES = 5
 
 
 def clamp(v, lo, hi):
@@ -171,6 +172,11 @@ def player_stats(log):
         "matches": len(log),
         "wins": sum(1 for r in log if r["won"]),
         "win_rate": sum(1 for r in log if r["won"]) / len(log),
+        "avg_sets": statistics.fmean(r["nsets"] for r in log),
+        "ge4_rate": sum(1 for r in log if r["nsets"] >= 4) / len(log),
+        "last10": [1 if r["won"] else 0 for r in log][-10:],
+        "pts_per_set": statistics.fmean(r["points_for"] / r["nsets"] for r in log),
+        "pts_against_per_set": statistics.fmean(r["points_against"] / r["nsets"] for r in log),
         "avg_point_diff": statistics.fmean(r["points_for"] - r["points_against"] for r in log),
         "avg_set_diff": statistics.fmean((r["first_won"] - (not r["first_won"])) * 0 for r in log),  # placeholder, fixed below
         "avg_total_points": statistics.fmean(totals),
@@ -320,6 +326,50 @@ def predict(a, b, a_st, b_st, h, g, elo_a, elo_b):
         },
         "data": {"p1_matches": a_st["matches"] if a_st else 0, "p2_matches": b_st["matches"] if b_st else 0},
         "types": {"p1": player_type(a_st, g), "p2": player_type(b_st, g)},
+        "sets": sets_block(a_st, b_st, g),
+        "profiles": {
+            "p1": profile(a_st),
+            "p2": profile(b_st),
+        },
+    }
+
+
+def _v(st, k, d):
+    return st[k] if st and st.get(k) is not None else d
+
+
+def sets_block(a_st, b_st, g):
+    """Sets O/U 3.5: real-data blend of both players' 4+ set rates + global."""
+    ge4_a = _v(a_st, "ge4_rate", g["sets_over_3_5_rate"])
+    ge4_b = _v(b_st, "ge4_rate", g["sets_over_3_5_rate"])
+    p_ge4 = clamp(0.5 * (ge4_a + ge4_b) * 0.65 + g["sets_over_3_5_rate"] * 0.35, 0.05, 0.95)
+    exp_sets = clamp(
+        0.5 * (_v(a_st, "avg_sets", g["avg_sets_played"]) + _v(b_st, "avg_sets", g["avg_sets_played"])) * 0.65
+        + g["avg_sets_played"] * 0.35,
+        3.0, 5.0,
+    )
+    return {
+        "expected": round(exp_sets, 2),
+        "p_over_3_5": round(p_ge4, 3),
+        "pick": "Over 3.5 sets" if p_ge4 >= 0.5 else "Under 3.5 sets",
+        "prob": round(max(p_ge4, 1 - p_ge4), 3),
+    }
+
+
+def profile(st):
+    """Real-data player dossier. None fields = unavailable (no fabricated data)."""
+    if not st:
+        return None
+    return {
+        "n": st["matches"],
+        "wins": st["wins"],
+        "win_rate": round(st["win_rate"] * 100, 1),
+        "recent_win_rate": round(st["recent_win_rate"] * 100, 1),
+        "pts_per_set": round(st["pts_per_set"], 1),
+        "pts_against_per_set": round(st["pts_against_per_set"], 1),
+        "first_set_win_rate": round(st["first_set_win_rate"] * 100, 1),
+        "last10": st["last10"],
+        "thin": st["matches"] < MIN_MATCHES,
     }
 
 
@@ -443,6 +493,7 @@ def main():
         "fetched_at": time.strftime("%Y-%m-%dT%H:%M:%S%z"),
         "source": "setkacup official API + 155k-match history",
         "history": {"matches": nhist, "players": len(players)},
+        "global": {k: (round(v, 4) if isinstance(v, float) else v) for k, v in g.items()},
         "games": out_games,
     }
     os.makedirs(DAILY, exist_ok=True)

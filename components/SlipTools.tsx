@@ -1,6 +1,7 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { Suspense, useEffect, useMemo, useState } from "react";
+import { useSearchParams } from "next/navigation";
 import SNAPSHOT from "@/lib/data-snapshot.json";
 
 interface SlipPick {
@@ -360,7 +361,7 @@ function ourSide(p: SlipPick): "1" | "X" | "2" | "O" | "U" | "BT" | "NT" | null 
 
 
 
-export default function SlipTools() {
+function SlipToolsInner() {
   const [data, setData] = useState<ApiData | null>(null);
   const [error, setError] = useState(false);
   const [tab, setTab] = useState<Tab>("build");
@@ -429,6 +430,32 @@ export default function SlipTools() {
   }, []);
 
   const picks = useMemo(() => (data ? flatten(data.rich) : []), [data]);
+
+  // 4.0: deep link ?add=<event> from the Oracle Model Board ("Analyze in Slip Lab").
+  const searchParams = useSearchParams();
+  const addEvent = searchParams?.get("add");
+  const [addMsg, setAddMsg] = useState<string | null>(null);
+  const [addMissing, setAddMissing] = useState<string | null>(null);
+  useEffect(() => {
+    if (!addEvent || picks.length === 0) return;
+    const target = addEvent.toLowerCase().replace(/\s+/g, " ");
+    const home = target.split(" v ")[0];
+    const away = (target.split(" v ")[1] || "").trim();
+    const hit = picks.find(
+      (p) =>
+        (home && p.home.toLowerCase().includes(home.slice(0, 8))) &&
+        (!away || p.away.toLowerCase().includes(away.slice(0, 8))) ||
+        (away && p.away.toLowerCase().includes(away.slice(0, 8))) &&
+        (home && p.home.toLowerCase().includes(home.slice(0, 8)))
+    );
+    if (hit && !selected.includes(hit.id)) {
+      setSelected((s) => [...s, hit.id]);
+      setAddMsg(`${hit.home} vs ${hit.away} — ${hit.pick} added to your slip.`);
+    } else if (!hit) {
+      setAddMissing(`Couldn't match "${addEvent}" to today's covered games. Build it manually from the list.`);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [picks, addEvent]);
 
   const visible = useMemo(() => {
     if (!query.trim()) return picks;
@@ -650,6 +677,12 @@ export default function SlipTools() {
 
       {tab === "build" ? (
         <div className="slip-layout">
+          {(addMsg || addMissing) && (
+            <div className={addMissing ? "callout callout-red" : "callout callout-blue"}>
+              <b>From the Oracle Board:</b> {addMsg || addMissing}{" "}
+              <button className="btn btn-ghost btn-sm" style={{ marginLeft: 8 }} onClick={() => { setAddMsg(null); setAddMissing(null); }}>Dismiss</button>
+            </div>
+          )}
           {/* PICK LIST */}
           <div className="slip-list">
             <input
@@ -873,11 +906,47 @@ export default function SlipTools() {
                   issues.push(`Model says this slip hits ~${modelProb}% of the time, but the combined price implies ~${implied}% — you are paying more than the model sees.`);
                 if (modelProb != null && implied != null && modelProb >= implied)
                   issues.push(`Model (~${modelProb}%) sits above the price-implied chance (~${implied}%) — the combined price looks fair-to-generous for the risk.`);
+                // 4.0: weakest leg + replacement candidates (different match, stronger model)
+                const probbed = matched.filter((m) => typeof m.prob === "number" && m.prob > 0);
+                const weakest = probbed.length
+                  ? [...probbed].sort((a, b) => (a.prob! - b.prob!))[0]
+                  : null;
+                const weakAlternates = weakest
+                  ? picks
+                      .filter((c) =>
+                        c.id !== weakest.id &&
+                        typeof c.prob === "number" &&
+                        (c.prob! - (weakest.prob || 0)) >= 8 &&
+                        !(c.home.toLowerCase() === weakest.home.toLowerCase() && c.away.toLowerCase() === weakest.away.toLowerCase())
+                      )
+                      .sort((a, b) => (b.prob! - a.prob!))
+                      .slice(0, 2)
+                  : [];
+                const nRisk = issues.length;
                 return (
                   <div className="callout" style={{ borderLeft: "3px solid var(--accent, #4f46e5)", marginTop: 12 }}>
-                    <b>Slip risk check — {matched.length} leg{matched.length > 1 ? "s" : ""} analyzed:</b>{" "}
+                    <b>Slip analysis — final read ({matched.length} leg{matched.length > 1 ? "s" : ""}):</b>{" "}
                     {totalOdds != null && <>combined odds <b>@{totalOdds.toFixed(2)}</b>{" "}</>}
                     {modelProb != null && <>model chance to land all <b>~{modelProb}%</b></>}
+                    {modelProb != null && (
+                      <div style={{ marginTop: 6, fontSize: 13 }}>
+                        {nRisk === 0 && modelProb >= 35
+                          ? <><b>Verdict:</b> structurally clean — independent legs, no negative edge, and the model still prices this at a plausible rate. Size stays at 1 unit.</>
+                          : modelProb >= 35
+                          ? <><b>Verdict:</b> workable slip, but the issues below change the math — read them before staking.</>
+                          : <><b>Verdict:</b> at ~{modelProb}% the slip is long-shot territory. Most of these legs are a lottery ticket, not an edge.</>
+                        }
+                      </div>
+                    )}
+                    {weakest && (
+                      <div style={{ marginTop: 8, fontSize: 13 }}>
+                        <b>Weakest leg:</b> {weakest.home} vs {weakest.away} — {weakest.pick} (model ~{Math.round(weakest.prob!)}%
+                        {typeof weakest.edge === "number" ? `, edge ${weakest.edge >= 0 ? "+" : ""}${weakest.edge}pp` : ""}).
+                        {weakAlternates.length > 0 && (
+                          <> Possible replacements with a stronger model read: {weakAlternates.map((c) => `${c.home} vs ${c.away} — ${c.pick} (~${Math.round(c.prob!)}%)`).join("; ")}. Swapping weak legs for stronger ones is usually how slips stop being lottery tickets.</>
+                        )}
+                      </div>
+                    )}
                     {issues.length === 0 ? (
                       <div style={{ marginTop: 4 }}>No structural issues found — legs are independent and none has negative model edge.</div>
                     ) : (
@@ -1482,5 +1551,13 @@ export default function SlipTools() {
         </div>
       )}
     </div>
+  );
+}
+
+export default function SlipTools() {
+  return (
+    <Suspense fallback={<div className="callout callout-blue">Loading Slip Lab…</div>}>
+      <SlipToolsInner />
+    </Suspense>
   );
 }
