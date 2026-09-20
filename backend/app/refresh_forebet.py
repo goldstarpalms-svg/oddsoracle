@@ -753,7 +753,7 @@ def main():
         html = fetch(PAGES["basketball"])
         games, all_rows = [], []
         if parse_board_blocks:
-            br = parse_board_blocks(html)
+            br = parse_board_blocks(html, "basketball")
             if br:
                 games, all_rows = build_from_blocks(br, "basketball")
         if not all_rows:
@@ -780,7 +780,7 @@ def main():
         html = fetch(PAGES["tennis"])
         games = []
         if parse_board_blocks:
-            br = parse_board_blocks(html)
+            br = parse_board_blocks(html, "tennis")
             if br:
                 games, _ = build_from_blocks(br, "tennis")
         if not games:

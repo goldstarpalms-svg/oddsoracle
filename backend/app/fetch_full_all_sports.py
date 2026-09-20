@@ -74,10 +74,16 @@ def blocks(html: str):
         yield m.group(1)
 
 
-def parse_board(html: str):
-    """Generic row extraction from forebet tips-today blocks."""
+def parse_board(html: str, sport: str = None):
+    """Generic row extraction from forebet tips-today blocks.
+
+    sport: when given, only blocks whose match link is under /en/<sport>/ are
+    kept (pages embed "pick of the day" widgets from OTHER sports).
+    """
     rows = []
     for blk in blocks(html):
+        if sport and f"/en/{sport}/matches/" not in blk:
+            continue
         sm = re.search(r'getstag\(this,\s*\'? (\d+) \'?\s*,\s*\'([^\']*)\',\s*\'([^\']*)\',\s*\'([^\']*)\'', blk)
         league = sm.group(3).strip() if sm and sm.group(3) else ""
         href_m = re.search(r'/matches/([^/]+)/', blk)
@@ -237,7 +243,7 @@ def main():
         except Exception as e:
             print(f"{sport}: fetch failed ({e})")
             continue
-        rows = parse_board(html)
+        rows = parse_board(html, sport)
         added, total = merge(path, rows)
         print(f"{sport}: parsed {len(rows)} rows -> +{added} new, {total} in file")
 
