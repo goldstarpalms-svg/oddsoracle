@@ -195,6 +195,9 @@ export interface PulsePick {
   kickoff_label: string;
   market: string;
   selection: string;
+  selection_code?: string;   // "1" | "X" | "2" (football only)
+  board_pick?: string;       // the pick as published by Forebet
+  forebet_coef?: string | null;
   price: number | null;
   book: string | null;
   price_source: string | null;

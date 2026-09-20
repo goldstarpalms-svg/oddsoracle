@@ -1,4 +1,5 @@
 import SNAPSHOT from "./data-snapshot.json";
+import { classifyValue, devig, evPct } from "./value";
 
 /**
  * Rich data layer — keeps EVERYTHING the daily JSONs contain
@@ -454,16 +455,17 @@ export interface BoardRow {
   selection: string;
   selLabel: string;
   modelProb: number; // % for the selected outcome
-  marketProb: number; // % implied by the price
-  edge: number; // pp
-  ev: number; // %
+  marketProb: number | null; // % implied by the price (null when no prices)
+  edge: number | null; // pp
+  ev: number | null; // %
   signal: string;
   oracleScore: number;
   consensus: string; // "2/2"
   dataQuality: number;
   modelVersion: string;
   ts: string; // ISO data timestamp
-  live: boolean;
+  live: boolean; // priced from a live feed — NOT "match in play"
+  finished: boolean;
   modelFull: number[];
   marketFull: number[];
   odds: number;
@@ -484,7 +486,25 @@ export function oracleBoardRows(): BoardRow[] {
       const o = r.oracle;
       const i = o.selection === "1" ? 0 : o.selection === "X" ? 1 : o.selection === "2" ? 2 : 0;
       const mp = (o.model_probability || [0, 0, 0])[i] ?? 0;
-      const kmp = (o.market_probability || [0, 0, 0])[i] ?? 0;
+
+      // The engine stores market_probability REVERSED relative to
+      // model_probability (verified against the row's own prices), which used
+      // to manufacture huge fake edges — e.g. Frosinone v Como showed "away
+      // win, market 15%" when Como was 1.43 (70%). We recompute the market from
+      // the row's own 1X2 prices instead of trusting that array.
+      const prices =
+        Array.isArray(r.odds) && r.odds.length === 3 &&
+        r.odds.every((v: number) => Number.isFinite(v) && v > 1)
+          ? (r.odds as number[])
+          : null;
+      const dv = prices ? devig(prices) : null;
+      const kmp = dv ? dv[i] * 100 : null;
+      const price = prices ? prices[i] : (o.odds && o.odds > 1 ? o.odds : null);
+
+      const edge = kmp == null ? null : Math.round((mp - kmp) * 10) / 10;
+      const evRaw = price ? evPct(mp / 100, price) : null;
+      const ev = evRaw == null ? null : Math.round(evRaw * 1000) / 10;
+      const signal = kmp == null ? "NO PRICE" : classifyValue(edge ?? null);
       return {
         id: o.prediction_id,
         event: o.event || `${r.home} v ${r.away}`,
@@ -494,19 +514,20 @@ export function oracleBoardRows(): BoardRow[] {
         selection: o.selection || "—",
         selLabel: SEL_LABEL[o.selection] || o.selection || "—",
         modelProb: Math.round(mp * 10) / 10,
-        marketProb: Math.round(kmp * 10) / 10,
-        edge: Math.round((o.edge ?? 0) * 10) / 10,
-        ev: Math.round((o.ev_pct ?? 0) * 10) / 10,
-        signal: o.signal,
+        marketProb: kmp == null ? null : Math.round(kmp * 10) / 10,
+        edge,
+        ev,
+        signal,
         oracleScore: o.oracle_score ?? 0,
         consensus: o.agreement || "—",
         dataQuality: o.data_quality ?? 0,
         modelVersion: o.model_version || "—",
         ts: o.data_timestamp || "",
         live: !!o.prices_live,
+        finished: /^(f|ft|aet|pen)/i.test(String(r.status || "")) || !!r.final_score || !!r.result,
         modelFull: (o.model_probability || []).map((x: number) => Math.round(x * 10) / 10),
-        marketFull: (o.market_probability || []).map((x: number) => Math.round(x * 10) / 10),
-        odds: o.odds ?? 0,
+        marketFull: dv ? dv.map((x: number) => Math.round(x * 1000) / 10) : [],
+        odds: price,
         whyPlus: (o.why?.plus || []).slice(0, 5),
         whyMinus: (o.why?.minus || []).slice(0, 5),
         mcTop: (o.mc?.top2 || []).slice(0, 2),

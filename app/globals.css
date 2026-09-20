@@ -3094,3 +3094,74 @@ body::before {
 .ds-btn-primary:hover { filter: brightness(1.08); background: var(--accent); }
 .ds-btn-sm { height: var(--h-sm); padding: 0 var(--s-3); font-size: var(--t-xs); }
 .ds-btn-lg { height: var(--h-lg); padding: 0 var(--s-5); font-size: var(--t-body); }
+
+/* ==========================================================================
+   2.0 — Terminal board (filters, table, slide-over detail panel)
+   ========================================================================== */
+.ds-filters {
+  display: flex; flex-wrap: wrap; gap: var(--s-2);
+  padding: var(--s-3); margin-bottom: var(--s-3);
+  background: var(--surface); border: 1px solid var(--border); border-radius: var(--r-md);
+  align-items: flex-end;
+}
+.ds-field { display: flex; flex-direction: column; gap: 4px; min-width: 116px; }
+.ds-field > span {
+  font-size: var(--t-xs); font-weight: 700; letter-spacing: 0.08em;
+  text-transform: uppercase; color: var(--text-3);
+}
+.ds-select, .ds-input {
+  height: var(--h-sm); padding: 0 var(--s-2);
+  background: var(--surface-2); color: var(--text);
+  border: 1px solid var(--border); border-radius: var(--r-sm);
+  font-size: var(--t-sm); font-family: inherit;
+}
+.ds-select:focus, .ds-input:focus { outline: 2px solid var(--border-strong); outline-offset: 1px; }
+.ds-chips { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: var(--s-3); }
+.ds-chip {
+  display: inline-flex; align-items: center; gap: 6px;
+  height: 24px; padding: 0 10px; border-radius: var(--r-sm);
+  background: var(--surface-2); border: 1px solid var(--border);
+  color: var(--text-2); font-size: var(--t-xs); font-weight: 650;
+}
+.ds-chip button { background: none; border: 0; color: var(--text-3); cursor: pointer; padding: 0; }
+
+.ds-overlay {
+  position: fixed; inset: 0; z-index: 60;
+  background: rgba(3, 6, 14, 0.66);
+  display: flex; justify-content: flex-end;
+}
+.ds-panel-slide {
+  width: min(460px, 100%); height: 100%; overflow-y: auto;
+  background: var(--surface); border-left: 1px solid var(--border-strong);
+  box-shadow: var(--sh-3); padding: var(--s-5);
+}
+.ds-panel-head {
+  display: flex; justify-content: space-between; align-items: flex-start;
+  gap: 12px; margin-bottom: var(--s-4);
+}
+.ds-close {
+  background: var(--surface-2); border: 1px solid var(--border);
+  color: var(--text-2); width: 28px; height: 28px; border-radius: var(--r-sm); cursor: pointer; flex: none;
+}
+.ds-kv { display: grid; grid-template-columns: 1fr auto; gap: 6px 12px; font-size: var(--t-sm); }
+.ds-kv dt { color: var(--text-3); }
+.ds-kv dd { margin: 0; color: var(--text); font-weight: 650; text-align: right; font-variant-numeric: tabular-nums; }
+.ds-section-title {
+  font-size: var(--t-xs); font-weight: 700; letter-spacing: 0.12em;
+  text-transform: uppercase; color: var(--text-3);
+  margin: var(--s-5) 0 var(--s-2);
+  padding-bottom: 6px; border-bottom: 1px solid var(--border-soft);
+}
+.ds-evidence { margin: 0; padding-left: 18px; color: var(--text-2); font-size: var(--t-sm); }
+.ds-evidence li { margin-bottom: 4px; }
+
+.ds-mobile-card {
+  border: 1px solid var(--border); border-radius: var(--r-md);
+  background: var(--surface); margin-bottom: var(--s-2); overflow: hidden;
+}
+.ds-mobile-head {
+  display: grid; grid-template-columns: 1fr auto; gap: 10px;
+  padding: var(--s-3); align-items: center;
+}
+@media (max-width: 900px) { .ds-table-wrap { display: none; } }
+@media (min-width: 901px) { .ds-mobile-list { display: none; } }

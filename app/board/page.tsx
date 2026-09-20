@@ -2,7 +2,8 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { SITE } from "@/lib/site";
 import { oracleBoardRows, summary, freshness, fmtDate } from "@/lib/rich";
-import OracleBoard from "@/components/OracleBoard";
+import TerminalBoard from "@/components/TerminalBoard";
+import { buildBoard } from "@/lib/board";
 import FaqList from "@/components/FaqList";
 import JsonLd from "@/components/JsonLd";
 
@@ -38,9 +39,10 @@ const FAQ = [
 
 export default function BoardPage() {
   const rows = oracleBoardRows();
+  const events = buildBoard();
   const sum = summary();
   const valueCount = rows.filter((r) => r.signal === "VALUE" || r.signal === "STRONG VALUE").length;
-  const passCount = rows.filter((r) => r.signal === "PASS" || r.signal === "NO EDGE" || r.signal === "AVOID" || (r.modelProb >= 80 && r.edge < 0)).length;
+  const passCount = rows.filter((r) => r.signal === "PASS" || r.signal === "NO EDGE" || r.signal === "AVOID" || (r.modelProb >= 80 && (r.edge ?? 0) < 0)).length;
 
   const ld = {
     "@context": "https://schema.org",
@@ -75,7 +77,7 @@ export default function BoardPage() {
 
       <section className="sec-tight">
         <div className="container">
-          <OracleBoard rows={rows} />
+          <TerminalBoard events={events} />
         </div>
       </section>
 

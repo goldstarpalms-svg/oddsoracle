@@ -52,7 +52,7 @@ export default function OracleBoard({ rows, compact = false }: { rows: BoardRow[
         (r) =>
           (signal === "all" || sectionOf(r) === signal) &&
           (sort === "section" ? true : true) &&
-          r.edge >= minEdge * 1 &&
+          (r.edge ?? -Infinity) >= minEdge * 1 &&
           (minConf === 0 || r.modelProb >= minConf) &&
           (league === "all" || r.league === league) &&
           (!q ||
@@ -65,7 +65,7 @@ export default function OracleBoard({ rows, compact = false }: { rows: BoardRow[
   const sorted = useMemo(() => {
     const arr = [...filtered];
     if (sort === "oracle") arr.sort((a, b) => b.oracleScore - a.oracleScore);
-    else if (sort === "edge") arr.sort((a, b) => b.edge - a.edge);
+    else if (sort === "edge") arr.sort((a, b) => (b.edge ?? -Infinity) - (a.edge ?? -Infinity));
     else if (sort === "conf") arr.sort((a, b) => b.modelProb - a.modelProb);
     else if (sort === "time") arr.sort((a, b) => a.time.localeCompare(b.time));
     return arr;
@@ -184,7 +184,8 @@ function SignalChip({ s, modelProb }: { s: string; modelProb: number }) {
 }
 
 function BoardRowView({ r, open, onToggle }: { r: BoardRow; open: boolean; onToggle: () => void }) {
-  const edgeTone = r.edge >= 5 ? "pos" : r.edge < -2 ? "neg" : "flat";
+  const ep = r.edge;
+  const edgeTone = ep == null ? "flat" : ep >= 5 ? "pos" : ep < -2 ? "neg" : "flat";
   return (
     <div className={`ob-row ${open ? "is-open" : ""}`}>
       <button className="ob-row-btn" onClick={onToggle} aria-expanded={open}>
@@ -198,8 +199,8 @@ function BoardRowView({ r, open, onToggle }: { r: BoardRow; open: boolean; onTog
         </div>
         <div className="ob-cell ob-nums">
           <span className="ob-num"><i>model</i>{r.modelProb}%</span>
-          <span className="ob-num"><i>market</i>{r.marketProb}%</span>
-          <span className={`ob-num ${edgeTone}`}>{r.edge >= 0 ? "+" : ""}{r.edge}pp</span>
+          <span className="ob-num"><i>market</i>{r.marketProb == null ? "—" : `${r.marketProb}%`}</span>
+          <span className={`ob-num ${edgeTone}`}>{ep == null ? "no price" : `${ep >= 0 ? "+" : ""}${ep}pp`}</span>
           <span className="ob-num ob-score" title="Oracle Score: 0–100 analysis quality. Not win probability.">
             {r.oracleScore}
           </span>
@@ -225,7 +226,7 @@ function BoardRowView({ r, open, onToggle }: { r: BoardRow; open: boolean; onTog
               <h4>Market says</h4>
               <p>
                 {r.marketFull.map((p, i) => `${i === 0 ? "1" : i === 1 ? "X" : "2"} ${p}%`).join(" · ")} — the price implies{" "}
-                <b>{r.marketProb}%</b> for {r.selLabel}.
+                <b>{r.marketProb == null ? "—" : `${r.marketProb}%`}</b> for {r.selLabel}.
                 {r.live ? (
                   <> Prices are <b>live</b> (OddsChecker, {r.ts ? new Date(r.ts).toLocaleTimeString("en-NG", { hour: "2-digit", minute: "2-digit", timeZone: "Africa/Lagos" }) : ""} WAT feed).</>
                 ) : (
@@ -236,8 +237,8 @@ function BoardRowView({ r, open, onToggle }: { r: BoardRow; open: boolean; onTog
             <div>
               <h4>Edge &amp; EV</h4>
               <p>
-                Edge <b>{r.edge >= 0 ? "+" : ""}{r.edge}pp</b> · EV <b>{r.ev >= 0 ? "+" : ""}{r.ev}%</b>.{" "}
-                {r.edge < 0
+                Edge <b>{ep == null ? "—" : `${ep >= 0 ? "+" : ""}${ep}pp`}</b> · EV <b>{r.ev == null ? "—" : `${r.ev >= 0 ? "+" : ""}${r.ev}%`}</b>.{" "}
+                {ep != null && ep < 0
                   ? "The price is better than our model — the engine declines it."
                   : "Positive expected value at this price — that is what VALUE means."}
               </p>
