@@ -4,6 +4,7 @@ import { useState } from "react";
 import type { AmPick, BbPick, FbPick, OptRow, TnPick } from "@/lib/rich";
 import { h2hRow, h2hOuCtxt } from "@/lib/rich";
 import TimeChip from "./TimeChip";
+import OraclePanel from "./OraclePanel";
 
 /** Three-segment (1/X/2) or two-segment (home/away) probability bar. */
 export function ProbBar({
@@ -56,8 +57,8 @@ function Badges({ banker, value, extra }: { banker?: boolean; value?: boolean; e
   return (
     <div className="rich-badges">
       {banker && (
-        <span className="badge badge-banker" title="Model confidence of 70% or higher — a statistical label, not a guarantee.">
-          🏦 BANKER
+        <span className="badge badge-banker" title="Model confidence of 80% or higher — used for the daily safe combos. A statistical label, not a guarantee.">
+          🏦 80%+ CONFIDENCE
         </span>
       )}
       {value && (
@@ -218,6 +219,7 @@ function Why({ text }: { text: string }) {
 
 export function FootballCard({ p }: { p: FbPick }) {
   const pickedKey = p.final.startsWith("Home") ? "1" : p.final.startsWith("Away") ? "2" : "X";
+  const pass = p.oracle && ["PASS", "NO EDGE", "AVOID"].includes(p.oracle.signal);
   return (
     <article className={`rich-card ${p.banker ? "rich-banker" : ""}`}>
       <div className="rich-top">
@@ -232,18 +234,28 @@ export function FootballCard({ p }: { p: FbPick }) {
         <span>{p.away}</span>
       </div>
 
-      {p.fb_pct ? (
+      {p.oracle ? (
+        <ProbBar pct={[p.oracle.model_probability[0], p.oracle.model_probability[1], p.oracle.model_probability[2]]} picked={pass ? pickedKey : p.oracle.selection} labels={["1 (Home)", "X (Draw)", "2 (Away)"]} />
+      ) : p.fb_pct ? (
         <ProbBar pct={[p.fb_pct[0], p.fb_pct[1], p.fb_pct[2]]} picked={pickedKey} labels={["1 (Home)", "X (Draw)", "2 (Away)"]} />
       ) : (
         p.model?.p && <ProbBar pct={[p.model.p[0], p.model.p[1], p.model.p[2]]} picked={pickedKey} labels={["1 (Home)", "X (Draw)", "2 (Away)"]} />
       )}
 
       <div className="rich-pick-row">
-        <span className="rich-tip">{p.final}</span>
+        {pass ? (
+          <span className="rich-tip rich-pass">
+            {p.oracle!.signal === "AVOID" ? "🚫 AVOID — price is against us" : "⏸ ODDSORACLE: PASS — no edge"}
+          </span>
+        ) : (
+          <span className="rich-tip">{p.final}</span>
+        )}
         <OddsChip odds={p.odds} />
         {p.fb_score && <span className="score-chip">⚽ {p.fb_score}</span>}
         {p.ou && <span className="score-chip">Σ {p.ou}</span>}
       </div>
+
+      {p.oracle && <OraclePanel o={p.oracle} home={p.home} away={p.away} />}
 
       <EdgeRow p={p} />
 

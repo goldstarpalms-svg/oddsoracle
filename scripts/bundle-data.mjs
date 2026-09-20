@@ -390,6 +390,27 @@ try {
   console.log("safe combos skipped:", e.message);
 }
 
+// ---- ODDSORACLE ENGINE v2 (multi-model + Monte Carlo + EV + signal) ----
+let oracleMeta = null;
+try {
+  const oracleFile = pickD([/^\d{4}-\d{2}-\d{2}_oracle\.json$/]);
+  const oracle = oracleFile ? read(oracleFile) : null;
+  if (oracle?.games && Array.isArray(football)) {
+    let n = 0;
+    for (const r of football) {
+      const o = oracle.games[`${r.home}|${r.away}`];
+      if (o) {
+        r.oracle = o;
+        n += 1;
+      }
+    }
+    oracleMeta = { modelVersion: oracle.model_version, nSims: oracle.n_sims, games: n };
+    console.log(`oracle engine: ${n}/${football.length} football rows (v${oracle.model_version})`);
+  }
+} catch (e) {
+  console.log("oracle engine skipped:", e.message);
+}
+
 // ---- Forebet's extra markets (HT / HT-FT / corners / cards / goalscorers) ----
 // Fetched by refresh_forebet.py daily into <date>_fb_extra.json (best effort).
 try {
@@ -426,7 +447,8 @@ const snapshot = {
   forebetBaseball: forebetBaseball && forebetBaseball.games ? forebetBaseball : null,
   handball: handball && handball.games ? handball : null,
   h2h: h2h && h2h.games ? h2h : null,
-    history: history && history.cumulative ? history : null,
+  oracle: oracleMeta || null,
+  history: history && history.cumulative ? history : null,
   odds: odds || null,
   markets: markets || null,
   safe: safe || null,

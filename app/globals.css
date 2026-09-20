@@ -2156,3 +2156,83 @@ tr:last-child td {
 .board-table .board-time { white-space: nowrap; font-variant-numeric: tabular-nums; }
 .board-match em { font-style: normal; opacity: .6; padding: 0 2px; }
 .board-league { display: block; font-size: 11px; opacity: .65; margin-top: 1px; }
+
+/* ---- ODDSORACLE ENGINE (oracle panel + terminal) ---- */
+.hero-tagline {
+  font-weight: 800;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  font-size: 13px;
+  color: var(--accent, #4f46e5);
+  margin: 6px 0 10px;
+}
+.rich-pass { color: #8a5a00; font-weight: 800; }
+
+.oracle-panel {
+  margin-top: 10px;
+  border: 1px solid var(--line, #d8dce6);
+  border-left: 3px solid var(--accent, #4f46e5);
+  border-radius: 10px;
+  padding: 10px 12px;
+  background: #fbfbff;
+}
+.oracle-top { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+.oracle-signal {
+  font-size: 11px; font-weight: 900; letter-spacing: .5px;
+  padding: 3px 9px; border-radius: 999px; white-space: nowrap;
+}
+.sig-strong { background: #065f46; color: #d1fae5; }
+.sig-value { background: #0e7490; color: #cffafe; }
+.sig-fair { background: #b45309; color: #fef3c7; }
+.sig-none { background: #e2e8f0; color: #475569; }
+.sig-pass { background: #f1f5f9; color: #64748b; border: 1px dashed #cbd5e1; }
+.sig-avoid { background: #7f1d1d; color: #fee2e2; }
+.sig-value-txt { color: var(--accent-2, #0e7490) !important; }
+
+.oracle-score { font-size: 12px; color: #334; }
+.oracle-score b { font-size: 14px; color: var(--accent, #4f46e5); }
+.oracle-meta { font-size: 11px; color: #7a8296; }
+.oracle-rows { margin-top: 8px; display: grid; gap: 3px; }
+.oracle-row { display: flex; justify-content: space-between; gap: 10px; font-size: 12px; }
+.oracle-k { color: #7a8296; }
+.oracle-v { font-weight: 700; font-variant-numeric: tabular-nums; }
+.oracle-pass-row .oracle-v { color: #8a5a00; }
+.oracle-models { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 8px; }
+.oracle-model {
+  font-size: 11px; font-weight: 700; padding: 2px 8px; border-radius: 999px;
+  background: #eef2ff; color: #3730a3;
+}
+.oracle-model.disagree { background: #f8fafc; color: #94a3b8; }
+.oracle-toggle { margin-top: 10px; }
+.oracle-why { margin-top: 8px; font-size: 12.5px; }
+.oracle-mc { background: #eef2ff; border-radius: 8px; padding: 7px 10px; margin-bottom: 6px; }
+.oracle-lambda { margin-bottom: 6px; color: #4b5563; }
+.oracle-factors { list-style: none; margin: 0; padding: 0; display: grid; gap: 4px; }
+.oracle-plus { color: #065f46; }
+.oracle-minus { color: #991b1b; }
+.oracle-version { margin-top: 8px; font-size: 10.5px; color: #9aa1b2; }
+
+/* ---- ORACLE TERMINAL (homepage) ---- */
+.terminal {
+  background: #0b1220; color: #d7e1f4; border-radius: 14px;
+  padding: 16px 18px; border: 1px solid #1e293b;
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+}
+.terminal-head { display: flex; justify-content: space-between; align-items: center; gap: 10px; flex-wrap: wrap; }
+.terminal-title { font-size: 12px; font-weight: 800; letter-spacing: 1.2px; color: #93c5fd; }
+.terminal-dot { display: inline-block; width: 8px; height: 8px; border-radius: 50%; background: #22c55e; margin-right: 7px; animation: pulse 2s infinite; }
+@keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: .35; } }
+.terminal-link { color: #93c5fd; font-size: 12px; text-decoration: none; }
+.terminal-link:hover { text-decoration: underline; }
+.terminal-stats { display: flex; gap: 26px; flex-wrap: wrap; margin: 14px 0 10px; }
+.terminal-stats div { display: flex; flex-direction: column; }
+.terminal-stats b { font-size: 20px; color: #fff; }
+.terminal-stats span { font-size: 10.5px; color: #8ea2c4; letter-spacing: .4px; text-transform: uppercase; }
+.terminal-scroll { overflow-x: auto; }
+.terminal-table { width: 100%; border-collapse: collapse; font-size: 12px; min-width: 720px; }
+.terminal-table th { text-align: left; color: #64748b; font-size: 10.5px; letter-spacing: .8px; text-transform: uppercase; padding: 6px 8px; border-bottom: 1px solid #1e293b; }
+.terminal-table td { padding: 7px 8px; border-bottom: 1px solid #141f33; font-variant-numeric: tabular-nums; }
+.terminal-table tr:hover td { background: #101a2e; }
+.tt-match em { font-style: normal; color: #64748b; padding: 0 2px; }
+.terminal-table .oracle-signal { font-family: inherit; }
+.terminal-foot { margin: 12px 0 0; font-size: 11px; color: #8ea2c4; }

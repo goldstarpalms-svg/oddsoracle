@@ -14,6 +14,8 @@ interface SlipPick {
   odds: number | null;
   prob: number | null; // % chance of the picked side
   banker: boolean;
+  signal?: string; // oracle engine signal for this game
+  edge?: number | null; // oracle engine edge (pp)
 }
 
 interface ApiData {
@@ -37,6 +39,8 @@ function flatten(rich: ApiData["rich"]): SlipPick[] {
       odds: p.odds,
       prob: p.pickProb,
       banker: !!p.banker,
+      signal: p.oracle?.signal,
+      edge: p.oracle?.edge,
     });
   });
   (rich.basketball || []).forEach((p: any) => {
@@ -804,6 +808,19 @@ export default function SlipTools() {
                       <span className="odds-chip">@{r.match.odds?.toFixed(2) ?? "—"}</span>{" "}
                       <span className="score-chip">{r.match.prob ?? "—"}% chance</span>
                       {r.match.banker && <span className="badge badge-banker">🏦</span>}
+                      {r.match.signal && (
+                        <div style={{ marginTop: 4 }}>
+                          Oracle engine: <b>{r.match.signal}</b>
+                          {typeof r.match.edge === "number" && (
+                            <span className={r.match.edge >= 0 ? "edge-pos" : "edge-neg"}>
+                              {" "}· edge {r.match.edge >= 0 ? "+" : ""}{r.match.edge}pp
+                            </span>
+                          )}
+                          {["PASS", "NO EDGE", "AVOID"].includes(r.match.signal) && (
+                            <span className="dim"> — the engine does not back this match; treat this leg as a riskier one.</span>
+                          )}
+                        </div>
+                      )}
                     </div>
                   ) : r.partial ? (
                     <div className="analysis-detail dim">
@@ -816,9 +833,67 @@ export default function SlipTools() {
                   )}
                 </div>
               ))}
+              {/* SLIP RISK CHECK — correlation + model vs price */}
+              {(() => {
+                const matched = analysis.filter((r) => r.match).map((r) => r.match!);
+                if (matched.length === 0) return null;
+                // correlation: legs from the SAME match are not independent
+                const byMatch = new Map<string, number>();
+                matched.forEach((m) => {
+                  const k = `${m.home.toLowerCase()}|${m.away.toLowerCase()}`;
+                  byMatch.set(k, (byMatch.get(k) || 0) + 1);
+                });
+                const sameMatch = Array.from(byMatch.entries()).filter(([, n]) => n > 1);
+                // league clustering
+                const byLeague = new Map<string, number>();
+                matched.forEach((m) => byLeague.set(m.league, (byLeague.get(m.league) || 0) + 1));
+                const cluster = Array.from(byLeague.entries()).filter(([, n]) => n >= 3);
+                // combined odds + model probability (joint-prob corrected for same-match legs)
+                const withOdds = matched.filter((m) => m.odds);
+                const totalOdds = withOdds.length === matched.length
+                  ? matched.reduce((acc, m) => acc * (m.odds as number), 1)
+                  : null;
+                // per-match combined prob: same-match legs count once (max of their probs)
+                const probs: number[] = [];
+                Object.keys(byMatch).forEach((k) => {
+                  const legs = matched.filter((m) => `${m.home.toLowerCase()}|${m.away.toLowerCase()}` === k);
+                  const best = Math.max(...legs.map((m) => m.prob ?? 0));
+                  probs.push(best);
+                });
+                const modelProb = probs.length ? Math.round(probs.reduce((a, b) => a * (b / 100), 1) * 1000) / 10 : null;
+                const implied = totalOdds ? Math.round((100 / totalOdds) * 10) / 10 : null;
+                const negEdge = matched.filter((m) => typeof m.edge === "number" && m.edge < -3);
+                const passLegs = matched.filter((m) => ["PASS", "NO EDGE", "AVOID"].includes(m.signal || ""));
+                const issues: string[] = [];
+                sameMatch.forEach(([k, n]) => issues.push(`${n} legs are the SAME match — outcomes are linked, not independent: the slip is riskier than the odds suggest.`));
+                cluster.forEach(([lg, n]) => issues.push(`${n} legs in ${lg} — one bad day in that league can take several legs down together.`));
+                if (negEdge.length) issues.push(`${negEdge.length} leg${negEdge.length > 1 ? "s" : ""} have negative model edge (the price already covers the chance).`);
+                if (passLegs.length) issues.push(`${passLegs.length} leg${passLegs.length > 1 ? "s" : ""} on matches the engine passed on (no edge).`);
+                if (modelProb != null && implied != null && modelProb < implied)
+                  issues.push(`Model says this slip hits ~${modelProb}% of the time, but the combined price implies ~${implied}% — you are paying more than the model sees.`);
+                if (modelProb != null && implied != null && modelProb >= implied)
+                  issues.push(`Model (~${modelProb}%) sits above the price-implied chance (~${implied}%) — the combined price looks fair-to-generous for the risk.`);
+                return (
+                  <div className="callout" style={{ borderLeft: "3px solid var(--accent, #4f46e5)", marginTop: 12 }}>
+                    <b>Slip risk check — {matched.length} leg{matched.length > 1 ? "s" : ""} analyzed:</b>{" "}
+                    {totalOdds != null && <>combined odds <b>@{totalOdds.toFixed(2)}</b>{" "}</>}
+                    {modelProb != null && <>model chance to land all <b>~{modelProb}%</b></>}
+                    {issues.length === 0 ? (
+                      <div style={{ marginTop: 4 }}>No structural issues found — legs are independent and none has negative model edge.</div>
+                    ) : (
+                      <ul style={{ margin: "6px 0 0", paddingLeft: 18 }}>
+                        {issues.map((x, i) => (
+                          <li key={i}>{x}</li>
+                        ))}
+                      </ul>
+                    )}
+                  </div>
+                );
+              })()}
               <p className="slip-note">
                 Matching is name-based, so typos can slip through. Treat “not covered” as “we
-                have no opinion”, not “it&rsquo;s safe”.
+                have no opinion”, not “it&rsquo;s safe”. The risk check is a neutral read — it
+                flags structure, it never calls a slip “safe”.
               </p>
             </div>
           )}

@@ -22,7 +22,11 @@
      "model_over25_win": 1,
      "model_btts": 0,
      "btts_actual": 0,
-     "model_btts_win": 1
+     "model_btts_win": 1,
+     "model_prob": 41.2,
+     "odds": 2.43,
+     "fair_price": true,
+     "profit": -1
     },
     {
      "match": "Bristol City v Watford",
@@ -37,7 +41,11 @@
      "model_over25_win": 0,
      "model_btts": 1,
      "btts_actual": 0,
-     "model_btts_win": 0
+     "model_btts_win": 0,
+     "model_prob": 47.1,
+     "odds": 2.12,
+     "fair_price": true,
+     "profit": 1.12
     },
     {
      "match": "Groningen v Zwolle",
@@ -52,7 +60,11 @@
      "model_over25_win": 1,
      "model_btts": 1,
      "btts_actual": 0,
-     "model_btts_win": 0
+     "model_btts_win": 0,
+     "model_prob": 52.8,
+     "odds": 1.89,
+     "fair_price": true,
+     "profit": 0.89
     },
     {
      "match": "Juve Stabia v Cesena",
@@ -67,7 +79,11 @@
      "model_over25_win": 1,
      "model_btts": 0,
      "btts_actual": 1,
-     "model_btts_win": 0
+     "model_btts_win": 0,
+     "model_prob": 43.9,
+     "odds": 2.28,
+     "fair_price": true,
+     "profit": -1
     },
     {
      "match": "Bayern Munich v Union Berlin",
@@ -82,7 +98,11 @@
      "model_over25_win": 1,
      "model_btts": 1,
      "btts_actual": 0,
-     "model_btts_win": 0
+     "model_btts_win": 0,
+     "model_prob": 89.4,
+     "odds": 1.04,
+     "fair_price": false,
+     "profit": 0.04
     },
     {
      "match": "Monaco v Lens",
@@ -97,7 +117,11 @@
      "model_over25_win": 1,
      "model_btts": 1,
      "btts_actual": 1,
-     "model_btts_win": 1
+     "model_btts_win": 1,
+     "model_prob": 47.8,
+     "odds": 3.4,
+     "fair_price": false,
+     "profit": -1
     }
    ]
   },
@@ -123,7 +147,11 @@
      "model_over25_win": 1,
      "model_btts": 1,
      "btts_actual": 1,
-     "model_btts_win": 1
+     "model_btts_win": 1,
+     "model_prob": 37.8,
+     "odds": 3.6,
+     "fair_price": false,
+     "profit": 2.6
     },
     {
      "match": "Stoke v Sheffield United",
@@ -138,7 +166,11 @@
      "model_over25_win": 1,
      "model_btts": 1,
      "btts_actual": 1,
-     "model_btts_win": 1
+     "model_btts_win": 1,
+     "model_prob": 41.7,
+     "odds": 2.3,
+     "fair_price": false,
+     "profit": 1.3
     },
     {
      "match": "Millwall v West Ham",
@@ -153,7 +185,11 @@
      "model_over25_win": 1,
      "model_btts": 1,
      "btts_actual": 1,
-     "model_btts_win": 1
+     "model_btts_win": 1,
+     "model_prob": 39.8,
+     "odds": 1.75,
+     "fair_price": false,
+     "profit": -1
     },
     {
      "match": "Cardiff v Charlton",
@@ -168,7 +204,11 @@
      "model_over25_win": 1,
      "model_btts": 1,
      "btts_actual": 1,
-     "model_btts_win": 1
+     "model_btts_win": 1,
+     "model_prob": 49.9,
+     "odds": 1.75,
+     "fair_price": false,
+     "profit": 0.75
     },
     {
      "match": "Osasuna v Vallecano",
@@ -183,7 +223,11 @@
      "model_over25_win": 1,
      "model_btts": 0,
      "btts_actual": 1,
-     "model_btts_win": 0
+     "model_btts_win": 0,
+     "model_prob": 40.6,
+     "odds": 2.5,
+     "fair_price": false,
+     "profit": -1
     },
     {
      "match": "Bologna v Torino",
@@ -198,7 +242,11 @@
      "model_over25_win": 0,
      "model_btts": 1,
      "btts_actual": 1,
-     "model_btts_win": 1
+     "model_btts_win": 1,
+     "model_prob": 55.1,
+     "odds": 1.9,
+     "fair_price": false,
+     "profit": -1
     },
     {
      "match": "Udinese v Cagliari",
@@ -213,7 +261,11 @@
      "model_over25_win": 0,
      "model_btts": 1,
      "btts_actual": 0,
-     "model_btts_win": 0
+     "model_btts_win": 0,
+     "model_prob": 43.6,
+     "odds": 2.2,
+     "fair_price": false,
+     "profit": -1
     },
     {
      "match": "Palermo v Padova",
@@ -228,7 +280,11 @@
      "model_over25_win": 0,
      "model_btts": 0,
      "btts_actual": 1,
-     "model_btts_win": 0
+     "model_btts_win": 0,
+     "model_prob": 53.6,
+     "odds": 1.55,
+     "fair_price": false,
+     "profit": 0.55
     },
     {
      "match": "Cremonese v Virtus Entella",
@@ -243,7 +299,11 @@
      "model_over25_win": 1,
      "model_btts": 0,
      "btts_actual": 0,
-     "model_btts_win": 1
+     "model_btts_win": 1,
+     "model_prob": 47.6,
+     "odds": 1.75,
+     "fair_price": false,
+     "profit": -1
     },
     {
      "match": "Carrarese v Benevento",
@@ -258,7 +318,11 @@
      "model_over25_win": 1,
      "model_btts": 1,
      "btts_actual": 0,
-     "model_btts_win": 0
+     "model_btts_win": 0,
+     "model_prob": 45.2,
+     "odds": 2.8,
+     "fair_price": false,
+     "profit": -1
     },
     {
      "match": "Werder Bremen v Augsburg",
@@ -273,7 +337,11 @@
      "model_over25_win": 1,
      "model_btts": 1,
      "btts_actual": 1,
-     "model_btts_win": 1
+     "model_btts_win": 1,
+     "model_prob": 38.8,
+     "odds": 2.35,
+     "fair_price": false,
+     "profit": 1.35
     },
     {
      "match": "Brighton v Arsenal",
@@ -288,7 +356,11 @@
      "model_over25_win": 0,
      "model_btts": 0,
      "btts_actual": 0,
-     "model_btts_win": 1
+     "model_btts_win": 1,
+     "model_prob": 50.6,
+     "odds": 1.66,
+     "fair_price": false,
+     "profit": -1
     },
     {
      "match": "Everton v Ipswich",
@@ -303,7 +375,11 @@
      "model_over25_win": 0,
      "model_btts": 1,
      "btts_actual": 0,
-     "model_btts_win": 0
+     "model_btts_win": 0,
+     "model_prob": 42.9,
+     "odds": 1.75,
+     "fair_price": false,
+     "profit": 0.75
     },
     {
      "match": "Newcastle v Hull",
@@ -318,7 +394,11 @@
      "model_over25_win": 0,
      "model_btts": 0,
      "btts_actual": 1,
-     "model_btts_win": 0
+     "model_btts_win": 0,
+     "model_prob": 50.2,
+     "odds": 1.6,
+     "fair_price": false,
+     "profit": 0.6
     },
     {
      "match": "Wrexham v Southampton",
@@ -333,7 +413,11 @@
      "model_over25_win": 1,
      "model_btts": 1,
      "btts_actual": 1,
-     "model_btts_win": 1
+     "model_btts_win": 1,
+     "model_prob": 38.9,
+     "odds": 2.9,
+     "fair_price": false,
+     "profit": 1.9
     },
     {
      "match": "Portsmouth v Blackburn",
@@ -348,7 +432,11 @@
      "model_over25_win": 0,
      "model_btts": 0,
      "btts_actual": 1,
-     "model_btts_win": 0
+     "model_btts_win": 0,
+     "model_prob": 43.6,
+     "odds": 2.15,
+     "fair_price": false,
+     "profit": -1
     },
     {
      "match": "Lincoln v Swansea",
@@ -363,7 +451,11 @@
      "model_over25_win": 0,
      "model_btts": 0,
      "btts_actual": 1,
-     "model_btts_win": 0
+     "model_btts_win": 0,
+     "model_prob": 41.8,
+     "odds": 2.87,
+     "fair_price": false,
+     "profit": -1
     },
     {
      "match": "Burnley v Derby",
@@ -378,7 +470,11 @@
      "model_over25_win": 0,
      "model_btts": 1,
      "btts_actual": 1,
-     "model_btts_win": 1
+     "model_btts_win": 1,
+     "model_prob": 40.4,
+     "odds": 1.75,
+     "fair_price": false,
+     "profit": -1
     },
     {
      "match": "Birmingham v Middlesbrough",
@@ -393,7 +489,11 @@
      "model_over25_win": 1,
      "model_btts": 1,
      "btts_actual": 1,
-     "model_btts_win": 1
+     "model_btts_win": 1,
+     "model_prob": 37.5,
+     "odds": 2.7,
+     "fair_price": false,
+     "profit": -1
     },
     {
      "match": "St Mirren v Dundee United",
@@ -408,7 +508,11 @@
      "model_over25_win": 0,
      "model_btts": 1,
      "btts_actual": 0,
-     "model_btts_win": 0
+     "model_btts_win": 0,
+     "model_prob": 38.8,
+     "odds": 2.87,
+     "fair_price": false,
+     "profit": 1.87
     },
     {
      "match": "St Johnstone v Falkirk",
@@ -423,7 +527,11 @@
      "model_over25_win": 0,
      "model_btts": 1,
      "btts_actual": 1,
-     "model_btts_win": 1
+     "model_btts_win": 1,
+     "model_prob": 46.9,
+     "odds": 2.05,
+     "fair_price": false,
+     "profit": -1
     },
     {
      "match": "Hibernian v Aberdeen",
@@ -438,7 +546,11 @@
      "model_over25_win": 0,
      "model_btts": 1,
      "btts_actual": 1,
-     "model_btts_win": 1
+     "model_btts_win": 1,
+     "model_prob": 55.7,
+     "odds": 1.72,
+     "fair_price": false,
+     "profit": -1
     },
     {
      "match": "Dundee v Motherwell",
@@ -453,7 +565,11 @@
      "model_over25_win": 1,
      "model_btts": 1,
      "btts_actual": 1,
-     "model_btts_win": 1
+     "model_btts_win": 1,
+     "model_prob": 47.8,
+     "odds": 2.3,
+     "fair_price": false,
+     "profit": -1
     },
     {
      "match": "Kocaelispor v Gaziantep",
@@ -468,7 +584,11 @@
      "model_over25_win": 1,
      "model_btts": 0,
      "btts_actual": 0,
-     "model_btts_win": 1
+     "model_btts_win": 1,
+     "model_prob": 41.5,
+     "odds": 2.2,
+     "fair_price": false,
+     "profit": 1.2
     },
     {
      "match": "Den Haag v Cambuur",
@@ -483,7 +603,11 @@
      "model_over25_win": 1,
      "model_btts": 0,
      "btts_actual": 1,
-     "model_btts_win": 0
+     "model_btts_win": 0,
+     "model_prob": 62.9,
+     "odds": 4.2,
+     "fair_price": false,
+     "profit": -1
     },
     {
      "match": "Paris FC v Strasbourg",
@@ -498,7 +622,11 @@
      "model_over25_win": 1,
      "model_btts": 1,
      "btts_actual": 1,
-     "model_btts_win": 1
+     "model_btts_win": 1,
+     "model_prob": 46.0,
+     "odds": 1.95,
+     "fair_price": false,
+     "profit": 0.95
     },
     {
      "match": "Sampdoria v Catanzaro",
@@ -513,7 +641,11 @@
      "model_over25_win": 0,
      "model_btts": 1,
      "btts_actual": 1,
-     "model_btts_win": 1
+     "model_btts_win": 1,
+     "model_prob": 36.7,
+     "odds": 3.7,
+     "fair_price": false,
+     "profit": -1
     },
     {
      "match": "Roma v Inter",
@@ -528,7 +660,11 @@
      "model_over25_win": 1,
      "model_btts": 1,
      "btts_actual": 1,
-     "model_btts_win": 1
+     "model_btts_win": 1,
+     "model_prob": 41.5,
+     "odds": 2.55,
+     "fair_price": false,
+     "profit": -1
     },
     {
      "match": "Celta v Santander",
@@ -543,7 +679,11 @@
      "model_over25_win": 1,
      "model_btts": 1,
      "btts_actual": 0,
-     "model_btts_win": 0
+     "model_btts_win": 0,
+     "model_prob": 51.3,
+     "odds": 1.8,
+     "fair_price": false,
+     "profit": 0.8
     },
     {
      "match": "Stuttgart v Dortmund",
@@ -558,7 +698,11 @@
      "model_over25_win": 0,
      "model_btts": 1,
      "btts_actual": 0,
-     "model_btts_win": 0
+     "model_btts_win": 0,
+     "model_prob": 45.8,
+     "odds": 2.62,
+     "fair_price": false,
+     "profit": 1.62
     },
     {
      "match": "Eldense v Eibar",
@@ -573,7 +717,11 @@
      "model_over25_win": 0,
      "model_btts": 0,
      "btts_actual": 1,
-     "model_btts_win": 0
+     "model_btts_win": 0,
+     "model_prob": 39.3,
+     "odds": 2.5,
+     "fair_price": false,
+     "profit": 1.5
     },
     {
      "match": "Sparta Rotterdam v Heerenveen",
@@ -588,7 +736,11 @@
      "model_over25_win": 1,
      "model_btts": 1,
      "btts_actual": 0,
-     "model_btts_win": 0
+     "model_btts_win": 0,
+     "model_prob": 53.0,
+     "odds": 2.62,
+     "fair_price": false,
+     "profit": 1.62
     },
     {
      "match": "Trabzonspor v Galatasaray",
@@ -603,7 +755,11 @@
      "model_over25_win": 1,
      "model_btts": 1,
      "btts_actual": 0,
-     "model_btts_win": 0
+     "model_btts_win": 0,
+     "model_prob": 50.3,
+     "odds": 2.2,
+     "fair_price": false,
+     "profit": -1
     },
     {
      "match": "Ascoli v Avellino",
@@ -618,7 +774,11 @@
      "model_over25_win": 1,
      "model_btts": 1,
      "btts_actual": 1,
-     "model_btts_win": 1
+     "model_btts_win": 1,
+     "model_prob": 51.0,
+     "odds": 2.1,
+     "fair_price": false,
+     "profit": 1.1
     },
     {
      "match": "Ajax v Excelsior",
@@ -633,7 +793,11 @@
      "model_over25_win": 1,
      "model_btts": 1,
      "btts_actual": 1,
-     "model_btts_win": 1
+     "model_btts_win": 1,
+     "model_prob": 58.3,
+     "odds": 1.22,
+     "fair_price": false,
+     "profit": -1
     },
     {
      "match": "Venezia v Lazio",
@@ -648,7 +812,11 @@
      "model_over25_win": 0,
      "model_btts": 1,
      "btts_actual": 0,
-     "model_btts_win": 0
+     "model_btts_win": 0,
+     "model_prob": 57.7,
+     "odds": 1.9,
+     "fair_price": false,
+     "profit": 0.9
     },
     {
      "match": "Angers v Troyes",
@@ -663,7 +831,11 @@
      "model_over25_win": 1,
      "model_btts": 1,
      "btts_actual": 0,
-     "model_btts_win": 0
+     "model_btts_win": 0,
+     "model_prob": 41.1,
+     "odds": 2.1,
+     "fair_price": false,
+     "profit": 1.1
     },
     {
      "match": "Le Mans v Lorient",
@@ -678,7 +850,11 @@
      "model_over25_win": 1,
      "model_btts": 1,
      "btts_actual": 1,
-     "model_btts_win": 1
+     "model_btts_win": 1,
+     "model_prob": 45.8,
+     "odds": 2.7,
+     "fair_price": false,
+     "profit": 1.7
     },
     {
      "match": "Toulouse v Le Havre",
@@ -693,7 +869,11 @@
      "model_over25_win": 0,
      "model_btts": 0,
      "btts_actual": 1,
-     "model_btts_win": 0
+     "model_btts_win": 0,
+     "model_prob": 54.2,
+     "odds": 1.72,
+     "fair_price": false,
+     "profit": 0.72
     },
     {
      "match": "Sevilla v Barcelona",
@@ -708,18 +888,57 @@
      "model_over25_win": 1,
      "model_btts": 1,
      "btts_actual": 1,
-     "model_btts_win": 1
+     "model_btts_win": 1,
+     "model_prob": 70.3,
+     "odds": 1.2,
+     "fair_price": false,
+     "profit": 0.2
     }
    ]
   }
  },
  "cumulative": {
-  "matches": 46,
   "days": 2,
+  "matches": 46,
   "model_1x2": 52.2,
-  "market_1x2": null,
-  "fb_1x2": null,
   "model_over25": 60.9,
-  "model_btts": 52.2
+  "model_btts": 52.2,
+  "avg_odds": 2.24,
+  "total_staked": 46.0,
+  "profit_units": 5.13,
+  "roi_pct": 11.2,
+  "max_drawdown": 7.08,
+  "calibration": [
+   {
+    "bucket": "50\u201355%",
+    "n": 9,
+    "predicted": 51.9,
+    "actual": 77.8
+   },
+   {
+    "bucket": "55\u201360%",
+    "n": 4,
+    "predicted": 56.7,
+    "actual": 25.0
+   },
+   {
+    "bucket": "60\u201365%",
+    "n": 1,
+    "predicted": 62.9,
+    "actual": 0.0
+   },
+   {
+    "bucket": "70\u201375%",
+    "n": 1,
+    "predicted": 70.3,
+    "actual": 100.0
+   },
+   {
+    "bucket": "75%+",
+    "n": 1,
+    "predicted": 89.4,
+    "actual": 100.0
+   }
+  ]
  }
 }

@@ -41,6 +41,15 @@ jobs:
       - name: Build HT / HT-FT / Asian-handicap model for every dated board
         run: python3 backend/app/halves.py
 
+      - name: Build ODDSORACLE ENGINE (multi-model + Monte Carlo + EV + signal)
+        run: python3 backend/app/oracle_engine.py
+
+      - name: Score settled picks against ESPN official results
+        run: python3 backend/app/score_espn.py
+
+      - name: Rebuild track record (ROI / units / drawdown / calibration)
+        run: python3 backend/app/backfill_history.py
+
       - name: Rebuild data snapshot (+ stamp FINAL scores of finished matches)
         run: |
           npm ci --no-audit --no-fund

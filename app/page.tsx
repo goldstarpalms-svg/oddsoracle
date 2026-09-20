@@ -1,10 +1,11 @@
 import Link from "next/link";
 import { SITE } from "@/lib/site";
-import { bbPicks, fbPicks, fmtDate, freshness, summary, tnPicks } from "@/lib/rich";
+import { bbPicks, fbPicks, fmtDate, freshness, summary, tnPicks, hockeyPicks, forebetBbPicks, handballPicks } from "@/lib/rich";
 import { FootballCard, BasketballCard, TennisCard } from "@/components/RichCard";
 import BestPicks from "@/components/BestPicks";
 import LivePicks from "@/components/LivePicks";
 import SafeCombos from "@/components/SafeCombos";
+import OracleTerminal from "@/components/OracleTerminal";
 import AdSlot from "@/components/AdSlot";
 import FaqList from "@/components/FaqList";
 import JsonLd from "@/components/JsonLd";
@@ -76,12 +77,16 @@ export default function Home() {
                 <span className={`fresh-chip fresh-${freshness().level}`}>{freshness().label}</span>
               </div>
               <h1>
-                Daily picks with the <span className="grad-text">numbers shown</span>, not just the tip.
+                Sports <span className="grad-text">intelligence</span>, not guesswork.
               </h1>
+              <p className="hero-tagline">
+                Probability. Value. Evidence.
+              </p>
               <p className="lead">
-                Every game carries Forebet&rsquo;s real probabilities, a predicted score and our
-                model&rsquo;s cross-check. No hype, no guarantees — just the odds, the chance and
-                the reasoning, in plain English.
+                Every game is scored by the OddsOracle engine: multiple independent models, a
+                10,000-match simulation, the bookmaker&rsquo;s price, and the edge between them.
+                When there is no edge, the engine says <b>PASS</b>. No hype, no guarantees — just
+                the numbers, in plain English.
               </p>
               <div className="hero-actions">
                 <Link href="/predictions/" className="btn btn-primary">
@@ -99,7 +104,7 @@ export default function Home() {
                 </div>
                 <div className="stat">
                   <div className="num grad-text">{sum.bankers}</div>
-                  <div className="lbl">🏦 Bankers (70%+)</div>
+                  <div className="lbl">🏦 High confidence (80%+)</div>
                 </div>
                 <div className="stat">
                   <div className="num grad-text">{sum.scoreCalls}</div>
@@ -116,6 +121,12 @@ export default function Home() {
           </div>
         </div>
       </section>
+
+      {/* ORACLE TERMINAL — today's model board */}
+      <OracleTerminal
+        fb={fb}
+        totalEvents={fb.length + bb.length + tn.length + hockeyPicks().length + forebetBbPicks().length + handballPicks().length + sum.other}
+      />
 
       {/* STATS BAND */}
       <section className="sec-tight">

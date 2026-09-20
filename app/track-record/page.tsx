@@ -89,10 +89,10 @@ export default function TrackRecordPage() {
             </div>
           ) : (
             <>
-              <div className="stats-band" style={{ marginBottom: 36 }}>
+              <div className="stats-band" style={{ marginBottom: 16 }}>
                 <div className="statbox">
                   <div className="n">{c.matches}</div>
-                  <div className="l">matches scored</div>
+                  <div className="l">predictions settled</div>
                 </div>
                 <div className="statbox">
                   <div className="n">{c.days}</div>
@@ -110,7 +110,81 @@ export default function TrackRecordPage() {
                   </div>
                   <div className="l">model · over 2.5 goals</div>
                 </div>
+                <div className="statbox">
+                  <div className="n">{c.avg_odds != null ? c.avg_odds : "—"}</div>
+                  <div className="l">average price taken</div>
+                </div>
               </div>
+
+              <div className="stats-band" style={{ marginBottom: 20 }}>
+                <div className="statbox">
+                  <div className="n" style={{ color: c.profit_units >= 0 ? "var(--good, #059669)" : "var(--bad, #dc2626)" }}>
+                    {c.profit_units != null ? `${c.profit_units >= 0 ? "+" : ""}${c.profit_units}u` : "—"}
+                  </div>
+                  <div className="l">profit (1 unit per pick)</div>
+                </div>
+                <div className="statbox">
+                  <div className="n" style={{ color: c.roi_pct != null && c.roi_pct >= 0 ? "var(--good, #059669)" : "var(--bad, #dc2626)" }}>
+                    {c.roi_pct != null ? `${c.roi_pct >= 0 ? "+" : ""}${c.roi_pct}%` : "—"}
+                  </div>
+                  <div className="l">ROI on staked units</div>
+                </div>
+                <div className="statbox">
+                  <div className="n">{c.max_drawdown != null ? `${c.max_drawdown}u` : "—"}</div>
+                  <div className="l">max drawdown (worst dip)</div>
+                </div>
+                <div className="statbox">
+                  <div className="n" style={{ fontSize: 16, marginTop: 6 }}>oracle-v2.0</div>
+                  <div className="l">engine version in record</div>
+                </div>
+              </div>
+
+              {Array.isArray(c.calibration) && c.calibration.length > 0 && (
+                <div className="hero-card" style={{ marginBottom: 36, padding: 18 }}>
+                  <div className="hero-card-head">
+                    <h3 style={{ margin: 0 }}>Probability calibration</h3>
+                  </div>
+                  <p style={{ fontSize: 13, color: "#5b6272", marginTop: 0 }}>
+                    If the model says 60%, then over many picks about 60% of them should win. This
+                    is how we check our confidence is honest — the sample is still small, so read it
+                    as direction, not verdict.
+                  </p>
+                  <div className="board-scroll" style={{ border: "1px solid var(--line, #d8dce6)", borderRadius: 10 }}>
+                    <table className="mkt-table board-table">
+                      <thead>
+                        <tr>
+                          <th>Predicted chance</th>
+                          <th>Picks</th>
+                          <th>Avg predicted</th>
+                          <th>Actual hit rate</th>
+                          <th>Gap</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {c.calibration.map((b: any) => {
+                          const gap = Math.round((b.actual - b.predicted) * 10) / 10;
+                          return (
+                            <tr key={b.bucket}>
+                              <td className="board-time">{b.bucket}</td>
+                              <td>{b.n}</td>
+                              <td>{b.predicted}%</td>
+                              <td><b>{b.actual}%</b></td>
+                              <td className={gap >= 0 ? "edge-pos" : "edge-neg"}>
+                                {gap >= 0 ? "+" : ""}{gap}pp {gap > 5 ? "(overconfident)" : gap < -5 ? "(underconfident)" : ""}
+                              </td>
+                            </tr>
+                          );
+                        })}
+                      </tbody>
+                    </table>
+                  </div>
+                  <p className="slip-note" style={{ marginTop: 8 }}>
+                    Small early sample — buckets with fewer than ~10 picks bounce a lot. We publish
+                    the gaps exactly as they are: over-performing and under-performing alike.
+                    Losing picks are never deleted.
+                  </p>
+                </div>
+              )}
 
               <div className="pred-grid">
                 <div className="hero-card">

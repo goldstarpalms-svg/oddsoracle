@@ -224,9 +224,11 @@ export default function SportPicks({ sport, items, combo }: Props) {
       {/* LEGEND (plain words) */}
       <div className="legend">
         <b>Read it like this:</b> the bar shows the chance each outcome happens — the lit part is
-        the pick. <b>🏦 Banker</b> = model confidence of 70%+ (a statistical label, not a guarantee).{" "}
-        <b>💎 Value</b> = the price looks generous for the risk. <b>@1.85</b> = bet ₦100, win and
-        you get ₦185 back (₦85 profit). Percentages are model estimates.
+        the pick. <b>💎 VALUE</b> = our model sees a bigger chance than the bookmaker&rsquo;s price
+        implies (the engine says so below each card, with the real numbers). <b>⏸ PASS</b> = no
+        meaningful edge — we would rather pass than force a pick. <b>🏦 80%+ confidence</b> = feeds
+        the daily safe combos. <b>@1.85</b> = stake ₦100, win and you get ₦185 back (₦85 profit).
+        Percentages are model estimates, not guarantees.
       </div>
 
       {showBoards ? (

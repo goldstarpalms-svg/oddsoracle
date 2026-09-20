@@ -58,6 +58,7 @@ export interface FbPick {
   ht_pick: string; // model half-time pick ("1" | "X" | "2")
   htft: { combo: string; p: number } | null; // model half/full-time combo + %
   ah15: { h: number; a: number } | null; // P(home -1.5) / P(away -1.5) %
+  oracle: OracleData | null; // the OddsOracle engine v2 read (multi-model + MC + EV)
   fbExtra: {
     ht?: string;
     htft?: string;
@@ -65,6 +66,25 @@ export interface FbPick {
     cards?: string;
     scorers?: string;
   } | null; // Forebet's own calls for the extra markets (when the feed has them)
+}
+
+/** One game's read from the OddsOracle engine (backend/app/oracle_engine.py). */
+export interface OracleData {
+  signal: string; // STRONG VALUE | VALUE | FAIR | NO EDGE | PASS | AVOID
+  oracle_score: number; // 0-100 analytical signal score (NOT a win probability)
+  confidence: number; // model confidence % on the called side
+  data_quality: number; // % of data inputs present (model/market/forebet/h2h/form)
+  agreement: string; // "3/3" engines agree
+  models: { name: string; p: number[]; pick: string; agrees: boolean }[];
+  model_probability: [number, number, number]; // Monte Carlo 1/X/2 %
+  market_probability: [number, number, number] | null; // devigged price 1/X/2 %
+  edge: number | null; // best market edge, pp
+  ev_pct: number | null; // expected value % per unit on the called side
+  selection: string; // "1" | "X" | "2"
+  mc: { h: number; x: number; a: number; o25: number; btts: number; top2: string[] };
+  lambda: [number, number]; // expected goals (home, away)
+  why: { plus: string[]; minus: string[] };
+  model_version: string;
 }
 
 export interface BbPick {
@@ -285,7 +305,7 @@ export function fbPicks(): FbPick[] {
       final: labelPick(final),
       ou: r.ou || "",
       note: r.note || "",
-      banker: (pickProb ?? maxPct) >= 70,
+      banker: (pickProb ?? maxPct) >= 80,
       value: !!(odds && (pickProb ?? maxPct) >= 55 && odds >= 1.6),
       why,
       h2h: h2hFor(r.home, r.away),
@@ -294,6 +314,7 @@ export function fbPicks(): FbPick[] {
       ht_pick: r.ht_pick || "",
       htft: r.htft && r.htft.combo ? { combo: r.htft.combo, p: r.htft.p } : null,
       ah15: r.ah15 && typeof r.ah15.h === "number" ? { h: r.ah15.h, a: r.ah15.a } : null,
+      oracle: r.oracle && r.oracle.signal ? (r.oracle as OracleData) : null,
       fbExtra: r.fbExtra || null,
     });
   });
@@ -401,7 +422,7 @@ export function tnPicks(): TnPick[] {
       coef: g.coef || "",
       odds,
       pickProb: prob ? (predHome ? prob[0] : prob[1]) : null,
-      banker: !!prob && Math.max(prob[0], prob[1]) >= 70,
+      banker: !!prob && Math.max(prob[0], prob[1]) >= 80,
       value: !!prob && Math.max(prob[0], prob[1]) >= 55 && odds != null && odds >= 1.5,
       why: [
         prob ? `Forebet's probability split: ${prob[0]}% ${g.p1} / ${prob[1]}% ${g.p2}.` : "",
@@ -428,6 +449,7 @@ export function summary(): DailySummary {
     fb.filter((x) => x.banker).length +
     bb.filter((x) => x.banker).length +
     tn.filter((x) => x.banker).length;
+  // (banker = 80%+ model confidence — the safe-combo threshold)
   const scoreCalls =
     fb.filter((x) => x.fb_score).length +
     bb.filter((x) => x.fb_score).length +
