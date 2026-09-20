@@ -245,11 +245,19 @@ export function fbPicks(): FbPick[] {
       : typeof r.mkt_dec === "number"
         ? r.mkt_dec
         : null;
-    const mktImpRaw: number | null = mktImpArr ? mktImpArr[k1] : null;
     if (typeof mktDec === "number" && mktDec > 1) {
       odds = Math.round(mktDec * 100) / 100;
       oddsSrc = "market";
-      mktImp = mktImpRaw ?? Math.round((100 / mktDec) * 10) / 10;
+      // De-vig before comparing. The stored mkt_imp is a RAW implied
+      // probability — it still carries the bookmaker's overround, so comparing
+      // the model against it systematically overstates the edge by the size of
+      // the margin (typically 2-8pp). We recompute from the prices instead.
+      const full = Array.isArray(r.odds) && r.odds.length === 3 &&
+        r.odds.every((v: number) => Number.isFinite(v) && v > 1)
+        ? (r.odds as number[])
+        : mktDecArr;
+      const dv = full ? devig(full) : null;
+      mktImp = dv ? Math.round(dv[k1] * 1000) / 10 : Math.round((100 / mktDec) * 10) / 10;
     } else if (pct) {
       if (pct[k1] > 0) odds = Math.round((100 / pct[k1]) * 100) / 100;
       oddsSrc = "implied";

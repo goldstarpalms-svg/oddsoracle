@@ -30,6 +30,17 @@ export default function PredictionsPage() {
   const bb = bbPicks().filter((p) => !p.result);
   const tn = tnPicks().filter((p) => !p.result);
 
+  // Surface the picks we can actually stand behind. A row with no model
+  // probability and no price is noise, and it must not be the first thing a
+  // visitor sees — so completeness ranks above raw probability.
+  const rank = (p: { pickProb?: number | null; odds?: number | null }) =>
+    (p.pickProb != null ? 2 : 0) + (p.odds ? 1 : 0);
+  const byQuality = (a: any, b: any) =>
+    rank(b) - rank(a) || (b.pickProb ?? 0) - (a.pickProb ?? 0);
+  fb.sort(byQuality);
+  bb.sort(byQuality);
+  tn.sort(byQuality);
+
   const sections: {
     sport: Sport;
     title: string;
