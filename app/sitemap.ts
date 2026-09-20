@@ -9,6 +9,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/predictions/",
     "/slip/",
     "/live/",
+    "/pulse/",
+    "/arbs/",
     "/table-tennis/",
     "/search/",
     "/methodology/",

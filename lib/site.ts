@@ -23,6 +23,8 @@ export const NAV = [
   { label: "Basketball", href: "/predictions/basketball/" },
   { label: "Tennis", href: "/predictions/tennis/" },
   { label: "Table Tennis", href: "/table-tennis/" },
+  { label: "Pulse Board", href: "/pulse/" },
+  { label: "Arbs", href: "/arbs/" },
   { label: "Live", href: "/live/" },
   { label: "Slip Lab", href: "/slip/" },
   { label: "Track Record", href: "/track-record/" },

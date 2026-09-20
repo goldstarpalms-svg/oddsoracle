@@ -212,3 +212,49 @@ mode — no `output: export`). No environment variables required unless you enab
 live predictions (see above).
 
 License: © OddsOracle.
+
+---
+
+## ⚡ Pulse-Bet enrichment (`/pulse` + `/arbs`)
+
+OddsOracle's board comes from Forebet (~100 fixtures/day). **Pulse-Bet**
+(https://github.com/goldstarpalms-svg/pulse-bet) scores every fixture on it:
+
+- **Pulse DC** — a Dixon-Coles Poisson model fitted on the football-data.co.uk CSVs in
+  `backend/data/`, with time decay and shrinkage for thinly-observed teams
+- **Market** — the book prices with the overround stripped out
+- **Forebet** — the published percentages, where they exist
+- **Blend → EV** against the best price across 25+ bookmakers (OddsChecker)
+- **Tier** (ELITE / STRONG / GOOD / SKIP) and a **fractional-Kelly stake** (¼ Kelly, capped at 3%)
+
+| Route | What it is |
+|---|---|
+| `/pulse/` | the enriched board — probability columns, EV, tier, stake |
+| `/arbs/` | cross-book arbitrage scanner + near-arb watchlist |
+| `/api/pulse` | the same data as JSON (`?sport=&tier=&bettable=1`) |
+
+**How the data gets here**
+
+`pulse-bet` → `core/fusion/forebet_fusion.py` writes
+`backend/app/daily/<DATE>_pulse.json` + `<DATE>_arbs.json`. `scripts/bundle-data.mjs`
+picks those up into `lib/data-snapshot.json`, and the site renders them statically.
+
+Automated: `.github/workflows/daily-refresh.yml` clones pulse-bet and runs the exporter at
+05:00 UTC every day. It needs a **`PULSE_SYNC_TOKEN`** secret — a PAT with read access to
+`goldstarpalms-svg/pulse-bet`. Without it the step is skipped and the site falls back to the
+last committed file.
+
+Manual:
+```bash
+cd pulse-bet && python -m core.fusion.forebet_fusion --oddsoracle-dir ../oddsoracle
+cd ../oddsoracle && node scripts/bundle-data.mjs
+```
+
+**Live mode (optional):** set `PULSE_API_URL` in Vercel to a running pulse-bet API
+(`uvicorn dashboard.api.main:app`). `/api/pulse` then serves fresh data with a 4s timeout and
+falls back to the snapshot if the engine is unreachable.
+
+**Honesty rules baked in:** a `SKIP` never shows a stake; if the model and the market disagree
+by more than 22pp the model component is dropped for that fixture; teams with fewer than 10
+historical matches are not modelled at all; a pick with no market price says so instead of
+guessing an EV.

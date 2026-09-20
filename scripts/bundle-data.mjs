@@ -102,6 +102,26 @@ if (oddspapi) {
     markets = merged;
 }
 
+// ---- Pulse-Bet enrichment --------------------------------------------------
+// Written by pulse-bet -> core/fusion/forebet_fusion.py into backend/app/daily.
+// Keeps Forebet's volume, adds Pulse's own probability, EV, tier and Kelly
+// stake, plus an arbitrage scan over the same book prices.
+let pulse = read(pickD([/_pulse\.json$/])) || read(pick([/_pulse\.json$/]));
+let pulseArbs = read(pickD([/_arbs\.json$/])) || read(pick([/_arbs\.json$/]));
+if (pulse?.picks?.length) {
+  console.log(
+    `pulse: ${pulse.picks.length} enriched picks (${pulse.model_version}) ` +
+      `— bettable ${pulse.picks.filter((p) => p.bettable).length}`
+  );
+} else {
+  console.log("pulse: no enrichment file found (run pulse-bet export-oracle)");
+}
+if (pulseArbs) {
+  console.log(
+    `pulse arbs: ${(pulseArbs.arbs || []).length} live arbs, ${(pulseArbs.watch || []).length} near-arb`
+  );
+}
+
 let history = null;
 try {
   history = JSON.parse(
@@ -526,6 +546,8 @@ const snapshot = {
   markets: markets || null,
   safe: safe || null,
   setka: setka || null,
+  pulse: pulse && pulse.picks ? pulse : null,
+  pulseArbs: pulseArbs || null,
 };
 
 // ---- FINAL scores: stamp every match that is already over (best effort) ----

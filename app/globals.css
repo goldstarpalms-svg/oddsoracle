@@ -2810,3 +2810,93 @@ body::before {
 @media (max-width: 720px) {
   .intel-panel { grid-template-columns: 1fr; }
 }
+
+/* ==========================================================================
+   PULSE-BET board (components/PulseBoard.tsx)
+   ========================================================================== */
+.pulse-tier {
+  display: inline-block;
+  padding: 3px 10px;
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  white-space: nowrap;
+}
+.pulse-metrics {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 6px;
+  margin: 12px 0 10px;
+  padding: 10px;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+}
+.pulse-metric { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+.pulse-metric-k {
+  font-size: 9.5px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: #7f8fae;
+  white-space: nowrap;
+}
+.pulse-metric-v { font-size: 13px; font-weight: 700; color: #e7ecf6; }
+.pulse-probs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 10px;
+}
+.pulse-prob {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 3px 8px;
+  border-radius: 6px;
+  background: rgba(79, 143, 240, 0.1);
+  border: 1px solid rgba(79, 143, 240, 0.22);
+  font-size: 11px;
+}
+.pulse-prob-label { color: #93a3c4; font-weight: 600; }
+.pulse-prob-nums { color: #dce6f8; font-variant-numeric: tabular-nums; }
+.pulse-stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+  gap: 10px;
+  margin: 18px 0 6px;
+}
+.pulse-stat {
+  padding: 12px 14px;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+.pulse-stat-k {
+  display: block;
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #7f8fae;
+  margin-bottom: 4px;
+}
+.pulse-stat-v { font-size: 20px; font-weight: 800; color: #fff; }
+.arb-card {
+  padding: 16px;
+  border-radius: 14px;
+  border: 1px solid rgba(55, 214, 155, 0.28);
+  background: linear-gradient(180deg, rgba(55, 214, 155, 0.08), rgba(55, 214, 155, 0.02));
+  margin-bottom: 12px;
+}
+.arb-leg {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 6px 0;
+  border-bottom: 1px dashed rgba(255, 255, 255, 0.08);
+  font-size: 13px;
+}
+.arb-leg:last-child { border-bottom: 0; }
+@media (max-width: 520px) {
+  .pulse-metrics { grid-template-columns: repeat(2, 1fr); }
+}

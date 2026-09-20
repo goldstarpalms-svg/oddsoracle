@@ -50,6 +50,29 @@ jobs:
       - name: Rebuild track record (ROI / units / drawdown / calibration)
         run: python3 backend/app/backfill_history.py
 
+      - name: Refresh bookmaker prices (OddsChecker, keyless, 25+ UK books)
+        continue-on-error: true
+        run: python3 backend/app/fetch_oddschecker.py
+
+      # Pulse-Bet is a SEPARATE private repo (the engine). It reads this repo's
+      # Forebet board + OddsChecker prices + historical CSVs, scores everything
+      # with its Dixon-Coles model and writes <DATE>_pulse.json / <DATE>_arbs.json
+      # back into backend/app/daily — which the snapshot step below then bundles.
+      # Needs a PAT with read access to goldstarpalms-svg/pulse-bet.
+      - name: Pulse-Bet enrichment (model probability, EV, tiers, Kelly, arbs)
+        env:
+          PULSE_SYNC_TOKEN: ${{ secrets.PULSE_SYNC_TOKEN }}
+        run: |
+          if [ -z "$PULSE_SYNC_TOKEN" ]; then
+            echo "::warning::PULSE_SYNC_TOKEN not set — skipping Pulse-Bet enrichment"
+            exit 0
+          fi
+          rm -rf pulse-bet
+          git clone --depth 1 -q https://$PULSE_SYNC_TOKEN@github.com/goldstarpalms-svg/pulse-bet.git pulse-bet
+          pip install --quiet pandas numpy scipy rapidfuzz
+          (cd pulse-bet && python3 -m core.fusion.forebet_fusion --oddsoracle-dir .. --out ../backend/app/daily)
+          rm -rf pulse-bet
+
       - name: Rebuild data snapshot (+ stamp FINAL scores of finished matches)
         run: |
           npm ci --no-audit --no-fund

@@ -1,0 +1,609 @@
+{
+ "date": "2026-09-20",
+ "generated_at": "2026-09-20T12:09:11.626957+00:00",
+ "source": "pulse-bet arb scanner",
+ "disclaimer": "UK bookmaker prices via OddsChecker. Always confirm the price on the book before staking.",
+ "arbs": [],
+ "watch": [
+  {
+   "event": "Man City v Sunderland",
+   "home": "Man City",
+   "away": "Sunderland",
+   "overround": 1.0003,
+   "gap_pct": 0.03,
+   "legs": [
+    {
+     "selection": "Home",
+     "price": 1.36,
+     "book": "IvyBet"
+    },
+    {
+     "selection": "Draw",
+     "price": 5.8,
+     "book": "Betfair"
+    },
+    {
+     "selection": "Away",
+     "price": 10.8,
+     "book": "Betfair"
+    }
+   ]
+  },
+  {
+   "event": "Fiorentina v Napoli",
+   "home": "Fiorentina",
+   "away": "Napoli",
+   "overround": 1.0048,
+   "gap_pct": 0.48,
+   "legs": [
+    {
+     "selection": "Home",
+     "price": 2.31,
+     "book": "Betfair"
+    },
+    {
+     "selection": "Draw",
+     "price": 3.6,
+     "book": "Betfred"
+    },
+    {
+     "selection": "Away",
+     "price": 3.4,
+     "book": "AK Bets"
+    }
+   ]
+  },
+  {
+   "event": "Valencia v Sociedad",
+   "home": "Valencia",
+   "away": "Sociedad",
+   "overround": 1.00648,
+   "gap_pct": 0.648,
+   "legs": [
+    {
+     "selection": "Home",
+     "price": 2.66,
+     "book": "10bet"
+    },
+    {
+     "selection": "Draw",
+     "price": 3.5,
+     "book": "Betfred"
+    },
+    {
+     "selection": "Away",
+     "price": 2.9,
+     "book": "Betfair"
+    }
+   ]
+  },
+  {
+   "event": "Frosinone v Como",
+   "home": "Frosinone",
+   "away": "Como",
+   "overround": 1.00921,
+   "gap_pct": 0.921,
+   "legs": [
+    {
+     "selection": "Home",
+     "price": 1.53,
+     "book": "Betfair"
+    },
+    {
+     "selection": "Draw",
+     "price": 4.82,
+     "book": "Betfair"
+    },
+    {
+     "selection": "Away",
+     "price": 6.75,
+     "book": "10bet"
+    }
+   ]
+  },
+  {
+   "event": "Getafe v Malaga",
+   "home": "Getafe",
+   "away": "Malaga",
+   "overround": 1.00965,
+   "gap_pct": 0.965,
+   "legs": [
+    {
+     "selection": "Home",
+     "price": 2.14,
+     "book": "Betfair"
+    },
+    {
+     "selection": "Draw",
+     "price": 3.1,
+     "book": "bet365"
+    },
+    {
+     "selection": "Away",
+     "price": 4.55,
+     "book": "10bet"
+    }
+   ]
+  },
+  {
+   "event": "Leverkusen v RB Leipzig",
+   "home": "Leverkusen",
+   "away": "RB Leipzig",
+   "overround": 1.00993,
+   "gap_pct": 0.993,
+   "legs": [
+    {
+     "selection": "Home",
+     "price": 2.05,
+     "book": "IvyBet"
+    },
+    {
+     "selection": "Draw",
+     "price": 4.23,
+     "book": "Betfair"
+    },
+    {
+     "selection": "Away",
+     "price": 3.5,
+     "book": "Betfair"
+    }
+   ]
+  },
+  {
+   "event": "Parma v Genoa",
+   "home": "Parma",
+   "away": "Genoa",
+   "overround": 1.0105,
+   "gap_pct": 1.05,
+   "legs": [
+    {
+     "selection": "Home",
+     "price": 2.63,
+     "book": "Betfair"
+    },
+    {
+     "selection": "Draw",
+     "price": 3.1,
+     "book": "Coral"
+    },
+    {
+     "selection": "Away",
+     "price": 3.25,
+     "book": "Betfair"
+    }
+   ]
+  },
+  {
+   "event": "Villarreal v Levante",
+   "home": "Villarreal",
+   "away": "Levante",
+   "overround": 1.01243,
+   "gap_pct": 1.243,
+   "legs": [
+    {
+     "selection": "Home",
+     "price": 1.56,
+     "book": "Betfair"
+    },
+    {
+     "selection": "Draw",
+     "price": 4.82,
+     "book": "Betfair"
+    },
+    {
+     "selection": "Away",
+     "price": 6.1,
+     "book": "Betfair"
+    }
+   ]
+  },
+  {
+   "event": "Wolves v West Brom",
+   "home": "Wolves",
+   "away": "West Brom",
+   "overround": 1.01316,
+   "gap_pct": 1.316,
+   "legs": [
+    {
+     "selection": "Home",
+     "price": 1.89,
+     "book": "Betfair"
+    },
+    {
+     "selection": "Draw",
+     "price": 3.75,
+     "book": "AK Bets"
+    },
+    {
+     "selection": "Away",
+     "price": 4.6,
+     "book": "AK Bets"
+    }
+   ]
+  },
+  {
+   "event": "Schalke 04 v Elversberg",
+   "home": "Schalke 04",
+   "away": "Elversberg",
+   "overround": 1.01332,
+   "gap_pct": 1.332,
+   "legs": [
+    {
+     "selection": "Home",
+     "price": 2.1,
+     "book": "10bet"
+    },
+    {
+     "selection": "Draw",
+     "price": 3.8,
+     "book": "Coral"
+    },
+    {
+     "selection": "Away",
+     "price": 3.65,
+     "book": "Betfair"
+    }
+   ]
+  },
+  {
+   "event": "Amedspor v Besiktas",
+   "home": "Amedspor",
+   "away": "Besiktas",
+   "overround": 1.01373,
+   "gap_pct": 1.373,
+   "legs": [
+    {
+     "selection": "Home",
+     "price": 1.83,
+     "book": "Unibet"
+    },
+    {
+     "selection": "Draw",
+     "price": 4.14,
+     "book": "Betfair"
+    },
+    {
+     "selection": "Away",
+     "price": 4.43,
+     "book": "Betfair"
+    }
+   ]
+  },
+  {
+   "event": "Bournemouth v Liverpool",
+   "home": "Bournemouth",
+   "away": "Liverpool",
+   "overround": 1.01455,
+   "gap_pct": 1.455,
+   "legs": [
+    {
+     "selection": "Home",
+     "price": 2.22,
+     "book": "Betfair"
+    },
+    {
+     "selection": "Draw",
+     "price": 3.9,
+     "book": "AK Bets"
+    },
+    {
+     "selection": "Away",
+     "price": 3.25,
+     "book": "BOYLE Sports"
+    }
+   ]
+  },
+  {
+   "event": "Norwich v Bolton",
+   "home": "Norwich",
+   "away": "Bolton",
+   "overround": 1.0152,
+   "gap_pct": 1.52,
+   "legs": [
+    {
+     "selection": "Home",
+     "price": 1.51,
+     "book": "Betfair"
+    },
+    {
+     "selection": "Draw",
+     "price": 4.92,
+     "book": "Betfair"
+    },
+    {
+     "selection": "Away",
+     "price": 6.68,
+     "book": "Matchbook"
+    }
+   ]
+  },
+  {
+   "event": "Fenerbahce v Eyupspor",
+   "home": "Fenerbahce",
+   "away": "Eyupspor",
+   "overround": 1.01554,
+   "gap_pct": 1.554,
+   "legs": [
+    {
+     "selection": "Home",
+     "price": 1.2,
+     "book": "Betfair"
+    },
+    {
+     "selection": "Draw",
+     "price": 8.06,
+     "book": "Betfair"
+    },
+    {
+     "selection": "Away",
+     "price": 17.2,
+     "book": "Betfair"
+    }
+   ]
+  },
+  {
+   "event": "Milan v Lecce",
+   "home": "Milan",
+   "away": "Lecce",
+   "overround": 1.01561,
+   "gap_pct": 1.561,
+   "legs": [
+    {
+     "selection": "Home",
+     "price": 1.28,
+     "book": "Betfair"
+    },
+    {
+     "selection": "Draw",
+     "price": 6.1,
+     "book": "Betfair"
+    },
+    {
+     "selection": "Away",
+     "price": 14.2,
+     "book": "Matchbook"
+    }
+   ]
+  },
+  {
+   "event": "Juventus v Atalanta",
+   "home": "Juventus",
+   "away": "Atalanta",
+   "overround": 1.01597,
+   "gap_pct": 1.597,
+   "legs": [
+    {
+     "selection": "Home",
+     "price": 1.74,
+     "book": "Betfair"
+    },
+    {
+     "selection": "Draw",
+     "price": 3.9,
+     "book": "AK Bets"
+    },
+    {
+     "selection": "Away",
+     "price": 5.41,
+     "book": "Betfair"
+    }
+   ]
+  },
+  {
+   "event": "La Coruna v Betis",
+   "home": "La Coruna",
+   "away": "Betis",
+   "overround": 1.01597,
+   "gap_pct": 1.597,
+   "legs": [
+    {
+     "selection": "Home",
+     "price": 2.06,
+     "book": "Betfair"
+    },
+    {
+     "selection": "Draw",
+     "price": 3.8,
+     "book": "bet365"
+    },
+    {
+     "selection": "Away",
+     "price": 3.74,
+     "book": "Betfair"
+    }
+   ]
+  },
+  {
+   "event": "Paderborn v Hoffenheim",
+   "home": "Paderborn",
+   "away": "Hoffenheim",
+   "overround": 1.01621,
+   "gap_pct": 1.621,
+   "legs": [
+    {
+     "selection": "Home",
+     "price": 1.74,
+     "book": "Betfair"
+    },
+    {
+     "selection": "Draw",
+     "price": 4.53,
+     "book": "Betfair"
+    },
+    {
+     "selection": "Away",
+     "price": 4.53,
+     "book": "Betfair"
+    }
+   ]
+  },
+  {
+   "event": "Auxerre v Brest",
+   "home": "Auxerre",
+   "away": "Brest",
+   "overround": 1.01632,
+   "gap_pct": 1.632,
+   "legs": [
+    {
+     "selection": "Home",
+     "price": 2.51,
+     "book": "Betfair"
+    },
+    {
+     "selection": "Draw",
+     "price": 3.6,
+     "book": "Coral"
+    },
+    {
+     "selection": "Away",
+     "price": 2.94,
+     "book": "Matchbook"
+    }
+   ]
+  },
+  {
+   "event": "Marseille v Paris SG",
+   "home": "Marseille",
+   "away": "Paris SG",
+   "overround": 1.01661,
+   "gap_pct": 1.661,
+   "legs": [
+    {
+     "selection": "Home",
+     "price": 1.4,
+     "book": "AK Bets"
+    },
+    {
+     "selection": "Draw",
+     "price": 5.61,
+     "book": "Betfair"
+    },
+    {
+     "selection": "Away",
+     "price": 8.06,
+     "book": "Betfair"
+    }
+   ]
+  },
+  {
+   "event": "Ath Madrid v Real Madrid",
+   "home": "Ath Madrid",
+   "away": "Real Madrid",
+   "overround": 1.01667,
+   "gap_pct": 1.667,
+   "legs": [
+    {
+     "selection": "Home",
+     "price": 2.0,
+     "book": "AK Bets"
+    },
+    {
+     "selection": "Draw",
+     "price": 4.0,
+     "book": "BetVictor"
+    },
+    {
+     "selection": "Away",
+     "price": 3.75,
+     "book": "AK Bets"
+    }
+   ]
+  },
+  {
+   "event": "Celtic v Rangers",
+   "home": "Celtic",
+   "away": "Rangers",
+   "overround": 1.01736,
+   "gap_pct": 1.736,
+   "legs": [
+    {
+     "selection": "Home",
+     "price": 2.25,
+     "book": "AK Bets"
+    },
+    {
+     "selection": "Draw",
+     "price": 3.84,
+     "book": "Betfair"
+    },
+    {
+     "selection": "Away",
+     "price": 3.2,
+     "book": "Coral"
+    }
+   ]
+  },
+  {
+   "event": "Leeds v Crystal Palace",
+   "home": "Leeds",
+   "away": "Crystal Palace",
+   "overround": 1.01816,
+   "gap_pct": 1.816,
+   "legs": [
+    {
+     "selection": "Home",
+     "price": 1.75,
+     "book": "AK Bets"
+    },
+    {
+     "selection": "Draw",
+     "price": 4.04,
+     "book": "Betfair"
+    },
+    {
+     "selection": "Away",
+     "price": 5.02,
+     "book": "Betfair"
+    }
+   ]
+  },
+  {
+   "event": "Nijmegen v Go Ahead Eagles",
+   "home": "Nijmegen",
+   "away": "Go Ahead Eagles",
+   "overround": 1.01906,
+   "gap_pct": 1.906,
+   "legs": [
+    {
+     "selection": "Home",
+     "price": 1.97,
+     "book": "Betfair"
+    },
+    {
+     "selection": "Draw",
+     "price": 4.43,
+     "book": "Betfair"
+    },
+    {
+     "selection": "Away",
+     "price": 3.5,
+     "book": "bet365"
+    }
+   ]
+  },
+  {
+   "event": "Fulham v Man United",
+   "home": "Fulham",
+   "away": "Man United",
+   "overround": 1.01962,
+   "gap_pct": 1.962,
+   "legs": [
+    {
+     "selection": "Home",
+     "price": 2.06,
+     "book": "Betfair"
+    },
+    {
+     "selection": "Draw",
+     "price": 3.9,
+     "book": "bet365"
+    },
+    {
+     "selection": "Away",
+     "price": 3.6,
+     "book": "AK Bets"
+    }
+   ]
+  }
+ ]
+}
