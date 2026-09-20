@@ -13,6 +13,7 @@ import {
   hockeyPicks,
   mlbPicks,
   ncaaFbPicks,
+  nflPicks,
   summary,
   tnPicks,
 } from "@/lib/rich";
@@ -93,7 +94,7 @@ export default function SportPage({ params }: { params: { sport: Sport } }) {
   const tn = tnPicks();
   const isOther = sport === "other";
   const am = isOther
-    ? [...mlbPicks(), ...ncaaFbPicks(), ...hockeyPicks(), ...forebetBbPicks(), ...handballPicks()]
+    ? [...mlbPicks(), ...ncaaFbPicks(), ...nflPicks(), ...hockeyPicks(), ...forebetBbPicks(), ...handballPicks()]
     : [];
   const items =
     sport === "football" ? fb : sport === "basketball" ? bb : sport === "tennis" ? tn : am;

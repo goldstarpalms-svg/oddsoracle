@@ -61,6 +61,7 @@ const pickD = (patterns) => {
 let basketball = read(pick([/_basketball\.json$/]));
 let tennis = read(pick([/_tennis\.json$/]));
 let ncaafb = read(pick([/_ncaafb\.json$/]));
+let nfl = read(pick([/_nfl\.json$/]));
 let hockey = read(pick([/_hockey\.json$/]));
 let forebetBaseball = read(pick([/^\d{4}-\d{2}-\d{2}_baseball\.json$/]));
 let handball = read(pick([/_handball\.json$/]));
@@ -496,6 +497,7 @@ const snapshot = {
   basketball: basketball && basketball.games ? basketball : null,
   tennis: tennis && tennis.games ? tennis : null,
   ncaafb: ncaafb && ncaafb.games ? ncaafb : null,
+  nfl: nfl && nfl.games ? nfl : null,
   hockey: hockey && hockey.games ? hockey : null,
   forebetBaseball: forebetBaseball && forebetBaseball.games ? forebetBaseball : null,
   handball: handball && handball.games ? handball : null,

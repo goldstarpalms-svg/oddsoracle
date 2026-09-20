@@ -1,0 +1,17 @@
+{
+  "title": "Out-of-sample backtest: fit 2024/25 -> predict every 2025/26 match",
+  "run_at": "2026-09-20T12:30:00+01:00",
+  "model": "Poisson xG hybrid v2 (season attack/defence strengths, shrinkage toward league baseline)",
+  "baseline_logloss_uniform": 1.0986,
+  "leagues": [
+    {"league": "Premier League", "n": 272, "best_shrinkage": 0.8, "logloss_1x2": 1.0489, "logloss_by_w": {"0.5": 1.0528, "0.6": 1.0505, "0.7": 1.0492, "0.8": 1.0489, "0.85": 1.0491, "0.9": 1.0497, "0.95": 1.0506, "1.0": 1.0518}},
+    {"league": "La Liga", "n": 272, "best_shrinkage": 0.8, "logloss_1x2": 0.9976, "logloss_by_w": {"0.5": 1.0037, "0.6": 0.9998, "0.7": 0.9978, "0.8": 0.9976, "0.85": 0.9984, "0.9": 0.9997, "0.95": 1.0017, "1.0": 1.0045}},
+    {"league": "Bundesliga", "n": 240, "best_shrinkage": 0.9, "logloss_1x2": 0.9882, "logloss_by_w": {"0.5": 1.0057, "0.6": 0.9988, "0.7": 0.9935, "0.8": 0.9899, "0.85": 0.9888, "0.9": 0.9882, "0.95": 0.9882, "1.0": 0.9889}},
+    {"league": "Serie A", "n": 272, "best_shrinkage": 0.85, "logloss_1x2": 1.0156, "logloss_by_w": {"0.5": 1.0273, "0.6": 1.0215, "0.7": 1.0176, "0.8": 1.0157, "0.85": 1.0156, "0.9": 1.0161, "0.95": 1.0173, "1.0": 1.0192}},
+    {"league": "Ligue 1", "n": 210, "best_shrinkage": 0.85, "logloss_1x2": 0.9954, "logloss_by_w": {"0.5": 1.0056, "0.6": 1.0008, "0.7": 0.9976, "0.8": 0.9958, "0.85": 0.9954, "0.9": 0.9955, "0.95": 0.9961, "1.0": 0.9971}}
+  ],
+  "sensitivity": {
+    "note": "max |P diff| between 2526-only and 2627-only fits, same fixtures (34 of 46, promoted teams excluded)",
+    "mean_pp": 17.6, "median_pp": 12.2, "max_pp": 50.3
+  }
+}

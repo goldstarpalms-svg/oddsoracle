@@ -39,6 +39,7 @@ PAGES = {
     "football": "https://www.forebet.com/en/football-tips-and-predictions-for-today",
     "basketball": "https://www.forebet.com/en/basketball/predictions-today",
     "tennis": "https://www.forebet.com/en/tennis/predictions-today",
+    "americanfootball": "https://www.forebet.com/en/american-football/predictions-today",
 }
 
 
@@ -214,6 +215,45 @@ def build_basketball(rows):
                 )
             )
     return games, all_rows
+
+
+def build_nfl(rows):
+    """Forebet American Football (NFL/NCAA) rows -> two-way games.
+
+    Table cells vary by layout; we look for two percentage-like ints that sum
+    near 100 (the 1/2 split) and, when present, the pick cell (1 or 2) plus a
+    predicted score 'x-y'. Defensive: rows that do not parse are dropped.
+    """
+    out = []
+    for r in rows:
+        cells = r["cells"]
+        ints = [int(c) for c in cells if re.fullmatch(r"\d{1,3}", c) and 1 <= int(c) <= 99]
+        p1 = p2 = None
+        for i in range(len(ints) - 1):
+            a, b = ints[i], ints[i + 1]
+            if 90 <= a + b <= 110:
+                p1, p2 = a, b
+                break
+        if p1 is None:
+            continue
+        # predicted score if any cell looks like '14-21'
+        score = next((c for c in cells if re.fullmatch(r"\d{1,3}-\d{1,3}", c)), "")
+        # pick: a standalone 1 or 2 cell (last one before/after probs)
+        pred = ""
+        for c in cells:
+            if c in ("1", "2"):
+                pred = c
+        if not pred:
+            pred = "1" if p1 >= p2 else "2"
+        out.append(
+            dict(
+                match=f"{r['home']} v {r['away']}",
+                home=r["home"], away=r["away"], league=r["league"],
+                t=r["t"], prob=f"{p1}/{100 - p1}", pred=pred,
+                score=score, coef=None, avg=None,
+            )
+        )
+    return out
 
 
 def build_tennis(rows):
@@ -567,6 +607,19 @@ def main():
             print(f"tennis: SKIPPED ({len(games)} rows parsed)")
     except Exception as e:
         print(f"tennis: SKIPPED ({e})")
+
+    try:
+        rows = parse_rows(fetch(PAGES["americanfootball"]), "american-football")
+        games = build_nfl(rows)
+        payload = {"date": today, "source": "Forebet daily feed (auto-refresh)", "games": games}
+        p = os.path.join(DAILY, f"{today}_nfl.json")
+        if write_if_better(p, payload, 3, key="games"):
+            summary.append(f"american football: {len(games)} picks")
+            print(f"american football: {len(games)} picks -> {p}")
+        else:
+            print(f"american football: SKIPPED ({len(games)} rows parsed)")
+    except Exception as e:
+        print(f"american football: SKIPPED ({e})")
 
     # --- forebet's extra markets: HT / HT-FT / corners / cards / goalscorers ---
     try:
