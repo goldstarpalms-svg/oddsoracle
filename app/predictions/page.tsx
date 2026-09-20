@@ -2,7 +2,8 @@ import Link from "next/link";
 import type { Metadata } from "next";
 import { SPORTS, type Sport } from "@/lib/predictions";
 import { bbPicks, fbPicks, fmtDate, summary, tnPicks } from "@/lib/rich";
-import { BasketballCard, FootballCard, TennisCard } from "@/components/RichCard";
+import PredictionCard from "@/components/PredictionCardV2";
+import { cardFromFootball, cardFromBasketball, cardFromTennis } from "@/lib/card";
 import BestPicks from "@/components/BestPicks";
 import AdSlot from "@/components/AdSlot";
 import JsonLd from "@/components/JsonLd";
@@ -23,9 +24,11 @@ export const metadata: Metadata = {
 
 export default function PredictionsPage() {
   const sum = summary();
-  const fb = fbPicks();
-  const bb = bbPicks();
-  const tn = tnPicks();
+  // Finished matches belong in Results, not in today's predictions — showing
+  // settled games as upcoming picks is the single biggest source of complaints.
+  const fb = fbPicks().filter((p) => !p.result);
+  const bb = bbPicks().filter((p) => !p.result);
+  const tn = tnPicks().filter((p) => !p.result);
 
   const sections: {
     sport: Sport;
@@ -33,9 +36,9 @@ export default function PredictionsPage() {
     items: any[];
     render: (p: any) => JSX.Element;
   }[] = [
-    { sport: "football", title: "Football", items: fb, render: (p) => <FootballCard key={p.id} p={p} /> },
-    { sport: "basketball", title: "Basketball", items: bb, render: (p) => <BasketballCard key={p.id} p={p} /> },
-    { sport: "tennis", title: "Tennis", items: tn, render: (p) => <TennisCard key={p.id} p={p} /> },
+    { sport: "football", title: "Football", items: fb, render: (p) => <PredictionCard key={p.id} card={cardFromFootball(p)} /> },
+    { sport: "basketball", title: "Basketball", items: bb, render: (p) => <PredictionCard key={p.id} card={cardFromBasketball(p)} /> },
+    { sport: "tennis", title: "Tennis", items: tn, render: (p) => <PredictionCard key={p.id} card={cardFromTennis(p)} /> },
   ];
 
   const ld = {
@@ -106,7 +109,7 @@ export default function PredictionsPage() {
                     Filters &amp; combo →
                   </Link>
                 </div>
-                <div className="pred-grid">
+                <div className="pred-grid" style={{ alignItems: "start" }}>
                   {items.slice(0, sport === "football" ? 12 : items.length).map(render)}
                 </div>
                 {sport === "football" && items.length > 12 && (
