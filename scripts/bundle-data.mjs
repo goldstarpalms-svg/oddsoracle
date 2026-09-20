@@ -411,6 +411,39 @@ try {
   console.log("oracle engine skipped:", e.message);
 }
 
+// ---- LIVE odds: OddsChecker (keyless, 26 books) -> r.oc -------------------
+let oddscheckerMeta = null;
+try {
+  const ocFile = pickD([/^\d{4}-\d{2}-\d{2}_oddschecker\.json$/]);
+  const oc = ocFile ? read(ocFile) : null;
+  if (oc?.games && Array.isArray(football)) {
+    let n = 0;
+    for (const r of football) {
+      const o = oc.games[`${r.home}|${r.away}`];
+      if (o?.win?.h) {
+        r.oc = {
+          h: o.win.h.best,
+          x: o.win.x.best,
+          a: o.win.a.best,
+          htft: o.htft || null,
+          nBooks: o.books ? Object.keys(o.books).length : 0,
+          feedTs: o.feed_ts || null,
+          ocUrl: o.oc_url || null,
+        };
+        n += 1;
+      }
+    }
+    oddscheckerMeta = {
+      fetchedAt: oc.fetched_at,
+      games: n,
+      source: "oddschecker",
+    };
+    console.log(`oddschecker live odds: ${n}/${football.length} football rows`);
+  }
+} catch (e) {
+  console.log("oddschecker skipped:", e.message);
+}
+
 // ---- Forebet's extra markets (HT / HT-FT / corners / cards / goalscorers) ----
 // Fetched by refresh_forebet.py daily into <date>_fb_extra.json (best effort).
 try {
@@ -448,6 +481,7 @@ const snapshot = {
   handball: handball && handball.games ? handball : null,
   h2h: h2h && h2h.games ? h2h : null,
   oracle: oracleMeta || null,
+  oddschecker: oddscheckerMeta || null,
   history: history && history.cumulative ? history : null,
   odds: odds || null,
   markets: markets || null,

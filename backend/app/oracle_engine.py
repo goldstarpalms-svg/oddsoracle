@@ -196,6 +196,16 @@ def main():
         except Exception:
             pass
 
+        # ---- LIVE odds: OddsChecker (keyless, 26 books) — overrides stale prices ----
+        oc_live, oc_meta = {}, None
+        try:
+            doc_oc = json.load(open(os.path.join(DAILY, f"{date}_oddschecker.json")))
+            if str(doc_oc.get("fetched_at", ""))[:10] == date:
+                oc_live = doc_oc.get("games") or {}
+                oc_meta = doc_oc
+        except Exception:
+            pass
+
         out = {}
         for g in games:
             m = g.get("model")
@@ -206,6 +216,22 @@ def main():
             row = board.get(key) or {}
             mkt_dec = row.get("mkt_dec")
             fb_pct = row.get("fb_pct") if row.get("fb_pct") and any(row.get("fb_pct")) else None
+            # LIVE OddsChecker prices (today's fetch) override stale board prices
+            oc_row = oc_live.get(key) or {}
+            prices_live = False
+            oc_out = None
+            ow = oc_row.get("win") or {}
+            p_stale = prices_stale
+            if all(k in ow for k in ("h", "x", "a")):
+                mkt_dec = [ow["h"]["best"], ow["x"]["best"], ow["a"]["best"]]
+                prices_live = True
+                p_stale = False
+                oc_out = {
+                    "h": ow["h"]["best"], "x": ow["x"]["best"], "a": ow["a"]["best"],
+                    "n_books": len(oc_row.get("books") or {}),
+                    "feed_ts": oc_row.get("feed_ts"),
+                    "oc_url": oc_row.get("oc_url"),
+                }
             target = {
                 "p1": m["p1"], "px": m["px"], "p2": m["p2"],
                 "o15": m.get("o15", 0.8), "o25": m.get("o25", 0.5), "btts": m.get("btts", 0.6),
@@ -286,8 +312,10 @@ def main():
                 mx_mod = max(mc["h"], mc["x"], mc["a"])
                 mkt_wide = (mx_mkt - mx_mod) > 20 or (mx_mod - mx_mkt) > 20
             price_note = []
-            if prices_stale:
+            if p_stale:
                 price_note.append("Market prices are from a previous day (refresh pending) — edge is an estimate, not live.")
+            if prices_live:
+                price_note.append(f"LIVE market — OddsChecker best of {oc_out['n_books']} books, feed {str(oc_out['feed_ts'])[:19]}Z.")
             if mkt_wide:
                 price_note.append("Price deviates sharply from the model — treated as untrusted for a strong call.")
 
@@ -307,7 +335,7 @@ def main():
                 signal = "PASS"
             else:
                 signal = "NO EDGE"
-            if signal == "STRONG VALUE" and (prices_stale or mkt_wide):
+            if signal == "STRONG VALUE" and (p_stale or mkt_wide):
                 signal = "VALUE"
             price_minuses = price_note
 
@@ -401,6 +429,8 @@ def main():
                 "mc": mc,
                 "lambda": [round(lh, 3), round(la, 3)],
                 "why": {"plus": plus, "minus": minus},
+                "prices_live": prices_live,
+                "oc": oc_out,
                 "model_version": MODEL_VERSION,
                 "data_timestamp": datetime.now(timezone.utc).isoformat(timespec="seconds"),
                 "status": "published",

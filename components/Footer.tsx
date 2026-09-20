@@ -21,6 +21,7 @@ export default function Footer() {
             <h4>Predictions</h4>
             <ul>
               <li><Link href="/predictions/">Today&rsquo;s Picks</Link></li>
+              <li><Link href="/live/">Live Center</Link></li>
               <li><Link href="/predictions/football/">Football</Link></li>
               <li><Link href="/predictions/basketball/">Basketball</Link></li>
               <li><Link href="/predictions/tennis/">Tennis</Link></li>

@@ -41,6 +41,9 @@ jobs:
       - name: Build HT / HT-FT / Asian-handicap model for every dated board
         run: python3 backend/app/halves.py
 
+      - name: Fetch LIVE OddsChecker odds (keyless, 26 books) for today's board
+        run: python3 backend/app/fetch_oddschecker.py
+
       - name: Build ODDSORACLE ENGINE (multi-model + Monte Carlo + EV + signal)
         run: python3 backend/app/oracle_engine.py
 

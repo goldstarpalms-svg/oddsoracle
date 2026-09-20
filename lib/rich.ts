@@ -85,6 +85,8 @@ export interface OracleData {
   lambda: [number, number]; // expected goals (home, away)
   why: { plus: string[]; minus: string[] };
   model_version: string;
+  prices_live?: boolean; // true when priced off today's live OddsChecker feed
+  oc?: { h: number; x: number; a: number; n_books: number; feed_ts: string | null; oc_url: string | null } | null; // live 1X2 best of N books
 }
 
 export interface BbPick {

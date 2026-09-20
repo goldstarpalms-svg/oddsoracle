@@ -35,6 +35,24 @@ export default function OraclePanel({ o, home, away }: { o: OracleData; home: st
         </span>
       </div>
 
+      {o.oc && (
+        <div className="oc-strip">
+          <span className="oc-label">
+            {o.prices_live ? "🔴 LIVE 1X2" : "1X2"} · BEST OF {o.oc.n_books} BOOKS
+          </span>
+          <span className="oc-odds">
+            {["h", "x", "a"].map((k) => (
+              <span key={k} style={{ marginRight: 6 }}>
+                <b>{o.oc![k as "h" | "x" | "a"].toFixed(2)}</b>
+              </span>
+            ))}
+          </span>
+          <span className="oc-meta">
+            {o.prices_live ? "live feed" : "today"} {o.oc.feed_ts ? `· ${fmtWAT(o.oc.feed_ts)}` : ""}
+          </span>
+        </div>
+      )}
+
       <div className="oracle-rows">
         <div className="oracle-row">
           <span className="oracle-k">Model (simulated)</span>
@@ -104,4 +122,14 @@ export default function OraclePanel({ o, home, away }: { o: OracleData; home: st
       )}
     </div>
   );
+}
+
+function fmtWAT(iso: string): string {
+  try {
+    const d = new Date(iso);
+    const w = new Date(d.getTime() + 3600000);
+    return w.toISOString().slice(11, 16) + " WAT";
+  } catch {
+    return "";
+  }
 }
