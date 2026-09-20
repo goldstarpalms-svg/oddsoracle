@@ -9,7 +9,7 @@ import SNAPSHOT from "@/lib/data-snapshot.json";
 const SECTIONS: { key: string; title: string; sub: string; tone: string }[] = [
   { key: "strong", title: "Strong Value", sub: "Model vs price gap with clean data", tone: "strong" },
   { key: "value", title: "Value", sub: "Positive edge — the price underprices the model", tone: "value" },
-  { key: "conf", title: "High Confidence (80%+)", sub: "The model is sure — but sure ≠ value. Some are PASS.", tone: "conf" },
+  { key: "conf", title: "High probability (80%+)", sub: "A big estimated chance — but probability is not value. Some of these are PASS.", tone: "conf" },
   { key: "fair", title: "Fair", sub: "Price and model roughly agree — no play", tone: "fair" },
   { key: "pass", title: "Pass / No Edge", sub: "The engine declined these. Listed for honesty.", tone: "pass" },
 ];
@@ -178,7 +178,7 @@ function SignalChip({ s, modelProb }: { s: string; modelProb: number }) {
   return (
     <span className="ob-chips">
       <span className={`sig sig-${tone}`}>{s}</span>
-      {modelProb >= 80 && <span className="sig sig-conf">HIGH CONFIDENCE</span>}
+      {modelProb >= 80 && <span className="sig sig-conf">HIGH PROBABILITY</span>}
     </span>
   );
 }
