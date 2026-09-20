@@ -203,8 +203,9 @@ export function fbPicks(): FbPick[] {
   const out: FbPick[] = [];
   rows.forEach((r: any, i: number) => {
     if (!r || !r.home || !r.away) return;
-    const final = String(r.final || r.fb_pick || "");
-    if (!final) return;
+    // 4.0: rows from the full Forebet board may have no 1X2 pick published —
+    // they are shown as "—" (the game is real; the pick simply isn't there).
+    const final = String(r.final || r.fb_pick || "") || "—";
     const m: ModelInfo | null = r.model
       ? {
           pick: r.model.pick || "",
@@ -311,7 +312,7 @@ export function fbPicks(): FbPick[] {
       value: !!(odds && (pickProb ?? maxPct) >= 55 && odds >= 1.6),
       why,
       h2h: h2hFor(r.home, r.away),
-      result: r.result || null,
+      result: r.result || r.final_score || null, // ESPN stamp or Forebet FT from the full board
       ht: Array.isArray(r.ht) && r.ht.length === 3 ? (r.ht as [number, number, number]) : null,
       ht_pick: r.ht_pick || "",
       htft: r.htft && r.htft.combo ? { combo: r.htft.combo, p: r.htft.p } : null,
