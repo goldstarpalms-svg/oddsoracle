@@ -34,7 +34,7 @@ jobs:
 
       # Forebet regularly 403s datacentre IPs (CI runners included). When it does,
       # the rest of the pipeline — prices, Pulse enrichment, snapshot — must still run.
-      - name: Fetch Forebet daily picks (+ extra markets: HT, HT/FT, corners, cards, goalscorers)
+      - name: "Fetch Forebet daily picks (+ extra markets: HT, HT/FT, corners, cards, goalscorers)"
         continue-on-error: true
         id: forebet
         run: python3 backend/app/refresh_forebet.py
