@@ -4,7 +4,7 @@ import { useState } from "react";
 import type { CardModel } from "@/lib/card";
 import { QualityBadge, StatusBadge, ValueBadge } from "@/components/ui/Badge";
 import { useSlip } from "@/lib/slip";
-import { fmtEv, fmtOdds, fmtPct, fmtPp, THRESHOLDS } from "@/lib/value";
+import { fmtEv, fmtOdds, fmtPct, fmtPp, kellyStake, THRESHOLDS } from "@/lib/value";
 
 /**
  * The one prediction card. Every board renders this.
@@ -17,6 +17,7 @@ export default function PredictionCard({ card }: { card: CardModel }) {
   const [open, setOpen] = useState(false);
   const slip = useSlip();
   const inSlip = slip.has(card.id);
+  const stake = kellyStake(card.modelProb, card.odds);
 
   const edgeTone =
     card.edgePp == null
@@ -82,6 +83,16 @@ export default function PredictionCard({ card }: { card: CardModel }) {
           </span>
         </div>
       </div>
+
+      {/* safer stake — only when there is a real price to size against */}
+      {card.priced && stake != null && stake > 0 && (
+        <div className="stake-row">
+          <span className="k">Safer stake &middot; &frac14; Kelly, capped at 3%</span>
+          <span className="v">
+            {(stake * 100).toFixed(1)}% &middot; &#8358;{Math.round(stake * 100000).toLocaleString()} on &#8358;100,000
+          </span>
+        </div>
+      )}
 
       {/* verdict */}
       <div style={{ display: "flex", flexWrap: "wrap", gap: 6, marginBottom: "var(--s-3)" }}>

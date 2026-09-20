@@ -3165,3 +3165,92 @@ body::before {
 }
 @media (max-width: 900px) { .ds-table-wrap { display: none; } }
 @media (min-width: 901px) { .ds-mobile-list { display: none; } }
+
+/* ==========================================================================
+   2.0 — THEME REFRESH: institutional terminal
+   Calm, layered, dark. One soft top light, a faint grid, no neon, no glow.
+   ========================================================================== */
+:root {
+  /* layered surfaces — each step is a real elevation, not a filter */
+  --bg: #070a11;
+  --bg-2: #0a0e17;
+  --surface: #0e131d;
+  --surface-2: #131926;
+  --surface-3: #18202f;
+  --border: #1c2536;
+  --border-soft: #161e2c;
+  --border-strong: #2b374d;
+
+  --text: #e7edf7;
+  --text-2: #a8b7cc;
+  --text-3: #6e7f97;
+
+  --accent: #3fcf95;
+  --positive: #3fcf95;
+  --warning: #dba33f;
+  --negative: #e0605a;
+  --info: #5aa0f0;
+  --neutral: #7d8da6;
+
+  --r-md: 8px;
+  --r-lg: 12px;
+}
+
+body {
+  background-color: var(--bg);
+  background-image:
+    radial-gradient(900px 480px at 50% -10%, rgba(63, 207, 149, 0.07), transparent 70%),
+    radial-gradient(700px 380px at 100% 0%, rgba(90, 160, 240, 0.05), transparent 70%),
+    linear-gradient(rgba(255, 255, 255, 0.014) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.014) 1px, transparent 1px);
+  background-size: auto, auto, 100% 44px, 44px 100%;
+  background-attachment: fixed;
+}
+
+/* --- card grid: consistent, aligned, no ragged bottoms ------------------- */
+.pick-grid {
+  display: grid;
+  gap: var(--s-3);
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  align-items: start;
+}
+@media (max-width: 720px) {
+  .pick-grid { grid-template-columns: 1fr; }
+}
+
+/* --- finished strip: expired events collapse out of the live board ------- */
+.finished-strip {
+  display: flex; align-items: center; justify-content: space-between; gap: 12px;
+  padding: var(--s-2) var(--s-3);
+  border: 1px dashed var(--border); border-radius: var(--r-md);
+  color: var(--text-3); font-size: var(--t-sm);
+  background: rgba(255, 255, 255, 0.015);
+}
+.finished-strip button {
+  background: none; border: 0; color: var(--text-2);
+  font-size: var(--t-sm); text-decoration: underline; cursor: pointer;
+}
+
+/* --- safer stake row on the card ---------------------------------------- */
+.stake-row {
+  display: flex; align-items: baseline; justify-content: space-between; gap: 8px;
+  margin-top: var(--s-2); padding-top: var(--s-2);
+  border-top: 1px solid var(--border-soft);
+  font-size: var(--t-sm);
+}
+.stake-row .k { color: var(--text-3); }
+.stake-row .v { font-weight: 700; color: var(--text); font-variant-numeric: tabular-nums; }
+
+/* --- tone down the old neon hero: keep it flat and institutional --------- */
+.hero-4 {
+  background:
+    radial-gradient(720px 320px at 20% -20%, rgba(63, 207, 149, 0.08), transparent 70%),
+    radial-gradient(600px 280px at 90% -10%, rgba(90, 160, 240, 0.06), transparent 70%);
+  border-bottom: 1px solid var(--border-soft);
+}
+.grad-text {
+  background: linear-gradient(90deg, var(--accent), #7ad9b4);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}

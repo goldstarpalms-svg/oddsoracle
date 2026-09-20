@@ -81,6 +81,24 @@ export function evPct(
   return modelProb * odds - 1;
 }
 
+/**
+ * Recommended stake as a fraction of bankroll: fractional Kelly, capped.
+ * This is the "safer stake" shown on every priced card — a quarter of full
+ * Kelly and never more than 3% of the bankroll, however good the number looks.
+ */
+export function kellyStake(
+  modelProb: number | null | undefined,
+  odds: number | null | undefined,
+  fraction = 0.25,
+  cap = 0.03
+): number | null {
+  if (modelProb == null || !odds || odds <= 1) return null;
+  const b = odds - 1;
+  const full = (modelProb * b - (1 - modelProb)) / b;
+  if (!Number.isFinite(full) || full <= 0) return 0;
+  return Math.min(full * fraction, cap);
+}
+
 /** Model → decimal "fair" price. */
 export function fairOdds(modelProb: number | null | undefined): number | null {
   if (!modelProb || !Number.isFinite(modelProb) || modelProb <= 0 || modelProb >= 1) return null;

@@ -2,7 +2,7 @@ import Link from "next/link";
 import type { Metadata } from "next";
 import { SPORTS, type Sport } from "@/lib/predictions";
 import { bbPicks, fbPicks, fmtDate, summary, tnPicks } from "@/lib/rich";
-import PredictionCard from "@/components/PredictionCardV2";
+import PickGrid from "@/components/PickGrid";
 import { cardFromFootball, cardFromBasketball, cardFromTennis } from "@/lib/card";
 import BestPicks from "@/components/BestPicks";
 import AdSlot from "@/components/AdSlot";
@@ -45,11 +45,11 @@ export default function PredictionsPage() {
     sport: Sport;
     title: string;
     items: any[];
-    render: (p: any) => JSX.Element;
+    cards: () => import("@/lib/card").CardModel[];
   }[] = [
-    { sport: "football", title: "Football", items: fb, render: (p) => <PredictionCard key={p.id} card={cardFromFootball(p)} /> },
-    { sport: "basketball", title: "Basketball", items: bb, render: (p) => <PredictionCard key={p.id} card={cardFromBasketball(p)} /> },
-    { sport: "tennis", title: "Tennis", items: tn, render: (p) => <PredictionCard key={p.id} card={cardFromTennis(p)} /> },
+    { sport: "football", title: "Football", items: fb, cards: () => fb.map(cardFromFootball) },
+    { sport: "basketball", title: "Basketball", items: bb, cards: () => bb.map(cardFromBasketball) },
+    { sport: "tennis", title: "Tennis", items: tn, cards: () => tn.map(cardFromTennis) },
   ];
 
   const ld = {
@@ -103,7 +103,7 @@ export default function PredictionsPage() {
             ))}
           </div>
 
-          {sections.map(({ sport, title, items, render }) => {
+          {sections.map(({ sport, title, items, cards }) => {
             if (!items.length) return null;
             const meta = SPORTS[sport];
             return (
@@ -120,9 +120,10 @@ export default function PredictionsPage() {
                     Filters &amp; combo →
                   </Link>
                 </div>
-                <div className="pred-grid" style={{ alignItems: "start" }}>
-                  {items.slice(0, sport === "football" ? 12 : items.length).map(render)}
-                </div>
+                <PickGrid
+                  dataDate={sum.dataDate}
+                  cards={cards().slice(0, sport === "football" ? 12 : items.length)}
+                />
                 {sport === "football" && items.length > 12 && (
                   <div style={{ marginTop: 18, textAlign: "center" }}>
                     <Link href="/predictions/football/" className="btn btn-primary">

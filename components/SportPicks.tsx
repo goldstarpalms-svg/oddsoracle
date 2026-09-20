@@ -2,9 +2,8 @@
 
 import { useMemo, useState } from "react";
 import type { AmPick, BbPick, ComboLeg, FbPick, TnPick } from "@/lib/rich";
-import PredictionCard from "./PredictionCardV2";
+import PickGrid from "./PickGrid";
 import { cardFromAm, cardFromBasketball, cardFromFootball, cardFromTennis } from "@/lib/card";
-import GameGate from "./GameGate";
 import MarketBoard from "./MarketBoard";
 import SNAPSHOT from "@/lib/data-snapshot.json";
 
@@ -105,26 +104,8 @@ export default function SportPicks({ sport, items, combo }: Props) {
     scores: items.filter(hasScore).length,
   };
 
-  const renderCard = (p: AnyPick) => {
-    const gate = (node: React.ReactNode) => {
-      const t = (p as any).t as string | undefined;
-      const gSport = isAm(p) ? amSportKey(p) : isFb(p) ? "football" : isBb(p) ? "basketball" : "tennis";
-      const finalScore = (p as any).result as string | undefined;
-      return (
-        <GameGate t={t} dataDate={DATA_DATE} sport={gSport} final={finalScore} icon="🏁">
-          {node}
-        </GameGate>
-      );
-    };
-    const card = isFb(p)
-      ? cardFromFootball(p)
-      : isBb(p)
-        ? cardFromBasketball(p)
-        : isAm(p)
-          ? cardFromAm(p)
-          : cardFromTennis(p as TnPick);
-    return gate(<PredictionCard key={p.id} card={card} />);
-  };
+  const toCard = (p: AnyPick) =>
+    isFb(p) ? cardFromFootball(p) : isBb(p) ? cardFromBasketball(p) : isAm(p) ? cardFromAm(p) : cardFromTennis(p as TnPick);
 
   const footballItems = sport === "football" ? (items as FbPick[]) : [];
   const showBoards = sport === "football" && market === "boards";
@@ -250,7 +231,7 @@ export default function SportPicks({ sport, items, combo }: Props) {
                 <h3>{lg}</h3>
                 <span className="league-count">{picks.length} game{picks.length > 1 ? "s" : ""}</span>
               </div>
-              <div className="pred-grid">{picks.map(renderCard)}</div>
+              <PickGrid dataDate={DATA_DATE} cards={picks.map(toCard)} />
             </section>
           ))}
         </div>
