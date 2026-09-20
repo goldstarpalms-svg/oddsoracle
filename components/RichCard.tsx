@@ -277,7 +277,14 @@ export function BasketballCard({ p }: { p: BbPick }) {
 
 export function AmericanCard({ p }: { p: AmPick }) {
   const pickedKey = p.pickSide === "1" ? "h" : "a";
-  const icon = p.sport === "MLB" ? "⚾" : "🏈";
+  const icon =
+    p.sport === "MLB" || p.sport === "Baseball (Forebet)"
+      ? "⚾"
+      : p.sport === "Hockey"
+      ? "🏒"
+      : p.sport === "Handball"
+      ? "🤾"
+      : "🏈";
   return (
     <article className={`rich-card ${p.banker ? "rich-banker" : ""}`}>
       <div className="rich-top">

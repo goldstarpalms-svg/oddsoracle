@@ -1,0 +1,30 @@
+{
+ "source": "forebet baseball 20/9 board (fetched 20/9 01:30 WAT via forebet predictions-today)",
+ "fetchedAt": "2026-09-20T00:30:00.000Z",
+ "note": "Forebet's baseball model board: MLB evening slate + Triple-A (IL/PCL) + NPB Japan + KBO Korea (06:00 WAT). Earlier MLB starts (White Sox-Dets, Orioles-Brewers, Rays-Red Sox, Mets-Phillies) had finished before the fetch — they are on the MLB odds board. Times WAT.",
+ "games": [
+  { "match": "Gwinnett Stripers v Indianapolis Indians", "home": "Gwinnett Stripers", "away": "Indianapolis Indians", "league": "Triple-A (IL)", "t": "23:05", "prob": "37/63", "pred": "2", "score": "4-7", "coef": null, "avg": 10.6 },
+  { "match": "Cleveland Guardians v Athletics", "home": "Cleveland Guardians", "away": "Athletics", "league": "MLB", "t": "23:10", "prob": "59/41", "pred": "1", "score": "4-3", "coef": null, "avg": 7.5 },
+  { "match": "Norfolk Tides v Charlotte Knights", "home": "Norfolk Tides", "away": "Charlotte Knights", "league": "Triple-A (IL)", "t": "23:35", "prob": "56/44", "pred": "1", "score": "4-3", "coef": null, "avg": 7.4 },
+  { "match": "Syracuse Mets v Lehigh Valley IronPigs", "home": "Syracuse Mets", "away": "Lehigh Valley IronPigs", "league": "Triple-A (IL)", "t": "23:35", "prob": "70/30", "pred": "1", "score": "7-5", "coef": null, "avg": 11.6 },
+  { "match": "Texas Rangers v Toronto Blue Jays", "home": "Texas Rangers", "away": "Toronto Blue Jays", "league": "MLB", "t": "00:05", "prob": "53/47", "pred": "1", "score": "4-3", "coef": null, "avg": 6.4 },
+  { "match": "Houston Astros v Atlanta Braves", "home": "Houston Astros", "away": "Atlanta Braves", "league": "MLB", "t": "00:10", "prob": "48/52", "pred": "2", "score": "3-5", "coef": null, "avg": 6.4 },
+  { "match": "St. Louis Cardinals v Washington Nationals", "home": "St. Louis Cardinals", "away": "Washington Nationals", "league": "MLB", "t": "00:15", "prob": "61/39", "pred": "1", "score": "4-3", "coef": null, "avg": 7.3 },
+  { "match": "Sugar Land v Las Vegas Aviators", "home": "Sugar Land", "away": "Las Vegas Aviators", "league": "Triple-A (PCL)", "t": "01:05", "prob": "38/62", "pred": "2", "score": "3-5", "coef": null, "avg": 8.3, "status": "FT" },
+  { "match": "Arizona Diamondbacks v New York Yankees", "home": "Arizona Diamondbacks", "away": "New York Yankees", "league": "MLB", "t": "01:10", "prob": "49/51", "pred": "2", "score": "3-4", "coef": null, "avg": 7.2 },
+  { "match": "Colorado Rockies v Seattle Mariners", "home": "Colorado Rockies", "away": "Seattle Mariners", "league": "MLB", "t": "01:10", "prob": "36/64", "pred": "2", "score": "6-7", "coef": null, "avg": 12.5 },
+  { "match": "Albuquerque Isotopes v Salt Lake Bees", "home": "Albuquerque Isotopes", "away": "Salt Lake Bees", "league": "Triple-A (PCL)", "t": "01:35", "prob": "47/53", "pred": "2", "score": "4-5", "coef": null, "avg": 9.4 },
+  { "match": "San Diego Padres v Miami Marlins", "home": "San Diego Padres", "away": "Miami Marlins", "league": "MLB", "t": "01:40", "prob": "61/39", "pred": "1", "score": "4-3", "coef": null, "avg": 7.3 },
+  { "match": "Los Angeles Dodgers v San Francisco Giants", "home": "Los Angeles Dodgers", "away": "San Francisco Giants", "league": "MLB", "t": "02:10", "prob": "61/39", "pred": "1", "score": "6-4", "coef": null, "avg": 8.1 },
+  { "match": "Sacramento River Cats v Reno Aces", "home": "Sacramento River Cats", "away": "Reno Aces", "league": "Triple-A (PCL)", "t": "02:37", "prob": "45/55", "pred": "2", "score": "3-4", "coef": null, "avg": 7.4 },
+  { "match": "Los Angeles Angels v Minnesota Twins", "home": "Los Angeles Angels", "away": "Minnesota Twins", "league": "MLB", "t": "02:38", "prob": "44/56", "pred": "2", "score": "4-5", "coef": null, "avg": 8 },
+  { "match": "Nippon Ham Fighters v Orix Buffaloes", "home": "Nippon Ham Fighters", "away": "Orix Buffaloes", "league": "NPB (Japan)", "t": "21/9 06:00", "prob": "69/31", "pred": "1", "score": "6-4", "coef": null, "avg": 9.5 },
+  { "match": "Rakuten Golden Eagles v Fukuoka SoftBank Hawks", "home": "Rakuten Golden Eagles", "away": "Fukuoka SoftBank Hawks", "league": "NPB (Japan)", "t": "21/9 06:00", "prob": "48/52", "pred": "2", "score": "3-5", "coef": null, "avg": 6.2 },
+  { "match": "Yomiuri Giants v Yakult Swallows", "home": "Yomiuri Giants", "away": "Yakult Swallows", "league": "NPB (Japan)", "t": "21/9 06:00", "prob": "56/44", "pred": "1", "score": "4-2", "coef": null, "avg": 4.4 },
+  { "match": "KT Wiz Suwon v Doosan Bears", "home": "KT Wiz Suwon", "away": "Doosan Bears", "league": "KBO (Korea)", "t": "21/9 06:00", "prob": "57/43", "pred": "1", "score": "6-3", "coef": "+110", "avg": 9 },
+  { "match": "NC Dinos v KIA Tigers", "home": "NC Dinos", "away": "KIA Tigers", "league": "KBO (Korea)", "t": "21/9 06:00", "prob": "61/39", "pred": "1", "score": "5-4", "coef": "-189", "avg": 9.2 },
+  { "match": "LG Twins v Hanwha Eagles", "home": "LG Twins", "away": "Hanwha Eagles", "league": "KBO (Korea)", "t": "21/9 06:00", "prob": "68/32", "pred": "1", "score": "4-1", "coef": null, "avg": 6.1 },
+  { "match": "Lotte Giants v Samsung Lions", "home": "Lotte Giants", "away": "Samsung Lions", "league": "KBO (Korea)", "t": "21/9 06:00", "prob": "54/46", "pred": "1", "score": "8-7", "coef": null, "avg": 13.2 },
+  { "match": "SSG Landers v Kiwoom Heroes", "home": "SSG Landers", "away": "Kiwoom Heroes", "league": "KBO (Korea)", "t": "21/9 06:00", "prob": "65/35", "pred": "1", "score": "5-3", "coef": null, "avg": 8.4 }
+ ]
+}

@@ -8,6 +8,9 @@ import {
   fbPicks,
   fmtDate,
   freshness,
+  forebetBbPicks,
+  handballPicks,
+  hockeyPicks,
   mlbPicks,
   ncaaFbPicks,
   summary,
@@ -49,12 +52,12 @@ const SEO: Record<Sport, { title: string; meta: string; intro: string[] }> = {
     ],
   },
   other: {
-    title: "MLB & NCAA American Football Predictions — American Sports Board",
+    title: "MLB, NHL Hockey, NPB/KBO & NCAA — American Sports Board",
     meta:
-      "MLB with live bookmaker prices on every game, and NCAA American football with Forebet's 1/2 split, pick and predicted score. American sports board updated daily.",
+      "MLB with live bookmaker prices, NHL + junior ice hockey, NPB Japan and KBO Korea baseball, NCAA American football and Asian Games handball — one American sports board, updated daily.",
     intro: [
-      "⚾ <b>MLB is live below</b> — every game with the best bookmaker price on each side and the main total. 🏈 <b>NCAA American football</b> is also on this board with Forebet&rsquo;s 1/2 split, pick and score call.",
-      "🏈 <b>NFL</b> has no games today — Week 1 opens Friday 25/9 and the board fills that day. Times in WAT.",
+      "⚾ <b>MLB is live below</b> — every game with the best bookmaker price on each side and the main total. 🏒 <b>Hockey</b> is new on the board — NHL plus the Canadian junior leagues (WHL, OHL, QMJHL) with Forebet&rsquo;s 1/2 split and score call. ⚾ <b>NPB (Japan) + KBO (Korea) + Triple-A</b> baseball join the MLB board.",
+      "🏈 <b>NCAA American football</b> and 🤾 <b>Asian Games handball</b> are here too. 🏈 <b>NFL</b> has no games today — Week 1 opens Friday 25/9 and the board fills that day. Times in WAT.",
     ],
   },
 };
@@ -89,13 +92,14 @@ export default function SportPage({ params }: { params: { sport: Sport } }) {
   const bb = bbPicks();
   const tn = tnPicks();
   const isOther = sport === "other";
-  const am = isOther ? [...mlbPicks(), ...ncaaFbPicks()] : [];
+  const am = isOther
+    ? [...mlbPicks(), ...ncaaFbPicks(), ...hockeyPicks(), ...forebetBbPicks(), ...handballPicks()]
+    : [];
   const items =
     sport === "football" ? fb : sport === "basketball" ? bb : sport === "tennis" ? tn : am;
   const sum = summary();
   const s = isOther
-    ? ((SNAPSHOT as any).odds?.sports?.baseball_mlb?.events?.length ?? 0) +
-      ((SNAPSHOT as any).ncaafb?.games?.length ?? 0)
+    ? am.length
     : sport === "football"
     ? fb.length
     : sport === "basketball"

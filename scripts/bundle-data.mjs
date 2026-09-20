@@ -60,6 +60,9 @@ const pickD = (patterns) => {
 let basketball = read(pick([/_basketball\.json$/]));
 let tennis = read(pick([/_tennis\.json$/]));
 let ncaafb = read(pick([/_ncaafb\.json$/]));
+let hockey = read(pick([/_hockey\.json$/]));
+let forebetBaseball = read(pick([/^\d{4}-\d{2}-\d{2}_baseball\.json$/]));
+let handball = read(pick([/_handball\.json$/]));
 let h2h = read(pick([/^\d{4}-\d{2}-\d{2}_h2h\.json$/]));
 
 let markets = read(pickD([/_markets\.json$/]));
@@ -242,6 +245,26 @@ function buildSafeSlips() {
   for (const g of ncaafb?.games || []) {
     pushMl("🏈", g, g.home, g.away, g.t || "", g.prob, g.pred);
   }
+  for (const g of hockey?.games || []) {
+    if (/^FT/i.test(String(g.status || ""))) continue;
+    pushMl("🏒", g, g.home, g.away, g.t || "", g.prob, g.pred);
+  }
+  for (const g of forebetBaseball?.games || []) {
+    if (/^FT/i.test(String(g.status || ""))) continue;
+    pushMl("⚾", g, g.home, g.away, g.t || "", g.prob, g.pred);
+  }
+  // Handball is 1X2 (3-way) — use the predicted side's own probability.
+  for (const g of handball?.games || []) {
+    if (/^FT/i.test(String(g.status || ""))) continue;
+    const parts = String(g.prob || "").split("/").map((x) => Number(x));
+    if (parts.length < 2) continue;
+    const pred = String(g.pred);
+    const prob = pred === "1" ? parts[0] : pred === "2" ? parts[parts.length - 1] : parts[1] || 0;
+    if (prob >= 80) {
+      const side = pred === "1" ? g.home : pred === "2" ? g.away : "X (Draw)";
+      add("🤾", `${g.home} v ${g.away}`, g.t || "", "Match winner (1X2)", side, Math.round(prob), 100 / prob, "est.");
+    }
+  }
   for (const g of tennis?.games || []) {
     const [p1, p2] = String(g.prob || "").split("/").map((x) => Number(x));
     if (!p1 || !p2) continue;
@@ -311,8 +334,11 @@ const snapshot = {
   football: Array.isArray(football) ? football : [],
   basketball: basketball && basketball.games ? basketball : null,
   tennis: tennis && tennis.games ? tennis : null,
-    ncaafb: ncaafb && ncaafb.games ? ncaafb : null,
-    h2h: h2h && h2h.games ? h2h : null,
+  ncaafb: ncaafb && ncaafb.games ? ncaafb : null,
+  hockey: hockey && hockey.games ? hockey : null,
+  forebetBaseball: forebetBaseball && forebetBaseball.games ? forebetBaseball : null,
+  handball: handball && handball.games ? handball : null,
+  h2h: h2h && h2h.games ? h2h : null,
     history: history && history.cumulative ? history : null,
   odds: odds || null,
   markets: markets || null,
@@ -329,5 +355,8 @@ console.log(
   `data-snapshot.json written (${kb} KB) — football: ${snapshot.football.length}, ` +
   `basketball: ${snapshot.basketball ? snapshot.basketball.games.length + " deep + " + (snapshot.basketball.forebet_today_all || []).length : 0}, ` +
   `tennis: ${snapshot.tennis ? snapshot.tennis.games.length : 0}, ` +
+  `hockey: ${snapshot.hockey ? snapshot.hockey.games.length : 0}, ` +
+  `forebet-baseball: ${snapshot.forebetBaseball ? snapshot.forebetBaseball.games.length : 0}, ` +
+  `handball: ${snapshot.handball ? snapshot.handball.games.length : 0}, ` +
   `odds events: ${oddsCount}`
 );

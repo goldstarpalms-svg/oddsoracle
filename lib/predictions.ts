@@ -47,7 +47,7 @@ export const SPORTS: Record<
     singular: "Fixture",
     slug: "other",
     blurb:
-      "MLB with live bookmaker prices on every game — plus NFL and NCAA basketball when they're on the board.",
+      "MLB with live bookmaker prices, NHL + junior ice hockey, NPB/Korea baseball, NCAA American football and Asian Games handball.",
   },
 };
 

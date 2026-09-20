@@ -778,7 +778,7 @@ function mlbOpts(e: any): OptRow[] {
 export interface AmPick {
   kind: "am";
   id: string;
-  sport: "MLB" | "American Football";
+  sport: "MLB" | "American Football" | "Hockey" | "Baseball (Forebet)" | "Handball";
   t: string;
   home: string;
   away: string;
@@ -942,6 +942,120 @@ export function ncaaFbPicks(): AmPick[] {
       why: `Forebet split ${p1}/${p2} · predicted score ${g.score || "—"}.`,
       books,
       opts: amOptsAfoot(g, p1, p2),
+      h2h: h2hFor(g.home, g.away),
+    });
+  });
+  return out.sort((a, b) => a.t.localeCompare(b.t));
+}
+
+/** Generic 1/2 + total options menu for hockey / forebet-baseball / handball boards. */
+function amOpts2(g: any, p1: number, p2: number, unit: string, sigma: number): OptRow[] {
+  const favH = p1 >= p2;
+  const pFav = Math.max(p1, p2);
+  const rows: OptRow[] = [
+    { name: "Match result (1/2)", detail: `Home ${p1}% · Away ${p2}%`, call: favH ? "1 (Home)" : "2 (Away)", tag: pFav },
+  ];
+  const [sh, sa] = String(g.score || "").split("-").map((x) => Number.parseFloat(x));
+  const E = Number.isFinite(sh) && Number.isFinite(sa) ? sh + sa : null;
+  if (E) {
+    const line = halfLine(E);
+    const pOver = Math.round(normCdf((E - line) / sigma) * 100);
+    rows.push({
+      name: `Total ${unit} (over/under)`,
+      detail: `Line ${line} · forebet expects about ${Math.round(E)} ${unit} across both sides`,
+      call: pOver >= 50 ? `Over ${line}` : `Under ${line}`,
+      tag: Math.max(pOver, 100 - pOver),
+    });
+  }
+  return rows;
+}
+
+function twoWayGames(snapKey: string, sport: AmPick["sport"], id: string, unit: string, sigma: number): AmPick[] {
+  const games: any[] = (SNAPSHOT as any)[snapKey]?.games || [];
+  const out: AmPick[] = [];
+  games.forEach((g, i) => {
+    if (/^(FT|Cancl)/i.test(String(g.status || ""))) return;
+    const [p1, p2] = String(g.prob || "50/50").split("/").map((x) => Number(x));
+    if (!p1 || !p2) return;
+    const pickHome = String(g.pred) === "1";
+    const favPct = pickHome ? p1 : p2;
+    out.push({
+      kind: "am",
+      id: `${id}-${i}`,
+      sport,
+      t: g.t || "",
+      home: g.home,
+      away: g.away,
+      league: g.league || sport,
+      prob: [p1, p2],
+      pickSide: pickHome ? "1" : "2",
+      pick: pickHome ? g.home : g.away,
+      odds: americanToDecimal(g.coef) ?? implied(favPct),
+      pickProb: favPct,
+      score: g.score || "",
+      total: null,
+      banker: favPct >= 80,
+      value: false,
+      why:
+        g.avg != null
+          ? `Forebet split ${p1}/${p2} · predicted ${g.score || "—"} (avg ${g.avg} ${unit}).`
+          : `Forebet split ${p1}/${p2} · predicted ${g.score || "—"}.`,
+      books: [],
+      opts: amOpts2(g, p1, p2, unit, sigma),
+      h2h: h2hFor(g.home, g.away),
+    });
+  });
+  return out.sort((a, b) => a.t.localeCompare(b.t));
+}
+
+export function hockeyPicks(): AmPick[] {
+  return twoWayGames("hockey", "Hockey", "hockey", "goals", 2.4);
+}
+
+export function forebetBbPicks(): AmPick[] {
+  // MLB games are already on the live-odds MLB board — here we only add the
+  // leagues forebet covers that we don't price elsewhere: NPB, KBO, Triple-A.
+  return twoWayGames("forebetBaseball", "Baseball (Forebet)", "fbb", "runs", 3).filter(
+    (p) => !/^MLB$/.test(p.league)
+  );
+}
+
+export function handballPicks(): AmPick[] {
+  const games: any[] = (SNAPSHOT as any).handball?.games || [];
+  const out: AmPick[] = [];
+  games.forEach((g, i) => {
+    if (/^(FT|Cancl)/i.test(String(g.status || ""))) return;
+    const parts = String(g.prob || "").split("/").map((x) => Number(x));
+    if (parts.length < 2) return;
+    const [p1, p2] = [parts[0], parts[parts.length - 1]];
+    const pred = String(g.pred);
+    const drawP = parts.length === 3 ? parts[1] : 0;
+    // scale 1X2 back to a 2-way view for the bar
+    const rest = 100 - drawP;
+    const p1n = rest > 0 ? Math.round((p1 / (p1 + p2 + drawP)) * 100) : 50;
+    const p2n = 100 - p1n;
+    const pickHome = pred === "1";
+    const favPct = pickHome ? p1 : pred === "2" ? p2 : drawP;
+    out.push({
+      kind: "am",
+      id: `handball-${i}`,
+      sport: "Handball",
+      t: g.t || "",
+      home: g.home,
+      away: g.away,
+      league: g.league || "Handball",
+      prob: [p1n, p2n],
+      pickSide: pickHome ? "1" : "2",
+      pick: pickHome ? g.home : g.away,
+      odds: implied(favPct),
+      pickProb: Math.round(favPct),
+      score: g.score || "",
+      total: null,
+      banker: favPct >= 80,
+      value: false,
+      why: `Forebet 1X2: ${g.prob} · predicted ${g.score || "—"} (avg ${g.avg ?? "?"} goals). Draw chance ${drawP}%.`,
+      books: [],
+      opts: amOpts2(g, p1n, p2n, "goals", 8.5),
       h2h: h2hFor(g.home, g.away),
     });
   });

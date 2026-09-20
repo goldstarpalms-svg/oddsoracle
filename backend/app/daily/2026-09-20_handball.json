@@ -1,0 +1,17 @@
+{
+ "source": "forebet handball 20/9 board (fetched 20/9 01:30 WAT via forebet predictions-today)",
+ "fetchedAt": "2026-09-20T00:30:00.000Z",
+ "note": "All 10 games from forebet's handball today page. European league games (Greece, Poland) finished; the Asian Games men's + women's sessions are tonight (02:30 / 05:30 WAT). Handball has 1X2 probabilities (a draw is possible).",
+ "games": [
+  { "match": "A.S.E. Douka v Aris", "home": "A.S.E. Douka", "away": "Aris", "league": "Greece A1", "t": "16:00", "prob": "47/44/9", "pred": "2", "score": "26-27", "coef": null, "avg": 49.1, "status": "FT" },
+  { "match": "PAOK v Ionikos", "home": "PAOK", "away": "Ionikos", "league": "Greece A1", "t": "16:00", "prob": "73/22/5", "pred": "1", "score": "31-23", "coef": null, "avg": 54.4, "status": "FT" },
+  { "match": "Krapkowice W v Kepno W", "home": "Krapkowice W", "away": "Kepno W", "league": "Poland I Liga W", "t": "17:00", "prob": "61/0/39", "pred": "1", "score": "30-27", "coef": null, "avg": 56.7, "status": "FT" },
+  { "match": "Swiebodzice W v Ruch Chorzow II W", "home": "Swiebodzice W", "away": "Ruch Chorzow II W", "league": "Poland I Liga W", "t": "17:00", "prob": "87/0/13", "pred": "1", "score": "31-24", "coef": null, "avg": 49.7, "status": "FT" },
+  { "match": "China v Japan", "home": "China", "away": "Japan", "league": "Asian Games", "t": "02:30", "prob": "26/27/47", "pred": "2", "score": "29-30", "coef": null, "avg": 58.9 },
+  { "match": "Hong Kong v Qatar", "home": "Hong Kong", "away": "Qatar", "league": "Asian Games", "t": "02:30", "prob": "16/27/57", "pred": "2", "score": "28-32", "coef": null, "avg": 59.8 },
+  { "match": "Kazakhstan v Bahrain", "home": "Kazakhstan", "away": "Bahrain", "league": "Asian Games", "t": "02:30", "prob": "8/25/67", "pred": "2", "score": "27-35", "coef": null, "avg": 61.4 },
+  { "match": "Japan W v Uzbekistan W", "home": "Japan W", "away": "Uzbekistan W", "league": "Asian Games W", "t": "05:30", "prob": "67/23/10", "pred": "1", "score": "34-24", "coef": null, "avg": 58.7 },
+  { "match": "South Korea W v Kazakhstan W", "home": "South Korea W", "away": "Kazakhstan W", "league": "Asian Games W", "t": "05:30", "prob": "55/0/45", "pred": "1", "score": "48-24", "coef": null, "avg": 68.9 },
+  { "match": "Vietnam W v Hong Kong W", "home": "Vietnam W", "away": "Hong Kong W", "league": "Asian Games W", "t": "05:30", "prob": "55/2/43", "pred": "1", "score": "34-24", "coef": null, "avg": 58 }
+ ]
+}
