@@ -264,3 +264,54 @@ export function cardFromSimple(
     freshness: { label: "no book timestamp", stale: true },
   });
 }
+
+/** MLB / NFL / NCAAF / hockey / handball (the "other sports" board). */
+export function cardFromAm(p: {
+  id: string;
+  sport: string;
+  t: string;
+  home: string;
+  away: string;
+  league: string;
+  prob: [number, number] | null;
+  pick: string;
+  odds: number | null;
+  pickProb: number | null;
+  score: string;
+  total: number | null;
+  banker: boolean;
+}): CardModel {
+  const sportKey =
+    p.sport === "MLB" || p.sport === "Baseball (Forebet)" ? "baseball"
+      : p.sport === "Hockey" ? "hockey"
+        : p.sport === "Handball" ? "handball"
+          : "americanfootball";
+  const odds = p.odds && p.odds > 1 ? p.odds : null;
+  const modelProb = p.pickProb == null ? null : p.pickProb / 100;
+  const q = qualityOf({ hasModel: modelProb != null, hasForebet: !!p.prob, hasOdds: !!odds });
+  const inputs: { label: string; value: string }[] = [];
+  if (p.prob) inputs.push({ label: "Forebet split", value: p.prob.map((x) => `${x}%`).join(" / ") });
+  if (p.score) inputs.push({ label: "Predicted score", value: p.score });
+  if (p.total) inputs.push({ label: "Total line", value: String(p.total) });
+  return base({
+    id: p.id,
+    sport: sportKey,
+    league: p.league,
+    kickoff: p.t,
+    home: p.home,
+    away: p.away,
+    market: "Moneyline",
+    selection: p.pick,
+    modelProb,
+    odds,
+    priced: !!odds,
+    value: odds ? classifyValue(null, q.level) : "PASS",
+    quality: q,
+    banker: p.banker,
+    evidence: [p.score ? `Predicted ${p.score}` : "", p.total ? `Total ${p.total}` : ""].filter(Boolean),
+    inputs,
+    engine: "Forebet / market board",
+    modelVersion: "—",
+    freshness: { label: "no book timestamp", stale: true },
+  });
+}

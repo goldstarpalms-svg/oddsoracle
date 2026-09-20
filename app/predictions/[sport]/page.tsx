@@ -90,9 +90,10 @@ export default function SportPage({ params }: { params: { sport: Sport } }) {
   const info = SPORTS[sport];
   if (!meta) notFound();
 
-  const fb = fbPicks();
-  const bb = bbPicks();
-  const tn = tnPicks();
+  // Finished matches belong in a results archive, never in "today's predictions".
+  const fb = fbPicks().filter((p) => !p.result);
+  const bb = bbPicks().filter((p) => !p.result);
+  const tn = tnPicks().filter((p) => !p.result);
   const isOther = sport === "other";
   const am = isOther
     ? [...mlbPicks(), ...ncaaFbPicks(), ...nflPicks(), ...hockeyPicks(), ...forebetBbPicks(), ...handballPicks()]

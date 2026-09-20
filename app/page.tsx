@@ -2,7 +2,8 @@ import Link from "next/link";
 import { SITE } from "@/lib/site";
 import { bbPicks, fbPicks, fmtDate, freshness, summary, tnPicks, hockeyPicks, forebetBbPicks, handballPicks, oracleBoardRows } from "@/lib/rich";
 import SNAPSHOT from "@/lib/data-snapshot.json";
-import { FootballCard, BasketballCard, TennisCard } from "@/components/RichCard";
+import PredictionCard from "@/components/PredictionCardV2";
+import { cardFromBasketball, cardFromFootball, cardFromTennis } from "@/lib/card";
 import BestPicks from "@/components/BestPicks";
 import LiveBoard from "@/components/LiveBoard";
 import HomeHero from "@/components/HomeHero";
@@ -22,9 +23,10 @@ const SPORT_ICONS: Record<string, string> = {
 
 export default function Home() {
   const sum = summary();
-  const fb = fbPicks();
-  const bb = bbPicks();
-  const tn = tnPicks();
+  // Finished matches are not "today's picks" — never feature a settled game.
+  const fb = fbPicks().filter((p) => !p.result);
+  const bb = bbPicks().filter((p) => !p.result);
+  const tn = tnPicks().filter((p) => !p.result);
 
   // Featured: strongest bankers across sports (football first).
   const featured: any[] = [];
@@ -188,16 +190,19 @@ export default function Home() {
             <Link href="/predictions/" className="btn btn-ghost">View all →</Link>
           </div>
 
-          <div className="pred-grid">
-            {featured.map((p: any, i) =>
-              "model" in p || "fb_pct" in p ? (
-                <FootballCard key={p.id || i} p={p} />
-              ) : "fb_prob" in p ? (
-                <BasketballCard key={p.id || i} p={p} />
-              ) : (
-                <TennisCard key={p.id || i} p={p} />
-              )
-            )}
+          <div className="pred-grid" style={{ alignItems: "start" }}>
+            {featured.map((p: any, i) => (
+              <PredictionCard
+                key={p.id || i}
+                card={
+                  "model" in p || "fb_pct" in p
+                    ? cardFromFootball(p)
+                    : "fb_prob" in p
+                      ? cardFromBasketball(p)
+                      : cardFromTennis(p)
+                }
+              />
+            ))}
           </div>
         </div>
       </section>

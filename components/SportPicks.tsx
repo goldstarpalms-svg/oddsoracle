@@ -2,7 +2,8 @@
 
 import { useMemo, useState } from "react";
 import type { AmPick, BbPick, ComboLeg, FbPick, TnPick } from "@/lib/rich";
-import { AmericanCard, BasketballCard, FootballCard, TennisCard } from "./RichCard";
+import PredictionCard from "./PredictionCardV2";
+import { cardFromAm, cardFromBasketball, cardFromFootball, cardFromTennis } from "@/lib/card";
 import GameGate from "./GameGate";
 import MarketBoard from "./MarketBoard";
 import SNAPSHOT from "@/lib/data-snapshot.json";
@@ -115,10 +116,14 @@ export default function SportPicks({ sport, items, combo }: Props) {
         </GameGate>
       );
     };
-    if (isFb(p)) return gate(<FootballCard key={p.id} p={p} />);
-    if (isBb(p)) return gate(<BasketballCard key={p.id} p={p} />);
-    if (isAm(p)) return gate(<AmericanCard key={p.id} p={p} />);
-    return gate(<TennisCard key={(p as TnPick).id} p={p as TnPick} />);
+    const card = isFb(p)
+      ? cardFromFootball(p)
+      : isBb(p)
+        ? cardFromBasketball(p)
+        : isAm(p)
+          ? cardFromAm(p)
+          : cardFromTennis(p as TnPick);
+    return gate(<PredictionCard key={p.id} card={card} />);
   };
 
   const footballItems = sport === "football" ? (items as FbPick[]) : [];
