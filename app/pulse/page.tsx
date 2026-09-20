@@ -48,6 +48,14 @@ export default function PulsePage() {
             a probability, an expected value, a tier and a stake.
           </p>
 
+          {doc && bettable.length === 0 && (
+            <div className="callout" style={{ marginTop: 16 }}>
+              Nothing on today&rsquo;s board cleared the bar — no pick reached the probability and
+              EV thresholds at the prices on offer. That is the engine working as intended: a quiet
+              board beats a forced bet. The EV ranking below still shows where the value sits.
+            </div>
+          )}
+
           {doc && (
             <div className="pulse-stats">
               <div className="pulse-stat">
@@ -75,47 +83,47 @@ export default function PulsePage() {
         </div>
       </section>
 
-      <section className="sec">
-        <div className="container">
-          <div className="section-head">
-            <div>
-              <span className="eyebrow">Tier 1</span>
-              <h2 className="section-title" style={{ fontSize: 28 }}>
-                Picks that cleared the bar
-              </h2>
-              <p className="section-sub">
-                ELITE needs 70%+ probability and 8%+ EV. STRONG is 60% and 5%. GOOD is 50% and 3%.
-                Anything below that is a SKIP — listed below for transparency, never staked.
-              </p>
-            </div>
-            <Link href="/methodology/" className="btn btn-ghost">
-              How the model works →
-            </Link>
-          </div>
-
-          <PulseBoard
-            picks={bettable}
-            empty="No pick cleared the bar today. That is the engine doing its job — a quiet board beats a forced bet."
-          />
-        </div>
-      </section>
-
       {ev.length > 0 && (
         <section className="sec">
           <div className="container">
             <div className="section-head">
               <div>
                 <span className="eyebrow">EV board</span>
-                <h2 className="section-title" style={{ fontSize: 26 }}>
-                  Best expected value on the board
+                <h2 className="section-title" style={{ fontSize: 28 }}>
+                  Where the value sits today
                 </h2>
                 <p className="section-sub">
-                  Ranked by EV regardless of tier. A 5%+ edge at long odds is still value — the
-                  Kelly stake is what keeps the size sensible.
+                  Ranked by expected value against the best price we can find across 25+
+                  bookmakers. A large EV at long odds is still value — the Kelly stake is what
+                  keeps the size sensible.
                 </p>
               </div>
             </div>
             <PulseBoard picks={ev} limit={12} />
+          </div>
+        </section>
+      )}
+
+      {bettable.length > 0 && (
+        <section className="sec">
+          <div className="container">
+            <div className="section-head">
+              <div>
+                <span className="eyebrow">Tier 1</span>
+                <h2 className="section-title" style={{ fontSize: 28 }}>
+                  Picks that cleared the bar
+                </h2>
+                <p className="section-sub">
+                  ELITE needs 70%+ probability and 8%+ EV. STRONG is 60% and 5%. GOOD is 50% and
+                  3%. Anything below that is a SKIP — listed on the board below for transparency,
+                  never staked.
+                </p>
+              </div>
+              <Link href="/methodology/" className="btn btn-ghost">
+                How the model works →
+              </Link>
+            </div>
+            <PulseBoard picks={bettable} />
           </div>
         </section>
       )}
@@ -134,8 +142,9 @@ export default function PulsePage() {
                   Every football fixture we scored
                 </h2>
                 <p className="section-sub">
-                  {fb.length} fixtures. Pulse&nbsp;DC is our model, Market is the devigged book
-                  price, Forebet is the published percentage — Blend is what we actually bet against.
+                  {fb.length} fixtures with a book price. Pulse&nbsp;DC is our model, Market is the
+                  devigged book price, Forebet is the published percentage — Blend is the number we
+                  actually price the bet against.
                 </p>
               </div>
             </div>
@@ -152,13 +161,15 @@ export default function PulsePage() {
             Dixon-Coles Poisson model fitted on football-data.co.uk results with time decay, so
             recent form counts for more. <strong>Market</strong> is the book price with the
             overround stripped out. <strong>Forebet</strong> is the published percentage where one
-            exists. The blend weights all three, and the resulting number is compared with the best
-            price we can find across 25+ bookmakers to give the EV.
+            exists. We blend all three, then compare the result with the best price available to get
+            the EV.
           </p>
           <p>
             Stakes are fractional Kelly — a quarter of full Kelly, capped at 3% of a ₦100,000
-            bankroll. A SKIP shows zero stake no matter how large the raw Kelly number, because the
-            tier exists to keep you out of bad spots.
+            bankroll. A SKIP shows zero stake no matter how large the raw Kelly number is, because
+            the tier exists to keep you out of bad spots. Basketball and tennis carry no stake at
+            all: Forebet publishes a coefficient for those markets, but it is not reliably the price
+            for the side it picks, so we publish the probability and refuse to price the bet.
           </p>
           <div className="callout">
             If our model and the market disagree by more than 22 percentage points on any outcome,

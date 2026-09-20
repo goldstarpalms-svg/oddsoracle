@@ -1,6 +1,6 @@
 {
  "date": "2026-09-20",
- "generated_at": "2026-09-20T12:09:11.626957+00:00",
+ "generated_at": "2026-09-20T12:20:54.640729+00:00",
  "source": "pulse-bet",
  "model_version": "pulse-dc-1.0",
  "bankroll_ngn": 100000.0,
@@ -36,9 +36,9 @@
   "thin_history": 5
  },
  "tiers": {
-  "SKIP": 86,
-  "GOOD": 40,
-  "STRONG": 13,
+  "SKIP": 78,
+  "GOOD": 49,
+  "STRONG": 12,
   "ELITE": 4
  },
  "picks": [
@@ -235,7 +235,7 @@
    "model_prob": 0.57,
    "edge": null,
    "tier": "GOOD",
-   "bettable": true,
+   "bettable": false,
    "ev_flag": false,
    "stake_units": 0.0,
    "stake_ngn": 0,
@@ -317,7 +317,7 @@
    "model_prob": 0.62,
    "edge": null,
    "tier": "GOOD",
-   "bettable": true,
+   "bettable": false,
    "ev_flag": false,
    "stake_units": 0.0,
    "stake_ngn": 0,
@@ -399,7 +399,7 @@
    "model_prob": 0.68,
    "edge": null,
    "tier": "STRONG",
-   "bettable": true,
+   "bettable": false,
    "ev_flag": false,
    "stake_units": 0.0,
    "stake_ngn": 0,
@@ -2398,9 +2398,10 @@
    "kickoff_label": "Today · 00:00 WAT",
    "market": "moneyline",
    "selection": "Atlanta Dream",
-   "price": 1.08,
-   "book": "forebet",
-   "price_source": "forebet-coef",
+   "price": null,
+   "book": null,
+   "price_source": null,
+   "forebet_coef": "-1250",
    "p_forebet": [
     0.75,
     0.25
@@ -2410,14 +2411,14 @@
     0.25
    ],
    "model_prob": 0.75,
-   "edge": -0.19,
-   "tier": "SKIP",
+   "edge": null,
+   "tier": "STRONG",
    "bettable": false,
-   "price_available": true,
+   "price_available": false,
    "ev_flag": false,
    "stake_units": 0.0,
    "stake_ngn": 0,
-   "reasoning": "Forebet 75/25% · price 1.08 · Forebet says 75% vs 25% for Atlanta at home against Chicago. Strongest basketball line of the day.",
+   "reasoning": "Forebet 75/25% · Forebet coefficient -1250 (not a verified book price) · Forebet says 75% vs 25% for Atlanta at home against Chicago. Strongest basketball line of the day. · no verified book price for this market — confidence only, no stake",
    "model_version": "pulse-dc-1.0"
   },
   {
@@ -2430,9 +2431,10 @@
    "kickoff_label": "Today · 23:15 WAT",
    "market": "moneyline",
    "selection": "Astros",
-   "price": 1.5405,
-   "book": "forebet",
-   "price_source": "forebet-coef",
+   "price": null,
+   "book": null,
+   "price_source": null,
+   "forebet_coef": "-185",
    "p_forebet": [
     0.62,
     0.38
@@ -2442,14 +2444,14 @@
     0.38
    ],
    "model_prob": 0.62,
-   "edge": -0.0449,
-   "tier": "SKIP",
+   "edge": null,
+   "tier": "GOOD",
    "bettable": false,
-   "price_available": true,
+   "price_available": false,
    "ev_flag": false,
    "stake_units": 0.0,
    "stake_ngn": 0,
-   "reasoning": "Forebet 62/38% · price 1.54 · Forebet says 62% vs 38%. Astros at home in the Mexican league - decent but not a banker.",
+   "reasoning": "Forebet 62/38% · Forebet coefficient -185 (not a verified book price) · Forebet says 62% vs 38%. Astros at home in the Mexican league - decent but not a banker. · no verified book price for this market — confidence only, no stake",
    "model_version": "pulse-dc-1.0"
   },
   {
@@ -2463,8 +2465,9 @@
    "market": "moneyline",
    "selection": "Golden State Valkyries",
    "price": null,
-   "book": "forebet",
-   "price_source": "forebet-coef",
+   "book": null,
+   "price_source": null,
+   "forebet_coef": null,
    "p_forebet": [
     0.78,
     0.22
@@ -2481,7 +2484,7 @@
    "ev_flag": false,
    "stake_units": 0.0,
    "stake_ngn": 0,
-   "reasoning": "Forebet 78/22% · Forebet says 78% vs 22%. Valkyries at home - the clear favourite of the night. · no market price published — confidence only",
+   "reasoning": "Forebet 78/22% · Forebet says 78% vs 22%. Valkyries at home - the clear favourite of the night. · no verified book price for this market — confidence only, no stake",
    "model_version": "pulse-dc-1.0"
   },
   {
@@ -2495,8 +2498,9 @@
    "market": "moneyline",
    "selection": "Philippines",
    "price": null,
-   "book": "forebet",
-   "price_source": "forebet-coef",
+   "book": null,
+   "price_source": null,
+   "forebet_coef": null,
    "p_forebet": [
     0.33,
     0.67
@@ -2513,7 +2517,7 @@
    "ev_flag": false,
    "stake_units": 0.0,
    "stake_ngn": 0,
-   "reasoning": "Forebet 33/67% · Forebet says 33% vs 67% - Philippines expected to win by a chunk. Asia Games women's group. · no market price published — confidence only",
+   "reasoning": "Forebet 33/67% · Forebet says 33% vs 67% - Philippines expected to win by a chunk. Asia Games women's group. · no verified book price for this market — confidence only, no stake",
    "model_version": "pulse-dc-1.0"
   },
   {
@@ -2527,8 +2531,9 @@
    "market": "moneyline",
    "selection": "Japan",
    "price": null,
-   "book": "forebet",
-   "price_source": "forebet-coef",
+   "book": null,
+   "price_source": null,
+   "forebet_coef": null,
    "p_forebet": [
     0.25,
     0.75
@@ -2545,7 +2550,7 @@
    "ev_flag": false,
    "stake_units": 0.0,
    "stake_ngn": 0,
-   "reasoning": "Forebet 25/75% · Forebet says 25% vs 75% for Japan early in the morning. Big expected margin. · no market price published — confidence only",
+   "reasoning": "Forebet 25/75% · Forebet says 25% vs 75% for Japan early in the morning. Big expected margin. · no verified book price for this market — confidence only, no stake",
    "model_version": "pulse-dc-1.0"
   },
   {
@@ -2558,9 +2563,10 @@
    "kickoff_label": "Today · 06:00 WAT",
    "market": "moneyline",
    "selection": "Illawarra Hawks",
-   "price": 1.8197,
-   "book": "forebet",
-   "price_source": "forebet-coef",
+   "price": null,
+   "book": null,
+   "price_source": null,
+   "forebet_coef": "-122",
    "p_forebet": [
     0.44,
     0.56
@@ -2570,14 +2576,14 @@
     0.56
    ],
    "model_prob": 0.56,
-   "edge": 0.019,
-   "tier": "SKIP",
+   "edge": null,
+   "tier": "GOOD",
    "bettable": false,
-   "price_available": true,
+   "price_available": false,
    "ev_flag": false,
-   "stake_units": 0.58,
-   "stake_ngn": 580,
-   "reasoning": "Forebet 44/56% · price 1.82 · Forebet says 44% vs 56% - nearly a coin flip, Hawks slight edge on the road. High total (avg 189.5) if you want to play totals.",
+   "stake_units": 0.0,
+   "stake_ngn": 0,
+   "reasoning": "Forebet 44/56% · Forebet coefficient -122 (not a verified book price) · Forebet says 44% vs 56% - nearly a coin flip, Hawks slight edge on the road. High total (avg 189.5) if you want to play totals. · no verified book price for this market — confidence only, no stake",
    "model_version": "pulse-dc-1.0"
   },
   {
@@ -2591,8 +2597,9 @@
    "market": "moneyline",
    "selection": "Skuru W",
    "price": null,
-   "book": "forebet",
-   "price_source": "forebet-coef",
+   "book": null,
+   "price_source": null,
+   "forebet_coef": null,
    "p_forebet": [
     0.57,
     0.43
@@ -2609,7 +2616,7 @@
    "ev_flag": false,
    "stake_units": 0.0,
    "stake_ngn": 0,
-   "reasoning": "Forebet 57/43% · Forebet says 57% vs 43%. Finished game listed on forebet's today page - reference only. · no market price published — confidence only",
+   "reasoning": "Forebet 57/43% · Forebet says 57% vs 43%. Finished game listed on forebet's today page - reference only. · no verified book price for this market — confidence only, no stake",
    "model_version": "pulse-dc-1.0"
   },
   {
@@ -2623,8 +2630,9 @@
    "market": "moneyline",
    "selection": "Grasshoppers W",
    "price": null,
-   "book": "forebet",
-   "price_source": "forebet-coef",
+   "book": null,
+   "price_source": null,
+   "forebet_coef": null,
    "p_forebet": [
     0.86,
     0.14
@@ -2641,7 +2649,7 @@
    "ev_flag": false,
    "stake_units": 0.0,
    "stake_ngn": 0,
-   "reasoning": "Forebet 86/14% · Forebet says 86% vs 14% - huge favourite. NOTE: forebet shows this as finished 0-0, so treat as reference only - do NOT put it on a slip. · no market price published — confidence only",
+   "reasoning": "Forebet 86/14% · Forebet says 86% vs 14% - huge favourite. NOTE: forebet shows this as finished 0-0, so treat as reference only - do NOT put it on a slip. · no verified book price for this market — confidence only, no stake",
    "model_version": "pulse-dc-1.0"
   },
   {
@@ -2654,9 +2662,10 @@
    "kickoff_label": "Today · 22:30 WAT",
    "market": "match winner",
    "selection": "D. Vallejo",
-   "price": 1.3597,
-   "book": "forebet",
-   "price_source": "forebet-coef",
+   "price": null,
+   "book": null,
+   "price_source": null,
+   "forebet_coef": "-278",
    "p_forebet": [
     0.74,
     0.26
@@ -2666,14 +2675,14 @@
     0.26
    ],
    "model_prob": 0.26,
-   "edge": -0.6465,
+   "edge": null,
    "tier": "SKIP",
    "bettable": false,
-   "price_available": true,
+   "price_available": false,
    "ev_flag": false,
    "stake_units": 0.0,
    "stake_ngn": 0,
-   "reasoning": "Forebet 74/26% · price 1.36",
+   "reasoning": "Forebet 74/26% · Forebet coefficient -278 (not a verified book price) · no verified book price for this market — confidence only, no stake",
    "model_version": "pulse-dc-1.0"
   },
   {
@@ -2686,9 +2695,10 @@
    "kickoff_label": "Today · 23:00 WAT",
    "market": "match winner",
    "selection": "J. Wolf",
-   "price": 1.6211,
-   "book": "forebet",
-   "price_source": "forebet-coef",
+   "price": null,
+   "book": null,
+   "price_source": null,
+   "forebet_coef": "-161",
    "p_forebet": [
     0.44,
     0.56
@@ -2698,14 +2708,14 @@
     0.56
    ],
    "model_prob": 0.56,
-   "edge": -0.0922,
-   "tier": "SKIP",
+   "edge": null,
+   "tier": "GOOD",
    "bettable": false,
-   "price_available": true,
+   "price_available": false,
    "ev_flag": false,
    "stake_units": 0.0,
    "stake_ngn": 0,
-   "reasoning": "Forebet 44/56% · price 1.62",
+   "reasoning": "Forebet 44/56% · Forebet coefficient -161 (not a verified book price) · no verified book price for this market — confidence only, no stake",
    "model_version": "pulse-dc-1.0"
   },
   {
@@ -2718,9 +2728,10 @@
    "kickoff_label": "Today · 23:05 WAT",
    "market": "match winner",
    "selection": "I. Jovic",
-   "price": 1.2899,
-   "book": "forebet",
-   "price_source": "forebet-coef",
+   "price": null,
+   "book": null,
+   "price_source": null,
+   "forebet_coef": "-345",
    "p_forebet": [
     0.44,
     0.56
@@ -2730,14 +2741,14 @@
     0.56
    ],
    "model_prob": 0.56,
-   "edge": -0.2777,
-   "tier": "SKIP",
+   "edge": null,
+   "tier": "GOOD",
    "bettable": false,
-   "price_available": true,
+   "price_available": false,
    "ev_flag": false,
    "stake_units": 0.0,
    "stake_ngn": 0,
-   "reasoning": "Forebet 44/56% · price 1.29",
+   "reasoning": "Forebet 44/56% · Forebet coefficient -345 (not a verified book price) · no verified book price for this market — confidence only, no stake",
    "model_version": "pulse-dc-1.0"
   },
   {
@@ -2750,9 +2761,10 @@
    "kickoff_label": "Today · 00:30 WAT",
    "market": "match winner",
    "selection": "H. J. Escurra Isnardi",
-   "price": 1.03,
-   "book": "forebet",
-   "price_source": "forebet-coef",
+   "price": null,
+   "book": null,
+   "price_source": null,
+   "forebet_coef": "-3333",
    "p_forebet": [
     0.68,
     0.32
@@ -2762,14 +2774,14 @@
     0.32
    ],
    "model_prob": 0.32,
-   "edge": -0.6704,
+   "edge": null,
    "tier": "SKIP",
    "bettable": false,
-   "price_available": true,
+   "price_available": false,
    "ev_flag": false,
    "stake_units": 0.0,
    "stake_ngn": 0,
-   "reasoning": "Forebet 68/32% · price 1.03",
+   "reasoning": "Forebet 68/32% · Forebet coefficient -3333 (not a verified book price) · no verified book price for this market — confidence only, no stake",
    "model_version": "pulse-dc-1.0"
   },
   {
@@ -2783,8 +2795,9 @@
    "market": "match winner",
    "selection": "Y. Ma",
    "price": null,
-   "book": "forebet",
-   "price_source": "forebet-coef",
+   "book": null,
+   "price_source": null,
+   "forebet_coef": null,
    "p_forebet": [
     0.51,
     0.49
@@ -2801,7 +2814,7 @@
    "ev_flag": false,
    "stake_units": 0.0,
    "stake_ngn": 0,
-   "reasoning": "Forebet 51/49% · no market price published — confidence only",
+   "reasoning": "Forebet 51/49% · no verified book price for this market — confidence only, no stake",
    "model_version": "pulse-dc-1.0"
   },
   {
@@ -2814,9 +2827,10 @@
    "kickoff_label": "Today · 01:00 WAT",
    "market": "match winner",
    "selection": "D. Astakhova",
-   "price": 4.0,
-   "book": "forebet",
-   "price_source": "forebet-coef",
+   "price": null,
+   "book": null,
+   "price_source": null,
+   "forebet_coef": "+300",
    "p_forebet": [
     0.45,
     0.55
@@ -2826,14 +2840,14 @@
     0.55
    ],
    "model_prob": 0.55,
-   "edge": 1.2,
+   "edge": null,
    "tier": "GOOD",
-   "bettable": true,
-   "price_available": true,
-   "ev_flag": true,
-   "stake_units": 3.0,
-   "stake_ngn": 3000,
-   "reasoning": "Forebet 45/55% · price 4.00",
+   "bettable": false,
+   "price_available": false,
+   "ev_flag": false,
+   "stake_units": 0.0,
+   "stake_ngn": 0,
+   "reasoning": "Forebet 45/55% · Forebet coefficient +300 (not a verified book price) · no verified book price for this market — confidence only, no stake",
    "model_version": "pulse-dc-1.0"
   },
   {
@@ -2846,9 +2860,10 @@
    "kickoff_label": "Today · 02:30 WAT",
    "market": "match winner",
    "selection": "S. Shimabukuro",
-   "price": 1.3003,
-   "book": "forebet",
-   "price_source": "forebet-coef",
+   "price": null,
+   "book": null,
+   "price_source": null,
+   "forebet_coef": "-333",
    "p_forebet": [
     0.34,
     0.66
@@ -2858,14 +2873,14 @@
     0.66
    ],
    "model_prob": 0.66,
-   "edge": -0.1418,
-   "tier": "SKIP",
+   "edge": null,
+   "tier": "GOOD",
    "bettable": false,
-   "price_available": true,
+   "price_available": false,
    "ev_flag": false,
    "stake_units": 0.0,
    "stake_ngn": 0,
-   "reasoning": "Forebet 34/66% · price 1.30",
+   "reasoning": "Forebet 34/66% · Forebet coefficient -333 (not a verified book price) · no verified book price for this market — confidence only, no stake",
    "model_version": "pulse-dc-1.0"
   },
   {
@@ -2878,9 +2893,10 @@
    "kickoff_label": "Today · 04:00 WAT",
    "market": "match winner",
    "selection": "R. Sakamoto",
-   "price": 1.1401,
-   "book": "forebet",
-   "price_source": "forebet-coef",
+   "price": null,
+   "book": null,
+   "price_source": null,
+   "forebet_coef": "-714",
    "p_forebet": [
     0.47,
     0.53
@@ -2890,14 +2906,14 @@
     0.53
    ],
    "model_prob": 0.53,
-   "edge": -0.3957,
+   "edge": null,
    "tier": "SKIP",
    "bettable": false,
-   "price_available": true,
+   "price_available": false,
    "ev_flag": false,
    "stake_units": 0.0,
    "stake_ngn": 0,
-   "reasoning": "Forebet 47/53% · price 1.14",
+   "reasoning": "Forebet 47/53% · Forebet coefficient -714 (not a verified book price) · no verified book price for this market — confidence only, no stake",
    "model_version": "pulse-dc-1.0"
   },
   {
@@ -2910,9 +2926,10 @@
    "kickoff_label": "Today · 04:00 WAT",
    "market": "match winner",
    "selection": "I. Simakin",
-   "price": 1.6711,
-   "book": "forebet",
-   "price_source": "forebet-coef",
+   "price": null,
+   "book": null,
+   "price_source": null,
+   "forebet_coef": "-149",
    "p_forebet": [
     0.38,
     0.62
@@ -2922,14 +2939,14 @@
     0.62
    ],
    "model_prob": 0.62,
-   "edge": 0.0361,
+   "edge": null,
    "tier": "GOOD",
-   "bettable": true,
-   "price_available": true,
+   "bettable": false,
+   "price_available": false,
    "ev_flag": false,
-   "stake_units": 1.34,
-   "stake_ngn": 1344,
-   "reasoning": "Forebet 38/62% · price 1.67",
+   "stake_units": 0.0,
+   "stake_ngn": 0,
+   "reasoning": "Forebet 38/62% · Forebet coefficient -149 (not a verified book price) · no verified book price for this market — confidence only, no stake",
    "model_version": "pulse-dc-1.0"
   },
   {
@@ -2943,8 +2960,9 @@
    "market": "match winner",
    "selection": "M. Kuramochi",
    "price": null,
-   "book": "forebet",
-   "price_source": "forebet-coef",
+   "book": null,
+   "price_source": null,
+   "forebet_coef": null,
    "p_forebet": [
     0.53,
     0.47
@@ -2961,7 +2979,7 @@
    "ev_flag": false,
    "stake_units": 0.0,
    "stake_ngn": 0,
-   "reasoning": "Forebet 53/47% · no market price published — confidence only",
+   "reasoning": "Forebet 53/47% · no verified book price for this market — confidence only, no stake",
    "model_version": "pulse-dc-1.0"
   },
   {
@@ -2974,9 +2992,10 @@
    "kickoff_label": "Today · 05:00 WAT",
    "market": "match winner",
    "selection": "N. Hibino",
-   "price": 1.8333,
-   "book": "forebet",
-   "price_source": "forebet-coef",
+   "price": null,
+   "book": null,
+   "price_source": null,
+   "forebet_coef": "-120",
    "p_forebet": [
     0.6,
     0.4
@@ -2986,14 +3005,14 @@
     0.4
    ],
    "model_prob": 0.6,
-   "edge": 0.1,
-   "tier": "STRONG",
-   "bettable": true,
-   "price_available": true,
-   "ev_flag": true,
-   "stake_units": 3.0,
-   "stake_ngn": 3000,
-   "reasoning": "Forebet 60/40% · price 1.83",
+   "edge": null,
+   "tier": "GOOD",
+   "bettable": false,
+   "price_available": false,
+   "ev_flag": false,
+   "stake_units": 0.0,
+   "stake_ngn": 0,
+   "reasoning": "Forebet 60/40% · Forebet coefficient -120 (not a verified book price) · no verified book price for this market — confidence only, no stake",
    "model_version": "pulse-dc-1.0"
   },
   {
@@ -3006,9 +3025,10 @@
    "kickoff_label": "Today · 05:00 WAT",
    "market": "match winner",
    "selection": "A. Kulikova",
-   "price": 2.0,
-   "book": "forebet",
-   "price_source": "forebet-coef",
+   "price": null,
+   "book": null,
+   "price_source": null,
+   "forebet_coef": "+100",
    "p_forebet": [
     0.47,
     0.53
@@ -3018,14 +3038,14 @@
     0.53
    ],
    "model_prob": 0.53,
-   "edge": 0.06,
-   "tier": "GOOD",
-   "bettable": true,
-   "price_available": true,
-   "ev_flag": true,
-   "stake_units": 1.5,
-   "stake_ngn": 1500,
-   "reasoning": "Forebet 47/53% · price 2.00",
+   "edge": null,
+   "tier": "SKIP",
+   "bettable": false,
+   "price_available": false,
+   "ev_flag": false,
+   "stake_units": 0.0,
+   "stake_ngn": 0,
+   "reasoning": "Forebet 47/53% · Forebet coefficient +100 (not a verified book price) · no verified book price for this market — confidence only, no stake",
    "model_version": "pulse-dc-1.0"
   },
   {
@@ -3038,9 +3058,10 @@
    "kickoff_label": "Today · 05:30 WAT",
    "market": "match winner",
    "selection": "A. De Minaur",
-   "price": 1.2198,
-   "book": "forebet",
-   "price_source": "forebet-coef",
+   "price": null,
+   "book": null,
+   "price_source": null,
+   "forebet_coef": "-455",
    "p_forebet": [
     0.6,
     0.4
@@ -3050,14 +3071,14 @@
     0.4
    ],
    "model_prob": 0.6,
-   "edge": -0.2681,
-   "tier": "SKIP",
+   "edge": null,
+   "tier": "GOOD",
    "bettable": false,
-   "price_available": true,
+   "price_available": false,
    "ev_flag": false,
    "stake_units": 0.0,
    "stake_ngn": 0,
-   "reasoning": "Forebet 60/40% · price 1.22",
+   "reasoning": "Forebet 60/40% · Forebet coefficient -455 (not a verified book price) · no verified book price for this market — confidence only, no stake",
    "model_version": "pulse-dc-1.0"
   },
   {
@@ -3070,9 +3091,10 @@
    "kickoff_label": "Today · 05:30 WAT",
    "market": "match winner",
    "selection": "C. H. Tseng",
-   "price": 1.4405,
-   "book": "forebet",
-   "price_source": "forebet-coef",
+   "price": null,
+   "book": null,
+   "price_source": null,
+   "forebet_coef": "-227",
    "p_forebet": [
     0.56,
     0.44
@@ -3082,14 +3104,14 @@
     0.44
    ],
    "model_prob": 0.56,
-   "edge": -0.1933,
-   "tier": "SKIP",
+   "edge": null,
+   "tier": "GOOD",
    "bettable": false,
-   "price_available": true,
+   "price_available": false,
    "ev_flag": false,
    "stake_units": 0.0,
    "stake_ngn": 0,
-   "reasoning": "Forebet 56/44% · price 1.44",
+   "reasoning": "Forebet 56/44% · Forebet coefficient -227 (not a verified book price) · no verified book price for this market — confidence only, no stake",
    "model_version": "pulse-dc-1.0"
   },
   {
@@ -3102,9 +3124,10 @@
    "kickoff_label": "Today · 05:30 WAT",
    "market": "match winner",
    "selection": "A. Ibragimova",
-   "price": 1.3597,
-   "book": "forebet",
-   "price_source": "forebet-coef",
+   "price": null,
+   "book": null,
+   "price_source": null,
+   "forebet_coef": "-278",
    "p_forebet": [
     0.55,
     0.45
@@ -3114,14 +3137,14 @@
     0.45
    ],
    "model_prob": 0.55,
-   "edge": -0.2522,
-   "tier": "SKIP",
+   "edge": null,
+   "tier": "GOOD",
    "bettable": false,
-   "price_available": true,
+   "price_available": false,
    "ev_flag": false,
    "stake_units": 0.0,
    "stake_ngn": 0,
-   "reasoning": "Forebet 55/45% · price 1.36",
+   "reasoning": "Forebet 55/45% · Forebet coefficient -278 (not a verified book price) · no verified book price for this market — confidence only, no stake",
    "model_version": "pulse-dc-1.0"
   },
   {
@@ -3134,9 +3157,10 @@
    "kickoff_label": "Today · 06:00 WAT",
    "market": "match winner",
    "selection": "M. Sharipov",
-   "price": 1.8333,
-   "book": "forebet",
-   "price_source": "forebet-coef",
+   "price": null,
+   "book": null,
+   "price_source": null,
+   "forebet_coef": "-120",
    "p_forebet": [
     0.38,
     0.62
@@ -3146,14 +3170,14 @@
     0.62
    ],
    "model_prob": 0.62,
-   "edge": 0.1366,
-   "tier": "STRONG",
-   "bettable": true,
-   "price_available": true,
-   "ev_flag": true,
-   "stake_units": 3.0,
-   "stake_ngn": 3000,
-   "reasoning": "Forebet 38/62% · price 1.83",
+   "edge": null,
+   "tier": "GOOD",
+   "bettable": false,
+   "price_available": false,
+   "ev_flag": false,
+   "stake_units": 0.0,
+   "stake_ngn": 0,
+   "reasoning": "Forebet 38/62% · Forebet coefficient -120 (not a verified book price) · no verified book price for this market — confidence only, no stake",
    "model_version": "pulse-dc-1.0"
   },
   {
@@ -3167,8 +3191,9 @@
    "market": "match winner",
    "selection": "A. Zverev",
    "price": null,
-   "book": "forebet",
-   "price_source": "forebet-coef",
+   "book": null,
+   "price_source": null,
+   "forebet_coef": null,
    "p_forebet": [
     0.66,
     0.34
@@ -3185,7 +3210,7 @@
    "ev_flag": false,
    "stake_units": 0.0,
    "stake_ngn": 0,
-   "reasoning": "Forebet 66/34% · no market price published — confidence only",
+   "reasoning": "Forebet 66/34% · no verified book price for this market — confidence only, no stake",
    "model_version": "pulse-dc-1.0"
   },
   {
@@ -3199,8 +3224,9 @@
    "market": "match winner",
    "selection": "A. Fery",
    "price": null,
-   "book": "forebet",
-   "price_source": "forebet-coef",
+   "book": null,
+   "price_source": null,
+   "forebet_coef": null,
    "p_forebet": [
     0.54,
     0.46
@@ -3217,7 +3243,7 @@
    "ev_flag": false,
    "stake_units": 0.0,
    "stake_ngn": 0,
-   "reasoning": "Forebet 54/46% · no market price published — confidence only",
+   "reasoning": "Forebet 54/46% · no verified book price for this market — confidence only, no stake",
    "model_version": "pulse-dc-1.0"
   },
   {
@@ -3231,8 +3257,9 @@
    "market": "match winner",
    "selection": "M. Dodig",
    "price": null,
-   "book": "forebet",
-   "price_source": "forebet-coef",
+   "book": null,
+   "price_source": null,
+   "forebet_coef": null,
    "p_forebet": [
     0.42,
     0.58
@@ -3249,7 +3276,7 @@
    "ev_flag": false,
    "stake_units": 0.0,
    "stake_ngn": 0,
-   "reasoning": "Forebet 42/58% · no market price published — confidence only",
+   "reasoning": "Forebet 42/58% · no verified book price for this market — confidence only, no stake",
    "model_version": "pulse-dc-1.0"
   },
   {
@@ -3263,8 +3290,9 @@
    "market": "match winner",
    "selection": "T. Samuel",
    "price": null,
-   "book": "forebet",
-   "price_source": "forebet-coef",
+   "book": null,
+   "price_source": null,
+   "forebet_coef": null,
    "p_forebet": [
     0.69,
     0.31
@@ -3281,7 +3309,7 @@
    "ev_flag": false,
    "stake_units": 0.0,
    "stake_ngn": 0,
-   "reasoning": "Forebet 69/31% · no market price published — confidence only",
+   "reasoning": "Forebet 69/31% · no verified book price for this market — confidence only, no stake",
    "model_version": "pulse-dc-1.0"
   },
   {
@@ -3295,8 +3323,9 @@
    "market": "match winner",
    "selection": "R. Jodar",
    "price": null,
-   "book": "forebet",
-   "price_source": "forebet-coef",
+   "book": null,
+   "price_source": null,
+   "forebet_coef": null,
    "p_forebet": [
     0.43,
     0.57
@@ -3313,7 +3342,7 @@
    "ev_flag": false,
    "stake_units": 0.0,
    "stake_ngn": 0,
-   "reasoning": "Forebet 43/57% · no market price published — confidence only",
+   "reasoning": "Forebet 43/57% · no verified book price for this market — confidence only, no stake",
    "model_version": "pulse-dc-1.0"
   },
   {
@@ -3327,8 +3356,9 @@
    "market": "match winner",
    "selection": "D. Merida Aguilar",
    "price": null,
-   "book": "forebet",
-   "price_source": "forebet-coef",
+   "book": null,
+   "price_source": null,
+   "forebet_coef": null,
    "p_forebet": [
     0.47,
     0.53
@@ -3345,7 +3375,7 @@
    "ev_flag": false,
    "stake_units": 0.0,
    "stake_ngn": 0,
-   "reasoning": "Forebet 47/53% · no market price published — confidence only",
+   "reasoning": "Forebet 47/53% · no verified book price for this market — confidence only, no stake",
    "model_version": "pulse-dc-1.0"
   },
   {
@@ -3359,8 +3389,9 @@
    "market": "match winner",
    "selection": "M. Kasnikowski",
    "price": null,
-   "book": "forebet",
-   "price_source": "forebet-coef",
+   "book": null,
+   "price_source": null,
+   "forebet_coef": null,
    "p_forebet": [
     0.45,
     0.55
@@ -3377,7 +3408,7 @@
    "ev_flag": false,
    "stake_units": 0.0,
    "stake_ngn": 0,
-   "reasoning": "Forebet 45/55% · no market price published — confidence only",
+   "reasoning": "Forebet 45/55% · no verified book price for this market — confidence only, no stake",
    "model_version": "pulse-dc-1.0"
   },
   {
@@ -3391,8 +3422,9 @@
    "market": "match winner",
    "selection": "K. Friberg",
    "price": null,
-   "book": "forebet",
-   "price_source": "forebet-coef",
+   "book": null,
+   "price_source": null,
+   "forebet_coef": null,
    "p_forebet": [
     0.48,
     0.52
@@ -3409,7 +3441,7 @@
    "ev_flag": false,
    "stake_units": 0.0,
    "stake_ngn": 0,
-   "reasoning": "Forebet 48/52% · no market price published — confidence only",
+   "reasoning": "Forebet 48/52% · no verified book price for this market — confidence only, no stake",
    "model_version": "pulse-dc-1.0"
   },
   {
@@ -3423,8 +3455,9 @@
    "market": "match winner",
    "selection": "S. Tsitsipas",
    "price": null,
-   "book": "forebet",
-   "price_source": "forebet-coef",
+   "book": null,
+   "price_source": null,
+   "forebet_coef": null,
    "p_forebet": [
     0.49,
     0.51
@@ -3441,7 +3474,7 @@
    "ev_flag": false,
    "stake_units": 0.0,
    "stake_ngn": 0,
-   "reasoning": "Forebet 49/51% · no market price published — confidence only",
+   "reasoning": "Forebet 49/51% · no verified book price for this market — confidence only, no stake",
    "model_version": "pulse-dc-1.0"
   },
   {
@@ -3455,8 +3488,9 @@
    "market": "match winner",
    "selection": "M. Kecmanovic",
    "price": null,
-   "book": "forebet",
-   "price_source": "forebet-coef",
+   "book": null,
+   "price_source": null,
+   "forebet_coef": null,
    "p_forebet": [
     0.52,
     0.48
@@ -3473,7 +3507,7 @@
    "ev_flag": false,
    "stake_units": 0.0,
    "stake_ngn": 0,
-   "reasoning": "Forebet 52/48% · no market price published — confidence only",
+   "reasoning": "Forebet 52/48% · no verified book price for this market — confidence only, no stake",
    "model_version": "pulse-dc-1.0"
   },
   {
@@ -3487,8 +3521,9 @@
    "market": "match winner",
    "selection": "N. Gombos",
    "price": null,
-   "book": "forebet",
-   "price_source": "forebet-coef",
+   "book": null,
+   "price_source": null,
+   "forebet_coef": null,
    "p_forebet": [
     0.55,
     0.45
@@ -3505,7 +3540,7 @@
    "ev_flag": false,
    "stake_units": 0.0,
    "stake_ngn": 0,
-   "reasoning": "Forebet 55/45% · no market price published — confidence only",
+   "reasoning": "Forebet 55/45% · no verified book price for this market — confidence only, no stake",
    "model_version": "pulse-dc-1.0"
   },
   {
@@ -3519,8 +3554,9 @@
    "market": "match winner",
    "selection": "H. Medjedovic",
    "price": null,
-   "book": "forebet",
-   "price_source": "forebet-coef",
+   "book": null,
+   "price_source": null,
+   "forebet_coef": null,
    "p_forebet": [
     0.54,
     0.46
@@ -3537,7 +3573,7 @@
    "ev_flag": false,
    "stake_units": 0.0,
    "stake_ngn": 0,
-   "reasoning": "Forebet 54/46% · no market price published — confidence only",
+   "reasoning": "Forebet 54/46% · no verified book price for this market — confidence only, no stake",
    "model_version": "pulse-dc-1.0"
   },
   {
@@ -3551,8 +3587,9 @@
    "market": "match winner",
    "selection": "F. Cerundolo",
    "price": null,
-   "book": "forebet",
-   "price_source": "forebet-coef",
+   "book": null,
+   "price_source": null,
+   "forebet_coef": null,
    "p_forebet": [
     0.55,
     0.45
@@ -3569,7 +3606,7 @@
    "ev_flag": false,
    "stake_units": 0.0,
    "stake_ngn": 0,
-   "reasoning": "Forebet 55/45% · no market price published — confidence only",
+   "reasoning": "Forebet 55/45% · no verified book price for this market — confidence only, no stake",
    "model_version": "pulse-dc-1.0"
   },
   {
@@ -3583,8 +3620,9 @@
    "market": "match winner",
    "selection": "T. A. Tirante",
    "price": null,
-   "book": "forebet",
-   "price_source": "forebet-coef",
+   "book": null,
+   "price_source": null,
+   "forebet_coef": null,
    "p_forebet": [
     0.52,
     0.48
@@ -3601,7 +3639,7 @@
    "ev_flag": false,
    "stake_units": 0.0,
    "stake_ngn": 0,
-   "reasoning": "Forebet 52/48% · no market price published — confidence only",
+   "reasoning": "Forebet 52/48% · no verified book price for this market — confidence only, no stake",
    "model_version": "pulse-dc-1.0"
   },
   {
@@ -3615,8 +3653,9 @@
    "market": "match winner",
    "selection": "J. C. Prado Angelo",
    "price": null,
-   "book": "forebet",
-   "price_source": "forebet-coef",
+   "book": null,
+   "price_source": null,
+   "forebet_coef": null,
    "p_forebet": [
     0.77,
     0.23
@@ -3633,7 +3672,7 @@
    "ev_flag": false,
    "stake_units": 0.0,
    "stake_ngn": 0,
-   "reasoning": "Forebet 77/23% · no market price published — confidence only",
+   "reasoning": "Forebet 77/23% · no verified book price for this market — confidence only, no stake",
    "model_version": "pulse-dc-1.0"
   },
   {
@@ -3647,8 +3686,9 @@
    "market": "match winner",
    "selection": "G. Kravchenko",
    "price": null,
-   "book": "forebet",
-   "price_source": "forebet-coef",
+   "book": null,
+   "price_source": null,
+   "forebet_coef": null,
    "p_forebet": [
     0.38,
     0.62
@@ -3665,7 +3705,7 @@
    "ev_flag": false,
    "stake_units": 0.0,
    "stake_ngn": 0,
-   "reasoning": "Forebet 38/62% · no market price published — confidence only",
+   "reasoning": "Forebet 38/62% · no verified book price for this market — confidence only, no stake",
    "model_version": "pulse-dc-1.0"
   },
   {
@@ -3679,8 +3719,9 @@
    "market": "match winner",
    "selection": "D. Dzumhur",
    "price": null,
-   "book": "forebet",
-   "price_source": "forebet-coef",
+   "book": null,
+   "price_source": null,
+   "forebet_coef": null,
    "p_forebet": [
     0.38,
     0.62
@@ -3697,7 +3738,7 @@
    "ev_flag": false,
    "stake_units": 0.0,
    "stake_ngn": 0,
-   "reasoning": "Forebet 38/62% · no market price published — confidence only",
+   "reasoning": "Forebet 38/62% · no verified book price for this market — confidence only, no stake",
    "model_version": "pulse-dc-1.0"
   },
   {
@@ -3711,8 +3752,9 @@
    "market": "match winner",
    "selection": "O. Krutykh",
    "price": null,
-   "book": "forebet",
-   "price_source": "forebet-coef",
+   "book": null,
+   "price_source": null,
+   "forebet_coef": null,
    "p_forebet": [
     0.36,
     0.64
@@ -3729,7 +3771,7 @@
    "ev_flag": false,
    "stake_units": 0.0,
    "stake_ngn": 0,
-   "reasoning": "Forebet 36/64% · no market price published — confidence only",
+   "reasoning": "Forebet 36/64% · no verified book price for this market — confidence only, no stake",
    "model_version": "pulse-dc-1.0"
   },
   {
@@ -3743,8 +3785,9 @@
    "market": "match winner",
    "selection": "K. Bennani",
    "price": null,
-   "book": "forebet",
-   "price_source": "forebet-coef",
+   "book": null,
+   "price_source": null,
+   "forebet_coef": null,
    "p_forebet": [
     0.57,
     0.43
@@ -3761,7 +3804,7 @@
    "ev_flag": false,
    "stake_units": 0.0,
    "stake_ngn": 0,
-   "reasoning": "Forebet 57/43% · no market price published — confidence only",
+   "reasoning": "Forebet 57/43% · no verified book price for this market — confidence only, no stake",
    "model_version": "pulse-dc-1.0"
   },
   {
@@ -3775,8 +3818,9 @@
    "market": "match winner",
    "selection": "A. Nedic",
    "price": null,
-   "book": "forebet",
-   "price_source": "forebet-coef",
+   "book": null,
+   "price_source": null,
+   "forebet_coef": null,
    "p_forebet": [
     0.32,
     0.68
@@ -3793,7 +3837,7 @@
    "ev_flag": false,
    "stake_units": 0.0,
    "stake_ngn": 0,
-   "reasoning": "Forebet 32/68% · no market price published — confidence only",
+   "reasoning": "Forebet 32/68% · no verified book price for this market — confidence only, no stake",
    "model_version": "pulse-dc-1.0"
   },
   {
@@ -3807,8 +3851,9 @@
    "market": "match winner",
    "selection": "Y. Dlimi",
    "price": null,
-   "book": "forebet",
-   "price_source": "forebet-coef",
+   "book": null,
+   "price_source": null,
+   "forebet_coef": null,
    "p_forebet": [
     0.82,
     0.18
@@ -3825,7 +3870,7 @@
    "ev_flag": false,
    "stake_units": 0.0,
    "stake_ngn": 0,
-   "reasoning": "Forebet 82/18% · no market price published — confidence only",
+   "reasoning": "Forebet 82/18% · no verified book price for this market — confidence only, no stake",
    "model_version": "pulse-dc-1.0"
   },
   {
@@ -3839,8 +3884,9 @@
    "market": "match winner",
    "selection": "D. Phillips",
    "price": null,
-   "book": "forebet",
-   "price_source": "forebet-coef",
+   "book": null,
+   "price_source": null,
+   "forebet_coef": null,
    "p_forebet": [
     0.61,
     0.39
@@ -3857,7 +3903,7 @@
    "ev_flag": false,
    "stake_units": 0.0,
    "stake_ngn": 0,
-   "reasoning": "Forebet 61/39% · no market price published — confidence only",
+   "reasoning": "Forebet 61/39% · no verified book price for this market — confidence only, no stake",
    "model_version": "pulse-dc-1.0"
   },
   {
@@ -3871,8 +3917,9 @@
    "market": "match winner",
    "selection": "A. Magadan",
    "price": null,
-   "book": "forebet",
-   "price_source": "forebet-coef",
+   "book": null,
+   "price_source": null,
+   "forebet_coef": null,
    "p_forebet": [
     0.24,
     0.76
@@ -3889,7 +3936,7 @@
    "ev_flag": false,
    "stake_units": 0.0,
    "stake_ngn": 0,
-   "reasoning": "Forebet 24/76% · no market price published — confidence only",
+   "reasoning": "Forebet 24/76% · no verified book price for this market — confidence only, no stake",
    "model_version": "pulse-dc-1.0"
   },
   {
@@ -3903,8 +3950,9 @@
    "market": "match winner",
    "selection": "N. Borges",
    "price": null,
-   "book": "forebet",
-   "price_source": "forebet-coef",
+   "book": null,
+   "price_source": null,
+   "forebet_coef": null,
    "p_forebet": [
     0.2,
     0.8
@@ -3921,7 +3969,7 @@
    "ev_flag": false,
    "stake_units": 0.0,
    "stake_ngn": 0,
-   "reasoning": "Forebet 20/80% · no market price published — confidence only",
+   "reasoning": "Forebet 20/80% · no verified book price for this market — confidence only, no stake",
    "model_version": "pulse-dc-1.0"
   },
   {
@@ -3935,8 +3983,9 @@
    "market": "match winner",
    "selection": "K. Rakhimova",
    "price": null,
-   "book": "forebet",
-   "price_source": "forebet-coef",
+   "book": null,
+   "price_source": null,
+   "forebet_coef": null,
    "p_forebet": [
     0.56,
     0.44
@@ -3953,7 +4002,7 @@
    "ev_flag": false,
    "stake_units": 0.0,
    "stake_ngn": 0,
-   "reasoning": "Forebet 56/44% · no market price published — confidence only",
+   "reasoning": "Forebet 56/44% · no verified book price for this market — confidence only, no stake",
    "model_version": "pulse-dc-1.0"
   },
   {
@@ -3967,8 +4016,9 @@
    "market": "match winner",
    "selection": "L. Tararudee",
    "price": null,
-   "book": "forebet",
-   "price_source": "forebet-coef",
+   "book": null,
+   "price_source": null,
+   "forebet_coef": null,
    "p_forebet": [
     0.52,
     0.48
@@ -3985,7 +4035,7 @@
    "ev_flag": false,
    "stake_units": 0.0,
    "stake_ngn": 0,
-   "reasoning": "Forebet 52/48% · no market price published — confidence only",
+   "reasoning": "Forebet 52/48% · no verified book price for this market — confidence only, no stake",
    "model_version": "pulse-dc-1.0"
   },
   {
@@ -3999,8 +4049,9 @@
    "market": "match winner",
    "selection": "K. Volynets",
    "price": null,
-   "book": "forebet",
-   "price_source": "forebet-coef",
+   "book": null,
+   "price_source": null,
+   "forebet_coef": null,
    "p_forebet": [
     0.52,
     0.48
@@ -4017,7 +4068,7 @@
    "ev_flag": false,
    "stake_units": 0.0,
    "stake_ngn": 0,
-   "reasoning": "Forebet 52/48% · no market price published — confidence only",
+   "reasoning": "Forebet 52/48% · no verified book price for this market — confidence only, no stake",
    "model_version": "pulse-dc-1.0"
   },
   {
@@ -4031,8 +4082,9 @@
    "market": "match winner",
    "selection": "D. Back",
    "price": null,
-   "book": "forebet",
-   "price_source": "forebet-coef",
+   "book": null,
+   "price_source": null,
+   "forebet_coef": null,
    "p_forebet": [
     0.35,
     0.65
@@ -4049,7 +4101,7 @@
    "ev_flag": false,
    "stake_units": 0.0,
    "stake_ngn": 0,
-   "reasoning": "Forebet 35/65% · no market price published — confidence only",
+   "reasoning": "Forebet 35/65% · no verified book price for this market — confidence only, no stake",
    "model_version": "pulse-dc-1.0"
   },
   {
@@ -4063,8 +4115,9 @@
    "market": "match winner",
    "selection": "T. Zidansek",
    "price": null,
-   "book": "forebet",
-   "price_source": "forebet-coef",
+   "book": null,
+   "price_source": null,
+   "forebet_coef": null,
    "p_forebet": [
     0.62,
     0.38
@@ -4081,7 +4134,7 @@
    "ev_flag": false,
    "stake_units": 0.0,
    "stake_ngn": 0,
-   "reasoning": "Forebet 62/38% · no market price published — confidence only",
+   "reasoning": "Forebet 62/38% · no verified book price for this market — confidence only, no stake",
    "model_version": "pulse-dc-1.0"
   },
   {
@@ -4095,8 +4148,9 @@
    "market": "match winner",
    "selection": "A. Bondar",
    "price": null,
-   "book": "forebet",
-   "price_source": "forebet-coef",
+   "book": null,
+   "price_source": null,
+   "forebet_coef": null,
    "p_forebet": [
     0.61,
     0.39
@@ -4113,7 +4167,7 @@
    "ev_flag": false,
    "stake_units": 0.0,
    "stake_ngn": 0,
-   "reasoning": "Forebet 61/39% · no market price published — confidence only",
+   "reasoning": "Forebet 61/39% · no verified book price for this market — confidence only, no stake",
    "model_version": "pulse-dc-1.0"
   },
   {
@@ -4127,8 +4181,9 @@
    "market": "match winner",
    "selection": "A. Charaeva",
    "price": null,
-   "book": "forebet",
-   "price_source": "forebet-coef",
+   "book": null,
+   "price_source": null,
+   "forebet_coef": null,
    "p_forebet": [
     0.62,
     0.38
@@ -4145,7 +4200,7 @@
    "ev_flag": false,
    "stake_units": 0.0,
    "stake_ngn": 0,
-   "reasoning": "Forebet 62/38% · no market price published — confidence only",
+   "reasoning": "Forebet 62/38% · no verified book price for this market — confidence only, no stake",
    "model_version": "pulse-dc-1.0"
   },
   {
@@ -4159,8 +4214,9 @@
    "market": "match winner",
    "selection": "M. Sawangkaew",
    "price": null,
-   "book": "forebet",
-   "price_source": "forebet-coef",
+   "book": null,
+   "price_source": null,
+   "forebet_coef": null,
    "p_forebet": [
     0.46,
     0.54
@@ -4177,7 +4233,7 @@
    "ev_flag": false,
    "stake_units": 0.0,
    "stake_ngn": 0,
-   "reasoning": "Forebet 46/54% · no market price published — confidence only",
+   "reasoning": "Forebet 46/54% · no verified book price for this market — confidence only, no stake",
    "model_version": "pulse-dc-1.0"
   },
   {
@@ -4191,8 +4247,9 @@
    "market": "match winner",
    "selection": "G. Ruse",
    "price": null,
-   "book": "forebet",
-   "price_source": "forebet-coef",
+   "book": null,
+   "price_source": null,
+   "forebet_coef": null,
    "p_forebet": [
     0.42,
     0.58
@@ -4209,7 +4266,7 @@
    "ev_flag": false,
    "stake_units": 0.0,
    "stake_ngn": 0,
-   "reasoning": "Forebet 42/58% · no market price published — confidence only",
+   "reasoning": "Forebet 42/58% · no verified book price for this market — confidence only, no stake",
    "model_version": "pulse-dc-1.0"
   },
   {
@@ -4223,8 +4280,9 @@
    "market": "match winner",
    "selection": "J. Ostapenko",
    "price": null,
-   "book": "forebet",
-   "price_source": "forebet-coef",
+   "book": null,
+   "price_source": null,
+   "forebet_coef": null,
    "p_forebet": [
     0.64,
     0.36
@@ -4241,7 +4299,7 @@
    "ev_flag": false,
    "stake_units": 0.0,
    "stake_ngn": 0,
-   "reasoning": "Forebet 64/36% · no market price published — confidence only",
+   "reasoning": "Forebet 64/36% · no verified book price for this market — confidence only, no stake",
    "model_version": "pulse-dc-1.0"
   },
   {
@@ -4255,8 +4313,9 @@
    "market": "match winner",
    "selection": "R. Montgomery",
    "price": null,
-   "book": "forebet",
-   "price_source": "forebet-coef",
+   "book": null,
+   "price_source": null,
+   "forebet_coef": null,
    "p_forebet": [
     0.48,
     0.52
@@ -4273,7 +4332,7 @@
    "ev_flag": false,
    "stake_units": 0.0,
    "stake_ngn": 0,
-   "reasoning": "Forebet 48/52% · no market price published — confidence only",
+   "reasoning": "Forebet 48/52% · no verified book price for this market — confidence only, no stake",
    "model_version": "pulse-dc-1.0"
   },
   {
@@ -4287,8 +4346,9 @@
    "market": "match winner",
    "selection": "H. Sakatsume",
    "price": null,
-   "book": "forebet",
-   "price_source": "forebet-coef",
+   "book": null,
+   "price_source": null,
+   "forebet_coef": null,
    "p_forebet": [
     0.48,
     0.52
@@ -4305,7 +4365,7 @@
    "ev_flag": false,
    "stake_units": 0.0,
    "stake_ngn": 0,
-   "reasoning": "Forebet 48/52% · no market price published — confidence only",
+   "reasoning": "Forebet 48/52% · no verified book price for this market — confidence only, no stake",
    "model_version": "pulse-dc-1.0"
   },
   {
@@ -4319,8 +4379,9 @@
    "market": "match winner",
    "selection": "F. Ferro",
    "price": null,
-   "book": "forebet",
-   "price_source": "forebet-coef",
+   "book": null,
+   "price_source": null,
+   "forebet_coef": null,
    "p_forebet": [
     0.43,
     0.57
@@ -4337,7 +4398,7 @@
    "ev_flag": false,
    "stake_units": 0.0,
    "stake_ngn": 0,
-   "reasoning": "Forebet 43/57% · no market price published — confidence only",
+   "reasoning": "Forebet 43/57% · no verified book price for this market — confidence only, no stake",
    "model_version": "pulse-dc-1.0"
   },
   {
@@ -4351,8 +4412,9 @@
    "market": "match winner",
    "selection": "D. Kasatkina",
    "price": null,
-   "book": "forebet",
-   "price_source": "forebet-coef",
+   "book": null,
+   "price_source": null,
+   "forebet_coef": null,
    "p_forebet": [
     0.54,
     0.46
@@ -4369,7 +4431,7 @@
    "ev_flag": false,
    "stake_units": 0.0,
    "stake_ngn": 0,
-   "reasoning": "Forebet 54/46% · no market price published — confidence only",
+   "reasoning": "Forebet 54/46% · no verified book price for this market — confidence only, no stake",
    "model_version": "pulse-dc-1.0"
   },
   {
@@ -4383,8 +4445,9 @@
    "market": "match winner",
    "selection": "A. Parks",
    "price": null,
-   "book": "forebet",
-   "price_source": "forebet-coef",
+   "book": null,
+   "price_source": null,
+   "forebet_coef": null,
    "p_forebet": [
     0.55,
     0.45
@@ -4401,7 +4464,7 @@
    "ev_flag": false,
    "stake_units": 0.0,
    "stake_ngn": 0,
-   "reasoning": "Forebet 55/45% · no market price published — confidence only",
+   "reasoning": "Forebet 55/45% · no verified book price for this market — confidence only, no stake",
    "model_version": "pulse-dc-1.0"
   },
   {
@@ -4415,8 +4478,9 @@
    "market": "match winner",
    "selection": "T. Prozorova",
    "price": null,
-   "book": "forebet",
-   "price_source": "forebet-coef",
+   "book": null,
+   "price_source": null,
+   "forebet_coef": null,
    "p_forebet": [
     0.72,
     0.28
@@ -4433,7 +4497,7 @@
    "ev_flag": false,
    "stake_units": 0.0,
    "stake_ngn": 0,
-   "reasoning": "Forebet 72/28% · no market price published — confidence only",
+   "reasoning": "Forebet 72/28% · no verified book price for this market — confidence only, no stake",
    "model_version": "pulse-dc-1.0"
   },
   {
@@ -4447,8 +4511,9 @@
    "market": "match winner",
    "selection": "M. Sakkari",
    "price": null,
-   "book": "forebet",
-   "price_source": "forebet-coef",
+   "book": null,
+   "price_source": null,
+   "forebet_coef": null,
    "p_forebet": [
     0.73,
     0.27
@@ -4465,7 +4530,7 @@
    "ev_flag": false,
    "stake_units": 0.0,
    "stake_ngn": 0,
-   "reasoning": "Forebet 73/27% · no market price published — confidence only",
+   "reasoning": "Forebet 73/27% · no verified book price for this market — confidence only, no stake",
    "model_version": "pulse-dc-1.0"
   },
   {
@@ -4479,8 +4544,9 @@
    "market": "match winner",
    "selection": "M. Chwalinska",
    "price": null,
-   "book": "forebet",
-   "price_source": "forebet-coef",
+   "book": null,
+   "price_source": null,
+   "forebet_coef": null,
    "p_forebet": [
     0.49,
     0.51
@@ -4497,7 +4563,7 @@
    "ev_flag": false,
    "stake_units": 0.0,
    "stake_ngn": 0,
-   "reasoning": "Forebet 49/51% · no market price published — confidence only",
+   "reasoning": "Forebet 49/51% · no verified book price for this market — confidence only, no stake",
    "model_version": "pulse-dc-1.0"
   },
   {
@@ -4511,8 +4577,9 @@
    "market": "match winner",
    "selection": "D. Vekic",
    "price": null,
-   "book": "forebet",
-   "price_source": "forebet-coef",
+   "book": null,
+   "price_source": null,
+   "forebet_coef": null,
    "p_forebet": [
     0.53,
     0.47
@@ -4529,7 +4596,7 @@
    "ev_flag": false,
    "stake_units": 0.0,
    "stake_ngn": 0,
-   "reasoning": "Forebet 53/47% · no market price published — confidence only",
+   "reasoning": "Forebet 53/47% · no verified book price for this market — confidence only, no stake",
    "model_version": "pulse-dc-1.0"
   },
   {
@@ -4543,8 +4610,9 @@
    "market": "match winner",
    "selection": "O. Oliynykova",
    "price": null,
-   "book": "forebet",
-   "price_source": "forebet-coef",
+   "book": null,
+   "price_source": null,
+   "forebet_coef": null,
    "p_forebet": [
     0.24,
     0.76
@@ -4561,7 +4629,7 @@
    "ev_flag": false,
    "stake_units": 0.0,
    "stake_ngn": 0,
-   "reasoning": "Forebet 24/76% · no market price published — confidence only",
+   "reasoning": "Forebet 24/76% · no verified book price for this market — confidence only, no stake",
    "model_version": "pulse-dc-1.0"
   },
   {
@@ -4575,8 +4643,9 @@
    "market": "match winner",
    "selection": "J. Garland",
    "price": null,
-   "book": "forebet",
-   "price_source": "forebet-coef",
+   "book": null,
+   "price_source": null,
+   "forebet_coef": null,
    "p_forebet": [
     0.62,
     0.38
@@ -4593,7 +4662,7 @@
    "ev_flag": false,
    "stake_units": 0.0,
    "stake_ngn": 0,
-   "reasoning": "Forebet 62/38% · no market price published — confidence only",
+   "reasoning": "Forebet 62/38% · no verified book price for this market — confidence only, no stake",
    "model_version": "pulse-dc-1.0"
   },
   {
@@ -4607,8 +4676,9 @@
    "market": "match winner",
    "selection": "M. Yamaguchi",
    "price": null,
-   "book": "forebet",
-   "price_source": "forebet-coef",
+   "book": null,
+   "price_source": null,
+   "forebet_coef": null,
    "p_forebet": [
     0.66,
     0.34
@@ -4625,7 +4695,7 @@
    "ev_flag": false,
    "stake_units": 0.0,
    "stake_ngn": 0,
-   "reasoning": "Forebet 66/34% · no market price published — confidence only",
+   "reasoning": "Forebet 66/34% · no verified book price for this market — confidence only, no stake",
    "model_version": "pulse-dc-1.0"
   },
   {
@@ -4639,8 +4709,9 @@
    "market": "match winner",
    "selection": "N. Sanchez Izquierdo",
    "price": null,
-   "book": "forebet",
-   "price_source": "forebet-coef",
+   "book": null,
+   "price_source": null,
+   "forebet_coef": null,
    "p_forebet": [
     0.51,
     0.49
@@ -4657,7 +4728,7 @@
    "ev_flag": false,
    "stake_units": 0.0,
    "stake_ngn": 0,
-   "reasoning": "Forebet 51/49% · no market price published — confidence only",
+   "reasoning": "Forebet 51/49% · no verified book price for this market — confidence only, no stake",
    "model_version": "pulse-dc-1.0"
   },
   {
@@ -4671,8 +4742,9 @@
    "market": "match winner",
    "selection": "C. A. Caniato",
    "price": null,
-   "book": "forebet",
-   "price_source": "forebet-coef",
+   "book": null,
+   "price_source": null,
+   "forebet_coef": null,
    "p_forebet": [
     0.54,
     0.46
@@ -4689,7 +4761,7 @@
    "ev_flag": false,
    "stake_units": 0.0,
    "stake_ngn": 0,
-   "reasoning": "Forebet 54/46% · no market price published — confidence only",
+   "reasoning": "Forebet 54/46% · no verified book price for this market — confidence only, no stake",
    "model_version": "pulse-dc-1.0"
   },
   {
@@ -4703,8 +4775,9 @@
    "market": "match winner",
    "selection": "H. Mayot",
    "price": null,
-   "book": "forebet",
-   "price_source": "forebet-coef",
+   "book": null,
+   "price_source": null,
+   "forebet_coef": null,
    "p_forebet": [
     0.62,
     0.38
@@ -4721,7 +4794,7 @@
    "ev_flag": false,
    "stake_units": 0.0,
    "stake_ngn": 0,
-   "reasoning": "Forebet 62/38% · no market price published — confidence only",
+   "reasoning": "Forebet 62/38% · no verified book price for this market — confidence only, no stake",
    "model_version": "pulse-dc-1.0"
   },
   {
@@ -4735,8 +4808,9 @@
    "market": "match winner",
    "selection": "M. Ribecai",
    "price": null,
-   "book": "forebet",
-   "price_source": "forebet-coef",
+   "book": null,
+   "price_source": null,
+   "forebet_coef": null,
    "p_forebet": [
     0.62,
     0.38
@@ -4753,7 +4827,7 @@
    "ev_flag": false,
    "stake_units": 0.0,
    "stake_ngn": 0,
-   "reasoning": "Forebet 62/38% · no market price published — confidence only",
+   "reasoning": "Forebet 62/38% · no verified book price for this market — confidence only, no stake",
    "model_version": "pulse-dc-1.0"
   },
   {
@@ -4767,8 +4841,9 @@
    "market": "match winner",
    "selection": "J. Boulais",
    "price": null,
-   "book": "forebet",
-   "price_source": "forebet-coef",
+   "book": null,
+   "price_source": null,
+   "forebet_coef": null,
    "p_forebet": [
     0.33,
     0.67
@@ -4785,7 +4860,7 @@
    "ev_flag": false,
    "stake_units": 0.0,
    "stake_ngn": 0,
-   "reasoning": "Forebet 33/67% · no market price published — confidence only",
+   "reasoning": "Forebet 33/67% · no verified book price for this market — confidence only, no stake",
    "model_version": "pulse-dc-1.0"
   },
   {
@@ -4799,8 +4874,9 @@
    "market": "match winner",
    "selection": "R. Peniston",
    "price": null,
-   "book": "forebet",
-   "price_source": "forebet-coef",
+   "book": null,
+   "price_source": null,
+   "forebet_coef": null,
    "p_forebet": [
     0.45,
     0.55
@@ -4817,7 +4893,7 @@
    "ev_flag": false,
    "stake_units": 0.0,
    "stake_ngn": 0,
-   "reasoning": "Forebet 45/55% · no market price published — confidence only",
+   "reasoning": "Forebet 45/55% · no verified book price for this market — confidence only, no stake",
    "model_version": "pulse-dc-1.0"
   },
   {
@@ -4831,8 +4907,9 @@
    "market": "match winner",
    "selection": "H. Squire",
    "price": null,
-   "book": "forebet",
-   "price_source": "forebet-coef",
+   "book": null,
+   "price_source": null,
+   "forebet_coef": null,
    "p_forebet": [
     0.58,
     0.42
@@ -4849,7 +4926,7 @@
    "ev_flag": false,
    "stake_units": 0.0,
    "stake_ngn": 0,
-   "reasoning": "Forebet 58/42% · no market price published — confidence only",
+   "reasoning": "Forebet 58/42% · no verified book price for this market — confidence only, no stake",
    "model_version": "pulse-dc-1.0"
   },
   {
@@ -4863,8 +4940,9 @@
    "market": "match winner",
    "selection": "L. Rossi",
    "price": null,
-   "book": "forebet",
-   "price_source": "forebet-coef",
+   "book": null,
+   "price_source": null,
+   "forebet_coef": null,
    "p_forebet": [
     0.53,
     0.47
@@ -4881,7 +4959,7 @@
    "ev_flag": false,
    "stake_units": 0.0,
    "stake_ngn": 0,
-   "reasoning": "Forebet 53/47% · no market price published — confidence only",
+   "reasoning": "Forebet 53/47% · no verified book price for this market — confidence only, no stake",
    "model_version": "pulse-dc-1.0"
   },
   {
@@ -4895,8 +4973,9 @@
    "market": "match winner",
    "selection": "M. Martineau",
    "price": null,
-   "book": "forebet",
-   "price_source": "forebet-coef",
+   "book": null,
+   "price_source": null,
+   "forebet_coef": null,
    "p_forebet": [
     0.64,
     0.36
@@ -4913,7 +4992,7 @@
    "ev_flag": false,
    "stake_units": 0.0,
    "stake_ngn": 0,
-   "reasoning": "Forebet 64/36% · no market price published — confidence only",
+   "reasoning": "Forebet 64/36% · no verified book price for this market — confidence only, no stake",
    "model_version": "pulse-dc-1.0"
   },
   {
@@ -4927,8 +5006,9 @@
    "market": "match winner",
    "selection": "M. Erhard",
    "price": null,
-   "book": "forebet",
-   "price_source": "forebet-coef",
+   "book": null,
+   "price_source": null,
+   "forebet_coef": null,
    "p_forebet": [
     0.35,
     0.65
@@ -4945,7 +5025,7 @@
    "ev_flag": false,
    "stake_units": 0.0,
    "stake_ngn": 0,
-   "reasoning": "Forebet 35/65% · no market price published — confidence only",
+   "reasoning": "Forebet 35/65% · no verified book price for this market — confidence only, no stake",
    "model_version": "pulse-dc-1.0"
   },
   {
@@ -4959,8 +5039,9 @@
    "market": "match winner",
    "selection": "H. Grenier",
    "price": null,
-   "book": "forebet",
-   "price_source": "forebet-coef",
+   "book": null,
+   "price_source": null,
+   "forebet_coef": null,
    "p_forebet": [
     0.51,
     0.49
@@ -4977,7 +5058,7 @@
    "ev_flag": false,
    "stake_units": 0.0,
    "stake_ngn": 0,
-   "reasoning": "Forebet 51/49% · no market price published — confidence only",
+   "reasoning": "Forebet 51/49% · no verified book price for this market — confidence only, no stake",
    "model_version": "pulse-dc-1.0"
   },
   {
@@ -4991,8 +5072,9 @@
    "market": "match winner",
    "selection": "Y. Ghazouani Durand",
    "price": null,
-   "book": "forebet",
-   "price_source": "forebet-coef",
+   "book": null,
+   "price_source": null,
+   "forebet_coef": null,
    "p_forebet": [
     0.59,
     0.41
@@ -5009,7 +5091,7 @@
    "ev_flag": false,
    "stake_units": 0.0,
    "stake_ngn": 0,
-   "reasoning": "Forebet 59/41% · no market price published — confidence only",
+   "reasoning": "Forebet 59/41% · no verified book price for this market — confidence only, no stake",
    "model_version": "pulse-dc-1.0"
   },
   {
@@ -5023,8 +5105,9 @@
    "market": "match winner",
    "selection": "G. A. Boitan",
    "price": null,
-   "book": "forebet",
-   "price_source": "forebet-coef",
+   "book": null,
+   "price_source": null,
+   "forebet_coef": null,
    "p_forebet": [
     0.71,
     0.29
@@ -5041,7 +5124,7 @@
    "ev_flag": false,
    "stake_units": 0.0,
    "stake_ngn": 0,
-   "reasoning": "Forebet 71/29% · no market price published — confidence only",
+   "reasoning": "Forebet 71/29% · no verified book price for this market — confidence only, no stake",
    "model_version": "pulse-dc-1.0"
   },
   {
@@ -5055,8 +5138,9 @@
    "market": "match winner",
    "selection": "L. Potenza",
    "price": null,
-   "book": "forebet",
-   "price_source": "forebet-coef",
+   "book": null,
+   "price_source": null,
+   "forebet_coef": null,
    "p_forebet": [
     0.49,
     0.51
@@ -5073,7 +5157,7 @@
    "ev_flag": false,
    "stake_units": 0.0,
    "stake_ngn": 0,
-   "reasoning": "Forebet 49/51% · no market price published — confidence only",
+   "reasoning": "Forebet 49/51% · no verified book price for this market — confidence only, no stake",
    "model_version": "pulse-dc-1.0"
   },
   {
@@ -5087,8 +5171,9 @@
    "market": "match winner",
    "selection": "M. Cassone",
    "price": null,
-   "book": "forebet",
-   "price_source": "forebet-coef",
+   "book": null,
+   "price_source": null,
+   "forebet_coef": null,
    "p_forebet": [
     0.64,
     0.36
@@ -5105,7 +5190,7 @@
    "ev_flag": false,
    "stake_units": 0.0,
    "stake_ngn": 0,
-   "reasoning": "Forebet 64/36% · no market price published — confidence only",
+   "reasoning": "Forebet 64/36% · no verified book price for this market — confidence only, no stake",
    "model_version": "pulse-dc-1.0"
   },
   {
@@ -5119,8 +5204,9 @@
    "market": "match winner",
    "selection": "A. Herrero Linana",
    "price": null,
-   "book": "forebet",
-   "price_source": "forebet-coef",
+   "book": null,
+   "price_source": null,
+   "forebet_coef": null,
    "p_forebet": [
     0.7,
     0.3
@@ -5137,7 +5223,7 @@
    "ev_flag": false,
    "stake_units": 0.0,
    "stake_ngn": 0,
-   "reasoning": "Forebet 70/30% · no market price published — confidence only",
+   "reasoning": "Forebet 70/30% · no verified book price for this market — confidence only, no stake",
    "model_version": "pulse-dc-1.0"
   },
   {
@@ -5151,8 +5237,9 @@
    "market": "match winner",
    "selection": "S. De Stefano",
    "price": null,
-   "book": "forebet",
-   "price_source": "forebet-coef",
+   "book": null,
+   "price_source": null,
+   "forebet_coef": null,
    "p_forebet": [
     0.45,
     0.55
@@ -5169,7 +5256,7 @@
    "ev_flag": false,
    "stake_units": 0.0,
    "stake_ngn": 0,
-   "reasoning": "Forebet 45/55% · no market price published — confidence only",
+   "reasoning": "Forebet 45/55% · no verified book price for this market — confidence only, no stake",
    "model_version": "pulse-dc-1.0"
   },
   {
@@ -5183,8 +5270,9 @@
    "market": "match winner",
    "selection": "N. Podoroska",
    "price": null,
-   "book": "forebet",
-   "price_source": "forebet-coef",
+   "book": null,
+   "price_source": null,
+   "forebet_coef": null,
    "p_forebet": [
     0.47,
     0.53
@@ -5201,7 +5289,7 @@
    "ev_flag": false,
    "stake_units": 0.0,
    "stake_ngn": 0,
-   "reasoning": "Forebet 47/53% · no market price published — confidence only",
+   "reasoning": "Forebet 47/53% · no verified book price for this market — confidence only, no stake",
    "model_version": "pulse-dc-1.0"
   },
   {
@@ -5215,8 +5303,9 @@
    "market": "match winner",
    "selection": "G. Knutson",
    "price": null,
-   "book": "forebet",
-   "price_source": "forebet-coef",
+   "book": null,
+   "price_source": null,
+   "forebet_coef": null,
    "p_forebet": [
     0.58,
     0.42
@@ -5233,7 +5322,7 @@
    "ev_flag": false,
    "stake_units": 0.0,
    "stake_ngn": 0,
-   "reasoning": "Forebet 58/42% · no market price published — confidence only",
+   "reasoning": "Forebet 58/42% · no verified book price for this market — confidence only, no stake",
    "model_version": "pulse-dc-1.0"
   }
  ]
