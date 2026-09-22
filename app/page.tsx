@@ -154,6 +154,29 @@ export default function Home() {
       {/* SPORTS */}
       <section className="sec">
         <div className="container">
+          <div className="ds-panel" style={{ padding: "var(--s-5)" }}>
+            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", gap: 16, flexWrap: "wrap" }}>
+              <div style={{ maxWidth: 640 }}>
+                <p className="ds-eyebrow">Slip Lab</p>
+                <h2 className="ds-h2" style={{ marginTop: 8 }}>Already built a slip? Check it before you stake.</h2>
+                <p className="ds-body" style={{ marginTop: 10 }}>
+                  Paste your accumulator from any bookmaker and see what the bookmaker never
+                  shows you: the true combined odds, the margin compounding across every leg,
+                  how correlation drags the real chance below the multiplied figure, and a
+                  stake size that keeps you in the game. No tips, no predictions — just the
+                  arithmetic.
+                </p>
+              </div>
+              <Link href="/slip-lab/" className="ds-btn ds-btn-primary ds-btn-lg">
+                Check my slip →
+              </Link>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="sec">
+        <div className="container">
           <div className="section-head">
             <div>
               <span className="eyebrow">Pick your game</span>
