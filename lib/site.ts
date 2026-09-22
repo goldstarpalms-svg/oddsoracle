@@ -26,7 +26,7 @@ export const NAV = [
   { label: "Pulse Board", href: "/pulse/" },
   { label: "Arbs", href: "/arbs/" },
   { label: "Live", href: "/live/" },
-  { label: "Slip Lab", href: "/slip/" },
+  { label: "Slip Lab", href: "/slip-lab/" },
   { label: "Track Record", href: "/track-record/" },
   { label: "Methodology", href: "/methodology/" },
 ] as const;

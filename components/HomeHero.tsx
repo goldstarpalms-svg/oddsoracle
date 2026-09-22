@@ -36,8 +36,8 @@ export default function HomeHero() {
               <Link href="/board/" className="ds-btn ds-btn-primary ds-btn-lg">
                 Explore today&rsquo;s board
               </Link>
-              <Link href="/slip/" className="ds-btn ds-btn-lg">
-                Analyze a slip
+              <Link href="/slip-lab/" className="ds-btn ds-btn-lg">
+                Check my slip
               </Link>
             </div>
           </div>
