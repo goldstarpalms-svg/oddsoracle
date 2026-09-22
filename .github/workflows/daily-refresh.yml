@@ -83,6 +83,14 @@ jobs:
           (cd pulse-bet && python3 -m core.fusion.forebet_fusion --oddsoracle-dir .. --out ../backend/app/daily)
           rm -rf pulse-bet
 
+      # Fresh fixtures + prices from keyless sources (no Cloudflare, no API key).
+      # This is what keeps the board current — Forebet is behind Cloudflare and
+      # now only runs as optional enrichment above.
+      - name: Fetch fresh fixtures and prices (keyless)
+        run: |
+          pip install --quiet pandas numpy scipy rapidfuzz
+          python3 engine/fetch_fixtures.py
+
       - name: Rebuild data snapshot (+ stamp FINAL scores of finished matches)
         run: |
           npm ci --no-audit --no-fund
