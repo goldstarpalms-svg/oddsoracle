@@ -3,6 +3,7 @@ import { SITE } from "@/lib/site";
 import { bbPicks, fbPicks, fmtDate, freshness, summary, tnPicks, hockeyPicks, forebetBbPicks, handballPicks, oracleBoardRows } from "@/lib/rich";
 import SNAPSHOT from "@/lib/data-snapshot.json";
 import PickGrid from "@/components/PickGrid";
+import UpcomingBoard from "@/components/UpcomingBoard";
 import { cardFromBasketball, cardFromFootball, cardFromTennis } from "@/lib/card";
 import BestPicks from "@/components/BestPicks";
 import LiveBoard from "@/components/LiveBoard";
@@ -72,6 +73,24 @@ export default function Home() {
       <JsonLd data={faqLd} />
 
       <HomeHero />
+
+      {/* UPCOMING FIXTURES — real, freshly fetched */}
+      <section className="sec-tight">
+        <div className="container">
+          <div className="section-head">
+            <div>
+              <span className="eyebrow">Upcoming</span>
+              <h2 className="section-title" style={{ fontSize: 28 }}>Fixtures on the board</h2>
+              <p className="section-sub">
+                Real upcoming matches with our model&rsquo;s estimated 1X2 split and the market&rsquo;s
+                price where one exists. No price yet means we say so — nothing is dressed up.
+              </p>
+            </div>
+            <Link href="/upcoming/" className="btn btn-ghost">All upcoming →</Link>
+          </div>
+          <UpcomingBoard limit={8} />
+        </div>
+      </section>
 
       {/* ORACLE MODEL BOARD — 4.0 signature, compact */}
       <section className="sec-tight">

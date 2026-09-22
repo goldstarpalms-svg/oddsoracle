@@ -7,6 +7,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "",
     "/board/",
     "/predictions/",
+    "/upcoming/",
     "/slip/",
     "/slip-lab/",
     "/live/",

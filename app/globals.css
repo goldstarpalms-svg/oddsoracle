@@ -3254,3 +3254,64 @@ body {
   background-clip: text;
   color: transparent;
 }
+
+/* ==========================================================================
+   2.0 — VISIBLE REDESIGN
+   Sticky blurred header, brighter data grid, sharper corners, accent rail,
+   terminal-grade type. Same calm palette, clearly different furniture.
+   ========================================================================== */
+.nav {
+  position: sticky; top: 0; z-index: 50;
+  background: rgba(7, 10, 17, 0.82);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border);
+}
+.nav-inner { padding-top: 10px; padding-bottom: 10px; }
+.brand-logo {
+  width: 26px; height: 26px; border-radius: 6px;
+  display: inline-flex; align-items: center; justify-content: center;
+  background: var(--accent); color: #04150d; font-weight: 800; font-size: 14px;
+}
+.nav-links a { font-size: var(--t-sm); font-weight: 600; }
+.nav-links a.active { color: var(--accent); }
+
+/* accent rail across the very top of every page */
+body::before {
+  content: ""; position: fixed; top: 0; left: 0; right: 0; height: 2px; z-index: 60;
+  background: linear-gradient(90deg, var(--accent), var(--info) 45%, transparent 85%);
+  opacity: 0.85;
+}
+
+/* stronger, still calm, data grid */
+body {
+  background-image:
+    radial-gradient(1000px 520px at 50% -12%, rgba(63, 207, 149, 0.10), transparent 70%),
+    radial-gradient(820px 420px at 100% 0%, rgba(90, 160, 240, 0.07), transparent 70%),
+    linear-gradient(rgba(255, 255, 255, 0.028) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.028) 1px, transparent 1px);
+}
+
+:root { --r-md: 6px; --r-lg: 10px; }
+
+/* panels: flatter, sharper, hairline borders */
+.ds-panel, .ds-panel-elevated, .kpi, .ds-status, .ds-state, .pred-card { border-radius: 6px; }
+
+/* section headings get a monospace rule */
+.section-title, .ds-h2 {
+  position: relative; padding-bottom: 10px;
+}
+.section-title::after, .ds-h2::after {
+  content: ""; position: absolute; left: 0; bottom: 0; width: 46px; height: 2px;
+  background: var(--accent); opacity: 0.7;
+}
+
+/* buttons: squarer, tighter */
+.btn, .ds-btn, .chip, .ds-chip { border-radius: 5px; }
+
+/* data tables: zebra + tighter rows */
+.ds-table tbody tr:nth-child(even) { background: rgba(255, 255, 255, 0.014); }
+.ds-table td { padding: 9px var(--s-3); }
+
+/* hero: bigger, calmer */
+.hero-4 { padding-top: 42px; padding-bottom: 34px; }

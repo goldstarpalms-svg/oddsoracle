@@ -287,3 +287,33 @@ export function loadPulseArbs(): PulseArbs | null {
   const doc = (SNAPSHOT as any).pulseArbs;
   return doc && Array.isArray(doc.arbs) ? (doc as PulseArbs) : null;
 }
+
+
+/** Fresh fixtures fetched by engine/fetch_fixtures.py (keyless sources). */
+export interface FixtureEvent {
+  id: string;
+  league: string;
+  home: string;
+  away: string;
+  kickoff: string;
+  date: string;
+  time: string;
+  kickoff_label: string;
+  finished: boolean;
+  odds: { best: (number | null)[]; best_book: (string | null)[]; by_book?: Record<string, number[]> } | null;
+  market_prob: number[] | null;
+  model_prob: number[] | null;
+  model_version: string;
+  data_source: string;
+}
+
+export function loadFixtures(): { date: string; upcoming: number; count: number; events: FixtureEvent[] } | null {
+  const doc = (SNAPSHOT as any).fixtures;
+  return doc && Array.isArray(doc.events) ? doc : null;
+}
+
+export function loadUpcoming(limit = 24): FixtureEvent[] {
+  const doc = loadFixtures();
+  if (!doc) return [];
+  return doc.events.filter((e: FixtureEvent) => !e.finished).slice(0, limit);
+}

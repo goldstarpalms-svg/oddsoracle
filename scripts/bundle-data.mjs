@@ -106,6 +106,8 @@ if (oddspapi) {
 // Written by pulse-bet -> core/fusion/forebet_fusion.py into backend/app/daily.
 // Keeps Forebet's volume, adds Pulse's own probability, EV, tier and Kelly
 // stake, plus an arbitrage scan over the same book prices.
+let fixtures = read(pick([/_fixtures\.json$/]));
+if (fixtures?.events?.length) console.log(`fixtures: ${fixtures.events.length} events (${fixtures.upcoming} upcoming)`);
 let pulse = read(pickD([/_pulse\.json$/])) || read(pick([/_pulse\.json$/]));
 let pulseArbs = read(pickD([/_arbs\.json$/])) || read(pick([/_arbs\.json$/]));
 if (pulse?.picks?.length) {
@@ -547,6 +549,7 @@ const snapshot = {
   safe: safe || null,
   setka: setka || null,
   pulse: pulse && pulse.picks ? pulse : null,
+  fixtures: fixtures && fixtures.events ? fixtures : null,
   pulseArbs: pulseArbs || null,
 };
 

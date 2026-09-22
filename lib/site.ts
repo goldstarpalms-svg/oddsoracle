@@ -19,6 +19,7 @@ export const NAV = [
   { label: "Home", href: "/" },
   { label: "Oracle Board", href: "/board/" },
   { label: "Picks", href: "/predictions/" },
+  { label: "Upcoming", href: "/upcoming/" },
   { label: "Football", href: "/predictions/football/" },
   { label: "Basketball", href: "/predictions/basketball/" },
   { label: "Tennis", href: "/predictions/tennis/" },
